@@ -33,4 +33,3 @@ Do not mark hardware acceptance complete from simulated tests. Record exact
 firmware, host/runtime versions, observations, and the private trace location when
 the physical probe succeeds. Keep hardware identifiers and traces out of Git by
 default.
-

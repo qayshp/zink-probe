@@ -155,4 +155,3 @@ format, without copying the reference projects' source code.
   native Classic Bluetooth transport through PyObjC.
 
 See [VALIDATION.md](VALIDATION.md) for the Milestone 1 acceptance checklist.
-
