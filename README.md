@@ -65,7 +65,7 @@ Bleak's undocumented MAC-address lookup option or guess the target from its name
 .venv/bin/zink-probe probe --extended --scan-seconds 20 --timeout 20
 ```
 
-Adds individually queried configuration fields, first-print timestamp, GATT service
+Adds individually queried configuration fields, born-on timestamp, GATT service
 metadata, a fresh Classic SDP query, copy-progress and five cross-device status-tag
 investigations. It also rereads BLE status with RFCOMM open to compare host count.
 Short scans have occasionally missed this Select; 20 seconds succeeded in the
@@ -79,9 +79,42 @@ characteristics. SDP returns typed service attributes, UUID bytes, and channels.
 Raw application frames are logged, but native GATT/SDP discovery packets are not
 an HCI capture; their decoded metadata is retained in the result instead.
 
-Status bit observations show hex, binary, and set-bit positions. Battery/queue
-fields may be enums rather than bitmasks. No speculative bit names are assigned.
+Status bit observations show hex, binary, and set-bit positions. Battery and queue
+status are enums; labels and system flag bits 0–4 now follow the inspected HP app
+artifact. Raw values and unknown system bits are preserved.
 See [RESEARCH.md](RESEARCH.md) for confirmed values and tentative interpretations.
+
+### Capability table, metrics, and bounded investigation
+
+```sh
+.venv/bin/zink-probe probe --investigate --listen-beacon --scan-seconds 20 --timeout 15
+```
+
+`--investigate` implies `--extended`. It downloads the device's capability table
+(`2A`, then scoped `28 <handle> 01` file reads), reads metrics dataset 1 (`3A`),
+and performs a fixed list of additional identity/config/status reads. Capability
+file handles are permitted only after discovery returns them, and permission is
+removed after the download. Downloads and iterator pagination have hard bounds.
+The capability file is read from the printer; no image/file upload is implemented.
+
+`--listen-beacon` opens custom RFCOMM channel 1 for five seconds, receives bytes,
+and closes it. Channel 1 rejects every application write in code. This confirmed
+the `FF 55 02 00 EE 10` beacon on Select. Normal protocol requests use channel 2.
+
+Optional status observation: `--observe-seconds 120` samples both transports every
+ten seconds and reads back configuration afterward. Maximum is 300 seconds.
+
+`--read-diagnostic-gatt` separately attempts the `...2eee` read at the very end.
+The inspected app identifies it as **pairing control**, not ordinary telemetry.
+It timed out on this Mac and a subsequent BLE request also stalled in that session;
+it is **off by default**, including in investigation mode. Do not use it for a
+normal configuration/capability snapshot.
+
+Corrections to earlier research: `3A` is read-metrics-database, not read-feature;
+feature discovery is `2A`. Identity tag `0E` is now reported as `born_on_timestamp`
+rather than `first_print_timestamp`, following the HP library's BornOnDate name.
+It is not proof of the date of the first physical print. Strings use bounded
+variable-length integer lengths, not an unconditional one-byte length.
 
 ## Output and logs
 
@@ -118,10 +151,14 @@ The transport code validates every outbound command against an allowlist:
 | --- | --- |
 | `0A 01 00` / `0A 02` | Negotiate BLE / RFCOMM interface |
 | `24 00 10` | Announce host receive capacity of 4096 bytes |
-| `04 <known identity tags>` | Read identity, firmware, hardware version, and optionally first-print timestamp |
+| `04 <known identity tags>` | Read identity, firmware, hardware version, and optionally born-on timestamp |
 | `08 <known status tags>` | Read battery, state, progress, job/queue status, hosts |
 | `08 <single tag 0A–0E>` | Extended cross-device status research; preserve raw replies |
 | `1A <single tag 01–05>` | Read sleep, auto-off, LED RGB, pause, and host threshold |
+| `2A` | Discover read-only feature-table file |
+| `28 <granted handle> 01` | Read the capability file; no general file access |
+| `3A 01 <iterator:2LE>` | Read metrics dataset 1 |
+| `2C` and fixed additional read tags | Investigation-only empty-job-list and field research |
 
 BLE additionally sends protocol ACK `00` for multi-frame responses when requested
 by the negotiated ACK period. These writes establish session state and acknowledge
@@ -133,8 +170,8 @@ A rejected connection-setup command is logged and the probe attempts actual read
 following a quirk observed in the Sprocket 200 reference. Successful reads, rather
 than an assumed successful handshake, determine the outcome. Other protocol errors
 stop the probe; transport timeouts are not automatically retried.
-Unsolicited command `03` messages observed on Select are logged separately and
-cannot satisfy a request's response queue. Their meaning is not yet decoded.
+Unsolicited command `03` (TARGET_EVT in the inspected library) messages are logged
+separately and cannot satisfy a response queue. Payload meanings remain undecoded.
 
 ## Validation and limits
 
@@ -162,7 +199,7 @@ Known limits:
 - Validation covers one Select and firmware version; other units/firmware and
   printing behavior are unverified. The physical probe corrected two reference
   assumptions: DeviceId is a fixed 16-byte value (reported in wire-order hex), and
-  FeatureSetVersion is a little-endian uint16.
+    FeatureSetVersion is a little-endian uint16.
 - Classic pairing must already exist. RFCOMM channel 2 was confirmed on this Select.
 - BLE scan initialization has a deadline of scan duration + 15 seconds. macOS
   permission UI may require operator action. Native synchronous RFCOMM open/write
@@ -187,3 +224,5 @@ format, without copying the reference projects' source code.
   native Classic Bluetooth transport through PyObjC.
 
 See [VALIDATION.md](VALIDATION.md) for the Milestone 1 acceptance checklist.
+See [INVESTIGATION.md](INVESTIGATION.md) for the time-bounded follow-up, source
+provenance, firmware counters, and the complete capability-table findings.

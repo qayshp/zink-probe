@@ -9,19 +9,69 @@ TX = "6822d239-7b61-4718-bdc1-de55b3f9051e"
 RX = "6822d239-7b61-4718-bdc1-772fa9983658"
 SELECT = 0x48D3
 MAX_MESSAGE = 4096
+SYSTEM_FLAG_NAMES = {
+    0: "time_invalid",
+    1: "battery_critical",
+    2: "print_busy",
+    3: "out_of_paper",
+    4: "low_on_supplies",
+}
+BATTERY_NAMES = {1: "in_use", 2: "charging", 3: "overheat", 4: "error"}
+QUEUE_NAMES = {1: "empty", 2: "full", 3: "paused", 4: "populated"}
+ERROR_NAMES = {
+    1: "unspecified",
+    2: "transport",
+    3: "unauthorized",
+    4: "command_not_supported",
+    5: "not_found",
+    6: "invalid_arguments",
+    7: "invalid_length",
+    8: "illegal_state",
+    9: "insufficient_resources",
+    10: "interface_mismatch",
+    11: "check_failed",
+    12: "not_allowed",
+    13: "timeout",
+    14: "malformed_message",
+    15: "operation_not_supported",
+    16: "operation_failed",
+    17: "battery_low",
+    18: "retry",
+}
+# Bounded read-only experiments. No arbitrary command/field sweep is exposed.
+RESEARCH_REQUESTS = (
+    b"\x04\x02",
+    b"\x04\x07",
+    b"\x04\x0d",
+    b"\x1a\x06",
+    b"\x1a\x07",
+    b"\x1a\x08",
+    b"\x2c",
+    b"\x04\x0f",
+    b"\x04\x10",
+    b"\x04\x11",
+    b"\x04\x12",
+    b"\x08\x0f",
+    b"\x08\x10",
+    b"\x08\x11",
+    b"\x08\x12",
+)
 
 ATTRIBUTES = {
     1: ("firmware", "string"),
+    2: ("protocol_version", 2),
     3: ("immutable_name", "string"),
     4: ("custom_name", "string"),
     5: ("serial_number", "string"),
     6: ("device_id", "bytes16"),
+    7: ("security_mode_raw", 1),
     8: ("feature_set_version", 2),
     9: ("super_model", 2),
     10: ("sub_model", 2),
     11: ("bluetooth_mac", "mac"),
     12: ("hardware_version", "string"),
-    14: ("first_print_timestamp", 4),
+    13: ("setup_raw", 1),
+    14: ("born_on_timestamp", 4),
 }
 CONFIG = {
     1: ("sleep_timer_minutes", 2),
@@ -75,9 +125,22 @@ class ProtocolError(RuntimeError):
     pass
 
 
-def validate_request(message: bytes) -> None:
+def validate_request(message: bytes, read_handles=()) -> None:
     """Fail closed at each transport boundary; there is no arbitrary-command CLI."""
     if message in (b"\x0a\x01\x00", b"\x0a\x02", b"\x24\x00\x10"):
+        return
+    if message == b"\x2a":  # FEATURE_DISCOVERY_REQ, proven by HP app definitions.
+        return
+    if (
+        len(message) == 3
+        and message[0] == 0x28
+        and message[2] == 1
+        and message[1] in read_handles
+    ):
+        return
+    if len(message) == 4 and message[:2] == b"\x3a\x01":  # Dataset 1, iterator LE.
+        return
+    if message in RESEARCH_REQUESTS:
         return
     if len(message) >= 2 and message[0] == 4:
         if all(tag in ATTRIBUTES for tag in message[1:]):
@@ -94,10 +157,29 @@ def validate_request(message: bytes) -> None:
 
 def check_response(request: bytes, response: bytes) -> bytes:
     if response[:1] == b"\x01":
-        raise ProtocolError(f"Printer rejected {request.hex()}: {response.hex()}")
+        name = (
+            ERROR_NAMES.get(response[2], "unknown")
+            if len(response) >= 3
+            else "truncated_error"
+        )
+        raise ProtocolError(
+            f"Printer rejected {request.hex()}: {response.hex()} ({name})"
+        )
     if not response or response[0] != request[0] + 1:
         raise ProtocolError(f"Unexpected reply to {request.hex()}: {response.hex()}")
     return response
+
+
+def read_varuint(data, offset):
+    value = 0
+    for i in range(5):
+        if offset + i >= len(data):
+            raise ProtocolError("Truncated string length")
+        byte = data[offset + i]
+        value |= (byte & 0x7F) << (7 * i)
+        if not byte & 0x80:
+            return value, offset + i + 1
+    raise ProtocolError("String length exceeds variable-integer limit")
 
 
 def decode_fields(message: bytes, identity: bool = False, config: bool = False) -> dict:
@@ -116,8 +198,7 @@ def decode_fields(message: bytes, identity: bool = False, config: bool = False) 
         if kind == "string":
             if offset >= len(message):
                 raise ProtocolError(f"Missing length for {name}")
-            size = message[offset]
-            offset += 1
+            size, offset = read_varuint(message, offset)
         else:
             size = {"mac": 6, "bytes16": 16, "rgb": 3}.get(kind, kind)
         if offset + size > len(message):
@@ -138,6 +219,19 @@ def decode_fields(message: bytes, identity: bool = False, config: bool = False) 
             result[name] = int.from_bytes(value, "little")
     if "print_status_code" in result:
         result["print_status"] = STATES.get(result["print_status_code"], "unknown")
+    if "battery_status_code" in result:
+        result["battery_status"] = BATTERY_NAMES.get(
+            result["battery_status_code"], "unknown"
+        )
+    if "queue_status_code" in result:
+        result["queue_status"] = QUEUE_NAMES.get(result["queue_status_code"], "unknown")
+    if "system_flags" in result:
+        result["system_flag_labels"] = [
+            name
+            for bit, name in SYSTEM_FLAG_NAMES.items()
+            if result["system_flags"] & (1 << bit)
+        ]
+        result["system_flags_unknown_mask"] = result["system_flags"] & ~0x1F
     return result
 
 
@@ -152,8 +246,8 @@ def bit_view(value: int, width: int) -> dict:
     }
 
 
-def encode_rfcomm(message: bytes) -> bytes:
-    validate_request(message)
+def encode_rfcomm(message: bytes, read_handles=()) -> bytes:
+    validate_request(message, read_handles)
     return b"HP+\x01" + bytes([len(message)]) + message
 
 

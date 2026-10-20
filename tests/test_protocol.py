@@ -19,7 +19,7 @@ from zink_probe.trace import Trace
 
 
 @pytest.mark.parametrize(
-    "opcode", [n for n in range(256) if n not in (4, 8, 10, 26, 36)]
+    "opcode", [n for n in range(256) if n not in (4, 8, 10, 26, 36, 42, 44, 58)]
 )
 def test_other_opcodes_cannot_cross_transport_boundary(opcode):
     with pytest.raises(ProtocolError):

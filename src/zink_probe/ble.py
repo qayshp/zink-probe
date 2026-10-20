@@ -64,6 +64,7 @@ class BleConnection:
         self.ack_tasks = set()
         self.lock = asyncio.Lock()
         self.unsolicited = []
+        self.read_handles = set()
 
     async def open(self):
         await self.client.connect()
@@ -94,6 +95,19 @@ class BleConnection:
             for service in self.client.services
         ]
 
+    async def read_diagnostic_characteristic(self):
+        uuid = "6822d239-7b61-4718-bdc1-3dd5acdd2eee"
+        self.trace.event("gatt_read_request", transport="ble", uuid=uuid)
+        try:
+            data = bytes(
+                await asyncio.wait_for(self.client.read_gatt_char(uuid), self.timeout)
+            )
+            result = {"uuid": uuid, "hex": data.hex(), "length": len(data)}
+        except Exception as exc:
+            result = {"uuid": uuid, "error": f"{type(exc).__name__}: {exc}"}
+        self.trace.event("gatt_read_result", transport="ble", **result)
+        return result
+
     def _receive(self, _, data):
         self.trace.frame("ble", "rx", data)
         try:
@@ -106,9 +120,7 @@ class BleConnection:
                 self.trace.frame("ble", "rx", message, layer="message")
                 if message[:1] == b"\x03":
                     self.unsolicited.append(message.hex())
-                    self.trace.event(
-                        "unclassified_event", transport="ble", hex=message.hex()
-                    )
+                    self.trace.event("target_event", transport="ble", hex=message.hex())
                 else:
                     self.queue.put_nowait(message)
         except Exception as exc:
@@ -122,7 +134,7 @@ class BleConnection:
             self.queue.put_nowait(exc)
 
     async def exchange(self, message):
-        validate_request(message)
+        validate_request(message, self.read_handles)
         async with self.lock:
             if not self.queue.empty():
                 raise ProtocolError(

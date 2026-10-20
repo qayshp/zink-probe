@@ -6,6 +6,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from .ble import BleConnection, discover
+from .capabilities import read_capabilities, read_metrics
 from .probe import (
     negotiate,
     read_config,
@@ -16,6 +17,7 @@ from .probe import (
     require_select,
     status_bits,
 )
+from .research import investigate, observe
 from .rfcomm import RfcommConnection
 from .trace import Trace
 
@@ -34,9 +36,30 @@ def parser():
         )
         if name == "probe":
             cmd.add_argument(
+                "--investigate",
+                action="store_true",
+                help="Bounded experimental read queries; implies --extended",
+            )
+            cmd.add_argument(
+                "--read-diagnostic-gatt",
+                action="store_true",
+                help="Try the extra read characteristic last; has timed out on Select",
+            )
+            cmd.add_argument(
+                "--listen-beacon",
+                action="store_true",
+                help="Listen on custom channel 1 for five seconds; no data writes",
+            )
+            cmd.add_argument(
+                "--observe-seconds",
+                type=float,
+                default=0,
+                help="Optional read-only status observation, maximum 300 seconds",
+            )
+            cmd.add_argument(
                 "--extended",
                 action="store_true",
-                help="Read configuration, first-print date, GATT/SDP inventory, and extra status",
+                help="Read configuration, born-on timestamp, GATT/SDP inventory, and extra status",
             )
             cmd.add_argument("--ble-id", help="macOS BLE UUID from discover")
             cmd.add_argument(
@@ -46,7 +69,7 @@ def parser():
 
 
 async def run(args, trace, result):
-    extended = getattr(args, "extended", False)
+    extended = getattr(args, "extended", False) or getattr(args, "investigate", False)
     candidates = await discover(args.scan_seconds, trace)
     result["devices"] = [entry for _, entry in candidates]
     if args.command == "discover":
@@ -108,6 +131,28 @@ async def run(args, trace, result):
             result["rfcomm"]["extra_status_reads"] = await read_extra_status(rfcomm)
             result["rfcomm"]["sdp_inventory"] = await rfcomm.inventory()
             result["ble"]["status_with_rfcomm_open"] = await read_status(ble)
+        if getattr(args, "investigate", False):
+            for name, connection in (("ble", ble), ("rfcomm", rfcomm)):
+                result[name]["capabilities"] = await read_capabilities(connection)
+                result[name]["metrics"] = await read_metrics(connection)
+                result[name]["experiments"] = []
+                await investigate(connection, result[name]["experiments"], trace)
+        if getattr(args, "observe_seconds", 0):
+            result["observation"] = await observe(
+                ble, rfcomm, args.observe_seconds, trace
+            )
+        if getattr(args, "listen_beacon", False):
+            passive = RfcommConnection(address, args.timeout, trace, channel_id=1)
+            try:
+                await passive.open()
+                result["passive_channel"] = await passive.listen()
+            finally:
+                await passive.close()
+        if getattr(args, "read_diagnostic_gatt", False):
+            # A pending native GATT read may stall subsequent operations. Keep last.
+            result["ble"][
+                "diagnostic_characteristic"
+            ] = await ble.read_diagnostic_characteristic()
         missing = []
         for transport in ("ble", "rfcomm"):
             data = result[transport]
@@ -139,6 +184,8 @@ async def run(args, trace, result):
 def main():
     p = parser()
     args = p.parse_args()
+    if not 0 <= getattr(args, "observe_seconds", 0) <= 300:
+        p.error("--observe-seconds must be between 0 and 300")
     if args.scan_seconds <= 0 or getattr(args, "timeout", 1) <= 0:
         p.error("Timeouts must be positive")
     if sys.platform != "darwin":

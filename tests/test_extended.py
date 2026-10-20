@@ -55,7 +55,8 @@ def test_config_typed_values_and_raw_rgb():
 
 
 @pytest.mark.parametrize(
-    "message", [b"\x1a", b"\x1a\x06", b"\x1a\x01\x00", b"\x1c\x01\x00\x00", b"\x3a"]
+    "message",
+    [b"\x1a", b"\x1a\xff", b"\x1a\x01\x00", b"\x1c\x01\x00\x00", b"\x3a\xff\xff"],
 )
 def test_config_allowlist_excludes_writes_and_unmapped_queries(message):
     with pytest.raises(ProtocolError):
@@ -67,9 +68,7 @@ def test_bits_are_not_assigned_speculative_meanings():
     assert view["set_bit_positions"] == [0, 5]
     assert view["binary"] == "00100001"
     assert "undecoded" in view["meaning"]
-    assert decode_fields(b"\x05\x0e\x00\x00\x00\x00", True) == {
-        "first_print_timestamp": 0
-    }
+    assert decode_fields(b"\x05\x0e\x00\x00\x00\x00", True) == {"born_on_timestamp": 0}
 
 
 def test_rejected_and_missing_optional_config_fields_are_reported():

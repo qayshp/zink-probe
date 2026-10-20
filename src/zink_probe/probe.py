@@ -3,6 +3,7 @@
 from .protocol import (
     ATTRIBUTES,
     CONFIG,
+    ERROR_NAMES,
     EXTRA_STATUS_HINTS,
     SELECT,
     ProtocolError,
@@ -69,7 +70,7 @@ async def read_config(connection):
 
 
 def status_bits(status):
-    return {
+    result = {
         name: bit_view(status[name], width)
         for name, width in (
             ("system_flags", 32),
@@ -78,6 +79,13 @@ def status_bits(status):
         )
         if name in status
     }
+    for name, entry in result.items():
+        entry["meaning"] = (
+            "bitmask; bits 0-4 named in the inspected HP app artifact"
+            if name == "system_flags"
+            else "enumeration, not independent flags; see decoded status label"
+        )
+    return result
 
 
 async def read_copy_progress(connection):
@@ -98,6 +106,7 @@ async def read_extra_status(connection):
         if len(reply) == 3 and reply[:2] == b"\x01\x08":
             entry["outcome"] = "rejected"
             entry["error_code"] = reply[2]
+            entry["error_name"] = ERROR_NAMES.get(reply[2], "unknown")
         else:
             check_response(request, reply)
             entry["outcome"] = "returned" if len(reply) > 1 else "omitted"

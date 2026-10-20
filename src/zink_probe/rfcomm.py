@@ -36,7 +36,11 @@ def _make_delegate(sink):
 
 
 class RfcommConnection:
-    def __init__(self, address, timeout, trace):
+    def __init__(self, address, timeout, trace, channel_id=2):
+        if channel_id not in (1, 2):
+            raise ValueError("Only discovered Select channels 1 and 2 are supported")
+        self.channel_id = channel_id
+        self.passive_chunks = []
         self.address = address
         self.timeout = timeout
         self.trace = trace
@@ -46,6 +50,7 @@ class RfcommConnection:
         self.parser = RfcommParser()
         self.queue = asyncio.Queue()
         self.unsolicited = []
+        self.read_handles = set()
 
     async def open(self):
         import IOBluetooth
@@ -62,14 +67,20 @@ class RfcommConnection:
         # Synchronous native open has an OS-controlled timeout. Read deadlines below
         # are ours; do not claim asyncio can interrupt this native call.
         rc, channel = self.device.openRFCOMMChannelSync_withChannelID_delegate_(
-            None, 2, self.delegate
+            None, self.channel_id, self.delegate
         )
         self.channel = channel
         if rc != 0 or channel is None:
-            raise ConnectionError(f"RFCOMM channel 2 open failed: IOReturn {rc}")
-        self.trace.event("connected", transport="rfcomm", channel=2)
+            raise ConnectionError(
+                f"RFCOMM channel {self.channel_id} open failed: IOReturn {rc}"
+            )
+        self.trace.event("connected", transport="rfcomm", channel=self.channel_id)
 
     def _receive(self, data):
+        if getattr(self, "channel_id", 2) == 1:
+            self.passive_chunks.append(bytes(data).hex())
+            self.trace.event("passive_channel_rx", channel=1, hex=bytes(data).hex())
+            return
         self.trace.frame("rfcomm", "rx", data, layer="stream_chunk")
         try:
             for message in self.parser.feed(data):
@@ -77,7 +88,7 @@ class RfcommConnection:
                 if message[:1] == b"\x03":
                     self.unsolicited.append(message.hex())
                     self.trace.event(
-                        "unclassified_event", transport="rfcomm", hex=message.hex()
+                        "target_event", transport="rfcomm", hex=message.hex()
                     )
                 else:
                     self.queue.put_nowait(message)
@@ -85,7 +96,11 @@ class RfcommConnection:
             self.queue.put_nowait(exc)
 
     async def exchange(self, message):
-        wire = encode_rfcomm(message)  # Also enforces the read-only allowlist.
+        if getattr(self, "channel_id", 2) != 2:
+            raise ProtocolError("Channel 1 is receive-only; no writes permitted")
+        wire = encode_rfcomm(
+            message, self.read_handles
+        )  # Enforces read-only allowlist.
         if not self.queue.empty():
             raise ProtocolError("Unsolicited RFCOMM message; refusing ambiguous reply")
         self.trace.frame("rfcomm", "tx", wire)
@@ -116,7 +131,23 @@ class RfcommConnection:
             self.channel.closeChannel()
             self.channel = None
         # Close only the RFCOMM channel owned here; do not unpair or close other links.
-        self.trace.event("disconnected", transport="rfcomm")
+        self.trace.event("disconnected", transport="rfcomm", channel=self.channel_id)
+
+    async def listen(self, seconds=5):
+        from Foundation import NSDate, NSRunLoop
+
+        end = time.monotonic() + seconds
+        while time.monotonic() < end and not self.delegate.closed:
+            NSRunLoop.currentRunLoop().runUntilDate_(
+                NSDate.dateWithTimeIntervalSinceNow_(0.005)
+            )
+            await asyncio.sleep(0.01)
+        return {
+            "channel": self.channel_id,
+            "seconds": seconds,
+            "chunks": list(self.passive_chunks),
+            "transmitted_bytes": 0,
+        }
 
     async def inventory(self):
         from Foundation import NSDate, NSRunLoop

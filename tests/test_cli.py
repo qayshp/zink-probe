@@ -79,7 +79,7 @@ def test_extended_probe_reads_configuration_and_preserves_bits(monkeypatch):
     result = {}
     assert asyncio.run(cli.run(parameters, Trace(), result)) == 0
     assert result["rfcomm"]["configuration"]["values"]["led_rgb"] == [1, 1, 1]
-    assert result["ble"]["identity"]["first_print_timestamp"] == 0x01010101
+    assert result["ble"]["identity"]["born_on_timestamp"] == 0x01010101
     assert result["rfcomm"]["sdp_inventory"]["fresh"] is True
     assert result["ble"]["status_bit_observations"] == {}
     for connection in connections:

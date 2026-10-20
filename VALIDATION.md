@@ -1,12 +1,16 @@
 # Milestone 1 validation
 
+Current follow-up: [INVESTIGATION.md](INVESTIGATION.md). Historical references below
+to “first-print timestamp” use the original label; the HP app artifact names it
+BornOnDate and the current JSON key is `born_on_timestamp`.
+
 ## Software checks completed
 
 - Editable package install on macOS, Python 3.14.
 - CLI entry point/help.
 - IOBluetooth framework import, delegate initialization, and availability of the
   native RFCOMM channel-open selector.
-- 286 automated cases, including rejection of 251 disallowed command opcodes and
+- 293 automated cases, including 248 opcode-rejection cases and
   a regression case for the physical Select's fixed-width identity fields.
 - Configuration decoding, rejected optional fields, raw RGB preservation,
   unsolicited-event routing, simulated extended probe, and native SDP serialization.
@@ -89,3 +93,17 @@ still fail closed. The event's payload remains undecoded.
 Short scans sometimes missed the printer; a subsequent 20-second scan succeeded.
 The cause has not been established. This does not justify inferring shutdown or a
 specific Bluetooth failure. Full findings and evidence grades are in [RESEARCH.md](RESEARCH.md).
+
+## Capability/metrics follow-up
+
+Physical `probe --investigate --listen-beacon` passed on both transports. Device
+capability tables were identical, and metrics dataset 1 paginated to completion.
+The printer page counter remained 10; the calibration counter remained 2.
+Five seconds of passive channel-1 reception produced six identical beacon packets
+with no application data writes to that channel. No print or configuration-write
+opcode occurred in the 95-request combined successful trace.
+
+New tests cover binary feature TLV parsing, scoped file handles and their release
+on errors, metrics iterator following/cycle detection, variable-length strings,
+source-backed status labels, and the channel-1 write prohibition. Optional direct
+GATT pairing-control reads timed out and are disabled by default.
