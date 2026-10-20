@@ -220,3 +220,8 @@ Software validation: 293 automated tests passed, including a 227-byte physical
 Select capability fixture with no device identifiers, scoped read-handle tests,
 metrics pagination/cycle detection, enum/flag decoding, variable-length strings,
 and the passive-channel write prohibition. Ruff and dependency checks passed.
+
+Follow-up: [NEWER_APK.md](NEWER_APK.md) records static comparison with app version
+3.0.2921.1. It refines the setup and BornOnDate interpretations above and records
+the operator's confirmation of ten loaded sheets with calibration already complete.
+No new physical-device reads or writes were made during that comparison.

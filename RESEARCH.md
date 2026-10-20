@@ -20,3 +20,9 @@ Use `probe --extended` for the ordinary snapshot, and `probe --investigate` for
 capability/metrics and fixed additional read queries. Neither mode prints or
 writes persistent settings. Raw traces, app binaries, and decompiled sources remain
 local under ignored `logs/`; committed source is independently implemented Python.
+
+A subsequent [Sprocket 3.0.2921.1 static comparison](NEWER_APK.md) confirms the
+core definitions against a newer APK with the same signing certificate. It also
+identifies tag 13 as the app's setup-version marker, establishes the app's
+"First Print" label for BornOnDate, and records the operator-confirmed ten loaded
+sheets and completed orange-card calibration. This follow-up made no device requests.
