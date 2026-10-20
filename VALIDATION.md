@@ -4,6 +4,84 @@ Current follow-up: [INVESTIGATION.md](INVESTIGATION.md). Historical references b
 to “first-print timestamp” use the original label; the HP app artifact names it
 BornOnDate and the current JSON key is `born_on_timestamp`.
 
+## Live revalidation after the newer APK comparison — 2026-10-20
+
+The operator confirmed the printer was on and nearby and requested live testing.
+The physical condition supplied before this run was ten new ZINK sheets loaded,
+with the orange calibration card already processed and discarded. This condition
+is operator-reported, not a protocol-derived sheet count.
+
+Two fresh discovery/connection sessions completed successfully over both BLE and
+RFCOMM channel 2. No permission changes, re-pairing, or manual recovery were needed.
+The CLI implementation was unchanged from commit `5cee79b`.
+
+| Check | Live result |
+| --- | --- |
+| Model / firmware / hardware | Select `0x48D3`, submodel 3 / `G1L1FA2105AR` / `4138` |
+| Identity | Identical across BLE/RFCOMM and across the two sessions |
+| Protocol / feature version | 1 / 9 |
+| Connection negotiation | Accepted on both; max message 1000; security byte `0x21` |
+| Capability table | 227 bytes, identical across transports/sessions and to the earlier capture |
+| Status observation | 12 paired samples over two minutes; all values stable and identical between transports |
+| Battery | 100%, state 2 (app label: charging) |
+| Printer / queue / current job | Idle / empty / zero; list-jobs response empty |
+| System flags | `0x00000001`: time invalid; no unknown set bits |
+| Host count | BLE initially 0; 1 with RFCOMM open, also 1 throughout observation |
+| Sleep / auto-off | 3 / 60 minutes |
+| LED / pause / host threshold | White RGB `[255,255,255]` / 0 / 3 |
+| Configuration readback | Matched across transports, after observation, and on reconnect |
+| Setup tag 13 | Raw 0 on both; newer app identifies this as setup version, with 1 its completed-onboarding marker |
+| BornOnDate | Raw `1775953184`, unchanged; app displays it as First Print |
+| Security mode | Raw 1, unchanged; detailed enum meaning still unresolved |
+| Metrics pagination | Both pages of dataset 1 read successfully on both transports in both sessions |
+| Printer pages / calibration cycles | 10 / 2 in both sessions, on both transports; unchanged from earlier research |
+| Jam / out-of-paper / incorrect-paper events | All zero |
+| Pages since cover open / calibration | Both zero |
+| GATT / SDP discovery | GATT metadata returned; fresh SDP query succeeded in both sessions |
+| Channel 1 | Six `ff550200ee10` chunks over five seconds, zero application bytes transmitted |
+| Cleanup | No recorded cleanup errors in either session |
+
+The tentative cross-device supply fields still returned tag 10=`ff`, tag 11=`00`,
+tag 12=`0000`; tags 13/14 were rejected with invalid-arguments. The tag-11 zero
+despite the operator-confirmed loaded pack further establishes that this raw value
+must not be presented as an actual remaining-sheet count. The Select capability
+table still does not advertise these fields. Config tags 6/7 again returned zero
+despite not being advertised; tag 8 was rejected. Identity tags 15–18 returned
+not-found, status tags 15–18 invalid-arguments, and copy progress was rejected.
+These are expected optional-field results, not core-probe failures.
+
+Operational metric changes since the earlier research capture were USB attaches
+14→15, precharge battery 87→99, sleeps 36→37, and auto power-offs 8→9. These are
+interval changes, not evidence that this run caused them. All these counters were
+unchanged between the two new sessions. Signal-strength key 22 varied 51→53 over
+BLE while RFCOMM stayed 128; its units and sentinel interpretation remain unknown.
+
+Both raw transmit traces were decoded and checked against the read-only allowlist,
+including dynamically granted/revoked capability-file handles: **124 application
+requests in the first session and 95 in the reconnect session**, 219 total.
+No print, upload, settings-write, clock-write, setup-version write, resource
+allocation, security-change, trigger, reset, or firmware request was sent.
+The pairing-control GATT read was deliberately omitted because it is not ordinary
+telemetry and previously stalled a session. Its omission is not a permission issue.
+
+Private evidence (ignored, mode 0600):
+
+- `logs/20261020T152833.518962Z-probe.jsonl` and
+  `logs/live-newer-apk-validation.json`: full investigation, observation, beacon.
+- `logs/20261020T153128.719530Z-probe.jsonl` and
+  `logs/live-newer-apk-reconnect.json`: fresh reconnection and repeated reads.
+- `logs/live-validation-audit.json` and `logs/live-reconnect-audit.json`: transmit
+  audit and comparison results. The reconnect session contains no timed samples;
+  the stability result above is from the first session's 12 actual samples.
+
+These reads validate retrieval, consistency, stability, and reconnection on this
+unit/firmware. The APK's setup-marker and First Print interpretations remain
+source-backed meanings, not experimentally proven firmware transitions; testing
+those transitions would require changing state. Physical printing, image geometry,
+calibration behavior, actual error transitions, and exact sheet inventory remain
+outside this validation. This follow-up changed documentation only, so the prior
+software test results below were not rerun or represented as new results.
+
 ## Software checks completed
 
 - Editable package install on macOS, Python 3.14.
