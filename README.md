@@ -122,16 +122,20 @@ responses, negotiation rejection, a simulated two-transport probe, wrong-model
 rejection, private logs, partial results, and cleanup after RFCOMM failure.
 Synthetic transcript tests establish software behavior, not Select compatibility.
 
-**Hardware validation remains pending.** The first live scan on the development
-Mac encountered undetermined CoreBluetooth authorization and then timed out without
-discovering a device. No physical identity/status reads have yet been confirmed.
+**Physical Select validation passed** for discovery and identity/status reads over
+both BLE and RFCOMM channel 2 on macOS 27.0.1, firmware `G1L1FA2105AR`. Both
+transports returned matching identity, 97% battery, and idle status. Native pairing
+was completed for this printer before the successful probe. The raw TX trace was
+audited against the read-only allowlist. See [VALIDATION.md](VALIDATION.md) for
+remaining limits, including a transient connection timeout after pairing.
 
 Known limits:
 
-- Select behavior is inferred from openZinkBooth's profiles and primarily Sprocket
-  200 protocol research. The actual Select must validate the assumptions.
-- Classic pairing must already exist. Channel 2 follows the HP reference, and has
-  not been independently confirmed on this Select.
+- Validation covers one Select and firmware version; other units/firmware and
+  printing behavior are unverified. The physical probe corrected two reference
+  assumptions: DeviceId is a fixed 16-byte value (reported in wire-order hex), and
+  FeatureSetVersion is a little-endian uint16.
+- Classic pairing must already exist. RFCOMM channel 2 was confirmed on this Select.
 - BLE scan initialization has a deadline of scan duration + 15 seconds. macOS
   permission UI may require operator action. Native synchronous RFCOMM open/write
   calls have OS-controlled blocking; `--timeout` bounds response waits, not those

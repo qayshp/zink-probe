@@ -15,8 +15,8 @@ ATTRIBUTES = {
     3: ("immutable_name", "string"),
     4: ("custom_name", "string"),
     5: ("serial_number", "string"),
-    6: ("device_id", "string"),
-    8: ("feature_set_version", "string"),
+    6: ("device_id", "bytes16"),
+    8: ("feature_set_version", 2),
     9: ("super_model", 2),
     10: ("sub_model", 2),
     11: ("bluetooth_mac", "mac"),
@@ -98,7 +98,7 @@ def decode_fields(message: bytes, identity: bool = False) -> dict:
             size = message[offset]
             offset += 1
         else:
-            size = 6 if kind == "mac" else kind
+            size = {"mac": 6, "bytes16": 16}.get(kind, kind)
         if offset + size > len(message):
             raise ProtocolError(f"Truncated field {name}")
         value = message[offset : offset + size]
@@ -107,6 +107,10 @@ def decode_fields(message: bytes, identity: bool = False) -> dict:
             result[name] = value.rstrip(b"\x00").decode("utf-8", errors="replace")
         elif kind == "mac":
             result[name] = ":".join(f"{b:02X}" for b in reversed(value))
+        elif kind == "bytes16":
+            # Select returns a fixed 16-byte ID, not a length-prefixed string.
+            # Preserve wire order without assuming UUID field endianness.
+            result[name] = value.hex()
         else:
             result[name] = int.from_bytes(value, "little")
     if "print_status_code" in result:

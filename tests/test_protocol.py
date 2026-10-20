@@ -113,6 +113,15 @@ def test_select_required_and_errors_not_treated_as_status():
         check_response(b"\x08\x03", b"\x01\x08\x0e")
 
 
+def test_select_fixed_width_identity_fields():
+    # Synthetic ID; fixed width observed on physical Select. Do not publish IDs.
+    device_id = bytes(range(16))
+    decoded = decode_fields(b"\x05\x06" + device_id + b"\x08\x09\x00", True)
+    assert decoded == {"device_id": device_id.hex(), "feature_set_version": 9}
+    with pytest.raises(ProtocolError, match="Truncated field device_id"):
+        decode_fields(b"\x05\x06" + device_id[:-1], True)
+
+
 class FakeConnection:
     def __init__(self, reject_setup=False):
         self.requests = []
@@ -128,7 +137,11 @@ class FakeConnection:
         if message[0] == 4:
             tag = message[1]
             kind = ATTRIBUTES[tag][1]
-            value = b"\xd3\x48" if tag == 9 else b"\x01" * (6 if kind == "mac" else 2)
+            value = (
+                b"\xd3\x48"
+                if tag == 9
+                else b"\x01" * {"mac": 6, "bytes16": 16}.get(kind, 2)
+            )
             if kind == "string":
                 value = b"\x03abc"
             return bytes([5, tag]) + value
