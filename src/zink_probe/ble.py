@@ -63,11 +63,36 @@ class BleConnection:
         self.queue = asyncio.Queue()
         self.ack_tasks = set()
         self.lock = asyncio.Lock()
+        self.unsolicited = []
 
     async def open(self):
         await self.client.connect()
         await self.client.start_notify(RX, self._receive)
         self.trace.event("connected", transport="ble")
+
+    def inventory(self):
+        # Discovery metadata only: no reads/writes to unknown characteristics.
+        return [
+            {
+                "uuid": service.uuid,
+                "description": service.description,
+                "characteristics": [
+                    {
+                        "uuid": char.uuid,
+                        "handle": char.handle,
+                        "description": char.description,
+                        "properties": list(char.properties),
+                        "max_write_without_response": char.max_write_without_response_size,
+                        "descriptors": [
+                            {"uuid": d.uuid, "handle": d.handle}
+                            for d in char.descriptors
+                        ],
+                    }
+                    for char in service.characteristics
+                ],
+            }
+            for service in self.client.services
+        ]
 
     def _receive(self, _, data):
         self.trace.frame("ble", "rx", data)
@@ -79,7 +104,13 @@ class BleConnection:
                 task.add_done_callback(self.ack_tasks.discard)
             if message is not None:
                 self.trace.frame("ble", "rx", message, layer="message")
-                self.queue.put_nowait(message)
+                if message[:1] == b"\x03":
+                    self.unsolicited.append(message.hex())
+                    self.trace.event(
+                        "unclassified_event", transport="ble", hex=message.hex()
+                    )
+                else:
+                    self.queue.put_nowait(message)
         except Exception as exc:
             self.queue.put_nowait(exc)
 

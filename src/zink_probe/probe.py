@@ -1,6 +1,15 @@
 """Session orchestration, isolated from hardware for deterministic transcript tests."""
 
-from .protocol import ATTRIBUTES, SELECT, ProtocolError, check_response, decode_fields
+from .protocol import (
+    ATTRIBUTES,
+    CONFIG,
+    EXTRA_STATUS_HINTS,
+    SELECT,
+    ProtocolError,
+    bit_view,
+    check_response,
+    decode_fields,
+)
 
 
 async def negotiate(connection, transport, trace):
@@ -23,11 +32,13 @@ async def negotiate(connection, transport, trace):
     }
 
 
-async def read_identity(connection):
-    identity = {}
-    errors = {}
+async def read_identity(connection, extended=False, identity=None, errors=None):
+    identity = {} if identity is None else identity
+    errors = {} if errors is None else errors
     # Individual reads keep unsupported optional attributes from blocking all identity.
     for tag, (name, _) in ATTRIBUTES.items():
+        if tag == 14 and not extended:
+            continue
         request = bytes([4, tag])
         reply = await connection.exchange(request)
         if len(reply) == 3 and reply[:2] == bytes([1, 4]):
@@ -39,6 +50,59 @@ async def read_identity(connection):
             errors[name] = {"missing": reply.hex()}
         identity.update(decoded)
     return identity, errors
+
+
+async def read_config(connection):
+    values, errors = {}, {}
+    for tag, (name, _) in CONFIG.items():
+        request = bytes([0x1A, tag])
+        reply = await connection.exchange(request)
+        if len(reply) == 3 and reply[:2] == b"\x01\x1a":
+            errors[name] = {"rejected": reply.hex()}
+            continue
+        check_response(request, reply)
+        decoded = decode_fields(reply, config=True)
+        if name not in decoded:
+            errors[name] = {"missing": reply.hex()}
+        values.update(decoded)
+    return {"values": values, "errors": errors}
+
+
+def status_bits(status):
+    return {
+        name: bit_view(status[name], width)
+        for name, width in (
+            ("system_flags", 32),
+            ("battery_status_code", 8),
+            ("queue_status_code", 8),
+        )
+        if name in status
+    }
+
+
+async def read_copy_progress(connection):
+    request = b"\x08\x08"
+    reply = await connection.exchange(request)
+    if len(reply) == 3 and reply[:2] == b"\x01\x08":
+        return {"rejected": reply.hex()}
+    check_response(request, reply)
+    return decode_fields(reply)
+
+
+async def read_extra_status(connection):
+    result = {}
+    for tag, hint in EXTRA_STATUS_HINTS.items():
+        request = bytes([8, tag])
+        reply = await connection.exchange(request)
+        entry = {"tag": tag, "unverified_name_hint": hint, "raw_reply": reply.hex()}
+        if len(reply) == 3 and reply[:2] == b"\x01\x08":
+            entry["outcome"] = "rejected"
+            entry["error_code"] = reply[2]
+        else:
+            check_response(request, reply)
+            entry["outcome"] = "returned" if len(reply) > 1 else "omitted"
+        result[f"0x{tag:02X}"] = entry
+    return result
 
 
 async def read_status(connection):

@@ -20,6 +20,7 @@ def _make_delegate(sink):
                 if self is not None:
                     self.sink = callback
                     self.closed = False
+                    self.sdp_status = None
                 return self
 
             def rfcommChannelData_data_length_(self, channel, data, length):
@@ -27,6 +28,9 @@ def _make_delegate(sink):
 
             def rfcommChannelClosed_(self, channel):
                 self.closed = True
+
+            def sdpQueryComplete_status_(self, device, status):
+                self.sdp_status = int(status)
 
     return _Delegate.alloc().initWithSink_(sink)
 
@@ -41,6 +45,7 @@ class RfcommConnection:
         self.device = None
         self.parser = RfcommParser()
         self.queue = asyncio.Queue()
+        self.unsolicited = []
 
     async def open(self):
         import IOBluetooth
@@ -69,7 +74,13 @@ class RfcommConnection:
         try:
             for message in self.parser.feed(data):
                 self.trace.frame("rfcomm", "rx", message, layer="message")
-                self.queue.put_nowait(message)
+                if message[:1] == b"\x03":
+                    self.unsolicited.append(message.hex())
+                    self.trace.event(
+                        "unclassified_event", transport="rfcomm", hex=message.hex()
+                    )
+                else:
+                    self.queue.put_nowait(message)
         except Exception as exc:
             self.queue.put_nowait(exc)
 
@@ -106,3 +117,58 @@ class RfcommConnection:
             self.channel = None
         # Close only the RFCOMM channel owned here; do not unpair or close other links.
         self.trace.event("disconnected", transport="rfcomm")
+
+    async def inventory(self):
+        from Foundation import NSDate, NSRunLoop
+
+        self.delegate.sdp_status = None
+        rc = self.device.performSDPQuery_(self.delegate)
+        if rc != 0:
+            return {"fresh": False, "error": f"SDP query start IOReturn {rc}"}
+        end = time.monotonic() + self.timeout
+        while self.delegate.sdp_status is None:
+            if time.monotonic() >= end:
+                return {"fresh": False, "error": "SDP query timeout"}
+            NSRunLoop.currentRunLoop().runUntilDate_(
+                NSDate.dateWithTimeIntervalSinceNow_(0.005)
+            )
+            await asyncio.sleep(0.005)
+        if self.delegate.sdp_status != 0:
+            return {
+                "fresh": False,
+                "error": f"SDP query IOReturn {self.delegate.sdp_status}",
+            }
+        services = []
+        for record in self.device.services() or []:
+            rc, channel = record.getRFCOMMChannelID_(None)
+            services.append(
+                {
+                    "name": str(record.getServiceName() or ""),
+                    "rfcomm_channel": int(channel) if rc == 0 else None,
+                    "attributes": {
+                        f"0x{int(key):04X}": sdp_element(value)
+                        for key, value in record.getAttributes().items()
+                    },
+                }
+            )
+        self.trace.event("sdp_inventory", services=services)
+        return {"fresh": True, "services": services}
+
+
+def sdp_element(element):
+    kind = int(element.getTypeDescriptor())
+    size = int(element.getSize())
+    if kind in (6, 7):
+        value = [sdp_element(item) for item in element.getArrayValue() or []]
+    elif kind in (1, 2, 5):
+        number = element.getNumberValue()
+        value = (
+            int(number) if number is not None else bytes(element.getDataValue()).hex()
+        )
+    elif kind == 3:
+        value = bytes(element.getUUIDValue()).hex()
+    elif kind in (4, 8):
+        value = str(element.getStringValue())
+    else:
+        value = None
+    return {"type": kind, "size": size, "value": value}

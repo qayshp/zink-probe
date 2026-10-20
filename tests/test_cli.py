@@ -30,6 +30,9 @@ def harness(monkeypatch, model=0x48D3, rfcomm_fails=False):
         async def close(self):
             self.closed = True
 
+        def inventory(self):
+            return []
+
         async def exchange(self, request):
             if request == b"\x04\x09":
                 return b"\x05\x09" + model.to_bytes(2, "little")
@@ -57,6 +60,30 @@ def test_full_two_transport_probe(monkeypatch):
     assert result["rfcomm"]["identity"]["firmware"] == "abc"
     assert len(connections) == 2
     assert all(c.closed for c in connections)
+
+
+def test_extended_probe_reads_configuration_and_preserves_bits(monkeypatch):
+    connections = harness(monkeypatch)
+
+    async def sdp_inventory(self):
+        return {"fresh": True, "services": []}
+
+    # Both factory bindings reference the same fake class.
+
+    class Classic(cli.RfcommConnection):
+        inventory = sdp_inventory
+
+    monkeypatch.setattr(cli, "RfcommConnection", Classic)
+    parameters = args()
+    parameters.extended = True
+    result = {}
+    assert asyncio.run(cli.run(parameters, Trace(), result)) == 0
+    assert result["rfcomm"]["configuration"]["values"]["led_rgb"] == [1, 1, 1]
+    assert result["ble"]["identity"]["first_print_timestamp"] == 0x01010101
+    assert result["rfcomm"]["sdp_inventory"]["fresh"] is True
+    assert result["ble"]["status_bit_observations"] == {}
+    for connection in connections:
+        assert {r[0] for r in connection.requests} == {4, 8, 10, 26, 36}
 
 
 def test_wrong_device_stops_before_rfcomm(monkeypatch):

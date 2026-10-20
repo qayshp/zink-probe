@@ -18,7 +18,9 @@ from zink_probe.protocol import (
 from zink_probe.trace import Trace
 
 
-@pytest.mark.parametrize("opcode", [n for n in range(256) if n not in (4, 8, 10, 36)])
+@pytest.mark.parametrize(
+    "opcode", [n for n in range(256) if n not in (4, 8, 10, 26, 36)]
+)
 def test_other_opcodes_cannot_cross_transport_boundary(opcode):
     with pytest.raises(ProtocolError):
         encode_rfcomm(bytes([opcode, 1]))
@@ -140,11 +142,22 @@ class FakeConnection:
             value = (
                 b"\xd3\x48"
                 if tag == 9
-                else b"\x01" * {"mac": 6, "bytes16": 16}.get(kind, 2)
+                else b"\x01"
+                * {"mac": 6, "bytes16": 16}.get(
+                    kind, kind if isinstance(kind, int) else 2
+                )
             )
             if kind == "string":
                 value = b"\x03abc"
             return bytes([5, tag]) + value
+        if message[0] == 26:
+            from zink_probe.protocol import CONFIG
+
+            tag = message[1]
+            kind = CONFIG[tag][1]
+            return bytes([27, tag]) + b"\x01" * (3 if kind == "rgb" else kind)
+        if message == b"\x08\x08":
+            return b"\x09\x08\x00"
         return b"\x09\x03\x55\x02\x01"
 
 

@@ -6,8 +6,10 @@
 - CLI entry point/help.
 - IOBluetooth framework import, delegate initialization, and availability of the
   native RFCOMM channel-open selector.
-- 276 automated cases, including rejection of 252 disallowed command opcodes and
+- 286 automated cases, including rejection of 251 disallowed command opcodes and
   a regression case for the physical Select's fixed-width identity fields.
+- Configuration decoding, rejected optional fields, raw RGB preservation,
+  unsolicited-event routing, simulated extended probe, and native SDP serialization.
 - Ruff lint and formatting checks.
 - Live discovery failure recorded as a JSON result and private JSONL trace.
 
@@ -63,3 +65,27 @@ Do not mark hardware acceptance complete from simulated tests. Record exact
 firmware, host/runtime versions, observations, and the private trace location when
 the physical probe succeeds. Keep hardware identifiers and traces out of Git by
 default.
+
+## Extended read-only validation
+
+Completed with `probe --extended --scan-seconds 20 --timeout 20`; successful
+trace `logs/20261020T064831.310453Z-probe.jsonl`. Both transports returned the same
+five configuration values and first-print timestamp. Firmware remained
+`G1L1FA2105AR`; current status was idle with 99% battery. GATT inventory and fresh
+SDP records were retained. The additional status reads returned three fields and
+rejected three others (including copy progress). These optional rejections are
+reported in JSON and do not mean the core probe failed.
+
+The TX audit verified all 51 application requests were allowed reads or session
+negotiation: eleven identity, five configuration, and two setup requests on each
+transport; eight BLE and seven RFCOMM status requests. No print/settings writes
+occurred. Both normal disconnect events were recorded.
+
+An earlier extended probe stopped on an unsolicited `03 03 00` application
+message. The transport now logs command `03` separately; a regression test verifies
+it cannot satisfy the request/reply queue. Other ambiguous unexpected messages
+still fail closed. The event's payload remains undecoded.
+
+Short scans sometimes missed the printer; a subsequent 20-second scan succeeded.
+The cause has not been established. This does not justify inferring shutdown or a
+specific Bluetooth failure. Full findings and evidence grades are in [RESEARCH.md](RESEARCH.md).

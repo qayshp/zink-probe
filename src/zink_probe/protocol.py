@@ -21,6 +21,23 @@ ATTRIBUTES = {
     10: ("sub_model", 2),
     11: ("bluetooth_mac", "mac"),
     12: ("hardware_version", "string"),
+    14: ("first_print_timestamp", 4),
+}
+CONFIG = {
+    1: ("sleep_timer_minutes", 2),
+    2: ("auto_off_minutes", 2),
+    3: ("led_rgb", "rgb"),
+    4: ("pause_printing_raw", 1),
+    5: ("hosts_threshold_raw", 1),
+}
+# Reported by a cross-device PrintMaker HPLPP implementation, not Select-verified.
+# Read individually and preserve entire replies; do not assume value widths.
+EXTRA_STATUS_HINTS = {
+    10: "supply_type",
+    11: "supply_level",
+    12: "supply_version",
+    13: "supply_selectability",
+    14: "cap_status",
 }
 STATUS = {
     1: ("system_flags", 4),
@@ -68,6 +85,10 @@ def validate_request(message: bytes) -> None:
     if len(message) >= 2 and message[0] == 8:
         if all(tag in STATUS for tag in message[1:]):
             return
+        if len(message) == 2 and message[1] in EXTRA_STATUS_HINTS:
+            return
+    if len(message) == 2 and message[0] == 0x1A and message[1] in CONFIG:
+        return
     raise ProtocolError(f"Request outside read-only allowlist: {message.hex()}")
 
 
@@ -79,11 +100,11 @@ def check_response(request: bytes, response: bytes) -> bytes:
     return response
 
 
-def decode_fields(message: bytes, identity: bool = False) -> dict:
-    expected = 5 if identity else 9
+def decode_fields(message: bytes, identity: bool = False, config: bool = False) -> dict:
+    expected = 0x1B if config else (5 if identity else 9)
     if not message or message[0] != expected:
         raise ProtocolError(f"Expected response 0x{expected:02x}: {message.hex()}")
-    fields = ATTRIBUTES if identity else STATUS
+    fields = CONFIG if config else (ATTRIBUTES if identity else STATUS)
     result = {}
     offset = 1
     while offset < len(message):
@@ -98,7 +119,7 @@ def decode_fields(message: bytes, identity: bool = False) -> dict:
             size = message[offset]
             offset += 1
         else:
-            size = {"mac": 6, "bytes16": 16}.get(kind, kind)
+            size = {"mac": 6, "bytes16": 16, "rgb": 3}.get(kind, kind)
         if offset + size > len(message):
             raise ProtocolError(f"Truncated field {name}")
         value = message[offset : offset + size]
@@ -111,11 +132,24 @@ def decode_fields(message: bytes, identity: bool = False) -> dict:
             # Select returns a fixed 16-byte ID, not a length-prefixed string.
             # Preserve wire order without assuming UUID field endianness.
             result[name] = value.hex()
+        elif kind == "rgb":
+            result[name] = list(value)
         else:
             result[name] = int.from_bytes(value, "little")
     if "print_status_code" in result:
         result["print_status"] = STATES.get(result["print_status_code"], "unknown")
     return result
+
+
+def bit_view(value: int, width: int) -> dict:
+    """An observation, not a declaration that this field actually is a bitmask."""
+    return {
+        "raw": value,
+        "hex": f"0x{value:0{width // 4}X}",
+        "binary": f"{value:0{width}b}",
+        "set_bit_positions": [i for i in range(width) if value & (1 << i)],
+        "meaning": "undecoded; may be an enum rather than independent flags",
+    }
 
 
 def encode_rfcomm(message: bytes) -> bytes:

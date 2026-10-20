@@ -59,6 +59,30 @@ the device's Bluetooth MAC attribute, reverses its wire byte order, and opens
 **RFCOMM channel 2** at that address while keeping BLE connected. It does not use
 Bleak's undocumented MAC-address lookup option or guess the target from its name.
 
+### Extended read-only snapshot
+
+```sh
+.venv/bin/zink-probe probe --extended --scan-seconds 20 --timeout 20
+```
+
+Adds individually queried configuration fields, first-print timestamp, GATT service
+metadata, a fresh Classic SDP query, copy-progress and five cross-device status-tag
+investigations. It also rereads BLE status with RFCOMM open to compare host count.
+Short scans have occasionally missed this Select; 20 seconds succeeded in the
+extended validation. No settings are changed.
+
+Unsupported optional reads are recorded as rejected/omitted with raw replies;
+they do not make the otherwise complete core probe fail. Exit `0` means the core
+identity/status checks succeeded, not that every experimental field is supported.
+The GATT inventory lists properties and descriptors; it does not read unknown
+characteristics. SDP returns typed service attributes, UUID bytes, and channels.
+Raw application frames are logged, but native GATT/SDP discovery packets are not
+an HCI capture; their decoded metadata is retained in the result instead.
+
+Status bit observations show hex, binary, and set-bit positions. Battery/queue
+fields may be enums rather than bitmasks. No speculative bit names are assigned.
+See [RESEARCH.md](RESEARCH.md) for confirmed values and tentative interpretations.
+
 ## Output and logs
 
 Both commands print JSON to stdout. A successful probe includes `ble` and `rfcomm`
@@ -94,12 +118,14 @@ The transport code validates every outbound command against an allowlist:
 | --- | --- |
 | `0A 01 00` / `0A 02` | Negotiate BLE / RFCOMM interface |
 | `24 00 10` | Announce host receive capacity of 4096 bytes |
-| `04 <known identity tags>` | Read firmware, names, serial/device ID, model, MAC, hardware version |
-| `08 <known status tags>` | Read battery, printer state, progress, job/queue status, hosts |
+| `04 <known identity tags>` | Read identity, firmware, hardware version, and optionally first-print timestamp |
+| `08 <known status tags>` | Read battery, state, progress, job/queue status, hosts |
+| `08 <single tag 0A–0E>` | Extended cross-device status research; preserve raw replies |
+| `1A <single tag 01–05>` | Read sleep, auto-off, LED RGB, pause, and host threshold |
 
 BLE additionally sends protocol ACK `00` for multi-frame responses when requested
 by the negotiated ACK period. These writes establish session state and acknowledge
-reads; “read-only” does not mean passive Bluetooth sniffing. No settings, time,
+reads; “read-only” does not mean passive Bluetooth sniffing. No settings-write, time,
 resource allocation, print-start, file-transfer, reboot, or firmware commands exist
 in the CLI. There is no arbitrary-command escape hatch and no image dependency.
 
@@ -107,6 +133,8 @@ A rejected connection-setup command is logged and the probe attempts actual read
 following a quirk observed in the Sprocket 200 reference. Successful reads, rather
 than an assumed successful handshake, determine the outcome. Other protocol errors
 stop the probe; transport timeouts are not automatically retried.
+Unsolicited command `03` messages observed on Select are logged separately and
+cannot satisfy a request's response queue. Their meaning is not yet decoded.
 
 ## Validation and limits
 
