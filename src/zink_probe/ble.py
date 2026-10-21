@@ -65,6 +65,7 @@ class BleConnection:
         self.lock = asyncio.Lock()
         self.unsolicited = []
         self.read_handles = set()
+        self.config_writes = set()
 
     async def open(self):
         await self.client.connect()
@@ -134,7 +135,7 @@ class BleConnection:
             self.queue.put_nowait(exc)
 
     async def exchange(self, message):
-        validate_request(message, self.read_handles)
+        validate_request(message, self.read_handles, self.config_writes)
         async with self.lock:
             if not self.queue.empty():
                 raise ProtocolError(

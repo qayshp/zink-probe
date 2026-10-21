@@ -26,3 +26,10 @@ core definitions against a newer APK with the same signing certificate. It also
 identifies tag 13 as the app's setup-version marker, establishes the app's
 "First Print" label for BornOnDate, and records the operator-confirmed ten loaded
 sheets and completed orange-card calibration. This follow-up made no device requests.
+
+The operator later authorized non-print setting changes. See
+[SETTINGS_RESEARCH.md](SETTINGS_RESEARCH.md) for physically verified sleep/LED
+round trips with restoration and additional APK image-processing findings.
+Ordinary probes remain read-only; `settings-test` is an explicit separate command.
+The sleep/reconnect test is recorded in [VALIDATION.md](VALIDATION.md), and the
+unfinished iOS acquisition is documented in [IOS_EXPLORATION.md](IOS_EXPLORATION.md).

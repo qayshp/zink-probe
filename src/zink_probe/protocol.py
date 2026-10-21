@@ -1,4 +1,4 @@
-"""Independent implementation of the documented HP+ read-only subset.
+"""Independent HP+ field decoding and narrowly scoped diagnostic request policy.
 
 System attributes are typed tag/value fields, NOT generic length/value records.
 Unknown/truncated fields must stop decoding, rather than guessing their lengths.
@@ -125,8 +125,10 @@ class ProtocolError(RuntimeError):
     pass
 
 
-def validate_request(message: bytes, read_handles=()) -> None:
+def validate_request(message: bytes, read_handles=(), config_writes=()) -> None:
     """Fail closed at each transport boundary; there is no arbitrary-command CLI."""
+    if message in config_writes and safe_config_write(message):
+        return
     if message in (b"\x0a\x01\x00", b"\x0a\x02", b"\x24\x00\x10"):
         return
     if message == b"\x2a":  # FEATURE_DISCOVERY_REQ, proven by HP app definitions.
@@ -153,6 +155,33 @@ def validate_request(message: bytes, read_handles=()) -> None:
     if len(message) == 2 and message[0] == 0x1A and message[1] in CONFIG:
         return
     raise ProtocolError(f"Request outside read-only allowlist: {message.hex()}")
+
+
+SELECT_LED_COLORS = (
+    bytes.fromhex("ffffff"),
+    bytes.fromhex("002ee0"),
+    bytes.fromhex("3f006f"),
+    bytes.fromhex("ff348b"),
+    bytes.fromhex("967d00"),
+    bytes.fromhex("008400"),
+)
+
+
+def safe_config_write(message: bytes) -> bool:
+    """Only app-defined sleep choices and standard Select LED colors.
+
+    The transaction must ALSO grant the exact bytes. Never authorize pause/resume,
+    special RGB encodings, or a combined multi-setting write through this gate.
+    """
+    return (
+        len(message) == 4
+        and message[:2] == b"\x1c\x01"
+        and int.from_bytes(message[2:], "little") in (0, 3, 5, 10)
+    ) or (
+        len(message) == 5
+        and message[:2] == b"\x1c\x03"
+        and message[2:] in SELECT_LED_COLORS
+    )
 
 
 def check_response(request: bytes, response: bytes) -> bytes:
@@ -246,8 +275,8 @@ def bit_view(value: int, width: int) -> dict:
     }
 
 
-def encode_rfcomm(message: bytes, read_handles=()) -> bytes:
-    validate_request(message, read_handles)
+def encode_rfcomm(message: bytes, read_handles=(), config_writes=()) -> bytes:
+    validate_request(message, read_handles, config_writes)
     return b"HP+\x01" + bytes([len(message)]) + message
 
 

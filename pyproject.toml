@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "zink-probe"
 version = "0.1.0"
-description = "Read-only macOS Bluetooth diagnostics for HP Sprocket Select"
+description = "macOS HP Sprocket Select diagnostics and bounded configuration research"
 requires-python = ">=3.11"
 dependencies = ["bleak>=1,<4", "pyobjc-framework-IOBluetooth>=11,<13; sys_platform == 'darwin'"]
 

@@ -1,7 +1,8 @@
 # zink-probe
 
-Milestone 1: a **read-only macOS Python CLI** for investigating the **HP Sprocket
-Select** over BLE and Bluetooth Classic RFCOMM. No printing is implemented.
+Milestone 1: **read-only macOS Python diagnostics** for the **HP Sprocket Select**
+over BLE and Bluetooth Classic RFCOMM, plus an explicit, bounded settings test.
+No printing is implemented. Ordinary `discover` and `probe` sessions remain read-only.
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
@@ -116,6 +117,34 @@ rather than `first_print_timestamp`, following the HP library's BornOnDate name.
 It is not proof of the date of the first physical print. Strings use bounded
 variable-length integer lengths, not an unconditional one-byte length.
 
+### Temporary settings test (changes settings, then restores)
+
+```sh
+.venv/bin/zink-probe settings-test --scan-seconds 20 --timeout 15
+```
+
+Use this only when temporary printer-setting changes are intended. It checks the
+Select identity on both transports, requires matching configuration, an idle
+printer and empty remote queue, and verifies the required advertised capabilities
+and standard color palette. It records the baseline, changes sleep to a different
+app-defined choice, verifies it over both connections, and restores the original
+value through the other connection. It then does the same for a standard LED color.
+On the tested unit this was sleep 3→5→3 minutes and white→blue→white.
+
+Only the exact temporary/restoration bytes are authorized during each transaction.
+The transport policy additionally rejects other configuration tags, nonstandard
+RGB encodings, multi-setting writes, print/upload/update commands, and pause/resume.
+There is no arbitrary write argument. Grants are revoked after each transaction.
+The test attempts restoration even when a write acknowledgement is lost or the
+task is cancelled; it stops on error and records whether restoration was verified.
+Repeated interruption, process termination, or a lost physical connection can
+prevent restoration, so inspect the result rather than assuming it succeeded.
+The full final configuration and page/calibration counters must match the baseline
+for success. Auto-off is never changed by this command.
+
+Physical settings validation and the subsequent fresh-connection check are in
+[SETTINGS_RESEARCH.md](SETTINGS_RESEARCH.md). Raw traces remain local and private.
+
 ## Output and logs
 
 Both commands print JSON to stdout. A successful probe includes `ble` and `rfcomm`
@@ -145,7 +174,8 @@ them before sharing. No cloud service is used by the CLI.
 
 ## Read-only boundary
 
-The transport code validates every outbound command against an allowlist:
+For ordinary discovery/probe sessions the transport code validates every outbound
+command against a read-only allowlist:
 
 | Command | Purpose |
 | --- | --- |
@@ -162,9 +192,12 @@ The transport code validates every outbound command against an allowlist:
 
 BLE additionally sends protocol ACK `00` for multi-frame responses when requested
 by the negotiated ACK period. These writes establish session state and acknowledge
-reads; “read-only” does not mean passive Bluetooth sniffing. No settings-write, time,
-resource allocation, print-start, file-transfer, reboot, or firmware commands exist
-in the CLI. There is no arbitrary-command escape hatch and no image dependency.
+reads; “read-only” does not mean passive Bluetooth sniffing. The separate
+`settings-test` command temporarily adds exact `1C 01 <minutes:u16LE>` and
+`1C 03 <standard RGB>` grants, with restoration as described above. Time writes,
+resource allocation, print-start, uploads, pause/resume, reboot, and firmware
+operations remain unavailable. There is no arbitrary-command escape hatch or image
+dependency. The settings-test trace explicitly records `read_only: false`.
 
 A rejected connection-setup command is logged and the probe attempts actual reads,
 following a quirk observed in the Sprocket 200 reference. Successful reads, rather

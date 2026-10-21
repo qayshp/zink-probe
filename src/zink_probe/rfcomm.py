@@ -51,6 +51,7 @@ class RfcommConnection:
         self.queue = asyncio.Queue()
         self.unsolicited = []
         self.read_handles = set()
+        self.config_writes = set()
 
     async def open(self):
         import IOBluetooth
@@ -99,8 +100,8 @@ class RfcommConnection:
         if getattr(self, "channel_id", 2) != 2:
             raise ProtocolError("Channel 1 is receive-only; no writes permitted")
         wire = encode_rfcomm(
-            message, self.read_handles
-        )  # Enforces read-only allowlist.
+            message, self.read_handles, self.config_writes
+        )  # Enforces default read-only policy and any exact scoped config grants.
         if not self.queue.empty():
             raise ProtocolError("Unsolicited RFCOMM message; refusing ambiguous reply")
         self.trace.frame("rfcomm", "tx", wire)

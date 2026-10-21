@@ -17,23 +17,29 @@ from .probe import (
     require_select,
     status_bits,
 )
+from .protocol import ProtocolError
 from .research import investigate, observe
 from .rfcomm import RfcommConnection
+from .settings import settings_test
 from .trace import Trace
 
 
 def parser():
     p = argparse.ArgumentParser(
-        description="Read-only HP Sprocket Select Bluetooth probe"
+        description="HP Sprocket Select diagnostics; read-only probe and explicit temporary settings test"
     )
     p.add_argument("--version", action="version", version="%(prog)s 0.1.0")
     sub = p.add_subparsers(dest="command", required=True)
-    for name in ("discover", "probe"):
+    for name in ("discover", "probe", "settings-test"):
         cmd = sub.add_parser(name)
         cmd.add_argument("--scan-seconds", type=float, default=10)
         cmd.add_argument(
             "--log", type=Path, help="New private JSONL file (never overwritten)"
         )
+        if name == "settings-test":
+            cmd.description = "Temporarily test sleep and standard LED color, then restore; no printing"
+            cmd.add_argument("--ble-id", help="macOS BLE UUID from discover")
+            cmd.add_argument("--timeout", type=float, default=15)
         if name == "probe":
             cmd.add_argument(
                 "--investigate",
@@ -69,7 +75,11 @@ def parser():
 
 
 async def run(args, trace, result):
-    extended = getattr(args, "extended", False) or getattr(args, "investigate", False)
+    extended = (
+        args.command == "settings-test"
+        or getattr(args, "extended", False)
+        or getattr(args, "investigate", False)
+    )
     candidates = await discover(args.scan_seconds, trace)
     result["devices"] = [entry for _, entry in candidates]
     if args.command == "discover":
@@ -137,6 +147,13 @@ async def run(args, trace, result):
                 result[name]["metrics"] = await read_metrics(connection)
                 result[name]["experiments"] = []
                 await investigate(connection, result[name]["experiments"], trace)
+        if args.command == "settings-test":
+            if result["ble"]["identity"] != result["rfcomm"]["identity"]:
+                raise ProtocolError(
+                    "Settings test requires matching transport identities"
+                )
+            result["settings_test"] = {}
+            await settings_test(ble, rfcomm, trace, result["settings_test"])
         if getattr(args, "observe_seconds", 0):
             result["observation"] = await observe(
                 ble, rfcomm, args.observe_seconds, trace
@@ -200,10 +217,16 @@ def main():
     result = {"ok": False, "command": args.command, "log": str(path.resolve())}
     code = 1
     try:
-        trace.event("start", command=args.command, read_only=True)
+        trace.event(
+            "start", command=args.command, read_only=args.command != "settings-test"
+        )
         code = asyncio.run(run(args, trace, result))
     except KeyboardInterrupt:
-        result["error"] = "Interrupted; no request retried"
+        result["error"] = (
+            "Interrupted; inspect config_write_revoke trace for restoration status"
+            if args.command == "settings-test"
+            else "Interrupted; no request retried"
+        )
         code = 130
     except Exception as exc:
         result["error"] = f"{type(exc).__name__}: {exc}"

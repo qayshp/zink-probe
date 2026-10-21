@@ -1,8 +1,52 @@
 # Milestone 1 validation
 
-Current follow-up: [INVESTIGATION.md](INVESTIGATION.md). Historical references below
+Current settings follow-up: [SETTINGS_RESEARCH.md](SETTINGS_RESEARCH.md).
+Read-only investigation: [INVESTIGATION.md](INVESTIGATION.md). Historical references below
 to “first-print timestamp” use the original label; the HP app artifact names it
 BornOnDate and the current JSON key is `born_on_timestamp`.
+
+## Quiet sleep/reconnect test — 2026-10-21
+
+With sleep set to 3 minutes and auto-off set to Never (`0`), a baseline
+investigation completed and both probe-owned Bluetooth connections closed cleanly.
+The probe then performed **no scans, connections, or polling for 240.004 seconds**,
+from 08:12:34.893 UTC, before starting a fresh discovery and investigation.
+
+Both BLE and RFCOMM channel 2 reconnected successfully without manual intervention.
+The post-interval investigation completed in 30.81 seconds, including its fixed
+20-second discovery scan; this is not a measurement of wake-up latency alone.
+
+| Observation | Before | After |
+| --- | ---: | ---: |
+| Sleep events | 40 | 41 |
+| Automatic power-offs | 10 | 10 |
+| Power-on count | 16 | 16 |
+| Printer pages | 10 | 10 |
+| Calibration-card cycles | 2 | 2 |
+| Battery percentage | 100 | 100 |
+| Battery state | 2 (charging) | 2 (charging) |
+| Sleep / auto-off | 3 minutes / Never | 3 minutes / Never |
+
+These values matched across both transports. The only metrics delta was one sleep
+event. Identity and capability-file bytes matched before/after; all configuration
+fields matched, status was idle with an empty queue and system flags zero, and
+both sessions closed without recorded cleanup errors.
+
+This supports a sleep event during the quiet interval followed by successful
+discovery and reconnection, with no automatic shutdown recorded. We did not
+observe the physical LED or the exact instant of sleep, control other possible
+clients, measure wake latency separately, test an unplugged printer, or establish
+indefinite uptime. It is one successful cycle on this unit and firmware.
+
+Both traces were audited: 95 allowed application requests in each session,
+190 total, including scoped capability-file reads. No print, upload, settings,
+clock, security, trigger, reset, or firmware operation was sent.
+
+Private evidence: `logs/sleep-before.json`, `logs/sleep-after.json`,
+`logs/sleep-test-summary.json`, `logs/sleep-before-audit.json`, and
+`logs/sleep-after-audit.json`. Raw traces:
+`logs/20261021T081203.456273Z-probe.jsonl` and
+`logs/20261021T081634.973763Z-probe.jsonl`.
 
 ## Phone power-setting change verified — 2026-10-21
 
