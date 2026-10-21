@@ -4,6 +4,25 @@ Current follow-up: [INVESTIGATION.md](INVESTIGATION.md). Historical references b
 to “first-print timestamp” use the original label; the HP app artifact names it
 BornOnDate and the current JSON key is `born_on_timestamp`.
 
+## Phone power-setting change verified — 2026-10-21
+
+After the operator reported setting auto-off to never in the phone app, a fresh
+extended probe succeeded over BLE and RFCOMM. Both configuration reads returned
+`auto_off_minutes = 0` (the inspected app's Never value), down from 60, and
+`sleep_timer_minutes = 3`, unchanged. This verifies the stored configuration,
+not indefinite uptime or a directly observed transition into sleep.
+
+Both transports reported idle, an empty queue, 99% battery, battery state 2
+(charging), and system flags zero. The previous time-invalid bit is now clear.
+The phone app setting the clock is a plausible explanation, but its writes were
+not captured, so the cause is unproven. Our probe sent no clock or settings write.
+Private result: `logs/auto-off-never-verification.json`; its `log` field identifies
+the raw trace. No permission changes were needed.
+
+The repository was made public at the operator's explicit request; anonymous
+access to the GitHub repository returned HTTP 200. Raw traces, APKs, and generated
+vendor Java remain ignored and were not published.
+
 ## Live revalidation after the newer APK comparison — 2026-10-20
 
 The operator confirmed the printer was on and nearby and requested live testing.
