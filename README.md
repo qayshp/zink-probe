@@ -296,3 +296,7 @@ Subsequent [photographs of the printed chart](experiments/calibration/PHOTO_ANAL
 confirm physical output, suggest about 4% edge loss in each input dimension, and
 show a strong directional fine-detail difference. These preliminary observations
 do not yet establish native resolution or justify a fixed printer correction.
+[Closer photographs and brightness profiles](experiments/calibration/CLOSEUP_ANALYSIS.md)
+show that faint one-pixel vertical periodic detail survives, refining the initial
+wide-photo impression of a solid dark patch. Its captured contrast remains much
+lower than the horizontal counterpart.

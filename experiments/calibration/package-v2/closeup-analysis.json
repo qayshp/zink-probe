@@ -1,0 +1,185 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "dataset": "Second photo set: four close-ups of the existing sheet",
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "photo_sha256": {
+    "1-Photo-1.jpg": "4477ab0d65ad04817e4c631e34d00fded5463a78582d14e1e32b3df9f6004488",
+    "2-Photo-2.jpg": "3ed238ff1c214d5db4e0df789048859826faba6bc35e09897515810b8a50c6c5",
+    "3-Photo-3.jpg": "d4e97ffee63572ffb1a0cca010756c8a6b812b3d3521a62bfb5eae858dec02b0",
+    "4-Photo-4.jpg": "902b98b957570fb9ae62ac04c5aa81450bf3a525cf17a1287a6a5d4841d64e76"
+  },
+  "photo_dimensions": [
+    2880,
+    3840
+  ],
+  "sampled_photo": "4-Photo-4.jpg",
+  "method": "60-photo-pixel bands averaged perpendicular to pattern variation; linear detrend, Hann window, FFT peak search over 5..100 cycles per approximate patch extent.",
+  "signal": "0.2126 R + 0.7152 G + 0.0722 B on encoded JPEG RGB; not linear light, reflectance or calibrated luminance.",
+  "limits": "Manual approximate patch spans; no rectification, optical calibration, scale reference or established sensor-relative rotation control. Peak amplitudes include the print/camera/lighting chain. Zero padding adds no physical resolution. Not MTF or printer DPI.",
+  "patches": [
+    {
+      "orientation": "vertical",
+      "source_run_width_px": 1,
+      "source_patch_width_and_height_px": 80,
+      "expected_source_cycles": 40.0,
+      "measurements": [
+        {
+          "photo_sampling_box_exclusive": [
+            211,
+            1630,
+            868,
+            1690
+          ],
+          "dominant_cycles_per_approximate_patch": 40.2,
+          "spectral_half_amplitude_photo_code_values": 5.573,
+          "mean_photo_code_value": 39.663
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            211,
+            1820,
+            868,
+            1880
+          ],
+          "dominant_cycles_per_approximate_patch": 40.02,
+          "spectral_half_amplitude_photo_code_values": 7.026,
+          "mean_photo_code_value": 39.042
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            211,
+            2010,
+            868,
+            2070
+          ],
+          "dominant_cycles_per_approximate_patch": 39.96,
+          "spectral_half_amplitude_photo_code_values": 7.964,
+          "mean_photo_code_value": 40.714
+        }
+      ]
+    },
+    {
+      "orientation": "vertical",
+      "source_run_width_px": 2,
+      "source_patch_width_and_height_px": 80,
+      "expected_source_cycles": 20.0,
+      "measurements": [
+        {
+          "photo_sampling_box_exclusive": [
+            1045,
+            1630,
+            1695,
+            1690
+          ],
+          "dominant_cycles_per_approximate_patch": 19.995,
+          "spectral_half_amplitude_photo_code_values": 35.266,
+          "mean_photo_code_value": 53.398
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            1045,
+            1820,
+            1695,
+            1880
+          ],
+          "dominant_cycles_per_approximate_patch": 19.995,
+          "spectral_half_amplitude_photo_code_values": 35.858,
+          "mean_photo_code_value": 53.674
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            1045,
+            2010,
+            1695,
+            2070
+          ],
+          "dominant_cycles_per_approximate_patch": 19.955,
+          "spectral_half_amplitude_photo_code_values": 36.675,
+          "mean_photo_code_value": 55.971
+        }
+      ]
+    },
+    {
+      "orientation": "horizontal",
+      "source_run_width_px": 1,
+      "source_patch_width_and_height_px": 80,
+      "expected_source_cycles": 40.0,
+      "measurements": [
+        {
+          "photo_sampling_box_exclusive": [
+            300,
+            2585,
+            360,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 39.318,
+          "spectral_half_amplitude_photo_code_values": 26.194,
+          "mean_photo_code_value": 70.869
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            480,
+            2585,
+            540,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 39.438,
+          "spectral_half_amplitude_photo_code_values": 28.178,
+          "mean_photo_code_value": 72.608
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            680,
+            2585,
+            740,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 39.559,
+          "spectral_half_amplitude_photo_code_values": 28.953,
+          "mean_photo_code_value": 74.427
+        }
+      ]
+    },
+    {
+      "orientation": "horizontal",
+      "source_run_width_px": 2,
+      "source_patch_width_and_height_px": 80,
+      "expected_source_cycles": 20.0,
+      "measurements": [
+        {
+          "photo_sampling_box_exclusive": [
+            1130,
+            2585,
+            1190,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 19.85,
+          "spectral_half_amplitude_photo_code_values": 58.202,
+          "mean_photo_code_value": 76.528
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            1300,
+            2585,
+            1360,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 19.87,
+          "spectral_half_amplitude_photo_code_values": 58.093,
+          "mean_photo_code_value": 75.787
+        },
+        {
+          "photo_sampling_box_exclusive": [
+            1480,
+            2585,
+            1540,
+            3242
+          ],
+          "dominant_cycles_per_approximate_patch": 19.87,
+          "spectral_half_amplitude_photo_code_values": 58.84,
+          "mean_photo_code_value": 75.867
+        }
+      ]
+    }
+  ]
+}

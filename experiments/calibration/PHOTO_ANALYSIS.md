@@ -13,6 +13,12 @@ Original photographs and local inspection figures remain in ignored
 photo hashes, reproducible geometry calculations, and these qualified findings.
 Camera/location metadata is not included.
 
+**Follow-up:** four [closer photographs](CLOSEUP_ANALYSIS.md) now reveal faint
+one-pixel vertical structure at approximately the expected period. The original
+wide-view impression of an almost solid patch should be read as low captured
+contrast, not proof that the pattern was erased. Geometry estimates below are
+unchanged; the close-ups add detail rather than independent whole-sheet geometry.
+
 ## Geometry: real content loss near the paper edges
 
 Both photographs retain the four reference crosses and center cross. Several
@@ -111,10 +117,12 @@ make actual prints worse. Color management is a separate experiment from geometr
 
 ## Most useful next evidence: recapture this sheet
 
-No additional print is required. In descending order of immediate value:
+No additional print is required. Close-ups have now been supplied and analyzed
+in [the follow-up](CLOSEUP_ANALYSIS.md). The controlled capture rotation and
+physical-scale measurements below remain outstanding:
 
-1. Capture close-ups of the one- and two-pixel bar patches with the sheet flat,
-   even diffuse light, and sharp focus. Rotate the **sheet** 90 degrees while
+1. For a controlled follow-up to the close-ups, keep the sheet flat with even
+   diffuse light and sharp focus. Rotate the **sheet** 90 degrees while
    keeping the camera orientation and capture conditions as similar as possible.
    This exchanges the printed axes relative to the sensor; digital image rotation
    after capture cannot provide this control. Preserve full-resolution originals.
