@@ -1,5 +1,9 @@
 # Select print transaction: offline trace and driver implications
 
+This document preserves the pre-print analysis. A later explicitly authorized
+[CAL-02 first print](experiments/calibration/FIRST_PRINT.md) validates one upload
+and job lifecycle on the physical Select, without the conditional resume commands.
+
 2026-10-22. Scope: Android Sprocket 3.0.2921.1 / 74251, Select/GRAND_BAHAMA's
 HPLPP path. This is a static end-to-end trace of app behavior, supplemented by
 execution of original serializers and transfer bookkeeping on synthetic data.

@@ -3,9 +3,10 @@
 The current revision is [SELECT-CAL-02](REVISION_2.md), with images and a separately
 authorized one-sheet experiment. This document retains CAL-01 history.
 
-Prepared 2026-10-22. **Nothing in this package sends data to a printer.** No
-physical printing has been authorized or performed. The purpose is to make a
-future single-sheet experiment reviewable and reproducible before spending paper.
+Prepared 2026-10-22 as an offline-only package. CAL-01 was not sent to a printer.
+The later CAL-02 experiment has separate explicit permission for one physical
+sheet; see its revision and outcome documents. The purpose of this retained
+package was to make a future single-sheet experiment reviewable and reproducible.
 
 ## Practical value versus curiosity
 

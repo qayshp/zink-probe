@@ -1,0 +1,364 @@
+{
+  "date_utc": "2026-10-22",
+  "job_id": 12,
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "payload_bytes": 117204,
+  "copies": 1,
+  "opcode_counts": {
+    "0a": 1,
+    "24": 1,
+    "04": 13,
+    "1a": 10,
+    "08": 32,
+    "2c": 32,
+    "2a": 1,
+    "28": 1,
+    "3a": 6,
+    "0c": 1,
+    "30": 1,
+    "0e": 118
+  },
+  "upload_seconds": 3.805444125086069,
+  "chunks": 118,
+  "last_chunk_payload": 438,
+  "all_upload_ack_offsets_verified": true,
+  "first_printing_observation_seconds": 5.962229167111218,
+  "last_printing_observation_seconds": 60.66102179209702,
+  "first_idle_after_print_seconds": 62.75591225014068,
+  "page_counter_before": 10,
+  "page_counter_after": 11,
+  "calibration_counter_before": 2,
+  "calibration_counter_after": 2,
+  "configuration_unchanged": true,
+  "print_progress_values": [
+    0
+  ],
+  "battery_status_values": [
+    1,
+    2
+  ],
+  "target_events": [
+    {
+      "time": "2026-10-22T09:00:12.968980+00:00",
+      "hex": "0308000c00"
+    },
+    {
+      "time": "2026-10-22T09:00:15.033883+00:00",
+      "hex": "03010007"
+    },
+    {
+      "time": "2026-10-22T09:01:11.814409+00:00",
+      "hex": "0306000c00"
+    },
+    {
+      "time": "2026-10-22T09:01:11.814560+00:00",
+      "hex": "03010001"
+    }
+  ],
+  "samples": [
+    {
+      "elapsed": 3.881,
+      "print_status": "idle",
+      "system_flags": 0,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 5.962,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 8.072,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 10.153,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 12.236,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 14.373,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 16.458,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 18.553,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 20.676,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 22.81,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 24.948,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 27.042,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 29.123,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 31.219,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 33.311,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 35.431,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 37.525,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 39.631,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 41.717,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 43.844,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 45.931,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 48.012,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 50.136,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 52.218,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 54.293,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 56.367,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 58.447,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 60.661,
+      "print_status": "printing",
+      "system_flags": 4,
+      "battery_percent": 100,
+      "battery_status": "in_use",
+      "jobs": [
+        12
+      ]
+    },
+    {
+      "elapsed": 62.756,
+      "print_status": "idle",
+      "system_flags": 0,
+      "battery_percent": 100,
+      "battery_status": "charging",
+      "jobs": []
+    },
+    {
+      "elapsed": 64.836,
+      "print_status": "idle",
+      "system_flags": 0,
+      "battery_percent": 98,
+      "battery_status": "charging",
+      "jobs": []
+    },
+    {
+      "elapsed": 66.956,
+      "print_status": "idle",
+      "system_flags": 0,
+      "battery_percent": 98,
+      "battery_status": "charging",
+      "jobs": []
+    }
+  ]
+}

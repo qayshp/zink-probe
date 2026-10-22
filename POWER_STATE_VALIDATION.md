@@ -107,3 +107,11 @@ Private evidence: `replugged-20261022.json` (failed attempt),
 `20261022T080539.964858Z-probe.jsonl` and
 `20261022T080631.213065Z-probe.jsonl`. No additional unplugging is needed for this
 comparison; the printer was left connected to its charger.
+
+## Later print-state observation
+
+The [authorized CAL-02 print](experiments/calibration/FIRST_PRINT.md) reported
+charging → in_use during printing → charging afterward. Charger continuity is
+pending operator confirmation. The earlier unplug/replug result validates those
+idle conditions; it does not establish battery status as a universal USB-presence
+indicator or a measurement of charging current.

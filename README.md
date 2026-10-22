@@ -2,7 +2,9 @@
 
 Milestone 1: **read-only macOS Python diagnostics** for the **HP Sprocket Select**
 over BLE and Bluetooth Classic RFCOMM, plus an explicit, bounded settings test.
-No printing is implemented. Ordinary `discover` and `probe` sessions remain read-only.
+Ordinary `discover` and `probe` sessions remain read-only. A separate, hash-pinned
+[CAL-02 first-sheet experiment](experiments/calibration/REVISION_2.md) implements
+one explicitly authorized print attempt; this is not yet a general print driver.
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
@@ -286,3 +288,7 @@ The revised [SELECT-CAL-02 chart and images](experiments/calibration/REVISION_2.
 add crop-depth gauges, repeated controls, slanted edges, and tonal/detail tests.
 A separate hash-pinned first-sheet experiment has explicit one-print authorization;
 ordinary diagnostic sessions retain their default read-only policy.
+
+The [first authorized physical print](experiments/calibration/FIRST_PRINT.md)
+accepted the pinned CAL-02 JPEG and reported one completed page. It also exposed
+unreliable progress percentages and candidate job/status event payloads.

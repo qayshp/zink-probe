@@ -91,3 +91,11 @@ rejected starts, persistent attempt exclusion, pinned payload, preflight refusal
 and continued rejection of printing/resume by ordinary probe sessions. All 314
 existing probe tests also passed. Private device identities and full frames stay
 under ignored logs. Actual physical outcome is recorded separately after execution.
+
+## Execution outcome
+
+The authorized attempt has now run. The Select accepted job 12 and reported one
+additional printed page (10→11), no calibration cycle, unchanged configuration,
+and return to idle/empty. See [FIRST_PRINT.md](FIRST_PRINT.md) for timings, trace
+audit, newly observed target events, and the distinction between protocol evidence
+and pending operator inspection. The persistent one-attempt record remains in place.
