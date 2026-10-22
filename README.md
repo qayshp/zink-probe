@@ -271,3 +271,7 @@ experiment, measured JPEG output, and PhotoFix pointer-tagging findings.
 
 See [EDITOR_PIPELINE.md](EDITOR_PIPELINE.md) for offline measurements of upstream
 rotation, fit/fill, crop, white borders, and intermediate image encoding.
+
+See [PYTHON_IMAGE_PREPARATION.md](PYTHON_IMAGE_PREPARATION.md) for the independent
+offline Python raster/JPEG preparation experiment, Android comparisons, and
+remaining PhotoFix/editor differences. It writes local images only.

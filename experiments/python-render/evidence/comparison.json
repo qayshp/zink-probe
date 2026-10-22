@@ -1,0 +1,3430 @@
+{
+  "scope": "Offline prepared-bitmap render and captured editor-matrix replay; no PhotoFix",
+  "android_apk_version": "3.0.2921.1 / 74251",
+  "python": "3.14.8",
+  "pillow": "13.0.0",
+  "numpy": "2.5.4",
+  "libjpeg_turbo": "3.2.0",
+  "render_cases": [
+    {
+      "run": "full-default",
+      "case": "override-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "override-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-lanczos-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "full-default",
+      "case": "file-matrix-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "27aafc377fc5d515535d00f211111ff2bd679100f185cfea5c57b56919106d01",
+      "android_jpeg_sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 5.160868,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76411,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.24387,
+        "maximum_channel_error": 36,
+        "changed_pixel_percent": 99.720934,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 49206,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "69f89cf909d770bb2e92fbcd9383e1bd5bd5ff45551b283377b4e944d4fa2181",
+      "android_jpeg_sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 7.870066,
+        "maximum_channel_error": 38,
+        "changed_pixel_percent": 99.850916,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 7.894295,
+        "maximum_channel_error": 40,
+        "changed_pixel_percent": 99.763206,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 40598,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "4de975ee3fa35a72c13567257a3f7b1d7ed0526c11a5b55c318bbab2eb07b2bf",
+      "android_jpeg_sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 4.149965,
+        "maximum_channel_error": 25,
+        "changed_pixel_percent": 99.378798,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 4.275484,
+        "maximum_channel_error": 24,
+        "changed_pixel_percent": 99.233896,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 51800,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "e340ede09078e2d47456f13f2cd7fc09dfce9ecc91f7b2135eab3704c8428c60",
+      "android_jpeg_sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.562783,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 77.02422,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.95237,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 79.032163,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 45177,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "c0f9b595b873968ee86549857c75640e0bb69f5e6ee7c1cb97191921601be078",
+      "android_jpeg_sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.541763,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 81.057739,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 1.015963,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 82.111613,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 70450,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "override-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "59a659532751ebf6a3b595f61240a2decfe1b5684dfd90b260540fe266696774",
+      "android_jpeg_sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 5.153487,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76072,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.236127,
+        "maximum_channel_error": 37,
+        "changed_pixel_percent": 99.721725,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 49641,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "27aafc377fc5d515535d00f211111ff2bd679100f185cfea5c57b56919106d01",
+      "android_jpeg_sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 5.160868,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76411,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.24387,
+        "maximum_channel_error": 36,
+        "changed_pixel_percent": 99.720934,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 49206,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "69f89cf909d770bb2e92fbcd9383e1bd5bd5ff45551b283377b4e944d4fa2181",
+      "android_jpeg_sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 7.870066,
+        "maximum_channel_error": 38,
+        "changed_pixel_percent": 99.850916,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 7.894295,
+        "maximum_channel_error": 40,
+        "changed_pixel_percent": 99.763206,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 40598,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "4de975ee3fa35a72c13567257a3f7b1d7ed0526c11a5b55c318bbab2eb07b2bf",
+      "android_jpeg_sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 4.149965,
+        "maximum_channel_error": 25,
+        "changed_pixel_percent": 99.378798,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 4.275484,
+        "maximum_channel_error": 24,
+        "changed_pixel_percent": 99.233896,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 51800,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "e340ede09078e2d47456f13f2cd7fc09dfce9ecc91f7b2135eab3704c8428c60",
+      "android_jpeg_sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.562783,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 77.02422,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.95237,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 79.032163,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 45177,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "c0f9b595b873968ee86549857c75640e0bb69f5e6ee7c1cb97191921601be078",
+      "android_jpeg_sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.541763,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 81.057739,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 1.015963,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 82.111613,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 70450,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-lanczos-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "59a659532751ebf6a3b595f61240a2decfe1b5684dfd90b260540fe266696774",
+      "android_jpeg_sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 5.153487,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76072,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.236127,
+        "maximum_channel_error": 37,
+        "changed_pixel_percent": 99.721725,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 49641,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-768x1152-plain",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_jpeg_sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 42309,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-768x1152-photofix",
+      "input_sha256": "cf977fee137f8756f21fe8a3c83dcab8b2b3d6c90530d3d1c4ae403022b98dd8",
+      "android_png_sha256": "27aafc377fc5d515535d00f211111ff2bd679100f185cfea5c57b56919106d01",
+      "android_jpeg_sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6",
+      "python_jpeg_sha256": "97cc6778204311114bb1006dbb5e1723b55e141cc60f7caef1759779409f134f",
+      "raster": {
+        "mean_absolute_channel_error": 5.160868,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76411,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.24387,
+        "maximum_channel_error": 36,
+        "changed_pixel_percent": 99.720934,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 41835,
+      "android_jpeg_bytes": 49206,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1200x1200-plain",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "545c05f1c9db14a36de475cdc445c24b6f6fdb91124c8e9ccae9aedbc9f2edf7",
+      "android_jpeg_sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 0.008128,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 0.173611,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.032464,
+        "maximum_channel_error": 11,
+        "changed_pixel_percent": 2.099496,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 34541,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1200x1200-photofix",
+      "input_sha256": "f2d6231c3731ab187e37b1406205b05b2020efb5a2ac25214f43b906cdf6831c",
+      "android_png_sha256": "69f89cf909d770bb2e92fbcd9383e1bd5bd5ff45551b283377b4e944d4fa2181",
+      "android_jpeg_sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c",
+      "python_jpeg_sha256": "09a106025052d2131d0ca21007747e96bf27f81ee35b4ff3fc158cf1974e3789",
+      "raster": {
+        "mean_absolute_channel_error": 7.870066,
+        "maximum_channel_error": 38,
+        "changed_pixel_percent": 99.850916,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 7.894295,
+        "maximum_channel_error": 40,
+        "changed_pixel_percent": 99.763206,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 34161,
+      "android_jpeg_bytes": 40598,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1600x900-plain",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "417c2c006bdad1bec3a477f846ac44a9141ee0ca897ac01afe2b988a4e6881c0",
+      "android_jpeg_sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 0.055301,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 2.956475,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.261212,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 24.916924,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 47571,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1600x900-photofix",
+      "input_sha256": "98915c82b2ebd3563989a830d7a35bec4b5631503e26bb8b568669803f86fda3",
+      "android_png_sha256": "4de975ee3fa35a72c13567257a3f7b1d7ed0526c11a5b55c318bbab2eb07b2bf",
+      "android_jpeg_sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2",
+      "python_jpeg_sha256": "aa44d03ea0b9c9e2d3d3297aa74d2c0d58331e3b88282aa8c0644828cff4aef0",
+      "raster": {
+        "mean_absolute_channel_error": 4.149965,
+        "maximum_channel_error": 25,
+        "changed_pixel_percent": 99.378798,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 4.275484,
+        "maximum_channel_error": 24,
+        "changed_pixel_percent": 99.233896,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 47775,
+      "android_jpeg_bytes": 51800,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-600x1800-plain",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "a06848927219b6f40463df1e0497c47340712f87919e0a063a56866ea9a9bcb5",
+      "android_jpeg_sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.085432,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 4.380968,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.36351,
+        "maximum_channel_error": 12,
+        "changed_pixel_percent": 33.69751,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 43620,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-600x1800-photofix",
+      "input_sha256": "5a123a70676f47177435076eec888cb03a5388de5ba4e01fa598431bfa2b2a4a",
+      "android_png_sha256": "e340ede09078e2d47456f13f2cd7fc09dfce9ecc91f7b2135eab3704c8428c60",
+      "android_jpeg_sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5",
+      "python_jpeg_sha256": "6329a74eb558f594f02f4c914b4767a2e1f53b2f22f9ec9034ca6ea5f12374ce",
+      "raster": {
+        "mean_absolute_channel_error": 0.562783,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 77.02422,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.95237,
+        "maximum_channel_error": 16,
+        "changed_pixel_percent": 79.032163,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 44736,
+      "android_jpeg_bytes": 45177,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-96x144-plain",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "4ec6f98f36ca1e4c84bedd88774f1bd95a42a2a80d4d0a8d38a679db3f7ef29a",
+      "android_jpeg_sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 68100,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-96x144-photofix",
+      "input_sha256": "0bcfe7cdb66b0396db822cb13c114b316861b00fb3e085fb881d715a9df42701",
+      "android_png_sha256": "c0f9b595b873968ee86549857c75640e0bb69f5e6ee7c1cb97191921601be078",
+      "android_jpeg_sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc",
+      "python_jpeg_sha256": "027353203fcfd24978e0eaf287d54e96ef36f6703957e97e2e14d35eaa67be4a",
+      "raster": {
+        "mean_absolute_channel_error": 0.541763,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 81.057739,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 1.015963,
+        "maximum_channel_error": 13,
+        "changed_pixel_percent": 82.111613,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 67626,
+      "android_jpeg_bytes": 70450,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1536x2304-plain",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "45231a515209441a8e0f3c5dfa7a9f9efee62aae3cd51d6af18cc361b0b481bd",
+      "android_jpeg_sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": true,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 42746,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    },
+    {
+      "run": "no-pointer-tags",
+      "case": "file-matrix-1536x2304-photofix",
+      "input_sha256": "fec2f30c5aa5ad8d96572cc414990d9d9172a8bea6fd889a209090792cb916d7",
+      "android_png_sha256": "59a659532751ebf6a3b595f61240a2decfe1b5684dfd90b260540fe266696774",
+      "android_jpeg_sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9",
+      "python_jpeg_sha256": "a5abf9acef4dd9a9066d8d05aece5ae5cbe2773a165269f09dd7d25fdf927614",
+      "raster": {
+        "mean_absolute_channel_error": 5.153487,
+        "maximum_channel_error": 33,
+        "changed_pixel_percent": 99.76072,
+        "pixel_exact": false
+      },
+      "decoded_jpeg": {
+        "mean_absolute_channel_error": 5.236127,
+        "maximum_channel_error": 37,
+        "changed_pixel_percent": 99.721725,
+        "pixel_exact": false
+      },
+      "jpeg_byte_exact": false,
+      "jpeg_exact_except_icc": false,
+      "python_jpeg_bytes": 42272,
+      "android_jpeg_bytes": 49641,
+      "quantization_tables_equal": true,
+      "python_sampling": 2,
+      "android_sampling": 2,
+      "python_icc_bytes": 0,
+      "android_icc_bytes": 456
+    }
+  ],
+  "editor_cases": [
+    {
+      "case": "1200x1800-exif1-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-zoom-half",
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        450,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "7040bd482eaaf36d36ff185419b8fd1d271c78e74bb86692e52a3a6a65ca133d",
+      "android_final_sha256": "31df0c44a0d0bd388ed52a1e30b287421c5acee484849346f252f72418522836",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.001364,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.155556,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007711,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.869299,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007122,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.797187,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-zoom-double",
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -900,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "5ee7d521eb34c7371ea4a56d20991a53e7166f81a5fd0979ffba826948ea688c",
+      "android_final_sha256": "14f08b92abe6f7785fc99d704e67197756b55f579e795d90c99fa3389a8aa000",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.008901,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.081574,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.012879,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.895029,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007759,
+        "maximum_channel_error": 3,
+        "changed_pixel_percent": 1.378038,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-rotate90",
+      "matrix": [
+        0,
+        -1,
+        1500,
+        1,
+        0,
+        300,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "53d62c385ea63a241c14a0db62e44d4c3c6e82038d71cc6f2d1407aae170ee40",
+      "android_final_sha256": "56f259c83dd86c52c88c203e5e2118fcc6f453afb5a81ee57c1d09c43b26d453",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007718,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.168936,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007718,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.168936,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-pan-right",
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "453f075318a9895ed8f5996334e6111b8b8e2328bc187f6469e04d7b93f5fb27",
+      "android_final_sha256": "a37064904a218553dfba2c1c085b856449ee5887bec041beed45297d392df7f7",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.010243,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.4046,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.010243,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.4046,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "87ddcea60f2cc860d7e323bf1d9d6971f6497c8c2edffd8575ab3af7c5327999",
+      "android_final_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-zoom-half",
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        450,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "cac027f122a1d20f8a3febd1f6453e744a76181ce2b68e2bd17f366473b25ddc",
+      "android_final_sha256": "9cc6525fe9b2e91bf3532aff44b04f432606f0044ea66fc8b3c46a10a40d1e44",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.001605,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.207176,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00797,
+        "maximum_channel_error": 7,
+        "changed_pixel_percent": 0.935081,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007381,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.895295,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-zoom-double",
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -900,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "bba0b8c9a78c1378c331ee48d1bd0492ff9272f893d36d2e8f068e7e18fefe76",
+      "android_final_sha256": "e9ff5905b104d6704a392b9361553243ba05d770110180d863ae72006f540241",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.00741,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.885556,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.012612,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.769228,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007526,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 1.328871,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-rotate90",
+      "matrix": [
+        0,
+        -1,
+        1500,
+        1,
+        0,
+        300,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "6fd0d9f75f3917629f703ebca65b9a5e6c6080dffd736b84a2ce74ebdb0d2be1",
+      "android_final_sha256": "6184925903f88a0722924e872d92290fba59d247e7c2d51d01c2178c99bd171d",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00912,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.364249,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.00912,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.364249,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-pan-right",
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "3f2c403881ac8cebe7cdf91a69be637475d414d327b67fd163a9461acf721660",
+      "android_final_sha256": "297ed6371168c72d6bcf37c6d937fc8eee7b0a26582a5ad5289c84b923ed9ecc",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007058,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.234832,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007058,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.234832,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "e187168d1e93b8be3f82119ca9f1eab455741fd5e52cb69a56b94d9ef593525a",
+      "android_final_sha256": "8d30dabf5f03b0a0554a758bc36a8020478fb560c729a07b6054b12e4a25f7c5",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00728,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.981649,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.00728,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.981649,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-zoom-half",
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        300,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "dc682f7a39e1bf945a53082c5a78c2872c202e26ebef8dabd4e21158b62bbbce",
+      "android_final_sha256": "0173f0cc44bb1c5f77da2c91ef8a003198d9657cf4dacb7617195b7cac575925",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.002001,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.239097,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00953,
+        "maximum_channel_error": 7,
+        "changed_pixel_percent": 1.175718,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007886,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.941524,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-zoom-double",
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -600,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "af2713887ca3dbf105b5444baedaab4731b66c5ec3ae273e3135bdc456a49fe5",
+      "android_final_sha256": "f6a0346c8b6d87c2d7d5b340e442a349c23894f64d416a19d22c4df70eb71418",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.009942,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.145069,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.015347,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 2.244059,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.006948,
+        "maximum_channel_error": 3,
+        "changed_pixel_percent": 1.164867,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-rotate90",
+      "matrix": [
+        0,
+        -1,
+        1200,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "ecfead2958f5aac078a35f5d30f72cb442d0b7be791be8bfc765d1a7f8e8f265",
+      "android_final_sha256": "c9a1f97838f0744fc2697d89571a01b26c83716c5f27dc7131e6cd868c3f988c",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.005996,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.806568,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.005996,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.806568,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-pan-right",
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "be62254c6dd833830d1a74bd600cede21e8ce38b0419049b35358307387ff8e8",
+      "android_final_sha256": "de77ac8f5640cd3411a930551b7ecd87009317b374cca1dae26b2ec8f8ea7e14",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.009673,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 1.277782,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.009673,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 1.277782,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "96x144-exif1-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "7bcb251be5d666cf2974df7a918dc7ba308dcd2ae895c1aeb17fffe20f1905d9",
+      "android_edited_sha256": "f55ccd6d76280f417b363b7508158da0704504e2ce5dc5ddb7c1c6a6773f8f86",
+      "android_final_sha256": "46e37b48d91cf1276900b3d7a36c3c71636a32e62d6b53ef97f52cb9623d5023",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.010579,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.270508,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.010579,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.270508,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "96x144-exif1-zoom-half",
+      "matrix": [
+        0.5,
+        0,
+        250,
+        0,
+        0.5,
+        375,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "7bcb251be5d666cf2974df7a918dc7ba308dcd2ae895c1aeb17fffe20f1905d9",
+      "android_edited_sha256": "59b0e96eb80e19d419ae5fa692f2c34f23d45295745bcda25315f6eda68e306e",
+      "android_final_sha256": "de7a0a7d3c71791d1068c8607e1652960409fc15135810ced56eaebbeb7907b6",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.007957,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.885667,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.013521,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 2.141656,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008986,
+        "maximum_channel_error": 3,
+        "changed_pixel_percent": 1.564195,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "96x144-exif1-zoom-double",
+      "matrix": [
+        2,
+        0,
+        -500,
+        0,
+        2,
+        -750,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "7bcb251be5d666cf2974df7a918dc7ba308dcd2ae895c1aeb17fffe20f1905d9",
+      "android_edited_sha256": "4f222f62532504e889bf675c099f31e20b40382c213caeed084d330241016945",
+      "android_final_sha256": "6739c7f319a424072e6c3c2aeaa51d7a00c83cfc0a723cafd61edb7fad117ff0",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.060407,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 6.390933,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.051236,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 8.340228,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.009552,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 2.662941,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "96x144-exif1-rotate90",
+      "matrix": [
+        0,
+        -1,
+        1250,
+        1,
+        0,
+        250,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "7bcb251be5d666cf2974df7a918dc7ba308dcd2ae895c1aeb17fffe20f1905d9",
+      "android_edited_sha256": "576539fa7aa329f6ecc73a61136dffb56ecc8326483e5f7e85711c3c550a5449",
+      "android_final_sha256": "5fda398826b46f9c38011a2f153623d88375cf892cb674b76cb140e26546df4f",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00994,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.029532,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.00994,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.029532,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "96x144-exif1-pan-right",
+      "matrix": [
+        1,
+        0,
+        250,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "7bcb251be5d666cf2974df7a918dc7ba308dcd2ae895c1aeb17fffe20f1905d9",
+      "android_edited_sha256": "4bb08e70eccc6c1c0775d6525b4a76a0fa173470cbe55ead3f092b820500fac2",
+      "android_final_sha256": "0cf1ff0ed4781a23a6beadf395752a28284b60b511e698755748e620c2c730a3",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.010324,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.373363,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.010324,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 2.373363,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1024x1536-exif1-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "cdbba74bd6553e5aa34b3ba32805d1bcda881c3be7581768f670c3efbd7b4d64",
+      "android_edited_sha256": "8b4c5d08d0e006992e56a54aaa6006aa7a7e04f6666e7a7da64597c08b6a0b47",
+      "android_final_sha256": "72cd59e064611d7e7d8a5da2ca5dd58dbbda15b63d5cefba72ac9ab2de7c0722",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.005564,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.881958,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.005564,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.881958,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1024x1536-exif1-zoom-half",
+      "matrix": [
+        0.5,
+        0,
+        256,
+        0,
+        0.5,
+        384,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "cdbba74bd6553e5aa34b3ba32805d1bcda881c3be7581768f670c3efbd7b4d64",
+      "android_edited_sha256": "c2e0eb2272011f03da73865a33073e7d73f49e99da5fd3882ff84b80bfc3a266",
+      "android_final_sha256": "55463e9ae6ee3e97b7ad435948216669f77baf8abb050a6a9312fefc6922379c",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.001692,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.19385,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.006826,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.772208,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.005849,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.65059,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1024x1536-exif1-zoom-double",
+      "matrix": [
+        2,
+        0,
+        -512,
+        0,
+        2,
+        -768,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "cdbba74bd6553e5aa34b3ba32805d1bcda881c3be7581768f670c3efbd7b4d64",
+      "android_edited_sha256": "c36d900b05a8811882691c37e79b9b9149556d5cbe5519d9f8e622300be96947",
+      "android_final_sha256": "6109fe3ba844a26f227df61c6e8c0b93d6ae6b7952946646ed25581052bbcb6b",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.009658,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.096217,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.011504,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.644332,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.005591,
+        "maximum_channel_error": 3,
+        "changed_pixel_percent": 0.803856,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1024x1536-exif1-rotate90",
+      "matrix": [
+        0,
+        -1,
+        1280,
+        1,
+        0,
+        256,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "cdbba74bd6553e5aa34b3ba32805d1bcda881c3be7581768f670c3efbd7b4d64",
+      "android_edited_sha256": "9f6cb576779f715fdb4cc466f989cc31317782a7e15d5b5cb37f63e6efee9d78",
+      "android_final_sha256": "71e836334fad260955cc762ef9d3d4c6c318753d24e154a4adc29bb808040e5e",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00544,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.722701,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.00544,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.722701,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1024x1536-exif1-pan-right",
+      "matrix": [
+        1,
+        0,
+        256,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "cdbba74bd6553e5aa34b3ba32805d1bcda881c3be7581768f670c3efbd7b4d64",
+      "android_edited_sha256": "ed3c690d8472e170abde50a82a9b9234047846e389bc39085032f92e1b26f25d",
+      "android_final_sha256": "aa6bfd39c67aacf9a80480a7c82f78da59f3c5832301d166930bbbd0f52a379f",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007043,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.958139,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007043,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 0.958139,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-fit-once",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif1-fit-twice",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-fit-once",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "87ddcea60f2cc860d7e323bf1d9d6971f6497c8c2edffd8575ab3af7c5327999",
+      "android_final_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1800x1200-exif1-fit-twice",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "525dd842677da24019e867bbd5e751a3829d800362d5228c659932b7788c52c3",
+      "android_edited_sha256": "87ddcea60f2cc860d7e323bf1d9d6971f6497c8c2edffd8575ab3af7c5327999",
+      "android_final_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008883,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 1.532661,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-fit-once",
+      "matrix": [
+        0.6666666865348816,
+        0,
+        200,
+        0,
+        0.6666666865348816,
+        200,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "e84461cdbbaa72c357a6c5bcb37fd79e366a23b53e8cafd18b5e0abe581707e1",
+      "android_final_sha256": "417ee3b10172eeb04aa4d4d294b01536a23fb094a24d52e6fec70f4225018f29",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.004931,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 0.571875,
+        "pixel_exact": false
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.014327,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 1.791721,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.010063,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 1.259585,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1200-exif1-fit-twice",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "9f11cc8ec87fecf84a0f8b26cc7db1a5a6783565b3a9790da45636122db97b31",
+      "android_edited_sha256": "e187168d1e93b8be3f82119ca9f1eab455741fd5e52cb69a56b94d9ef593525a",
+      "android_final_sha256": "8d30dabf5f03b0a0554a758bc36a8020478fb560c729a07b6054b12e4a25f7c5",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.00728,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.981649,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.00728,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 0.981649,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif2-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif3-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "ccc009d371d0bfc8fb902d1942c5481284814802a418ef7154554a017e53a8ce",
+      "android_edited_sha256": "c17694c6675a6f4bebfe1131ead2aa3de2227168f92ca02cf8318e60e51c1ed0",
+      "android_final_sha256": "4a91d5e29b256ce27981bc803d07e3915dfdc02e96e1f6e4c1484134192efc60",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007924,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.197871,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007924,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.197871,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif4-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif5-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif6-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "ccc009d371d0bfc8fb902d1942c5481284814802a418ef7154554a017e53a8ce",
+      "android_edited_sha256": "c17694c6675a6f4bebfe1131ead2aa3de2227168f92ca02cf8318e60e51c1ed0",
+      "android_final_sha256": "4a91d5e29b256ce27981bc803d07e3915dfdc02e96e1f6e4c1484134192efc60",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.007924,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.197871,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.007924,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.197871,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif7-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    },
+    {
+      "case": "1200x1800-exif8-identity",
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "measured_input_sha256": "73ad1e938d83a07b7ac209a2f8bb7b16695f942c2a836b0c61af37be3c3c2ce0",
+      "android_edited_sha256": "9dd037c990d3956a86d50ef042f6cba6ae278b58a12d7983a1012ca4bc7a1c28",
+      "android_final_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75",
+      "edited_jpeg_decoded": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_edit_then_final": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      },
+      "final_from_android_edited_bitmap": {
+        "mean_absolute_channel_error": 0.008853,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 1.263541,
+        "pixel_exact": false
+      }
+    }
+  ]
+}

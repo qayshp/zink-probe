@@ -1,0 +1,3 @@
+# Versions used for the committed comparison; install in a separate environment.
+Pillow==13.0.0
+numpy==2.5.4
