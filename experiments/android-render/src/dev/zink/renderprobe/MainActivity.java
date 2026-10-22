@@ -79,6 +79,7 @@ public final class MainActivity extends Activity {
         Context vc=createPackageContext("com.hp.impulse.sprocket",Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);
         vendor=vc.getClassLoader();
         note("LOADER "+vendor);
+        if(getIntent().getBooleanExtra("editorOnly",false)) { EditorExperiment.run(this,vendor,out); return; }
         Class<?> options=type("com.hp.impulselib.device.SprocketDevice$Options");
         Object opts=options.getConstructor(type("com.hp.impulselib.bt.SprocketBluetoothDevice")).newInstance(new Object[]{null});
         Object device=type("com.hp.impulselib.device.GrandBahamaDevice").getConstructor(options).newInstance(opts);

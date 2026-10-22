@@ -1,0 +1,1990 @@
+{
+  "vendor_version": "3.0.2921.1",
+  "viewport": [
+    400,
+    600
+  ],
+  "photofix_skipped": true,
+  "physical_device_connected": false,
+  "case_count": 38,
+  "cases": [
+    {
+      "case": "1200x1800-exif1-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif1-zoom-half",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        450,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 74.8372,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34055,
+      "final_png_sha256": "31df0c44a0d0bd388ed52a1e30b287421c5acee484849346f252f72418522836"
+    },
+    {
+      "case": "1200x1800-exif1-zoom-double",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -900,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 32636,
+      "final_png_sha256": "14f08b92abe6f7785fc99d704e67197756b55f579e795d90c99fa3389a8aa000"
+    },
+    {
+      "case": "1200x1800-exif1-rotate90",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        0,
+        -1,
+        1500,
+        1,
+        0,
+        300,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 33.2031,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 28119,
+      "final_png_sha256": "56f259c83dd86c52c88c203e5e2118fcc6f453afb5a81ee57c1d09c43b26d453"
+    },
+    {
+      "case": "1200x1800-exif1-pan-right",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 24.9349,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 40204,
+      "final_png_sha256": "a37064904a218553dfba2c1c085b856449ee5887bec041beed45297d392df7f7"
+    },
+    {
+      "case": "1800x1200-exif1-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 42354,
+      "final_png_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298"
+    },
+    {
+      "case": "1800x1200-exif1-zoom-half",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        450,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 74.8372,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 37662,
+      "final_png_sha256": "9cc6525fe9b2e91bf3532aff44b04f432606f0044ea66fc8b3c46a10a40d1e44"
+    },
+    {
+      "case": "1800x1200-exif1-zoom-double",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -900,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 29759,
+      "final_png_sha256": "e9ff5905b104d6704a392b9361553243ba05d770110180d863ae72006f540241"
+    },
+    {
+      "case": "1800x1200-exif1-rotate90",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        0,
+        -1,
+        1500,
+        1,
+        0,
+        300,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 33.2031,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          254,
+          0,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 40893,
+      "final_png_sha256": "6184925903f88a0722924e872d92290fba59d247e7c2d51d01c2178c99bd171d"
+    },
+    {
+      "case": "1800x1200-exif1-pan-right",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 24.9349,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 27241,
+      "final_png_sha256": "297ed6371168c72d6bcf37c6d937fc8eee7b0a26582a5ad5289c84b923ed9ecc"
+    },
+    {
+      "case": "1200x1200-exif1-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 28553,
+      "final_png_sha256": "8d30dabf5f03b0a0554a758bc36a8020478fb560c729a07b6054b12e4a25f7c5"
+    },
+    {
+      "case": "1200x1200-exif1-zoom-half",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "matrix": [
+        0.5,
+        0,
+        300,
+        0,
+        0.5,
+        300,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 62.3043,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 26704,
+      "final_png_sha256": "0173f0cc44bb1c5f77da2c91ef8a003198d9657cf4dacb7617195b7cac575925"
+    },
+    {
+      "case": "1200x1200-exif1-zoom-double",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "matrix": [
+        2,
+        0,
+        -600,
+        0,
+        2,
+        -600,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 22912,
+      "final_png_sha256": "f6a0346c8b6d87c2d7d5b340e442a349c23894f64d416a19d22c4df70eb71418"
+    },
+    {
+      "case": "1200x1200-exif1-rotate90",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "matrix": [
+        0,
+        -1,
+        1200,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 28913,
+      "final_png_sha256": "c9a1f97838f0744fc2697d89571a01b26c83716c5f27dc7131e6cd868c3f988c"
+    },
+    {
+      "case": "1200x1200-exif1-pan-right",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "matrix": [
+        1,
+        0,
+        300,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 12.4348,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          0,
+          0,
+          254
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 32041,
+      "final_png_sha256": "de77ac8f5640cd3411a930551b7ecd87009317b374cca1dae26b2ec8f8ea7e14"
+    },
+    {
+      "case": "96x144-exif1-identity",
+      "measuredWidth": 1000,
+      "measuredHeight": 1500,
+      "widthScale": 2.5,
+      "heightScale": 2.5,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1000,
+      "editedHeight": 1500,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 42218,
+      "final_png_sha256": "46e37b48d91cf1276900b3d7a36c3c71636a32e62d6b53ef97f52cb9623d5023"
+    },
+    {
+      "case": "96x144-exif1-zoom-half",
+      "measuredWidth": 1000,
+      "measuredHeight": 1500,
+      "widthScale": 2.5,
+      "heightScale": 2.5,
+      "matrix": [
+        0.5,
+        0,
+        250,
+        0,
+        0.5,
+        375,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1000,
+      "editedHeight": 1500,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 74.7746,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 33209,
+      "final_png_sha256": "de7a0a7d3c71791d1068c8607e1652960409fc15135810ced56eaebbeb7907b6"
+    },
+    {
+      "case": "96x144-exif1-zoom-double",
+      "measuredWidth": 1000,
+      "measuredHeight": 1500,
+      "widthScale": 2.5,
+      "heightScale": 2.5,
+      "matrix": [
+        2,
+        0,
+        -500,
+        0,
+        2,
+        -750,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1000,
+      "editedHeight": 1500,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 58752,
+      "final_png_sha256": "6739c7f319a424072e6c3c2aeaa51d7a00c83cfc0a723cafd61edb7fad117ff0"
+    },
+    {
+      "case": "96x144-exif1-rotate90",
+      "measuredWidth": 1000,
+      "measuredHeight": 1500,
+      "widthScale": 2.5,
+      "heightScale": 2.5,
+      "matrix": [
+        0,
+        -1,
+        1250,
+        1,
+        0,
+        250,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1000,
+      "editedHeight": 1500,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 33.2029,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 36086,
+      "final_png_sha256": "5fda398826b46f9c38011a2f153623d88375cf892cb674b76cb140e26546df4f"
+    },
+    {
+      "case": "96x144-exif1-pan-right",
+      "measuredWidth": 1000,
+      "measuredHeight": 1500,
+      "widthScale": 2.5,
+      "heightScale": 2.5,
+      "matrix": [
+        1,
+        0,
+        250,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1000,
+      "editedHeight": 1500,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 24.9347,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 45277,
+      "final_png_sha256": "0cf1ff0ed4781a23a6beadf395752a28284b60b511e698755748e620c2c730a3"
+    },
+    {
+      "case": "1024x1536-exif1-identity",
+      "measuredWidth": 1024,
+      "measuredHeight": 1536,
+      "widthScale": 2.56,
+      "heightScale": 2.56,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1024,
+      "editedHeight": 1536,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 30358,
+      "final_png_sha256": "72cd59e064611d7e7d8a5da2ca5dd58dbbda15b63d5cefba72ac9ab2de7c0722"
+    },
+    {
+      "case": "1024x1536-exif1-zoom-half",
+      "measuredWidth": 1024,
+      "measuredHeight": 1536,
+      "widthScale": 2.56,
+      "heightScale": 2.56,
+      "matrix": [
+        0.5,
+        0,
+        256,
+        0,
+        0.5,
+        384,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1024,
+      "editedHeight": 1536,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 74.8371,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          255
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 20058,
+      "final_png_sha256": "55463e9ae6ee3e97b7ad435948216669f77baf8abb050a6a9312fefc6922379c"
+    },
+    {
+      "case": "1024x1536-exif1-zoom-double",
+      "measuredWidth": 1024,
+      "measuredHeight": 1536,
+      "widthScale": 2.56,
+      "heightScale": 2.56,
+      "matrix": [
+        2,
+        0,
+        -512,
+        0,
+        2,
+        -768,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1024,
+      "editedHeight": 1536,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 28605,
+      "final_png_sha256": "6109fe3ba844a26f227df61c6e8c0b93d6ae6b7952946646ed25581052bbcb6b"
+    },
+    {
+      "case": "1024x1536-exif1-rotate90",
+      "measuredWidth": 1024,
+      "measuredHeight": 1536,
+      "widthScale": 2.56,
+      "heightScale": 2.56,
+      "matrix": [
+        0,
+        -1,
+        1280,
+        1,
+        0,
+        256,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1024,
+      "editedHeight": 1536,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 33.2031,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 18834,
+      "final_png_sha256": "71e836334fad260955cc762ef9d3d4c6c318753d24e154a4adc29bb808040e5e"
+    },
+    {
+      "case": "1024x1536-exif1-pan-right",
+      "measuredWidth": 1024,
+      "measuredHeight": 1536,
+      "widthScale": 2.56,
+      "heightScale": 2.56,
+      "matrix": [
+        1,
+        0,
+        256,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1024,
+      "editedHeight": 1536,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 24.9349,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          255,
+          255,
+          255
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 29247,
+      "final_png_sha256": "aa6bfd39c67aacf9a80480a7c82f78da59f3c5832301d166930bbbd0f52a379f"
+    },
+    {
+      "case": "1200x1800-exif1-fit-once",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "view": {
+        "matrix": [
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 0
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif1-fit-twice",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "view": {
+        "matrix": [
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onFitAspectRation",
+          "onReset",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 0
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1800x1200-exif1-fit-once",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "view": {
+        "matrix": [
+          0,
+          -0.3333333432674408,
+          400,
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 90
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 42354,
+      "final_png_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298"
+    },
+    {
+      "case": "1800x1200-exif1-fit-twice",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "view": {
+        "matrix": [
+          0,
+          -0.3333333432674408,
+          400,
+          0.3333333432674408,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onFitAspectRation",
+          "onReset",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 90
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 42354,
+      "final_png_sha256": "de4b26033e4973b066f3b54b1c63d42c59c806d5c0ed7c67e478e84187899298"
+    },
+    {
+      "case": "1200x1200-exif1-fit-once",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "view": {
+        "matrix": [
+          0.3333333432674408,
+          0,
+          -1.52587890625e-05,
+          0,
+          0.3333333432674408,
+          100,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onScale",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 0
+      },
+      "matrix": [
+        0.6666666865348816,
+        0,
+        200,
+        0,
+        0.6666666865348816,
+        200,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 33.2031,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 26946,
+      "final_png_sha256": "417ee3b10172eeb04aa4d4d294b01536a23fb094a24d52e6fec70f4225018f29"
+    },
+    {
+      "case": "1200x1200-exif1-fit-twice",
+      "measuredWidth": 1200,
+      "measuredHeight": 1200,
+      "widthScale": 3,
+      "heightScale": 2,
+      "view": {
+        "matrix": [
+          0.5,
+          0,
+          -100,
+          0,
+          0.5,
+          0,
+          0,
+          0,
+          1
+        ],
+        "callbacks": [
+          "onReset",
+          "onScale",
+          "onFitAspectRation",
+          "onReset",
+          "onFitAspectRation"
+        ],
+        "baseRotationHint": 0
+      },
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1200,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 28553,
+      "final_png_sha256": "8d30dabf5f03b0a0554a758bc36a8020478fb560c729a07b6054b12e4a25f7c5"
+    },
+    {
+      "case": "1200x1800-exif2-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif3-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          254,
+          0,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34130,
+      "final_png_sha256": "4a91d5e29b256ce27981bc803d07e3915dfdc02e96e1f6e4c1484134192efc60"
+    },
+    {
+      "case": "1200x1800-exif4-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif5-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif6-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          255,
+          255,
+          0
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          254,
+          0,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34130,
+      "final_png_sha256": "4a91d5e29b256ce27981bc803d07e3915dfdc02e96e1f6e4c1484134192efc60"
+    },
+    {
+      "case": "1200x1800-exif7-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    },
+    {
+      "case": "1200x1800-exif8-identity",
+      "measuredWidth": 1200,
+      "measuredHeight": 1800,
+      "widthScale": 3,
+      "heightScale": 3,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "editedWidth": 1200,
+      "editedHeight": 1800,
+      "editedFileSuffix": ".png",
+      "finalWidth": 768,
+      "finalHeight": 1152,
+      "near_white_pixel_percent": 0.0,
+      "sample_colors_tl_tr_bl_br": [
+        [
+          254,
+          0,
+          0
+        ],
+        [
+          0,
+          255,
+          1
+        ],
+        [
+          0,
+          0,
+          254
+        ],
+        [
+          255,
+          255,
+          0
+        ]
+      ],
+      "intermediate_encoding": "JPEG",
+      "intermediate_bytes": 34429,
+      "final_png_sha256": "4eb814100b902e38bbd0da3b7f4d3aaa9dfacf2f1be27b36937c8bba520dfd75"
+    }
+  ]
+}

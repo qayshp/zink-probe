@@ -94,3 +94,22 @@ physical print compatibility.
 The existing physical-printer probe's allowlist is unchanged. Do not bridge a host
 Bluetooth adapter, instantiate vendor transport clients, or turn this harness into
 a device print experiment without separate authorization.
+
+## Editor-stage experiment
+
+The `--ez editorOnly true` mode executes original preview-model methods, and
+original fit/fill view callbacks, using local asymmetric JPEG fixtures. Run it
+with `--es run editor-fit`; capture `files/results-editor-fit` with `run-as`.
+This produces 38 cases and intentionally skips PhotoFix to isolate geometry.
+It bypasses the offline message serializer and the previous renderer case loop.
+
+After extracting the capture:
+
+```sh
+python experiments/android-render/analyze_editor.py logs/android-runtime/editor-fit/files/results-editor-fit experiments/android-render/evidence
+```
+
+See [EDITOR_PIPELINE.md](../../EDITOR_PIPELINE.md) for the call chain, results,
+and explicit limits on inferring whole-UI behavior. The harness forwards only
+the reset/scale callbacks needed for fit/fill; direct model tests separately
+exercise rotation and translation. It does not synthesize actual touch gestures.

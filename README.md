@@ -268,3 +268,6 @@ support candidates. These notes do not expand the probe’s supported-model list
 
 See [ANDROID_RUNTIME.md](ANDROID_RUNTIME.md) for the isolated original-APK render
 experiment, measured JPEG output, and PhotoFix pointer-tagging findings.
+
+See [EDITOR_PIPELINE.md](EDITOR_PIPELINE.md) for offline measurements of upstream
+rotation, fit/fill, crop, white borders, and intermediate image encoding.

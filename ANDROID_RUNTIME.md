@@ -83,7 +83,7 @@ orientation and lost its sides; this stage did not rotate it to fit.
 | 1200 × 1200 | 768 × 1152 | Center 800 × 1200; 200 pixels removed from each side |
 | 1600 × 900 | 768 × 1152 | Center 600 × 900; 500 pixels removed from each side |
 | 600 × 1800 | 768 × 1152 | Center 600 × 900; 450 pixels removed from top and bottom |
-| 96 × 144 | 768 × 1152 | Entire image, 8× upscaling |
+| 96 × 144 | 768 × 1152 | Entire image, 8× proportional scaling; no padding |
 | 1536 × 2304 | 768 × 1152 | Entire image, 0.5× downscaling |
 
 A debug string saying `cropRect=none(letterbox-fit)` in PreprocessPrintService is
@@ -199,3 +199,10 @@ The result is a reusable offline way to interrogate the vendor implementation.
 The next focused extension could compare the same inputs against the older APK
 or exercise upstream orientation/layout handling. Physical print validation
 remains a separately authorized milestone.
+
+## Follow-up: earlier editor stage
+
+[EDITOR_PIPELINE.md](EDITOR_PIPELINE.md) now traces and executes the preview model
+and fit/fill view. It confirms upstream portrait normalization, white borders,
+and a 1000 × 1500 intermediate for the 96 × 144 fresh-source case. The full app
+UI lifecycle remains outside the measured harness.
