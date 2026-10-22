@@ -34,7 +34,8 @@ variation, dot pitch and thermal explanations are equally legitimate curiosity
 questions, but a single sheet cannot identify their causes uniquely. Repeated
 capture of the same sheet is preferable to spending more paper to diagnose the
 scanner/camera. Capture rotations should distinguish paper-fixed from capture-fixed
-artifacts; no scanner or physical sheet measurement has yet been made here.
+artifacts. Subsequent [photographs](PHOTO_ANALYSIS.md) permit preliminary geometry
+analysis; calibrated physical measurements and rotated captures remain outstanding.
 
 ## Offline comparison
 
@@ -97,5 +98,7 @@ under ignored logs. Actual physical outcome is recorded separately after executi
 The authorized attempt has now run. The Select accepted job 12 and reported one
 additional printed page (10→11), no calibration cycle, unchanged configuration,
 and return to idle/empty. See [FIRST_PRINT.md](FIRST_PRINT.md) for timings, trace
-audit, newly observed target events, and the distinction between protocol evidence
-and pending operator inspection. The persistent one-attempt record remains in place.
+audit and newly observed target events. Subsequent
+[operator photographs](PHOTO_ANALYSIS.md) confirm physical output and provide
+preliminary crop/detail observations. The persistent one-attempt record remains
+in place.

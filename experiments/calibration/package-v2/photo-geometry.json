@@ -1,0 +1,238 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "scope": "Approximate source-coordinate geometry from two photos of one sheet",
+  "accuracy_note": "Decimals are arithmetic precision, not calibrated uncertainty. Report crop depths to a few input pixels, not subpixel accuracy.",
+  "photos": [
+    {
+      "photo": "1-Photo-1.jpg",
+      "photo_to_source_matrix": [
+        [
+          0.30482528686089033,
+          -0.004210736616877515,
+          -52.54815314053754
+        ],
+        [
+          0.006424170255974518,
+          0.305986282582119,
+          -42.529118743005675
+        ],
+        [
+          1.3673578580118005e-06,
+          1.7782805321929013e-06,
+          1.0
+        ]
+      ],
+      "withheld_center_source_px": [
+        384.0629,
+        576.2721
+      ],
+      "withheld_center_error_px": [
+        0.0629,
+        0.2721
+      ],
+      "withheld_center_error_norm_px": 0.2793,
+      "mapped_paper_edges_source_px": {
+        "top": [
+          [
+            48.5151,
+            11.3197
+          ],
+          [
+            720.6729,
+            10.5127
+          ]
+        ],
+        "bottom": [
+          [
+            47.791,
+            1118.7891
+          ],
+          [
+            719.7337,
+            1118.7454
+          ]
+        ],
+        "left": [
+          [
+            19.9858,
+            47.4155
+          ],
+          [
+            19.2516,
+            1103.5364
+          ]
+        ],
+        "right": [
+          [
+            755.4051,
+            48.7409
+          ],
+          [
+            755.4855,
+            1104.574
+          ]
+        ]
+      },
+      "apparent_crop_input_px": {
+        "top": {
+          "endpoint_estimates_px": [
+            11.3197,
+            10.5127
+          ],
+          "mean_px": 10.9162
+        },
+        "bottom": {
+          "endpoint_estimates_px": [
+            33.2109,
+            33.2546
+          ],
+          "mean_px": 33.2327
+        },
+        "left": {
+          "endpoint_estimates_px": [
+            19.9858,
+            19.2516
+          ],
+          "mean_px": 19.6187
+        },
+        "right": {
+          "endpoint_estimates_px": [
+            12.5949,
+            12.5145
+          ],
+          "mean_px": 12.5547
+        }
+      },
+      "approximate_visible_span_input_px": [
+        735.8266,
+        1107.8511
+      ],
+      "approximate_visible_span_percent": [
+        95.811,
+        96.168
+      ]
+    },
+    {
+      "photo": "2-Photo-2.jpg",
+      "photo_to_source_matrix": [
+        [
+          0.30333895167715086,
+          0.0008238157376823459,
+          -47.29796872336629
+        ],
+        [
+          -0.003690549001431499,
+          0.30623857673948723,
+          -0.5214115429231128
+        ],
+        [
+          -5.351062096969577e-06,
+          1.6426902469465167e-06,
+          1.0
+        ]
+      ],
+      "withheld_center_source_px": [
+        382.444,
+        576.2375
+      ],
+      "withheld_center_error_px": [
+        -1.556,
+        0.2375
+      ],
+      "withheld_center_error_norm_px": 1.574,
+      "mapped_paper_edges_source_px": {
+        "top": [
+          [
+            47.9127,
+            12.1218
+          ],
+          [
+            720.0413,
+            12.7844
+          ]
+        ],
+        "bottom": [
+          [
+            48.0363,
+            1118.8514
+          ],
+          [
+            719.9812,
+            1119.9477
+          ]
+        ],
+        "left": [
+          [
+            20.8028,
+            48.3076
+          ],
+          [
+            20.2031,
+            1103.797
+          ]
+        ],
+        "right": [
+          [
+            757.3751,
+            47.5822
+          ],
+          [
+            754.6849,
+            1104.2503
+          ]
+        ]
+      },
+      "apparent_crop_input_px": {
+        "top": {
+          "endpoint_estimates_px": [
+            12.1218,
+            12.7844
+          ],
+          "mean_px": 12.4531
+        },
+        "bottom": {
+          "endpoint_estimates_px": [
+            33.1486,
+            32.0523
+          ],
+          "mean_px": 32.6005
+        },
+        "left": {
+          "endpoint_estimates_px": [
+            20.8028,
+            20.2031
+          ],
+          "mean_px": 20.5029
+        },
+        "right": {
+          "endpoint_estimates_px": [
+            10.6249,
+            13.3151
+          ],
+          "mean_px": 11.97
+        }
+      },
+      "approximate_visible_span_input_px": [
+        735.5271,
+        1106.9464
+      ],
+      "approximate_visible_span_percent": [
+        95.772,
+        96.089
+      ]
+    }
+  ],
+  "decoded_jpeg_baseline": {
+    "vertical_1px_interior": {
+      "mean_channel_value": 127.5,
+      "minimum": 0,
+      "maximum": 255
+    },
+    "horizontal_1px_interior": {
+      "mean_channel_value": 127.5,
+      "minimum": 0,
+      "maximum": 255
+    }
+  }
+}

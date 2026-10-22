@@ -61,9 +61,11 @@ to status 1/flags 0, and removed job 12 from the queue. The first post-upload
 snapshot temporarily reported queue status empty even though ListJobs contained
 12; separate requests are not an atomic snapshot. The printed-page increment,
 job transition and unchanged calibration count support one completed image job.
-At the time of this report, **operator confirmation of exactly one physically
-emerged sheet and its appearance is pending**. No image-quality, geometry, feed
-speed, or native-resolution measurement is claimed yet.
+The operator subsequently supplied two photographs showing the CAL-02 chart on
+paper. This confirms physical output and permits preliminary appearance and
+source-coordinate crop analysis; see [PHOTO_ANALYSIS.md](PHOTO_ANALYSIS.md).
+The photographs do not independently establish the number of sheets that emerged,
+feed speed, native resolution, or charging-cable continuity during printing.
 
 ## Findings that affect interpretation and a future driver
 
@@ -105,8 +107,10 @@ Private files: `logs/cal02-preflight.json`, `logs/cal02-one-print-attempt.json`,
 `logs/20261022T090007-cal02-first-print.jsonl`. Public evidence contains sanitized
 counts/timings/status samples and event frames, without serial/MAC/device identity.
 
-Next, use the already printed sheet: confirm emergence/appearance, record which
-edge emerged first if observed, and capture it flat with a calibrated physical
-scale. The [measurement procedure](README.md#proposed-future-one-sheet-procedure--not-executed)
+The supplied photographs confirm the chart's emergence and visible appearance.
+Next, use that same sheet for a physical scale measurement and captures at two
+physical orientations, as described in [the photo analysis](PHOTO_ANALYSIS.md).
+Record which edge emerged first if observed. The
+[measurement procedure](README.md#proposed-future-one-sheet-procedure--not-executed)
 and blank worksheet remain applicable, using CAL-02's manifest for its additional
 patches. Do not spend another sheet just to obtain a better photograph or scan.

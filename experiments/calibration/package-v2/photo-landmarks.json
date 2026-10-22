@@ -1,0 +1,34 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "method": "Manual landmark picks on original-resolution photos; coordinates are image pixels, origin top left. Four corner crosses determine a projective map; center cross is withheld. Each edge has two independently picked paper-boundary points near corner-cross projections.",
+  "limitations": "Approximate picks, blurred/rounded paper edges, unknown lens distortion and sheet flatness. No physical scale, calibrated color or capture rotation. Results describe one sheet. Decimal output is arithmetic precision, not measurement accuracy.",
+  "photos": [
+    {
+      "name": "1-Photo-1.jpg",
+      "sha256": "0009d85f892f46f78ebaded5bc6eba1a56a09c378186ab3ab481b21cc2f04e91",
+      "dimensions": [2880, 3840],
+      "corner_crosses_abcd": [[334, 289], [2547, 243], [383, 3765], [2610, 3729]],
+      "center_cross": [1467, 2002],
+      "paper_edges": {
+        "top": [[334, 169], [2547, 120]],
+        "bottom": [[383, 3814], [2610, 3778]],
+        "left": [[242, 289], [288, 3765]],
+        "right": [[2664, 243], [2728, 3729]]
+      }
+    },
+    {
+      "name": "2-Photo-2.jpg",
+      "sha256": "36738e1490463468dae5a815a434dfdb6c55592413f15186cc48f5ae1e9668e1",
+      "dimensions": [2880, 3840],
+      "corner_crosses_abcd": [[313.5, 162], [2498, 186.5], [305, 3626], [2502, 3610]],
+      "center_cross": [1406, 1892],
+      "paper_edges": {
+        "top": [[313.5, 45], [2498, 73]],
+        "bottom": [[305, 3675], [2502, 3662]],
+        "left": [[224, 162], [213, 3626]],
+        "right": [[2618, 186.5], [2614, 3610]]
+      }
+    }
+  ]
+}

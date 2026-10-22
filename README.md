@@ -292,3 +292,7 @@ ordinary diagnostic sessions retain their default read-only policy.
 The [first authorized physical print](experiments/calibration/FIRST_PRINT.md)
 accepted the pinned CAL-02 JPEG and reported one completed page. It also exposed
 unreliable progress percentages and candidate job/status event payloads.
+Subsequent [photographs of the printed chart](experiments/calibration/PHOTO_ANALYSIS.md)
+confirm physical output, suggest about 4% edge loss in each input dimension, and
+show a strong directional fine-detail difference. These preliminary observations
+do not yet establish native resolution or justify a fixed printer correction.
