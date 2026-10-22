@@ -155,7 +155,9 @@ Resolved aliases:
 - `Imgcodecs.IMWRITE_JPEGXL_QUALITY` = **640**. JADX reused a matching numeric
   constant name. This is not evidence of JPEG XL output. The inspected enum gives
   **640 × 1002**, not the sometimes cited 668 × 1002; the difference needs separate
-  version/call-path investigation before changing any print implementation.
+  version/call-path investigation before changing any print implementation. A
+  subsequent [runtime enum evaluation](ANDROID_RUNTIME.md) confirmed 640 × 1002
+  for this APK; actual other-device path selection remains unverified.
 - `ImageUtil.PHOTOBOOTH_WIDTH/HEIGHT` = **1224 / 1836**.
 - `AppUtil.PAPER_SIZE_WIDTH/HEIGHT` initialize to **800 / 1100**. They are mutable
   static fields, unlike the other constants. No further assignments were found
@@ -207,8 +209,9 @@ require their own explicitly authorized milestone; none were performed here.
 1. Find an explicit vendor expansion of HPLPP and TMD, or leave them unexpanded.
 2. Explain Malta/Ibiza coexistence and map numbered profiles to actual identifiers.
 3. Trace HP500/HP600 through selection, connection, preprocessing, and transmission.
-4. Verify the 640 × 1002 profile against DEX instructions and actual selected runtime
-   paths; compare historical 668 × 1002 claims without treating either as native DPI.
+4. Runtime enum evaluation now confirms 640 × 1002 in this APK. Still trace actual
+   other-device selection paths and compare historical 668 × 1002 claims without
+   treating either as native DPI.
 5. Determine firmware-prefix/suffix semantics from multiple known releases or vendor
    documentation; comparison logic alone cannot explain the naming rationale.
 6. Resolve unknown Select event/security fields independently of their suggestive names.

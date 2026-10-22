@@ -99,7 +99,10 @@ make successful proprietary enhancement a hard prerequisite for further image
 processing. It does not establish identical colors without PhotoFix or physical
 printing compatibility of any independently prepared JPEG.
 
-These libraries were extracted and inspected as data, not loaded or executed.
+At this stage these libraries were extracted and inspected as data, not loaded
+or executed. A subsequent [isolated Android runtime experiment](ANDROID_RUNTIME.md)
+executed the original renderer, Lanczos library, and PhotoFix with synthetic images;
+that report records successful rendering and both failed/successful enhancement.
 Text searches of the three inspected native binaries did not identify HPLPP,
 GrandBahama, or the observed custom beacon. This was limited triage, not exhaustive
 native disassembly or proof that a behavior is absent. The Java implementation

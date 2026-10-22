@@ -1,0 +1,632 @@
+{
+  "artifact_version": "3.0.2921.1",
+  "runs": {
+    "full-default": {
+      "case_count": 36,
+      "process_data_matches_captured_compression": true,
+      "all_output_dimensions": [
+        768,
+        1152
+      ],
+      "jpeg_quality_argument": 90,
+      "jpeg": {
+        "mode": "RGB",
+        "jfif_version": [
+          1,
+          1
+        ],
+        "jfif_unit": 0,
+        "jfif_density": [
+          1,
+          1
+        ],
+        "icc_description": "sRGB",
+        "icc_bytes": 456,
+        "sampling": 2,
+        "exif_tags": 0,
+        "progressive": false,
+        "luma_quantization_first_eight": [
+          3,
+          2,
+          2,
+          3,
+          5,
+          8,
+          10,
+          12
+        ]
+      },
+      "photofix_results": [
+        "BAD_HANDLE"
+      ],
+      "comparisons": [
+        {
+          "input": "768x1152",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1200x1200",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1600x900",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "600x1800",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "96x144",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1536x2304",
+          "photofix_changed_pixel_percent": 0.0,
+          "photofix_mean_absolute_channel_difference": 0.0,
+          "photofix_max_channel_difference": 0,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        }
+      ],
+      "outputs": [
+        {
+          "case": "override-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "override-768x1152-photofix",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "override-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "override-1200x1200-photofix",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "override-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "override-1600x900-photofix",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "override-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "override-600x1800-photofix",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "override-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "override-96x144-photofix",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "override-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "override-1536x2304-photofix",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-lanczos-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-lanczos-768x1152-photofix",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-lanczos-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-lanczos-1200x1200-photofix",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-lanczos-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-lanczos-1600x900-photofix",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-lanczos-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-lanczos-600x1800-photofix",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-lanczos-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-lanczos-96x144-photofix",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-lanczos-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-lanczos-1536x2304-photofix",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-matrix-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-matrix-768x1152-photofix",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-matrix-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-matrix-1200x1200-photofix",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-matrix-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-matrix-1600x900-photofix",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-matrix-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-matrix-600x1800-photofix",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-matrix-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-matrix-96x144-photofix",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-matrix-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-matrix-1536x2304-photofix",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        }
+      ]
+    },
+    "no-pointer-tags": {
+      "case_count": 36,
+      "process_data_matches_captured_compression": true,
+      "all_output_dimensions": [
+        768,
+        1152
+      ],
+      "jpeg_quality_argument": 90,
+      "jpeg": {
+        "mode": "RGB",
+        "jfif_version": [
+          1,
+          1
+        ],
+        "jfif_unit": 0,
+        "jfif_density": [
+          1,
+          1
+        ],
+        "icc_description": "sRGB",
+        "icc_bytes": 456,
+        "sampling": 2,
+        "exif_tags": 0,
+        "progressive": false,
+        "luma_quantization_first_eight": [
+          3,
+          2,
+          2,
+          3,
+          5,
+          8,
+          10,
+          12
+        ]
+      },
+      "photofix_results": [
+        "SUCCESS"
+      ],
+      "comparisons": [
+        {
+          "input": "768x1152",
+          "photofix_changed_pixel_percent": 99.76411,
+          "photofix_mean_absolute_channel_difference": 5.160868,
+          "photofix_max_channel_difference": 33,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1200x1200",
+          "photofix_changed_pixel_percent": 99.850916,
+          "photofix_mean_absolute_channel_difference": 7.86658,
+          "photofix_max_channel_difference": 38,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1600x900",
+          "photofix_changed_pixel_percent": 99.301713,
+          "photofix_mean_absolute_channel_difference": 4.119294,
+          "photofix_max_channel_difference": 21,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "600x1800",
+          "photofix_changed_pixel_percent": 76.46394,
+          "photofix_mean_absolute_channel_difference": 0.490325,
+          "photofix_max_channel_difference": 11,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "96x144",
+          "photofix_changed_pixel_percent": 81.057739,
+          "photofix_mean_absolute_channel_difference": 0.541763,
+          "photofix_max_channel_difference": 5,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        },
+        {
+          "input": "1536x2304",
+          "photofix_changed_pixel_percent": 99.76072,
+          "photofix_mean_absolute_channel_difference": 5.153487,
+          "photofix_max_channel_difference": 33,
+          "all_three_routes_identical_plain": true,
+          "all_three_routes_identical_photofix": true
+        }
+      ],
+      "outputs": [
+        {
+          "case": "override-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "override-768x1152-photofix",
+          "bytes": 49206,
+          "sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6"
+        },
+        {
+          "case": "override-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "override-1200x1200-photofix",
+          "bytes": 40598,
+          "sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c"
+        },
+        {
+          "case": "override-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "override-1600x900-photofix",
+          "bytes": 51800,
+          "sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2"
+        },
+        {
+          "case": "override-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "override-600x1800-photofix",
+          "bytes": 45177,
+          "sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5"
+        },
+        {
+          "case": "override-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "override-96x144-photofix",
+          "bytes": 70450,
+          "sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc"
+        },
+        {
+          "case": "override-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "override-1536x2304-photofix",
+          "bytes": 49641,
+          "sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9"
+        },
+        {
+          "case": "file-lanczos-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-lanczos-768x1152-photofix",
+          "bytes": 49206,
+          "sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6"
+        },
+        {
+          "case": "file-lanczos-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-lanczos-1200x1200-photofix",
+          "bytes": 40598,
+          "sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c"
+        },
+        {
+          "case": "file-lanczos-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-lanczos-1600x900-photofix",
+          "bytes": 51800,
+          "sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2"
+        },
+        {
+          "case": "file-lanczos-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-lanczos-600x1800-photofix",
+          "bytes": 45177,
+          "sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5"
+        },
+        {
+          "case": "file-lanczos-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-lanczos-96x144-photofix",
+          "bytes": 70450,
+          "sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc"
+        },
+        {
+          "case": "file-lanczos-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-lanczos-1536x2304-photofix",
+          "bytes": 49641,
+          "sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9"
+        },
+        {
+          "case": "file-matrix-768x1152-plain",
+          "bytes": 42309,
+          "sha256": "b46613fd67db859de202acb3d2251ce4b738749f9ec38fe35b3efa1c4ba00447"
+        },
+        {
+          "case": "file-matrix-768x1152-photofix",
+          "bytes": 49206,
+          "sha256": "e5e9e72ba89a8c3699bda82878d695fb269167d5fe6f08242c762333ce61b4c6"
+        },
+        {
+          "case": "file-matrix-1200x1200-plain",
+          "bytes": 34541,
+          "sha256": "600d0888c8b0c29989059e353a50b24a8202d68416f988705b4eb09b367a74a3"
+        },
+        {
+          "case": "file-matrix-1200x1200-photofix",
+          "bytes": 40598,
+          "sha256": "b6e152c32ef6e090b480f1a6d80b8ec5c25bf544d454b9e10c5ab6f4d0acf79c"
+        },
+        {
+          "case": "file-matrix-1600x900-plain",
+          "bytes": 47571,
+          "sha256": "60db8af78626388e82651b942a143b6074006728364930c57def60be309775b5"
+        },
+        {
+          "case": "file-matrix-1600x900-photofix",
+          "bytes": 51800,
+          "sha256": "ca7aabf37c04781bb36855116b5fa4b1bf60a461f0051f06eae0d8e50dee16e2"
+        },
+        {
+          "case": "file-matrix-600x1800-plain",
+          "bytes": 43620,
+          "sha256": "48086b548220ae4a7ef01b23b6efc990662998d7351e3705917ed3189417afa2"
+        },
+        {
+          "case": "file-matrix-600x1800-photofix",
+          "bytes": 45177,
+          "sha256": "f4d2197806ec0edddf9bac703b310ba3c546752436b9d705194198720eb272a5"
+        },
+        {
+          "case": "file-matrix-96x144-plain",
+          "bytes": 68100,
+          "sha256": "e1302dc42e805062715e6e72203cf3aacd677a25311c5d55af773c25e4b7bd60"
+        },
+        {
+          "case": "file-matrix-96x144-photofix",
+          "bytes": 70450,
+          "sha256": "138d58dc5883b76fbda056122530569582dc541d8f6e2ea203858b07622c70cc"
+        },
+        {
+          "case": "file-matrix-1536x2304-plain",
+          "bytes": 42746,
+          "sha256": "2af7b55767efad1b5ddcad5c00a15415ae4b63b4a7836be5731383bfa1e16b50"
+        },
+        {
+          "case": "file-matrix-1536x2304-photofix",
+          "bytes": 49641,
+          "sha256": "6205bbe398a3ed4c9ae515dd8eb3ad52c8690bb33673605b4b87c28ed9f9f5d9"
+        }
+      ]
+    }
+  },
+  "profiles": [
+    {
+      "name": "NONE",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "IMPULSE",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "MAUI",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "BAHAMA",
+      "width": 768,
+      "height": 1152,
+      "quality": 90
+    },
+    {
+      "name": "IBIZA",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "CLASSIC",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "HP200",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "HP200D",
+      "width": 640,
+      "height": 1002,
+      "quality": 90
+    },
+    {
+      "name": "HP400",
+      "width": 793,
+      "height": 972,
+      "quality": 90
+    },
+    {
+      "name": "HP500",
+      "width": 800,
+      "height": 1100,
+      "quality": 90
+    },
+    {
+      "name": "HP600",
+      "width": 1232,
+      "height": 1786,
+      "quality": 90
+    },
+    {
+      "name": "GRAND_BAHAMA",
+      "width": 768,
+      "height": 1152,
+      "quality": 90
+    },
+    {
+      "name": "LUZON",
+      "width": 1224,
+      "height": 1836,
+      "quality": 70
+    }
+  ],
+  "offline_messages": {
+    "printStartFor42309Bytes": "0c0145a50000",
+    "syntheticJobProperties": "303412030101074f46464c494e45",
+    "transmitted": false
+  }
+}

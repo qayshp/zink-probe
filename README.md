@@ -265,3 +265,6 @@ readable declarations/resources, and the limits imposed by encrypted code.
 See [NAMING_AND_DEVICE_FAMILIES.md](NAMING_AND_DEVICE_FAMILIES.md) for confirmed,
 probable, and unknown acronym meanings, resolved app profiles, and future device
 support candidates. These notes do not expand the probe’s supported-model list.
+
+See [ANDROID_RUNTIME.md](ANDROID_RUNTIME.md) for the isolated original-APK render
+experiment, measured JPEG output, and PhotoFix pointer-tagging findings.

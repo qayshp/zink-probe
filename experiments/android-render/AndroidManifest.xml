@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.zink.renderprobe">
+  <uses-sdk android:minSdkVersion="28" android:targetSdkVersion="35" />
+  <queries><package android:name="com.hp.impulse.sprocket" /></queries>
+  <!-- Deliberately no permissions: no Bluetooth, network, camera, or shared storage. -->
+  <application android:label="Zink Render Research" android:debuggable="true" android:allowBackup="false">
+    <activity android:name=".MainActivity" android:exported="true">
+      <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+    </activity>
+  </application>
+</manifest>
