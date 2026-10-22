@@ -259,3 +259,5 @@ format, without copying the reference projects' source code.
 See [VALIDATION.md](VALIDATION.md) for the Milestone 1 acceptance checklist.
 See [INVESTIGATION.md](INVESTIGATION.md) for the time-bounded follow-up, source
 provenance, firmware counters, and the complete capability-table findings.
+See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
+readable declarations/resources, and the limits imposed by encrypted code.
