@@ -32,4 +32,8 @@ The operator later authorized non-print setting changes. See
 round trips with restoration and additional APK image-processing findings.
 Ordinary probes remain read-only; `settings-test` is an explicit separate command.
 The sleep/reconnect test is recorded in [VALIDATION.md](VALIDATION.md), and the
-unfinished iOS acquisition is documented in [IOS_EXPLORATION.md](IOS_EXPLORATION.md).
+completed iOS acquisition and encrypted-code limits is documented in [IOS_EXPLORATION.md](IOS_EXPLORATION.md).
+
+The [naming and device-family reference](NAMING_AND_DEVICE_FAMILIES.md) records
+acronym confidence, firmware naming rules, resolved current-APK image profiles,
+and the evidence still needed for other printers.
