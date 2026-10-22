@@ -1,0 +1,911 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "dimensions": [
+    768,
+    1152
+  ],
+  "reference_centers": [
+    [
+      48,
+      48
+    ],
+    [
+      720,
+      48
+    ],
+    [
+      48,
+      1104
+    ],
+    [
+      720,
+      1104
+    ],
+    [
+      384,
+      576
+    ]
+  ],
+  "reference_spans_px": {
+    "x": 672,
+    "y": 1056
+  },
+  "crop_gauges": [
+    {
+      "edge": "top",
+      "depth_px": 2,
+      "line": [
+        260,
+        2,
+        283,
+        2
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 4,
+      "line": [
+        292,
+        4,
+        315,
+        4
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 8,
+      "line": [
+        324,
+        8,
+        347,
+        8
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 12,
+      "line": [
+        356,
+        12,
+        379,
+        12
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 16,
+      "line": [
+        388,
+        16,
+        411,
+        16
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 24,
+      "line": [
+        420,
+        24,
+        443,
+        24
+      ]
+    },
+    {
+      "edge": "top",
+      "depth_px": 32,
+      "line": [
+        452,
+        32,
+        475,
+        32
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 2,
+      "line": [
+        260,
+        1149,
+        283,
+        1149
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 4,
+      "line": [
+        292,
+        1147,
+        315,
+        1147
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 8,
+      "line": [
+        324,
+        1143,
+        347,
+        1143
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 12,
+      "line": [
+        356,
+        1139,
+        379,
+        1139
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 16,
+      "line": [
+        388,
+        1135,
+        411,
+        1135
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 24,
+      "line": [
+        420,
+        1127,
+        443,
+        1127
+      ]
+    },
+    {
+      "edge": "bottom",
+      "depth_px": 32,
+      "line": [
+        452,
+        1119,
+        475,
+        1119
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 2,
+      "line": [
+        2,
+        260,
+        2,
+        283
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 4,
+      "line": [
+        4,
+        292,
+        4,
+        315
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 8,
+      "line": [
+        8,
+        324,
+        8,
+        347
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 12,
+      "line": [
+        12,
+        356,
+        12,
+        379
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 16,
+      "line": [
+        16,
+        388,
+        16,
+        411
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 24,
+      "line": [
+        24,
+        420,
+        24,
+        443
+      ]
+    },
+    {
+      "edge": "left",
+      "depth_px": 32,
+      "line": [
+        32,
+        452,
+        32,
+        475
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 2,
+      "line": [
+        765,
+        260,
+        765,
+        283
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 4,
+      "line": [
+        763,
+        292,
+        763,
+        315
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 8,
+      "line": [
+        759,
+        324,
+        759,
+        347
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 12,
+      "line": [
+        755,
+        356,
+        755,
+        379
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 16,
+      "line": [
+        751,
+        388,
+        751,
+        411
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 24,
+      "line": [
+        743,
+        420,
+        743,
+        443
+      ]
+    },
+    {
+      "edge": "right",
+      "depth_px": 32,
+      "line": [
+        735,
+        452,
+        735,
+        475
+      ]
+    }
+  ],
+  "patches": [
+    {
+      "name": "repeat-gray-A",
+      "box_exclusive": [
+        72,
+        140,
+        232,
+        188
+      ],
+      "kind": "repeat",
+      "group": "gray"
+    },
+    {
+      "name": "repeat-lines-A",
+      "box_exclusive": [
+        292,
+        140,
+        452,
+        188
+      ],
+      "kind": "repeat",
+      "group": "lines"
+    },
+    {
+      "name": "repeat-edge-A",
+      "box_exclusive": [
+        512,
+        140,
+        672,
+        188
+      ],
+      "kind": "repeat",
+      "group": "edge"
+    },
+    {
+      "name": "repeat-gray-B",
+      "box_exclusive": [
+        72,
+        510,
+        232,
+        558
+      ],
+      "kind": "repeat",
+      "group": "gray"
+    },
+    {
+      "name": "repeat-lines-B",
+      "box_exclusive": [
+        292,
+        510,
+        452,
+        558
+      ],
+      "kind": "repeat",
+      "group": "lines"
+    },
+    {
+      "name": "repeat-edge-B",
+      "box_exclusive": [
+        512,
+        510,
+        672,
+        558
+      ],
+      "kind": "repeat",
+      "group": "edge"
+    },
+    {
+      "name": "repeat-gray-C",
+      "box_exclusive": [
+        72,
+        978,
+        232,
+        1026
+      ],
+      "kind": "repeat",
+      "group": "gray"
+    },
+    {
+      "name": "repeat-lines-C",
+      "box_exclusive": [
+        292,
+        978,
+        452,
+        1026
+      ],
+      "kind": "repeat",
+      "group": "lines"
+    },
+    {
+      "name": "repeat-edge-C",
+      "box_exclusive": [
+        512,
+        978,
+        672,
+        1026
+      ],
+      "kind": "repeat",
+      "group": "edge"
+    },
+    {
+      "name": "gray-strip",
+      "box_exclusive": [
+        690,
+        130,
+        704,
+        1031
+      ],
+      "kind": "uniform"
+    },
+    {
+      "name": "vertical-1",
+      "box_exclusive": [
+        72,
+        232,
+        152,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 1
+    },
+    {
+      "name": "vertical-2",
+      "box_exclusive": [
+        174,
+        232,
+        254,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 2
+    },
+    {
+      "name": "vertical-3",
+      "box_exclusive": [
+        276,
+        232,
+        356,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 3
+    },
+    {
+      "name": "vertical-4",
+      "box_exclusive": [
+        378,
+        232,
+        458,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 4
+    },
+    {
+      "name": "vertical-6",
+      "box_exclusive": [
+        480,
+        232,
+        560,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 6
+    },
+    {
+      "name": "vertical-8",
+      "box_exclusive": [
+        582,
+        232,
+        662,
+        312
+      ],
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 8
+    },
+    {
+      "name": "horizontal-1",
+      "box_exclusive": [
+        72,
+        362,
+        152,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 1
+    },
+    {
+      "name": "horizontal-2",
+      "box_exclusive": [
+        174,
+        362,
+        254,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 2
+    },
+    {
+      "name": "horizontal-3",
+      "box_exclusive": [
+        276,
+        362,
+        356,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 3
+    },
+    {
+      "name": "horizontal-4",
+      "box_exclusive": [
+        378,
+        362,
+        458,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 4
+    },
+    {
+      "name": "horizontal-6",
+      "box_exclusive": [
+        480,
+        362,
+        560,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 6
+    },
+    {
+      "name": "horizontal-8",
+      "box_exclusive": [
+        582,
+        362,
+        662,
+        442
+      ],
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 8
+    },
+    {
+      "name": "edge-0",
+      "box_exclusive": [
+        72,
+        624,
+        204,
+        720
+      ],
+      "kind": "slanted-edge",
+      "orientation": "vertical",
+      "levels": [
+        0,
+        255
+      ],
+      "slope": 0.1,
+      "coverage_supersampling": 8
+    },
+    {
+      "name": "edge-1",
+      "box_exclusive": [
+        225,
+        624,
+        357,
+        720
+      ],
+      "kind": "slanted-edge",
+      "orientation": "horizontal",
+      "levels": [
+        0,
+        255
+      ],
+      "slope": 0.1,
+      "coverage_supersampling": 8
+    },
+    {
+      "name": "edge-2",
+      "box_exclusive": [
+        378,
+        624,
+        510,
+        720
+      ],
+      "kind": "slanted-edge",
+      "orientation": "vertical",
+      "levels": [
+        64,
+        192
+      ],
+      "slope": 0.1,
+      "coverage_supersampling": 8
+    },
+    {
+      "name": "edge-3",
+      "box_exclusive": [
+        531,
+        624,
+        663,
+        720
+      ],
+      "kind": "slanted-edge",
+      "orientation": "horizontal",
+      "levels": [
+        64,
+        192
+      ],
+      "slope": 0.1,
+      "coverage_supersampling": 8
+    },
+    {
+      "name": "sweep-vertical",
+      "box_exclusive": [
+        72,
+        764,
+        212,
+        844
+      ],
+      "kind": "sine-sweep",
+      "orientation": "vertical",
+      "start_cycles_per_pixel": 0.025,
+      "end_cycles_per_pixel": 0.45
+    },
+    {
+      "name": "sweep-horizontal",
+      "box_exclusive": [
+        226,
+        764,
+        366,
+        844
+      ],
+      "kind": "sine-sweep",
+      "orientation": "horizontal",
+      "start_cycles_per_pixel": 0.025,
+      "end_cycles_per_pixel": 0.45
+    },
+    {
+      "name": "checker",
+      "box_exclusive": [
+        382,
+        764,
+        462,
+        844
+      ],
+      "kind": "checker",
+      "run_px": 2
+    },
+    {
+      "name": "color-edge-0",
+      "box_exclusive": [
+        486,
+        764,
+        534,
+        844
+      ],
+      "kind": "color-edge",
+      "rgb": [
+        0,
+        255,
+        255
+      ]
+    },
+    {
+      "name": "color-edge-1",
+      "box_exclusive": [
+        550,
+        764,
+        598,
+        844
+      ],
+      "kind": "color-edge",
+      "rgb": [
+        255,
+        0,
+        255
+      ]
+    },
+    {
+      "name": "color-edge-2",
+      "box_exclusive": [
+        614,
+        764,
+        662,
+        844
+      ],
+      "kind": "color-edge",
+      "rgb": [
+        255,
+        255,
+        0
+      ]
+    },
+    {
+      "name": "ramp",
+      "box_exclusive": [
+        72,
+        882,
+        672,
+        906
+      ],
+      "kind": "ramp"
+    },
+    {
+      "name": "tone-0",
+      "box_exclusive": [
+        72,
+        918,
+        104,
+        942
+      ],
+      "kind": "tone",
+      "value": 0
+    },
+    {
+      "name": "tone-4",
+      "box_exclusive": [
+        108,
+        918,
+        140,
+        942
+      ],
+      "kind": "tone",
+      "value": 4
+    },
+    {
+      "name": "tone-8",
+      "box_exclusive": [
+        144,
+        918,
+        176,
+        942
+      ],
+      "kind": "tone",
+      "value": 8
+    },
+    {
+      "name": "tone-12",
+      "box_exclusive": [
+        180,
+        918,
+        212,
+        942
+      ],
+      "kind": "tone",
+      "value": 12
+    },
+    {
+      "name": "tone-16",
+      "box_exclusive": [
+        216,
+        918,
+        248,
+        942
+      ],
+      "kind": "tone",
+      "value": 16
+    },
+    {
+      "name": "tone-24",
+      "box_exclusive": [
+        252,
+        918,
+        284,
+        942
+      ],
+      "kind": "tone",
+      "value": 24
+    },
+    {
+      "name": "tone-32",
+      "box_exclusive": [
+        288,
+        918,
+        320,
+        942
+      ],
+      "kind": "tone",
+      "value": 32
+    },
+    {
+      "name": "tone-48",
+      "box_exclusive": [
+        324,
+        918,
+        356,
+        942
+      ],
+      "kind": "tone",
+      "value": 48
+    },
+    {
+      "name": "tone-207",
+      "box_exclusive": [
+        384,
+        918,
+        416,
+        942
+      ],
+      "kind": "tone",
+      "value": 207
+    },
+    {
+      "name": "tone-223",
+      "box_exclusive": [
+        420,
+        918,
+        452,
+        942
+      ],
+      "kind": "tone",
+      "value": 223
+    },
+    {
+      "name": "tone-231",
+      "box_exclusive": [
+        456,
+        918,
+        488,
+        942
+      ],
+      "kind": "tone",
+      "value": 231
+    },
+    {
+      "name": "tone-239",
+      "box_exclusive": [
+        492,
+        918,
+        524,
+        942
+      ],
+      "kind": "tone",
+      "value": 239
+    },
+    {
+      "name": "tone-243",
+      "box_exclusive": [
+        528,
+        918,
+        560,
+        942
+      ],
+      "kind": "tone",
+      "value": 243
+    },
+    {
+      "name": "tone-247",
+      "box_exclusive": [
+        564,
+        918,
+        596,
+        942
+      ],
+      "kind": "tone",
+      "value": 247
+    },
+    {
+      "name": "tone-251",
+      "box_exclusive": [
+        600,
+        918,
+        632,
+        942
+      ],
+      "kind": "tone",
+      "value": 251
+    },
+    {
+      "name": "tone-255",
+      "box_exclusive": [
+        636,
+        918,
+        668,
+        942
+      ],
+      "kind": "tone",
+      "value": 255
+    }
+  ],
+  "sha256": {
+    "source.png": "e893b2e4d5979009a2db2306dddda5be5c8e9bfcdaefe6c8c7433a1748991719",
+    "python.png": "e893b2e4d5979009a2db2306dddda5be5c8e9bfcdaefe6c8c7433a1748991719",
+    "python.jpg": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206"
+  }
+}

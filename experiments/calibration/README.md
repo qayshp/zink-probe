@@ -1,4 +1,7 @@
-# SELECT-CAL-01: offline calibration package
+# SELECT-CAL-01: preserved offline calibration package
+
+The current revision is [SELECT-CAL-02](REVISION_2.md), with images and a separately
+authorized one-sheet experiment. This document retains CAL-01 history.
 
 Prepared 2026-10-22. **Nothing in this package sends data to a printer.** No
 physical printing has been authorized or performed. The purpose is to make a

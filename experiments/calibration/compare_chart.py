@@ -15,8 +15,8 @@ sys.path.insert(0, str(ROOT.parent / "python-render"))
 from compare import difference, without_icc  # noqa: E402
 
 
-def analyze(capture):
-    out = ROOT / "package"
+def analyze(capture, out=ROOT / "package"):
+    out = Path(out)
     cases = json.loads((capture / "results.json").read_text())
     assert len(cases) == 6 and all(
         "error" not in c and c["processDataMatches"] for c in cases
@@ -54,7 +54,9 @@ def analyze(capture):
     manifest = json.loads((out / "manifest.json").read_text())
     rows = []
     decoded = Image.open(out / "python.jpg")
-    for patch in manifest["line_patches"]:
+    for patch in manifest.get(
+        "line_patches", [p for p in manifest.get("patches", []) if p["kind"] == "lines"]
+    ):
         box = patch["box_exclusive"]
         region = np.array(decoded.crop(box).convert("L"), dtype=float)
         axis = 0 if patch["orientation"] == "vertical" else 1
@@ -98,4 +100,6 @@ def analyze(capture):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture", type=Path)
-    analyze(parser.parse_args().capture)
+    parser.add_argument("--package", type=Path, default=ROOT / "package")
+    args = parser.parse_args()
+    analyze(args.capture, args.package)
