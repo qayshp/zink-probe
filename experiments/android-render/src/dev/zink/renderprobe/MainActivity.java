@@ -79,6 +79,7 @@ public final class MainActivity extends Activity {
         Context vc=createPackageContext("com.hp.impulse.sprocket",Context.CONTEXT_INCLUDE_CODE|Context.CONTEXT_IGNORE_SECURITY);
         vendor=vc.getClassLoader();
         note("LOADER "+vendor);
+        if(getIntent().getBooleanExtra("transactionOnly",false)) { TransactionExperiment.run(vendor,out); return; }
         if(getIntent().getBooleanExtra("editorOnly",false)) { EditorExperiment.run(this,vendor,out); return; }
         Class<?> options=type("com.hp.impulselib.device.SprocketDevice$Options");
         Object opts=options.getConstructor(type("com.hp.impulselib.bt.SprocketBluetoothDevice")).newInstance(new Object[]{null});
@@ -108,14 +109,18 @@ public final class MainActivity extends Activity {
             profiles.put(new JSONObject().put("name",profile.toString()).put("width",point.x).put("height",point.y).put("quality",profilesClass.getMethod("getPrintCompression").invoke(profile)));
         }
         try(FileWriter f=new FileWriter(new File(out,"profiles.json"))){f.write(profiles.toString(2));}
-        inspectMessages();
+        boolean calibration=getIntent().getBooleanExtra("calibration",false);
+        if(!calibration) inspectMessages();
         if(getIntent().getBooleanExtra("inspectOnly",false)) return;
         int[][] sizes={{768,1152},{1200,1200},{1600,900},{600,1800},{96,144},{1536,2304}};
+        if(calibration) sizes=new int[][]{{768,1152}};
         for(String route:new String[]{"override","file-lanczos","file-matrix"}) for(int[] s:sizes) for(boolean photoFix:new boolean[]{false,true}) {
             String name=route+"-"+s[0]+"x"+s[1]+(photoFix?"-photofix":"-plain");
             JSONObject result=new JSONObject();result.put("case",name);
             try {
-                Bitmap input=pattern(s[0],s[1]);saveBitmap(name+"-input.png",input);
+                Bitmap input=calibration?BitmapFactory.decodeFile(new File(getFilesDir(),"calibration-source.png").getAbsolutePath()):pattern(s[0],s[1]);
+                if(input==null || (calibration && (input.getWidth()!=768 || input.getHeight()!=1152))) throw new IllegalArgumentException("Missing/invalid calibration input");
+                saveBitmap(name+"-input.png",input);
                 Object im=image.getConstructor(String.class,String.class).newInstance("synthetic",name);
                 image.getMethod("setPhotofixApplied",boolean.class).invoke(im,!photoFix);
                 image.getMethod("setTransformedBitmap",File.class).invoke(im,new File(out,name+"-input.png"));

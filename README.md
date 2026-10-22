@@ -275,3 +275,9 @@ rotation, fit/fill, crop, white borders, and intermediate image encoding.
 See [PYTHON_IMAGE_PREPARATION.md](PYTHON_IMAGE_PREPARATION.md) for the independent
 offline Python raster/JPEG preparation experiment, Android comparisons, and
 remaining PhotoFix/editor differences. It writes local images only.
+
+See the [offline calibration package](experiments/calibration/README.md) for the
+reviewable SELECT-CAL-01 sheet, exact Python/Android comparisons, and a future
+single-sheet measurement plan. [PRINT_TRANSACTION.md](PRINT_TRANSACTION.md)
+traces submission, transfer acknowledgements, queue activation, completion, and
+failure handling without sending print commands.

@@ -1,0 +1,35 @@
+{
+  "transmitted": false,
+  "syntheticHandle": 7,
+  "syntheticJobId": 4660,
+  "start": "0c019f210200",
+  "properties": "3034120301010d53454c4543542d43414c2d3031",
+  "chunks": [
+    {
+      "confirmedOffset": 0,
+      "payloadLength": 8,
+      "message": "0e070001020304050607",
+      "reportedProgress": 0
+    },
+    {
+      "confirmedOffset": 8,
+      "payloadLength": 8,
+      "message": "0e0708090a0b0c0d0e0f",
+      "reportedProgress": 0.47058824
+    },
+    {
+      "confirmedOffset": 16,
+      "payloadLength": 1,
+      "message": "0e0710",
+      "reportedProgress": 0.9411765
+    }
+  ],
+  "listJobs": "2c",
+  "dropJob": "323412",
+  "decodedCompletion": {
+    "handle": 7,
+    "status": 2,
+    "received": 17,
+    "total": 17
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "com/hp/impulselib/HPLPP/MessageClient.java": {
+    "sha256": "eb2d891c7b801d24e3a54799345ca8b45b0d4b1650ba443fd5d30ab5ad2442cf",
+    "lines": 1900
+  },
+  "com/hp/impulselib/HPLPP/Controller.java": {
+    "sha256": "b465e303709387c1f68072c8a513ff51bd58f1f1200ef2f759db460c0d6b1ef3",
+    "lines": 500
+  },
+  "com/hp/impulselib/HPLPP/MessageQueueItem.java": {
+    "sha256": "54647b97260cc9c6f790cb2e1484b7e2c5160aa2a0a7dcc54d120e255c54cda1",
+    "lines": 70
+  },
+  "com/hp/impulselib/HPLPP/BTCTransportInterface.java": {
+    "sha256": "613142d9aa42f4d2cfc4eaf534a200868f8864ad7c70a3fbea353ea9bf27120f",
+    "lines": 337
+  },
+  "com/hp/impulselib/HPLPP/BLETransportInterface.java": {
+    "sha256": "d5a05421e2561139e4ba3d004ac91718751cb6dbd8ffa3519e3addd5c9299fa0",
+    "lines": 311
+  },
+  "com/hp/impulselib/HPLPP/SprocketByteBuffer.java": {
+    "sha256": "68830cb34ede78c11082e88ee732803f1669658f9146290dd5cf82d2e91dbb94",
+    "lines": 256
+  },
+  "com/hp/impulselib/HPLPP/messages/BaseMessage.java": {
+    "sha256": "589530b765725300b912e67becedd7b8a5f15474830eb0bc379be33485b26ebf",
+    "lines": 114
+  },
+  "com/hp/impulselib/HPLPP/messages/PrintStartRequestMessage.java": {
+    "sha256": "27cbe7b501857a651afefdbb91bf7cc792d10e978b76b18330bb411e9137cdfc",
+    "lines": 37
+  },
+  "com/hp/impulselib/HPLPP/messages/PrintStartResponseMessage.java": {
+    "sha256": "04826e276f6b9b50aa152de5908ce6aebf713d59f503c42e168e5d830e9acdc4",
+    "lines": 27
+  },
+  "com/hp/impulselib/HPLPP/messages/FileWriteRequestMessage.java": {
+    "sha256": "3736e7c39d3d434a988cf4f7fd41567d918dc6577a88d913e766560e26025919",
+    "lines": 40
+  },
+  "com/hp/impulselib/HPLPP/messages/FileWriteResponseMessage.java": {
+    "sha256": "55626894915c488bb4d50a73f79ee1380bb3e45ca5286668cc300c1fd7db07ba",
+    "lines": 44
+  },
+  "com/hp/impulselib/HPLPP/messages/WriteJobPropertyRequestMessage.java": {
+    "sha256": "1e3beb2009dc63c309df175510c5e1d4aeb0cc8aeedd22f4a541797106aff7c0",
+    "lines": 39
+  },
+  "com/hp/impulselib/HPLPP/messages/ReadJobPropertyRequestMessage.java": {
+    "sha256": "1d692a97fe99b14488216d8da10fd0b53d47ca1c8789b71c44c77c5d60c8337d",
+    "lines": 33
+  },
+  "com/hp/impulselib/HPLPP/messages/ListJobsResponseMessage.java": {
+    "sha256": "4f02b8b0e3cfa34b1c4d0c4fdad038848886b4176a95a37200fe897250d439f6",
+    "lines": 27
+  },
+  "com/hp/impulselib/HPLPP/messages/DropJobRequestMessage.java": {
+    "sha256": "8ba773cbd370337204540760cc1a79dc3323d431cfdb4c16ec81f6b662c1e816",
+    "lines": 19
+  },
+  "com/hp/impulselib/HPLPP/messages/TriggerActionRequestMessage.java": {
+    "sha256": "7b948481c6480c1097aa52979fbbd4e10034273d6aa8ce18e108692ac83f7050",
+    "lines": 20
+  },
+  "com/hp/impulselib/HPLPP/messages/WriteSystemConfigRequestMessage.java": {
+    "sha256": "2dea7c78cfd186ecf436534fb0b2f46ea69700c85a046a0af24bf1c61e40a34e",
+    "lines": 36
+  },
+  "com/hp/impulselib/HPLPP/messages/ErrorMessage.java": {
+    "sha256": "bfacb6056e3a293d244678852b7cea28346826657f57cdfe8c5fc7841f502f71",
+    "lines": 27
+  },
+  "com/hp/impulselib/bt/hplpp/helpers/HPLPPTransferInfo.java": {
+    "sha256": "00a2eb3c7c1f746191ea7eba1e1cdadc168c8122d69669cd581543178aef4af9",
+    "lines": 135
+  },
+  "com/hp/impulselib/bt/HPLPPClient.java": {
+    "sha256": "9638c11233c95ce8c5418028b86d764a60b1cb3efba737a3f27f3da5831b6d74",
+    "lines": 341
+  },
+  "com/hp/impulselib/actions/PrintFileTransferAction.java": {
+    "sha256": "d9525c52918b912198a28c0183089d2f4c5127795c1ad240ef1489af1b563c96",
+    "lines": 102
+  },
+  "com/hp/impulse/sprocket/services/QueueService.java": {
+    "sha256": "d8d7b1008923222be8273d1fae782ee1aae7a10ff01e1a8e60e73cef3acdb26e",
+    "lines": 1942
+  },
+  "com/hp/impulse/sprocket/services/BasicPrintService.java": {
+    "sha256": "e11a4db021851029ca71e4629c91a336bc274a9b285fb25e17a55fceb1d3af66",
+    "lines": 48
+  },
+  "com/hp/impulse/sprocket/services/PreprocessPrintService.java": {
+    "sha256": "e221dbf64126cc7e28c2a5545bceb9e2be0def47ebd65dc96203c06b8f6f3579",
+    "lines": 373
+  }
+}

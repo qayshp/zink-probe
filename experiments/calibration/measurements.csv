@@ -1,0 +1,19 @@
+measurement,value,unit,uncertainty,notes
+payload_sha256,,,,
+firmware,,,,
+photo_fix_enabled,,,,
+paper_width,,mm,,
+paper_height,,mm,,
+top_reference_span,,mm,,672 input pixels
+bottom_reference_span,,mm,,672 input pixels
+left_reference_span,,mm,,1056 input pixels
+right_reference_span,,mm,,1056 input pixels
+top_left_cross_x,,mm,,from left paper edge
+top_left_cross_y,,mm,,from top paper edge
+first_edge_emerging,,,,
+upload_duration,,seconds,,not feed duration
+motion_interval_displacement,,mm,,fixed physical reference
+motion_interval_duration,,seconds,,video timestamps
+capture_calibration_x,,,,
+capture_calibration_y,,,,
+notes,,,,

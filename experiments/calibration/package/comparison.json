@@ -1,0 +1,654 @@
+{
+  "scope": "Original Android renderer; synthetic chart only; no printer access",
+  "apk_version": "3.0.2921.1 / 74251",
+  "pointer_tagging_disabled_in_harness": true,
+  "cases": [
+    {
+      "case": "override-768x1152-plain",
+      "lanczosEnabled": true,
+      "milliseconds": 130,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    },
+    {
+      "case": "override-768x1152-photofix",
+      "lanczosEnabled": true,
+      "milliseconds": 260,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    },
+    {
+      "case": "file-lanczos-768x1152-plain",
+      "lanczosEnabled": true,
+      "milliseconds": 43,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    },
+    {
+      "case": "file-lanczos-768x1152-photofix",
+      "lanczosEnabled": true,
+      "milliseconds": 57,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    },
+    {
+      "case": "file-matrix-768x1152-plain",
+      "lanczosEnabled": false,
+      "milliseconds": 19,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    },
+    {
+      "case": "file-matrix-768x1152-photofix",
+      "lanczosEnabled": false,
+      "milliseconds": 55,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 140153,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753"
+    }
+  ],
+  "line_patches": [
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 1,
+      "phase_px": 0,
+      "box_exclusive": [
+        72,
+        212,
+        160,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.1,
+      "decoded_jpeg_luma_max": 254.85,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.35625,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 27.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 1,
+      "phase_px": 1,
+      "box_exclusive": [
+        72,
+        260,
+        160,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.1,
+      "decoded_jpeg_luma_max": 254.85,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.35625,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 27.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 2,
+      "phase_px": 0,
+      "box_exclusive": [
+        176,
+        212,
+        264,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.55,
+        "maximum_channel_error": 4,
+        "changed_pixel_percent": 47.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 2,
+      "phase_px": 1,
+      "box_exclusive": [
+        176,
+        260,
+        264,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.1,
+      "decoded_jpeg_luma_max": 254.8,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.15,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 10.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 3,
+      "phase_px": 0,
+      "box_exclusive": [
+        280,
+        212,
+        368,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.24375,
+        "maximum_channel_error": 7,
+        "changed_pixel_percent": 11.875,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 3,
+      "phase_px": 1,
+      "box_exclusive": [
+        280,
+        260,
+        368,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.266477,
+        "maximum_channel_error": 7,
+        "changed_pixel_percent": 12.897727,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 4,
+      "phase_px": 0,
+      "box_exclusive": [
+        384,
+        212,
+        472,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.1,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 26.875,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 4,
+      "phase_px": 1,
+      "box_exclusive": [
+        384,
+        260,
+        472,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.25,
+      "decoded_jpeg_luma_max": 254.8,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.53125,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 40.625,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 6,
+      "phase_px": 0,
+      "box_exclusive": [
+        488,
+        212,
+        576,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.05,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.369318,
+        "maximum_channel_error": 5,
+        "changed_pixel_percent": 25.170455,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 6,
+      "phase_px": 1,
+      "box_exclusive": [
+        488,
+        260,
+        576,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.15,
+      "decoded_jpeg_luma_max": 254.95,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.439773,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 30.227273,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 8,
+      "phase_px": 0,
+      "box_exclusive": [
+        592,
+        212,
+        680,
+        252
+      ],
+      "decoded_jpeg_luma_min": 0.05,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.027273,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 2.727273,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "vertical",
+      "run_px": 8,
+      "phase_px": 1,
+      "box_exclusive": [
+        592,
+        260,
+        680,
+        300
+      ],
+      "decoded_jpeg_luma_min": 0.05,
+      "decoded_jpeg_luma_max": 254.9,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.308523,
+        "maximum_channel_error": 6,
+        "changed_pixel_percent": 14.545455,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "phase_px": 0,
+      "box_exclusive": [
+        72,
+        368,
+        160,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "phase_px": 1,
+      "box_exclusive": [
+        72,
+        416,
+        160,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "phase_px": 0,
+      "box_exclusive": [
+        176,
+        368,
+        264,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "phase_px": 1,
+      "box_exclusive": [
+        176,
+        416,
+        264,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 3,
+      "phase_px": 0,
+      "box_exclusive": [
+        280,
+        368,
+        368,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.35,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 35.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 3,
+      "phase_px": 1,
+      "box_exclusive": [
+        280,
+        416,
+        368,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.4,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 40.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "phase_px": 0,
+      "box_exclusive": [
+        384,
+        368,
+        472,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "phase_px": 1,
+      "box_exclusive": [
+        384,
+        416,
+        472,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.125,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 6,
+      "phase_px": 0,
+      "box_exclusive": [
+        488,
+        368,
+        576,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.3,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 6,
+      "phase_px": 1,
+      "box_exclusive": [
+        488,
+        416,
+        576,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.1,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 10.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 8,
+      "phase_px": 0,
+      "box_exclusive": [
+        592,
+        368,
+        680,
+        408
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    },
+    {
+      "kind": "lines",
+      "orientation": "horizontal",
+      "run_px": 8,
+      "phase_px": 1,
+      "box_exclusive": [
+        592,
+        416,
+        680,
+        456
+      ],
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    }
+  ],
+  "source_vs_encoded_jpeg": {
+    "mean_absolute_channel_error": 0.437148,
+    "maximum_channel_error": 125,
+    "changed_pixel_percent": 14.012203,
+    "pixel_exact": false
+  },
+  "files": {
+    "android-photofix.jpg": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753",
+    "android-photofix.png": "0461d61ec0f9bfaa1e60775b04efd270cd911f0451f52db459053f5880149ea2",
+    "android.jpg": "599980e4659e5aaeebd735c192dad27459949c91442ce2d1dbbbc69bbefbd753",
+    "android.png": "0461d61ec0f9bfaa1e60775b04efd270cd911f0451f52db459053f5880149ea2",
+    "python.jpg": "be7db649f2a289374294acb682895e29e09264540822b9b6d775ea29d7214eed",
+    "python.png": "950a22d2de40c53a36b08de07d4f30c0466dee65cd8897f693a900f886de1939",
+    "source.png": "950a22d2de40c53a36b08de07d4f30c0466dee65cd8897f693a900f886de1939"
+  }
+}

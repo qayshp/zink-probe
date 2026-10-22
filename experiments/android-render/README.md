@@ -113,3 +113,12 @@ See [EDITOR_PIPELINE.md](../../EDITOR_PIPELINE.md) for the call chain, results,
 and explicit limits on inferring whole-UI behavior. The harness forwards only
 the reset/scale callbacks needed for fit/fill; direct model tests separately
 exercise rotation and translation. It does not synthesize actual touch gestures.
+
+## Calibration and transaction-only modes
+
+The [calibration package](../calibration/README.md) describes `--ez calibration true`
+(with a supplied private `files/calibration-source.png`) and
+`--ez transactionOnly true`. The first renders six chart cases and skips the
+older message-inspection routine. The second returns before device/service
+creation and only exercises message serialization and synthetic transfer state.
+Neither mode creates a printer client or transmits a protocol message.
