@@ -62,8 +62,48 @@ RFCOMM), with zero settings writes. No passive beacon listen was included in
 this unplugged run. Private evidence: `unplugged-20261022.json`, its `-audit.json`,
 and `20261022T080254.035527Z-probe.jsonl`.
 
-A charger-reconnection comparison has been requested and is pending operator
-confirmation. In particular, an increment in metric 7 has not yet been observed
-in this controlled comparison. Metric 8 was already 99 before unplugging, so
-reconnecting at 99% would not distinguish refresh-at-attachment from an unchanged
-historical value.
+## Confirmed charger reconnection
+
+After the operator confirmed reconnection, the first attempt read BLE status
+successfully (99%, charging) but failed on the initial RFCOMM negotiation write
+with `IOReturn -536870169`. That attempt returned failure and did not complete
+metrics collection. One fresh probe session then completed on both transports.
+The cause of the transient Classic Bluetooth failure is unknown; reconnection
+succeeded without changing permissions, pairing, settings, or probe code.
+
+All three observations in the successful 30-second window reported 99% and
+battery status 2 (`charging`) on both transports. The controlled sequence is:
+
+| Reading | Initially plugged in | Unplugged | Reconnected |
+| --- | ---: | ---: | ---: |
+| Battery percentage | 100 | 99 | 99 |
+| Battery status enum | 2 (charging) | 1 (in use) | 2 (charging) |
+| USB attach events, metric 7 | 17 | 17 | 18 |
+| Battery level before charge, metric 8 | 99 | 99 | 99 |
+| Printer pages | 10 | 10 | 10 |
+| Calibration-card cycles | 2 | 2 | 2 |
+
+Metric 7 increased by exactly one after the single confirmed reconnection and
+agreed across BLE/RFCOMM, physically supporting its USB-attachment-counter label.
+Metric 8 was already 99 before unplugging; reconnecting at 99% therefore does not
+distinguish refresh-at-attachment from an unchanged historical value. The test
+also does not establish counter persistence across power loss or reboot.
+
+Configuration and capability tables remained identical. Sleep events stayed at
+44, power-on events at 16, and both transports reported idle, empty queue and
+zero system flags. The BLE signal-strength metric changed 46 → 58 while RFCOMM
+remained 128; its units/sentinel interpretation remain unresolved.
+
+The successful session's 106 application requests (51 BLE, 55 RFCOMM) passed the
+read-only wire-message audit. The failed session logged 29 attempted application
+writes (28 BLE, one RFCOMM negotiation request), also all within policy; the failed
+RFCOMM write log does not establish delivery. Neither attempt included settings
+writes or printing commands. No target events were logged. These snapshots do
+not measure the immediate transition latency or establish notification behavior
+while a connection stays open through unplugging.
+
+Private evidence: `replugged-20261022.json` (failed attempt),
+`replugged-retry-20261022.json` (successful), their `-audit.json` files, and traces
+`20261022T080539.964858Z-probe.jsonl` and
+`20261022T080631.213065Z-probe.jsonl`. No additional unplugging is needed for this
+comparison; the printer was left connected to its charger.
