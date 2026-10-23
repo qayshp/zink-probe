@@ -1,0 +1,109 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "photo_sha256": "7b4c07588206d3a10354740e28c7e526e7bd0e5ca238d60e0f243e59dc532f49",
+  "photo_dimensions": [
+    2880,
+    3840
+  ],
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "method": "Decode pinned transmitted JPEG as RGB with Pillow. Sample central 64x64 pixels of each 80x80 bar patch. Values are encoded RGB, not radiometry. Compare matching orientations after transpose.",
+  "photo_assessment": "Visual observation only: vertical gaps appear more cyan and less white than horizontal gaps. No quantitative camera correction or physical layer attribution.",
+  "patches": [
+    {
+      "run_width_input_px": 4,
+      "orientations": [
+        {
+          "orientation": "vertical",
+          "sampling_box_exclusive": [
+            386,
+            240,
+            450,
+            304
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 127.5
+        },
+        {
+          "orientation": "horizontal",
+          "sampling_box_exclusive": [
+            386,
+            370,
+            450,
+            434
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 127.5
+        }
+      ],
+      "maximum_difference_vertical_vs_transposed_horizontal": 0
+    },
+    {
+      "run_width_input_px": 6,
+      "orientations": [
+        {
+          "orientation": "vertical",
+          "sampling_box_exclusive": [
+            488,
+            240,
+            552,
+            304
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 135.484375
+        },
+        {
+          "orientation": "horizontal",
+          "sampling_box_exclusive": [
+            488,
+            370,
+            552,
+            434
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 135.484375
+        }
+      ],
+      "maximum_difference_vertical_vs_transposed_horizontal": 2
+    },
+    {
+      "run_width_input_px": 8,
+      "orientations": [
+        {
+          "orientation": "vertical",
+          "sampling_box_exclusive": [
+            590,
+            240,
+            654,
+            304
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 127.5625
+        },
+        {
+          "orientation": "horizontal",
+          "sampling_box_exclusive": [
+            590,
+            370,
+            654,
+            434
+          ],
+          "maximum_rgb_channel_difference": 0,
+          "minimum": 0,
+          "maximum": 255,
+          "mean": 127.5625
+        }
+      ],
+      "maximum_difference_vertical_vs_transposed_horizontal": 2
+    }
+  ]
+}

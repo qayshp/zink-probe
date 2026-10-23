@@ -300,6 +300,10 @@ do not yet establish native resolution or justify a fixed printer correction.
 show that faint one-pixel vertical periodic detail survives, refining the initial
 wide-photo impression of a solid dark patch. Its captured contrast remains much
 lower than the horizontal counterpart.
+Another [contrast close-up and thermal hypothesis review](experiments/calibration/THERMAL_HYPOTHESES.md)
+finds neutral source pixels behind cyan-looking gaps and distinguishes residual
+heat, lateral spreading, color interactions, and capture effects. It outlines
+matched color controls without applying a correction or printing another sheet.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per
