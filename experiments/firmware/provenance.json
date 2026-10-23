@@ -1,0 +1,59 @@
+{
+  "retrieved_on": "2026-10-22",
+  "catalog_url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/fw_release.json",
+  "catalog_sha256": "f495eddc16aaff7c42bb6a09d1522971e2b7bd8b72da78cdc51a2883241fb649",
+  "catalog_key": "GrandBahama-G1L1FS",
+  "tested_device_firmware": "G1L1FA2105AR",
+  "exact_device_variant_match": false,
+  "vendor_signature_verified": false,
+  "downloads": [
+    {
+      "latest": "false",
+      "fw_ver": "G1L1FS1941AR",
+      "fw_date": "10-29-2019",
+      "dependency": "none",
+      "fw_url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/GrandBahama-G1L1FS/G1L1FS1941AR_signed.rbn",
+      "checksum": "fc6a9f493fde4798167dbca49d647b78",
+      "file": "G1L1FS1941AR_signed.rbn",
+      "size": 1905504,
+      "sha256": "74f9e9e42cdc0f646fb54b24fe93f9194bb7731763a786fbf16f9f92f582d9b8",
+      "md5": "fc6a9f493fde4798167dbca49d647b78"
+    },
+    {
+      "latest": "false",
+      "fw_ver": "G1L1FS2050AR",
+      "fw_date": "12-28-2020",
+      "dependency": "none",
+      "fw_url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/GrandBahama-G1L1FS/G1L1FS2050AR_1.0.6_signed.rbn",
+      "checksum": "8c0a67d56ef15745a5fbb10572b773fe",
+      "file": "G1L1FS2050AR_1.0.6_signed.rbn",
+      "size": 1942916,
+      "sha256": "9a66701726c4628470372fa2235e1f54a1ec699ad021245a32f995cb3ad54290",
+      "md5": "8c0a67d56ef15745a5fbb10572b773fe"
+    },
+    {
+      "latest": "false",
+      "fw_ver": "G1L1FS2105AR",
+      "fw_date": "03-04-2022",
+      "dependency": "none",
+      "fw_url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/GrandBahama-G1L1FS/G1L1FS2105AR_1.0.7.rbn",
+      "checksum": "d7a86076f9f135f6df81a014501bbde0",
+      "file": "G1L1FS2105AR_1.0.7.rbn",
+      "size": 1942964,
+      "sha256": "68cc7a635342e1e882b1e552c9d1ee2803b1c5928d61a0612f69e689d9f08a60",
+      "md5": "d7a86076f9f135f6df81a014501bbde0"
+    },
+    {
+      "latest": "true",
+      "fw_ver": "G1L1FS2210AR",
+      "fw_date": "08-10-2026",
+      "dependency": "none",
+      "fw_url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/GrandBahama-G1L1FS/G1L1FS2210AR_1.0.10_d220307.rbn",
+      "checksum": "712990e3f20129f3e1b8c18c0ecab02e",
+      "file": "G1L1FS2210AR_1.0.10_d220307.rbn",
+      "size": 1947532,
+      "sha256": "da1d309df19beb0ed551577de0e2934a9c5235719382a37a5aefb41c8dc50bd8",
+      "md5": "712990e3f20129f3e1b8c18c0ecab02e"
+    }
+  ]
+}

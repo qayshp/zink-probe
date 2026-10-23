@@ -1,0 +1,2278 @@
+[
+  {
+    "file": "G1L1FS1941AR_signed.rbn",
+    "size": 1905504,
+    "sha256": "74f9e9e42cdc0f646fb54b24fe93f9194bb7731763a786fbf16f9f92f582d9b8",
+    "signature_verified": false,
+    "partitions": {
+      "BOOT": {
+        "offset": "0x0",
+        "size": 458752,
+        "flags": 0,
+        "sha256": "75ce81fa27f8fe39073dee655e36726569cd8b5e0d24e9980f9f2d7878cd1d34",
+        "all_ff": false
+      },
+      "FBOOT_DSG": {
+        "offset": "0x70000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM": {
+        "offset": "0x80000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM_2": {
+        "offset": "0x90000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "STREAK_CORRECTION": {
+        "offset": "0xa0000",
+        "size": 8192,
+        "flags": 0,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910",
+        "all_ff": false
+      },
+      "TONESCALE": {
+        "offset": "0xa2000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "TONESCALEb": {
+        "offset": "0xa3000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "HPSB": {
+        "offset": "0xa4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "8aa02018295fa46d1c8f66e138bee52a554ac3983eeabbd7f8f2b7662b4c24fd",
+        "all_ff": false
+      },
+      "PADDING": {
+        "offset": "0xa8000",
+        "size": 32768,
+        "flags": 0,
+        "sha256": "2d864c0b789a43214eee8524d3182075125e5ca2cd527f3582ec87ffd94076bc",
+        "all_ff": true
+      },
+      "TMD_REPLACE": {
+        "offset": "0xb0000",
+        "size": 131072,
+        "flags": 0,
+        "sha256": "115f0d9470f222045c3d3f47174792c50f802df8e63d3ecdda3955ca90e0ea78",
+        "all_ff": false
+      },
+      "MMT": {
+        "offset": "0xd0000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "c7744f76fd6310cebfc3e3df258c6b037c1bdaab51a87ee0fb1d127374291ba2",
+        "all_ff": false
+      },
+      "MMT2": {
+        "offset": "0xd4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "c7744f76fd6310cebfc3e3df258c6b037c1bdaab51a87ee0fb1d127374291ba2",
+        "all_ff": false
+      },
+      "LUT1_Z21": {
+        "offset": "0xd8000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "36b9d3e7a62120fc4f04e60790d60b94ba1ed542479a125938ee860593c90312",
+        "all_ff": false
+      },
+      "LUT2_Z21": {
+        "offset": "0xdd000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "69888953c39ade47c8c1f16b312eeb4ecfd0afea215de7a4aeed2831050bf7f1",
+        "all_ff": false
+      },
+      "LUT3_Z21": {
+        "offset": "0xe2000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "9e1c8772ae666013995882ab69edac54b61bab3a3cb97900b70bae859775dc7a",
+        "all_ff": false
+      },
+      "LUT4_Z21": {
+        "offset": "0xe7000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "dfa52f700f1f4eacd0e49d1e7ae7b25718bd5a5d357e43a1afc092c6f12d58c4",
+        "all_ff": false
+      },
+      "LUT5_Z21": {
+        "offset": "0xec000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "7edc08a595bc3c7dd5379bc31001120c1bc748301a6b5470d2ab4aebcf575a90",
+        "all_ff": false
+      },
+      "LUT6_Z21": {
+        "offset": "0xf1000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "88399d5cfc776adeedba1ef9c2298944b7c310b4874fc6dd6ebc17f67d43c35d",
+        "all_ff": false
+      },
+      "ZINK_THC": {
+        "offset": "0xf6000",
+        "size": 40960,
+        "flags": 0,
+        "sha256": "85e2f05425d8e442f3a80d86820d38f6af56f43bb6b5211955f30f25bd862673",
+        "all_ff": false
+      },
+      "ROMTAB": {
+        "offset": "0x100000",
+        "size": 316,
+        "flags": 0,
+        "sha256": "cdde8538f5708ca24dc2fb7fa579f41f446865c40e2c9058a06262e1327ff9e2",
+        "all_ff": false
+      },
+      "STRTAB": {
+        "offset": "0x10013c",
+        "size": 192,
+        "flags": 0,
+        "sha256": "841fcd38f015ad358be093127efe0af88447c8a8cdc37ffda253e59190f915d3",
+        "all_ff": false
+      },
+      "FIRMWARE": {
+        "offset": "0x1001fc",
+        "size": 856097,
+        "flags": 1,
+        "sha256": "d9d996fb3aab075d6a1d52b437ad19a0eadfd6e75b0167154c5f6104fbff1ed1",
+        "all_ff": false
+      },
+      "END": {
+        "offset": "0x1d1220",
+        "size": 64,
+        "flags": 0,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50",
+        "all_ff": false
+      }
+    },
+    "main": {
+      "size": 1336192,
+      "sha256": "e77a01475f5078d4495bd35323a35ba5582a5e11f96c6c7820e2f76eb9cfa7e5",
+      "unused_bytes_in_partition": 0,
+      "diagnostic_string_offsets": {
+        "JFIFFINIT": [
+          "0x9070"
+        ],
+        "__FACTORY_MODE__": [
+          "0x9090"
+        ],
+        "TPH Test Mode": [
+          "0xb796"
+        ],
+        "Test Pattern Type Set": [
+          "0xb7de"
+        ],
+        "Set MCal mode": [
+          "0x1b3e8"
+        ],
+        "ZINK_THC": [
+          "0x2b598",
+          "0x2d93a",
+          "0x2d957"
+        ]
+      }
+    },
+    "tone": {
+      "float_count": 768,
+      "max_error_vs_triplicated_255_minus_i_over_100": 1.1444091807533141e-07,
+      "remaining_bytes_all_ff": true,
+      "duplicate_TONESCALEb": true,
+      "duplicate_MMT_and_MMT2": true
+    },
+    "luts": {
+      "LUT1_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            85,
+            255,
+            20
+          ],
+          "272": [
+            12,
+            255,
+            69,
+            18
+          ],
+          "288": [
+            12,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            24,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT2_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            77,
+            255,
+            20
+          ],
+          "272": [
+            8,
+            255,
+            52,
+            18
+          ],
+          "288": [
+            8,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            16,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT3_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            66,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            23,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            8,
+            8,
+            0
+          ],
+          "4640": [
+            255,
+            8,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT4_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            60,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            16,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            47,
+            47,
+            0
+          ],
+          "4640": [
+            255,
+            101,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT5_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            69,
+            69,
+            0
+          ],
+          "4640": [
+            255,
+            191,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT6_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            104,
+            104,
+            0
+          ],
+          "4640": [
+            255,
+            255,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      }
+    },
+    "thermal": {
+      "layout_version": 2,
+      "scaler_at_0x110": 0.047705188393592834,
+      "parameter_logged_W_at_0x114": 0.23499999940395355,
+      "parameter_logged_ips_at_0x118": 0.10000000149011612,
+      "parameter_logged_DPI_at_0x11c": 321,
+      "parameter_logged_LPI_at_0x11e": 600,
+      "date_string_at_0x128": "10-May-2019 13:37:41",
+      "interpretation": "Configured values in downloaded FS firmware, not live FA measurements"
+    }
+  },
+  {
+    "file": "G1L1FS2050AR_1.0.6_signed.rbn",
+    "size": 1942916,
+    "sha256": "9a66701726c4628470372fa2235e1f54a1ec699ad021245a32f995cb3ad54290",
+    "signature_verified": false,
+    "partitions": {
+      "BOOT": {
+        "offset": "0x0",
+        "size": 458752,
+        "flags": 0,
+        "sha256": "7a8d9c69527f39b1abfc867bf156430135c52db46a4b156df82b55857ba19192",
+        "all_ff": false
+      },
+      "FBOOT_DSG": {
+        "offset": "0x70000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM": {
+        "offset": "0x80000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM_2": {
+        "offset": "0x90000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "STREAK_CORRECTION": {
+        "offset": "0xa0000",
+        "size": 8192,
+        "flags": 0,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910",
+        "all_ff": false
+      },
+      "TONESCALE": {
+        "offset": "0xa2000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "TONESCALEb": {
+        "offset": "0xa3000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "HPSB": {
+        "offset": "0xa4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "8aa02018295fa46d1c8f66e138bee52a554ac3983eeabbd7f8f2b7662b4c24fd",
+        "all_ff": false
+      },
+      "PADDING": {
+        "offset": "0xa8000",
+        "size": 32768,
+        "flags": 0,
+        "sha256": "2d864c0b789a43214eee8524d3182075125e5ca2cd527f3582ec87ffd94076bc",
+        "all_ff": true
+      },
+      "TMD_REPLACE": {
+        "offset": "0xb0000",
+        "size": 131072,
+        "flags": 0,
+        "sha256": "115f0d9470f222045c3d3f47174792c50f802df8e63d3ecdda3955ca90e0ea78",
+        "all_ff": false
+      },
+      "MMT": {
+        "offset": "0xd0000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "c7744f76fd6310cebfc3e3df258c6b037c1bdaab51a87ee0fb1d127374291ba2",
+        "all_ff": false
+      },
+      "MMT2": {
+        "offset": "0xd4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "c7744f76fd6310cebfc3e3df258c6b037c1bdaab51a87ee0fb1d127374291ba2",
+        "all_ff": false
+      },
+      "LUT1_Z21": {
+        "offset": "0xd8000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "36b9d3e7a62120fc4f04e60790d60b94ba1ed542479a125938ee860593c90312",
+        "all_ff": false
+      },
+      "LUT2_Z21": {
+        "offset": "0xdd000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "69888953c39ade47c8c1f16b312eeb4ecfd0afea215de7a4aeed2831050bf7f1",
+        "all_ff": false
+      },
+      "LUT3_Z21": {
+        "offset": "0xe2000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "9e1c8772ae666013995882ab69edac54b61bab3a3cb97900b70bae859775dc7a",
+        "all_ff": false
+      },
+      "LUT4_Z21": {
+        "offset": "0xe7000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "dfa52f700f1f4eacd0e49d1e7ae7b25718bd5a5d357e43a1afc092c6f12d58c4",
+        "all_ff": false
+      },
+      "LUT5_Z21": {
+        "offset": "0xec000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "7edc08a595bc3c7dd5379bc31001120c1bc748301a6b5470d2ab4aebcf575a90",
+        "all_ff": false
+      },
+      "LUT6_Z21": {
+        "offset": "0xf1000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "88399d5cfc776adeedba1ef9c2298944b7c310b4874fc6dd6ebc17f67d43c35d",
+        "all_ff": false
+      },
+      "ZINK_THC": {
+        "offset": "0xf6000",
+        "size": 40960,
+        "flags": 0,
+        "sha256": "85e2f05425d8e442f3a80d86820d38f6af56f43bb6b5211955f30f25bd862673",
+        "all_ff": false
+      },
+      "ROMTAB": {
+        "offset": "0x100000",
+        "size": 316,
+        "flags": 0,
+        "sha256": "0441c838fadff38f788862d94ed2214ecf65c5205a857bdb6cbca0f561999ad3",
+        "all_ff": false
+      },
+      "STRTAB": {
+        "offset": "0x10013c",
+        "size": 192,
+        "flags": 0,
+        "sha256": "841fcd38f015ad358be093127efe0af88447c8a8cdc37ffda253e59190f915d3",
+        "all_ff": false
+      },
+      "FIRMWARE": {
+        "offset": "0x1001fc",
+        "size": 893510,
+        "flags": 1,
+        "sha256": "17d00815f05c67c24fb232d69a727002b97c5f3165b87ce6dc451b09aad44fcb",
+        "all_ff": false
+      },
+      "END": {
+        "offset": "0x1da444",
+        "size": 64,
+        "flags": 0,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50",
+        "all_ff": false
+      }
+    },
+    "main": {
+      "size": 1369344,
+      "sha256": "6aaabe0f5912289c2142577c3d034b4216aaf5e68320c7f930d99e99891d1e0e",
+      "unused_bytes_in_partition": 0,
+      "diagnostic_string_offsets": {
+        "JFIFFINIT": [
+          "0x90a0"
+        ],
+        "__FACTORY_MODE__": [
+          "0x90c0"
+        ],
+        "TPH Test Mode": [
+          "0xb7c6"
+        ],
+        "Test Pattern Type Set": [
+          "0xb80e"
+        ],
+        "Set MCal mode": [
+          "0x1bcb8"
+        ],
+        "ZINK_THC": [
+          "0x2f2fc",
+          "0x316ba",
+          "0x316d7"
+        ]
+      }
+    },
+    "tone": {
+      "float_count": 768,
+      "max_error_vs_triplicated_255_minus_i_over_100": 1.1444091807533141e-07,
+      "remaining_bytes_all_ff": true,
+      "duplicate_TONESCALEb": true,
+      "duplicate_MMT_and_MMT2": true
+    },
+    "luts": {
+      "LUT1_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            85,
+            255,
+            20
+          ],
+          "272": [
+            12,
+            255,
+            69,
+            18
+          ],
+          "288": [
+            12,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            24,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT2_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            77,
+            255,
+            20
+          ],
+          "272": [
+            8,
+            255,
+            52,
+            18
+          ],
+          "288": [
+            8,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            16,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT3_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            66,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            23,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            8,
+            8,
+            0
+          ],
+          "4640": [
+            255,
+            8,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT4_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            60,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            16,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            47,
+            47,
+            0
+          ],
+          "4640": [
+            255,
+            101,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT5_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            69,
+            69,
+            0
+          ],
+          "4640": [
+            255,
+            191,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT6_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            104,
+            104,
+            0
+          ],
+          "4640": [
+            255,
+            255,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      }
+    },
+    "thermal": {
+      "layout_version": 2,
+      "scaler_at_0x110": 0.047705188393592834,
+      "parameter_logged_W_at_0x114": 0.23499999940395355,
+      "parameter_logged_ips_at_0x118": 0.10000000149011612,
+      "parameter_logged_DPI_at_0x11c": 321,
+      "parameter_logged_LPI_at_0x11e": 600,
+      "date_string_at_0x128": "10-May-2019 13:37:41",
+      "interpretation": "Configured values in downloaded FS firmware, not live FA measurements"
+    }
+  },
+  {
+    "file": "G1L1FS2105AR_1.0.7.rbn",
+    "size": 1942964,
+    "sha256": "68cc7a635342e1e882b1e552c9d1ee2803b1c5928d61a0612f69e689d9f08a60",
+    "signature_verified": false,
+    "partitions": {
+      "BOOT": {
+        "offset": "0x0",
+        "size": 458752,
+        "flags": 0,
+        "sha256": "7a8d9c69527f39b1abfc867bf156430135c52db46a4b156df82b55857ba19192",
+        "all_ff": false
+      },
+      "FBOOT_DSG": {
+        "offset": "0x70000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM": {
+        "offset": "0x80000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM_2": {
+        "offset": "0x90000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "STREAK_CORRECTION": {
+        "offset": "0xa0000",
+        "size": 8192,
+        "flags": 0,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910",
+        "all_ff": false
+      },
+      "TONESCALE": {
+        "offset": "0xa2000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "TONESCALEb": {
+        "offset": "0xa3000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "HPSB": {
+        "offset": "0xa4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "8aa02018295fa46d1c8f66e138bee52a554ac3983eeabbd7f8f2b7662b4c24fd",
+        "all_ff": false
+      },
+      "PADDING": {
+        "offset": "0xa8000",
+        "size": 32768,
+        "flags": 0,
+        "sha256": "2d864c0b789a43214eee8524d3182075125e5ca2cd527f3582ec87ffd94076bc",
+        "all_ff": true
+      },
+      "TMD_REPLACE": {
+        "offset": "0xb0000",
+        "size": 131072,
+        "flags": 0,
+        "sha256": "115f0d9470f222045c3d3f47174792c50f802df8e63d3ecdda3955ca90e0ea78",
+        "all_ff": false
+      },
+      "MMT": {
+        "offset": "0xd0000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "63e88b05b168cf2dc9cab42a4d9a356e3521aed85bc072a1d878cdcdb71b05b9",
+        "all_ff": false
+      },
+      "MMT2": {
+        "offset": "0xd4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "63e88b05b168cf2dc9cab42a4d9a356e3521aed85bc072a1d878cdcdb71b05b9",
+        "all_ff": false
+      },
+      "LUT1_Z21": {
+        "offset": "0xd8000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "36b9d3e7a62120fc4f04e60790d60b94ba1ed542479a125938ee860593c90312",
+        "all_ff": false
+      },
+      "LUT2_Z21": {
+        "offset": "0xdd000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "69888953c39ade47c8c1f16b312eeb4ecfd0afea215de7a4aeed2831050bf7f1",
+        "all_ff": false
+      },
+      "LUT3_Z21": {
+        "offset": "0xe2000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "9e1c8772ae666013995882ab69edac54b61bab3a3cb97900b70bae859775dc7a",
+        "all_ff": false
+      },
+      "LUT4_Z21": {
+        "offset": "0xe7000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "dfa52f700f1f4eacd0e49d1e7ae7b25718bd5a5d357e43a1afc092c6f12d58c4",
+        "all_ff": false
+      },
+      "LUT5_Z21": {
+        "offset": "0xec000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "7edc08a595bc3c7dd5379bc31001120c1bc748301a6b5470d2ab4aebcf575a90",
+        "all_ff": false
+      },
+      "LUT6_Z21": {
+        "offset": "0xf1000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "88399d5cfc776adeedba1ef9c2298944b7c310b4874fc6dd6ebc17f67d43c35d",
+        "all_ff": false
+      },
+      "ZINK_THC": {
+        "offset": "0xf6000",
+        "size": 40960,
+        "flags": 0,
+        "sha256": "3b4e5a162b60669c53a36213a62b7b49082de5b32929e8c737fc95c20ed17315",
+        "all_ff": false
+      },
+      "ROMTAB": {
+        "offset": "0x100000",
+        "size": 316,
+        "flags": 0,
+        "sha256": "403f72fa1546a13c82404c0621882583e949c9379ae332b734df1f1aca1b2781",
+        "all_ff": false
+      },
+      "STRTAB": {
+        "offset": "0x10013c",
+        "size": 192,
+        "flags": 0,
+        "sha256": "841fcd38f015ad358be093127efe0af88447c8a8cdc37ffda253e59190f915d3",
+        "all_ff": false
+      },
+      "FIRMWARE": {
+        "offset": "0x1001fc",
+        "size": 893814,
+        "flags": 1,
+        "sha256": "889a5e2d0a0520e578ee655a709509f06eb652f1d78f47988ff8332cd3fbb7cc",
+        "all_ff": false
+      },
+      "END": {
+        "offset": "0x1da574",
+        "size": 64,
+        "flags": 0,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50",
+        "all_ff": false
+      }
+    },
+    "main": {
+      "size": 1385728,
+      "sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+      "unused_bytes_in_partition": 0,
+      "diagnostic_string_offsets": {
+        "JFIFFINIT": [
+          "0x90a0"
+        ],
+        "__FACTORY_MODE__": [
+          "0x90c0"
+        ],
+        "TPH Test Mode": [
+          "0xb7c6"
+        ],
+        "Test Pattern Type Set": [
+          "0xb80e"
+        ],
+        "Set MCal mode": [
+          "0x1bdf0"
+        ],
+        "ZINK_THC": [
+          "0x2f434",
+          "0x317f2",
+          "0x3180f"
+        ]
+      }
+    },
+    "tone": {
+      "float_count": 768,
+      "max_error_vs_triplicated_255_minus_i_over_100": 1.1444091807533141e-07,
+      "remaining_bytes_all_ff": true,
+      "duplicate_TONESCALEb": true,
+      "duplicate_MMT_and_MMT2": true
+    },
+    "luts": {
+      "LUT1_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            85,
+            255,
+            20
+          ],
+          "272": [
+            12,
+            255,
+            69,
+            18
+          ],
+          "288": [
+            12,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            24,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT2_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            77,
+            255,
+            20
+          ],
+          "272": [
+            8,
+            255,
+            52,
+            18
+          ],
+          "288": [
+            8,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            16,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT3_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            66,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            23,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            8,
+            8,
+            0
+          ],
+          "4640": [
+            255,
+            8,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT4_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            60,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            16,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            47,
+            47,
+            0
+          ],
+          "4640": [
+            255,
+            101,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT5_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            69,
+            69,
+            0
+          ],
+          "4640": [
+            255,
+            191,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT6_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            104,
+            104,
+            0
+          ],
+          "4640": [
+            255,
+            255,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      }
+    },
+    "thermal": {
+      "layout_version": 2,
+      "scaler_at_0x110": 0.047705188393592834,
+      "parameter_logged_W_at_0x114": 0.23499999940395355,
+      "parameter_logged_ips_at_0x118": 0.10000000149011612,
+      "parameter_logged_DPI_at_0x11c": 321,
+      "parameter_logged_LPI_at_0x11e": 600,
+      "date_string_at_0x128": "15-Jan-2021 16:07:51",
+      "interpretation": "Configured values in downloaded FS firmware, not live FA measurements"
+    }
+  },
+  {
+    "file": "G1L1FS2210AR_1.0.10_d220307.rbn",
+    "size": 1947532,
+    "sha256": "da1d309df19beb0ed551577de0e2934a9c5235719382a37a5aefb41c8dc50bd8",
+    "signature_verified": false,
+    "partitions": {
+      "BOOT": {
+        "offset": "0x0",
+        "size": 458752,
+        "flags": 0,
+        "sha256": "39fb9f537f8ed27d384c7e94b2b0d0811eb401b5db66028d6cb13a9bc2a69160",
+        "all_ff": false
+      },
+      "FBOOT_DSG": {
+        "offset": "0x70000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM": {
+        "offset": "0x80000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "NVRAM_2": {
+        "offset": "0x90000",
+        "size": 65536,
+        "flags": 0,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063",
+        "all_ff": true
+      },
+      "STREAK_CORRECTION": {
+        "offset": "0xa0000",
+        "size": 8192,
+        "flags": 0,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910",
+        "all_ff": false
+      },
+      "TONESCALE": {
+        "offset": "0xa2000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "TONESCALEb": {
+        "offset": "0xa3000",
+        "size": 4096,
+        "flags": 0,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546",
+        "all_ff": false
+      },
+      "HPSB": {
+        "offset": "0xa4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "8aa02018295fa46d1c8f66e138bee52a554ac3983eeabbd7f8f2b7662b4c24fd",
+        "all_ff": false
+      },
+      "PADDING": {
+        "offset": "0xa8000",
+        "size": 32768,
+        "flags": 0,
+        "sha256": "2d864c0b789a43214eee8524d3182075125e5ca2cd527f3582ec87ffd94076bc",
+        "all_ff": true
+      },
+      "TMD_REPLACE": {
+        "offset": "0xb0000",
+        "size": 131072,
+        "flags": 0,
+        "sha256": "115f0d9470f222045c3d3f47174792c50f802df8e63d3ecdda3955ca90e0ea78",
+        "all_ff": false
+      },
+      "MMT": {
+        "offset": "0xd0000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "63e88b05b168cf2dc9cab42a4d9a356e3521aed85bc072a1d878cdcdb71b05b9",
+        "all_ff": false
+      },
+      "MMT2": {
+        "offset": "0xd4000",
+        "size": 16384,
+        "flags": 0,
+        "sha256": "63e88b05b168cf2dc9cab42a4d9a356e3521aed85bc072a1d878cdcdb71b05b9",
+        "all_ff": false
+      },
+      "LUT1_Z21": {
+        "offset": "0xd8000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "36b9d3e7a62120fc4f04e60790d60b94ba1ed542479a125938ee860593c90312",
+        "all_ff": false
+      },
+      "LUT2_Z21": {
+        "offset": "0xdd000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "69888953c39ade47c8c1f16b312eeb4ecfd0afea215de7a4aeed2831050bf7f1",
+        "all_ff": false
+      },
+      "LUT3_Z21": {
+        "offset": "0xe2000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "9e1c8772ae666013995882ab69edac54b61bab3a3cb97900b70bae859775dc7a",
+        "all_ff": false
+      },
+      "LUT4_Z21": {
+        "offset": "0xe7000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "dfa52f700f1f4eacd0e49d1e7ae7b25718bd5a5d357e43a1afc092c6f12d58c4",
+        "all_ff": false
+      },
+      "LUT5_Z21": {
+        "offset": "0xec000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "7edc08a595bc3c7dd5379bc31001120c1bc748301a6b5470d2ab4aebcf575a90",
+        "all_ff": false
+      },
+      "LUT6_Z21": {
+        "offset": "0xf1000",
+        "size": 20480,
+        "flags": 0,
+        "sha256": "88399d5cfc776adeedba1ef9c2298944b7c310b4874fc6dd6ebc17f67d43c35d",
+        "all_ff": false
+      },
+      "ZINK_THC": {
+        "offset": "0xf6000",
+        "size": 40960,
+        "flags": 0,
+        "sha256": "3b4e5a162b60669c53a36213a62b7b49082de5b32929e8c737fc95c20ed17315",
+        "all_ff": false
+      },
+      "ROMTAB": {
+        "offset": "0x100000",
+        "size": 316,
+        "flags": 0,
+        "sha256": "c96ecee09633b46f8bfa048aa18e99cac61829906aa39c9e9107ec9f2c0161b3",
+        "all_ff": false
+      },
+      "STRTAB": {
+        "offset": "0x10013c",
+        "size": 192,
+        "flags": 0,
+        "sha256": "841fcd38f015ad358be093127efe0af88447c8a8cdc37ffda253e59190f915d3",
+        "all_ff": false
+      },
+      "FIRMWARE": {
+        "offset": "0x1001fc",
+        "size": 898383,
+        "flags": 1,
+        "sha256": "eeebb1335e00576e08a05155f8b9f07439d27d51309137cb9f43702c902ac228",
+        "all_ff": false
+      },
+      "END": {
+        "offset": "0x1db74c",
+        "size": 64,
+        "flags": 0,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50",
+        "all_ff": false
+      }
+    },
+    "main": {
+      "size": 1385664,
+      "sha256": "9e870c71950dc6746dac2623fed3d0d179c2e2cc24dd48d7d85a6a164aa69fde",
+      "unused_bytes_in_partition": 0,
+      "diagnostic_string_offsets": {
+        "JFIFFINIT": [
+          "0x9b3c"
+        ],
+        "__FACTORY_MODE__": [
+          "0x9b5c"
+        ],
+        "TPH Test Mode": [
+          "0xc832"
+        ],
+        "Test Pattern Type Set": [
+          "0xc87a"
+        ],
+        "Set MCal mode": [
+          "0x1d074"
+        ],
+        "ZINK_THC": [
+          "0x3149c",
+          "0x33c96",
+          "0x33cb3"
+        ]
+      }
+    },
+    "tone": {
+      "float_count": 768,
+      "max_error_vs_triplicated_255_minus_i_over_100": 1.1444091807533141e-07,
+      "remaining_bytes_all_ff": true,
+      "duplicate_TONESCALEb": true,
+      "duplicate_MMT_and_MMT2": true
+    },
+    "luts": {
+      "LUT1_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            85,
+            255,
+            20
+          ],
+          "272": [
+            12,
+            255,
+            69,
+            18
+          ],
+          "288": [
+            12,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            24,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT2_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            77,
+            255,
+            20
+          ],
+          "272": [
+            8,
+            255,
+            52,
+            18
+          ],
+          "288": [
+            8,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            0,
+            0,
+            0
+          ],
+          "4640": [
+            255,
+            0,
+            255,
+            18
+          ],
+          "4896": [
+            255,
+            255,
+            16,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT3_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            66,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            23,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            8,
+            8,
+            0
+          ],
+          "4640": [
+            255,
+            8,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT4_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            60,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            16,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            47,
+            47,
+            0
+          ],
+          "4640": [
+            255,
+            101,
+            255,
+            17
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT5_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            69,
+            69,
+            0
+          ],
+          "4640": [
+            255,
+            191,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      },
+      "LUT6_Z21": {
+        "records": 4913,
+        "record_bytes": 4,
+        "remaining_bytes_all_ff": true,
+        "fourth_byte_range": [
+          0,
+          30
+        ],
+        "raw_corner_records": {
+          "0": [
+            0,
+            0,
+            0,
+            30
+          ],
+          "16": [
+            15,
+            47,
+            255,
+            20
+          ],
+          "272": [
+            0,
+            255,
+            0,
+            18
+          ],
+          "288": [
+            0,
+            255,
+            255,
+            20
+          ],
+          "4624": [
+            255,
+            104,
+            104,
+            0
+          ],
+          "4640": [
+            255,
+            255,
+            255,
+            16
+          ],
+          "4896": [
+            255,
+            255,
+            0,
+            18
+          ],
+          "4912": [
+            255,
+            255,
+            255,
+            30
+          ]
+        }
+      }
+    },
+    "thermal": {
+      "layout_version": 2,
+      "scaler_at_0x110": 0.047705188393592834,
+      "parameter_logged_W_at_0x114": 0.23499999940395355,
+      "parameter_logged_ips_at_0x118": 0.10000000149011612,
+      "parameter_logged_DPI_at_0x11c": 321,
+      "parameter_logged_LPI_at_0x11e": 600,
+      "date_string_at_0x128": "15-Jan-2021 16:07:51",
+      "interpretation": "Configured values in downloaded FS firmware, not live FA measurements"
+    }
+  }
+]

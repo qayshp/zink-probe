@@ -310,6 +310,11 @@ Another [contrast close-up and thermal hypothesis review](experiments/calibratio
 finds neutral source pixels behind cyan-looking gaps and distinguishes residual
 heat, lateral spreading, color interactions, and capture effects. It outlines
 matched color controls without applying a correction or printing another sheet.
+The [firmware color-table and diagnostics investigation](FIRMWARE_COLOR_DIAGNOSTICS.md)
+recovers six color LUTs, tone/thermal data, and factory-test code from public
+Grand Bahama FS firmware. It records the unresolved FS/FA compatibility boundary
+and why nominal RGB CMY patches still do not establish isolated dye activation.
+Its inspector is offline; no factory mode or extra print was invoked.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per
