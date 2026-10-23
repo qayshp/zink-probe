@@ -1,0 +1,1914 @@
+{
+  "scope": "Original Android renderer; synthetic chart only; no printer access",
+  "apk_version": "3.0.2921.1 / 74251",
+  "pointer_tagging_disabled_in_harness": true,
+  "cases": [
+    {
+      "case": "override-768x1152-plain",
+      "lanczosEnabled": true,
+      "milliseconds": 45,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    },
+    {
+      "case": "override-768x1152-photofix",
+      "lanczosEnabled": true,
+      "milliseconds": 322,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    },
+    {
+      "case": "file-lanczos-768x1152-plain",
+      "lanczosEnabled": true,
+      "milliseconds": 61,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    },
+    {
+      "case": "file-lanczos-768x1152-photofix",
+      "lanczosEnabled": true,
+      "milliseconds": 56,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    },
+    {
+      "case": "file-matrix-768x1152-plain",
+      "lanczosEnabled": false,
+      "milliseconds": 16,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    },
+    {
+      "case": "file-matrix-768x1152-photofix",
+      "lanczosEnabled": false,
+      "milliseconds": 50,
+      "width": 768,
+      "height": 1152,
+      "jpegQuality": 90,
+      "jpegBytes": 96964,
+      "processDataMatches": true,
+      "photoFixHandleSign": 1,
+      "photoFixDiagnosticResult": "SUCCESS",
+      "python_vs_android_bitmap": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "python_vs_android_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      },
+      "jpeg_equal_except_icc": true,
+      "jpeg_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785"
+    }
+  ],
+  "line_patches": [
+    {
+      "name": "r1-K-vertical",
+      "box_exclusive": [
+        64,
+        208,
+        112,
+        256
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-K-horizontal",
+      "box_exclusive": [
+        128,
+        208,
+        176,
+        256
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0,
+        "maximum_channel_error": 0,
+        "changed_pixel_percent": 0.0,
+        "pixel_exact": true
+      }
+    },
+    {
+      "name": "r1-G128-vertical",
+      "box_exclusive": [
+        192,
+        208,
+        240,
+        256
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 128.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.625,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 62.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-G128-horizontal",
+      "box_exclusive": [
+        256,
+        208,
+        304,
+        256
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.125,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-C-vertical",
+      "box_exclusive": [
+        320,
+        208,
+        368,
+        256
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 235.20833333333334,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 42.915509,
+        "maximum_channel_error": 129,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-C-horizontal",
+      "box_exclusive": [
+        384,
+        208,
+        432,
+        256
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 235.20833333333334,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 42.957176,
+        "maximum_channel_error": 129,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-M-vertical",
+      "box_exclusive": [
+        448,
+        208,
+        496,
+        256
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 105.0,
+      "decoded_jpeg_luma_max": 232.20833333333334,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 42.984664,
+        "maximum_channel_error": 108,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-M-horizontal",
+      "box_exclusive": [
+        512,
+        208,
+        560,
+        256
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 232.20833333333334,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 43.059606,
+        "maximum_channel_error": 108,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-Y-vertical",
+      "box_exclusive": [
+        576,
+        208,
+        624,
+        256
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 245.125,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 42.680266,
+        "maximum_channel_error": 162,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r1-Y-horizontal",
+      "box_exclusive": [
+        640,
+        208,
+        688,
+        256
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "expected_cycles": 24.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 245.125,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 42.680266,
+        "maximum_channel_error": 162,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-K-vertical",
+      "box_exclusive": [
+        64,
+        272,
+        112,
+        320
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-K-vertical",
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.5,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 50.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-K-horizontal",
+      "box_exclusive": [
+        128,
+        272,
+        176,
+        320
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-K-horizontal",
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-G128-vertical",
+      "box_exclusive": [
+        192,
+        272,
+        240,
+        320
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-G128-vertical",
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-G128-horizontal",
+      "box_exclusive": [
+        256,
+        272,
+        304,
+        320
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-G128-horizontal",
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-C-vertical",
+      "box_exclusive": [
+        320,
+        272,
+        368,
+        320
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-C-vertical",
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 254.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.39728,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-C-horizontal",
+      "box_exclusive": [
+        384,
+        272,
+        432,
+        320
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-C-horizontal",
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 254.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.265336,
+        "maximum_channel_error": 79,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-M-vertical",
+      "box_exclusive": [
+        448,
+        272,
+        496,
+        320
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-M-vertical",
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 22.091435,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 97.916667,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-M-horizontal",
+      "box_exclusive": [
+        512,
+        272,
+        560,
+        320
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-M-horizontal",
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 22.12963,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 97.916667,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-Y-vertical",
+      "box_exclusive": [
+        576,
+        272,
+        624,
+        320
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-Y-vertical",
+      "decoded_jpeg_luma_min": 226.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.218461,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r2-Y-horizontal",
+      "box_exclusive": [
+        640,
+        272,
+        688,
+        320
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-Y-horizontal",
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.301794,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-K-vertical",
+      "box_exclusive": [
+        64,
+        336,
+        112,
+        384
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-K-horizontal",
+      "box_exclusive": [
+        128,
+        336,
+        176,
+        384
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-G128-vertical",
+      "box_exclusive": [
+        192,
+        336,
+        240,
+        384
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 126.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-G128-horizontal",
+      "box_exclusive": [
+        256,
+        336,
+        304,
+        384
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 126.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.5,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-C-vertical",
+      "box_exclusive": [
+        320,
+        336,
+        368,
+        384
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 11.034433,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 87.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-C-horizontal",
+      "box_exclusive": [
+        384,
+        336,
+        432,
+        384
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.868634,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 75.260417,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-M-vertical",
+      "box_exclusive": [
+        448,
+        336,
+        496,
+        384
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 105.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 11.130498,
+        "maximum_channel_error": 67,
+        "changed_pixel_percent": 73.697917,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-M-horizontal",
+      "box_exclusive": [
+        512,
+        336,
+        560,
+        384
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 11.142216,
+        "maximum_channel_error": 68,
+        "changed_pixel_percent": 76.692708,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-Y-vertical",
+      "box_exclusive": [
+        576,
+        336,
+        624,
+        384
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.83912,
+        "maximum_channel_error": 98,
+        "changed_pixel_percent": 73.4375,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "r4-Y-horizontal",
+      "box_exclusive": [
+        640,
+        336,
+        688,
+        384
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.942419,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 85.9375,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-K-vertical",
+      "box_exclusive": [
+        64,
+        416,
+        112,
+        464
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.125,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-K-horizontal",
+      "box_exclusive": [
+        128,
+        416,
+        176,
+        464
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-G128-vertical",
+      "box_exclusive": [
+        192,
+        416,
+        240,
+        464
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-G128-horizontal",
+      "box_exclusive": [
+        256,
+        416,
+        304,
+        464
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-C-vertical",
+      "box_exclusive": [
+        320,
+        416,
+        368,
+        464
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.677662,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 93.489583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-C-horizontal",
+      "box_exclusive": [
+        384,
+        416,
+        432,
+        464
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.647714,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 93.489583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-M-vertical",
+      "box_exclusive": [
+        448,
+        416,
+        496,
+        464
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.856192,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 86.979167,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-M-horizontal",
+      "box_exclusive": [
+        512,
+        416,
+        560,
+        464
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 105.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 11.008536,
+        "maximum_channel_error": 68,
+        "changed_pixel_percent": 87.239583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-Y-vertical",
+      "box_exclusive": [
+        576,
+        416,
+        624,
+        464
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.593171,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 87.239583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g6-Y-horizontal",
+      "box_exclusive": [
+        640,
+        416,
+        688,
+        464
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "expected_cycles": 6.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 10.488281,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 87.239583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-K-vertical",
+      "box_exclusive": [
+        64,
+        480,
+        112,
+        528
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.0625,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 6.25,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-K-horizontal",
+      "box_exclusive": [
+        128,
+        480,
+        176,
+        528
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.125,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-G128-vertical",
+      "box_exclusive": [
+        192,
+        480,
+        240,
+        528
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.1875,
+        "maximum_channel_error": 2,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-G128-horizontal",
+      "box_exclusive": [
+        256,
+        480,
+        304,
+        528
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.125,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 12.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-C-vertical",
+      "box_exclusive": [
+        320,
+        480,
+        368,
+        528
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.591725,
+        "maximum_channel_error": 81,
+        "changed_pixel_percent": 80.989583,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-C-horizontal",
+      "box_exclusive": [
+        384,
+        480,
+        432,
+        528
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 179.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.589988,
+        "maximum_channel_error": 81,
+        "changed_pixel_percent": 83.723958,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-M-vertical",
+      "box_exclusive": [
+        448,
+        480,
+        496,
+        528
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.715278,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 85.15625,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-M-horizontal",
+      "box_exclusive": [
+        512,
+        480,
+        560,
+        528
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 105.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.831019,
+        "maximum_channel_error": 68,
+        "changed_pixel_percent": 85.416667,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-Y-vertical",
+      "box_exclusive": [
+        576,
+        480,
+        624,
+        528
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.579282,
+        "maximum_channel_error": 101,
+        "changed_pixel_percent": 80.729167,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "g14-Y-horizontal",
+      "box_exclusive": [
+        640,
+        480,
+        688,
+        528
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "expected_cycles": 3.0,
+      "repeat_group": null,
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 5.603299,
+        "maximum_channel_error": 101,
+        "changed_pixel_percent": 76.909722,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-K-vertical",
+      "box_exclusive": [
+        64,
+        928,
+        112,
+        976
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-K-vertical",
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.5,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 50.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-K-horizontal",
+      "box_exclusive": [
+        128,
+        928,
+        176,
+        976
+      ],
+      "kind": "lines",
+      "color": "K",
+      "rgb": [
+        0,
+        0,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-K-horizontal",
+      "decoded_jpeg_luma_min": 0.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-G128-vertical",
+      "box_exclusive": [
+        192,
+        928,
+        240,
+        976
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-G128-vertical",
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.25,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 25.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-G128-horizontal",
+      "box_exclusive": [
+        256,
+        928,
+        304,
+        976
+      ],
+      "kind": "lines",
+      "color": "G128",
+      "rgb": [
+        128,
+        128,
+        128
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-G128-horizontal",
+      "decoded_jpeg_luma_min": 127.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 0.375,
+        "maximum_channel_error": 1,
+        "changed_pixel_percent": 37.5,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-C-vertical",
+      "box_exclusive": [
+        320,
+        928,
+        368,
+        976
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-C-vertical",
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 254.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.39728,
+        "maximum_channel_error": 78,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-C-horizontal",
+      "box_exclusive": [
+        384,
+        928,
+        432,
+        976
+      ],
+      "kind": "lines",
+      "color": "C",
+      "rgb": [
+        0,
+        255,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-C-horizontal",
+      "decoded_jpeg_luma_min": 178.0,
+      "decoded_jpeg_luma_max": 254.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.265336,
+        "maximum_channel_error": 79,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-M-vertical",
+      "box_exclusive": [
+        448,
+        928,
+        496,
+        976
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-M-vertical",
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 22.091435,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 97.916667,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-M-horizontal",
+      "box_exclusive": [
+        512,
+        928,
+        560,
+        976
+      ],
+      "kind": "lines",
+      "color": "M",
+      "rgb": [
+        255,
+        0,
+        255
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-M-horizontal",
+      "decoded_jpeg_luma_min": 104.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 22.12963,
+        "maximum_channel_error": 69,
+        "changed_pixel_percent": 97.916667,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-Y-vertical",
+      "box_exclusive": [
+        576,
+        928,
+        624,
+        976
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-Y-vertical",
+      "decoded_jpeg_luma_min": 226.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.218461,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    },
+    {
+      "name": "repeat-r2-Y-horizontal",
+      "box_exclusive": [
+        640,
+        928,
+        688,
+        976
+      ],
+      "kind": "lines",
+      "color": "Y",
+      "rgb": [
+        255,
+        255,
+        0
+      ],
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "expected_cycles": 12.0,
+      "repeat_group": "r2-Y-horizontal",
+      "decoded_jpeg_luma_min": 225.0,
+      "decoded_jpeg_luma_max": 255.0,
+      "source_vs_decoded_jpeg": {
+        "mean_absolute_channel_error": 21.301794,
+        "maximum_channel_error": 99,
+        "changed_pixel_percent": 100.0,
+        "pixel_exact": false
+      }
+    }
+  ],
+  "source_vs_encoded_jpeg": {
+    "mean_absolute_channel_error": 2.222701,
+    "maximum_channel_error": 162,
+    "changed_pixel_percent": 20.00642,
+    "pixel_exact": false
+  },
+  "files": {
+    "android-photofix.jpg": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785",
+    "android-photofix.png": "2e67135e88345d12510d9625b56748738f83ec65d5a8cced1b8b95c5c722075d",
+    "android.jpg": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785",
+    "android.png": "2e67135e88345d12510d9625b56748738f83ec65d5a8cced1b8b95c5c722075d",
+    "python.jpg": "f21f5840422fc73f3b535ef3e69381d2a2d91b1ea3a4dce575076d38c68d4d48",
+    "python.png": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe",
+    "source.png": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe"
+  }
+}

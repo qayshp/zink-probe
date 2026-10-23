@@ -289,6 +289,12 @@ add crop-depth gauges, repeated controls, slanted edges, and tonal/detail tests.
 A separate hash-pinned first-sheet experiment has explicit one-print authorization;
 ordinary diagnostic sessions retain their default read-only policy.
 
+The prepared [SELECT-CAL-03 thermal/color chart](experiments/calibration/REVISION_3.md)
+adds matched black/gray/CMY patterns, spacing controls, paired conditioning regions,
+and clear end markers. Its Python and six original Android renders agree; the
+[image package](experiments/calibration/package-v3/README.md) is committed, with
+decoded-JPEG baselines for color-subsampling effects. CAL-03 has not been printed.
+
 The [first authorized physical print](experiments/calibration/FIRST_PRINT.md)
 accepted the pinned CAL-02 JPEG and reported one completed page. It also exposed
 unreliable progress percentages and candidate job/status event payloads.
@@ -308,3 +314,9 @@ Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.m
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per
 dimension. This establishes image placement approximately, not native heater DPI.
+
+The [proposed driver roadmap](DRIVER_ROADMAP.md) prioritizes a portable single-job
+engine with simulated-printer tests and macOS/Linux/Windows CI, then platform
+transport adapters and later OS queue integration. Thermal research does not
+block that work; current physical support remains limited to the tested macOS
+Select setup.

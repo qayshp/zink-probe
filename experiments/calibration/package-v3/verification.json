@@ -1,0 +1,864 @@
+{
+  "chart_id": "SELECT-CAL-03",
+  "physical_print_performed": false,
+  "source_sha256": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe",
+  "payload_sha256": "f21f5840422fc73f3b535ef3e69381d2a2d91b1ea3a4dce575076d38c68d4d48",
+  "patch_count": 163,
+  "source_repeat_groups": [
+    {
+      "group": "solid-K",
+      "patch_names": [
+        "solid-A-K",
+        "solid-B-K"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "solid-G128",
+      "patch_names": [
+        "solid-A-G128",
+        "solid-B-G128"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "solid-C",
+      "patch_names": [
+        "solid-A-C",
+        "solid-B-C"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "solid-M",
+      "patch_names": [
+        "solid-A-M",
+        "solid-B-M"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "solid-Y",
+      "patch_names": [
+        "solid-A-Y",
+        "solid-B-Y"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-K-vertical",
+      "patch_names": [
+        "r2-K-vertical",
+        "repeat-r2-K-vertical"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-K-horizontal",
+      "patch_names": [
+        "r2-K-horizontal",
+        "repeat-r2-K-horizontal"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-G128-vertical",
+      "patch_names": [
+        "r2-G128-vertical",
+        "repeat-r2-G128-vertical"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-G128-horizontal",
+      "patch_names": [
+        "r2-G128-horizontal",
+        "repeat-r2-G128-horizontal"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-C-vertical",
+      "patch_names": [
+        "r2-C-vertical",
+        "repeat-r2-C-vertical"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-C-horizontal",
+      "patch_names": [
+        "r2-C-horizontal",
+        "repeat-r2-C-horizontal"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-M-vertical",
+      "patch_names": [
+        "r2-M-vertical",
+        "repeat-r2-M-vertical"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-M-horizontal",
+      "patch_names": [
+        "r2-M-horizontal",
+        "repeat-r2-M-horizontal"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-Y-vertical",
+      "patch_names": [
+        "r2-Y-vertical",
+        "repeat-r2-Y-vertical"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "r2-Y-horizontal",
+      "patch_names": [
+        "r2-Y-horizontal",
+        "repeat-r2-Y-horizontal"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "target-K",
+      "patch_names": [
+        "target-g8-K-heated",
+        "target-g8-K-reference",
+        "target-g32-K-reference",
+        "target-g32-K-heated"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "target-G128",
+      "patch_names": [
+        "target-g8-G128-heated",
+        "target-g8-G128-reference",
+        "target-g32-G128-reference",
+        "target-g32-G128-heated"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "target-C",
+      "patch_names": [
+        "target-g8-C-heated",
+        "target-g8-C-reference",
+        "target-g32-C-reference",
+        "target-g32-C-heated"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    },
+    {
+      "group": "target-M",
+      "patch_names": [
+        "target-g8-M-heated",
+        "target-g8-M-reference",
+        "target-g32-M-reference",
+        "target-g32-M-heated"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 2
+    },
+    {
+      "group": "target-Y",
+      "patch_names": [
+        "target-g8-Y-heated",
+        "target-g8-Y-reference",
+        "target-g32-Y-reference",
+        "target-g32-Y-heated"
+      ],
+      "source_pixel_exact": true,
+      "maximum_decoded_jpeg_difference_from_first": 0
+    }
+  ],
+  "all_six_android_cases_pixel_exact": true,
+  "all_six_android_jpegs_equal_except_icc": true,
+  "encoding_measurement": "Central 32x32 of each 48x48 patch; average perpendicular to stripe variation. Encoded channel range divided by requested white-to-color channel range. Values may exceed one due to JPEG rounding/ringing; not reflectance, physical MTF or a cross-color perceptual metric.",
+  "line_baselines": [
+    {
+      "patch": "r1-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 128.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "r1-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 89.0,
+      "decoded_channel_max": 165.0,
+      "normalized_encoded_modulation": 0.298039
+    },
+    {
+      "patch": "r1-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "R",
+      "decoded_channel_min": 88.0,
+      "decoded_channel_max": 165.0,
+      "normalized_encoded_modulation": 0.301961
+    },
+    {
+      "patch": "r1-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "G",
+      "decoded_channel_min": 52.0,
+      "decoded_channel_max": 202.0,
+      "normalized_encoded_modulation": 0.588235
+    },
+    {
+      "patch": "r1-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "G",
+      "decoded_channel_min": 51.0,
+      "decoded_channel_max": 202.0,
+      "normalized_encoded_modulation": 0.592157
+    },
+    {
+      "patch": "r1-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "B",
+      "decoded_channel_min": 112.0,
+      "decoded_channel_max": 142.0,
+      "normalized_encoded_modulation": 0.117647
+    },
+    {
+      "patch": "r1-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 1,
+      "gap_px": 1,
+      "rgb_channel": "B",
+      "decoded_channel_min": 112.0,
+      "decoded_channel_max": 142.0,
+      "normalized_encoded_modulation": 0.117647
+    },
+    {
+      "patch": "r2-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "r2-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "r2-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 43.0,
+      "decoded_channel_max": 210.0,
+      "normalized_encoded_modulation": 0.654902
+    },
+    {
+      "patch": "r2-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 43.0,
+      "decoded_channel_max": 210.0,
+      "normalized_encoded_modulation": 0.654902
+    },
+    {
+      "patch": "r2-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "G",
+      "decoded_channel_min": 25.0,
+      "decoded_channel_max": 229.0,
+      "normalized_encoded_modulation": 0.8
+    },
+    {
+      "patch": "r2-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "G",
+      "decoded_channel_min": 25.5,
+      "decoded_channel_max": 228.5,
+      "normalized_encoded_modulation": 0.796078
+    },
+    {
+      "patch": "r2-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "B",
+      "decoded_channel_min": 56.0,
+      "decoded_channel_max": 198.0,
+      "normalized_encoded_modulation": 0.556863
+    },
+    {
+      "patch": "r2-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "B",
+      "decoded_channel_min": 55.0,
+      "decoded_channel_max": 198.0,
+      "normalized_encoded_modulation": 0.560784
+    },
+    {
+      "patch": "r4-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 126.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.015748
+    },
+    {
+      "patch": "r4-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 126.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.015748
+    },
+    {
+      "patch": "r4-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "G",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "G",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "B",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 4,
+      "gap_px": 4,
+      "rgb_channel": "B",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "g6-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "g6-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 44.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.827451
+    },
+    {
+      "patch": "g6-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "R",
+      "decoded_channel_min": 44.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.827451
+    },
+    {
+      "patch": "g6-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "G",
+      "decoded_channel_min": 24.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.905882
+    },
+    {
+      "patch": "g6-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "G",
+      "decoded_channel_min": 26.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.898039
+    },
+    {
+      "patch": "g6-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "B",
+      "decoded_channel_min": 55.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.784314
+    },
+    {
+      "patch": "g6-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 6,
+      "rgb_channel": "B",
+      "decoded_channel_min": 55.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.784314
+    },
+    {
+      "patch": "g14-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "g14-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "g14-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 46.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.819608
+    },
+    {
+      "patch": "g14-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "R",
+      "decoded_channel_min": 46.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.819608
+    },
+    {
+      "patch": "g14-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "G",
+      "decoded_channel_min": 26.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.898039
+    },
+    {
+      "patch": "g14-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "G",
+      "decoded_channel_min": 27.5,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.892157
+    },
+    {
+      "patch": "g14-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "B",
+      "decoded_channel_min": 58.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.772549
+    },
+    {
+      "patch": "g14-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 14,
+      "rgb_channel": "B",
+      "decoded_channel_min": 58.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 0.772549
+    },
+    {
+      "patch": "repeat-r2-K-vertical",
+      "color": "K",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-K-horizontal",
+      "color": "K",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 0.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-G128-vertical",
+      "color": "G128",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "repeat-r2-G128-horizontal",
+      "color": "G128",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 127.0,
+      "decoded_channel_max": 255.0,
+      "normalized_encoded_modulation": 1.007874
+    },
+    {
+      "patch": "repeat-r2-C-vertical",
+      "color": "C",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 43.0,
+      "decoded_channel_max": 210.0,
+      "normalized_encoded_modulation": 0.654902
+    },
+    {
+      "patch": "repeat-r2-C-horizontal",
+      "color": "C",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "R",
+      "decoded_channel_min": 43.0,
+      "decoded_channel_max": 210.0,
+      "normalized_encoded_modulation": 0.654902
+    },
+    {
+      "patch": "repeat-r2-M-vertical",
+      "color": "M",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "G",
+      "decoded_channel_min": 25.0,
+      "decoded_channel_max": 229.0,
+      "normalized_encoded_modulation": 0.8
+    },
+    {
+      "patch": "repeat-r2-M-horizontal",
+      "color": "M",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "G",
+      "decoded_channel_min": 25.5,
+      "decoded_channel_max": 228.5,
+      "normalized_encoded_modulation": 0.796078
+    },
+    {
+      "patch": "repeat-r2-Y-vertical",
+      "color": "Y",
+      "orientation": "vertical",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "B",
+      "decoded_channel_min": 56.0,
+      "decoded_channel_max": 198.0,
+      "normalized_encoded_modulation": 0.556863
+    },
+    {
+      "patch": "repeat-r2-Y-horizontal",
+      "color": "Y",
+      "orientation": "horizontal",
+      "run_px": 2,
+      "gap_px": 2,
+      "rgb_channel": "B",
+      "decoded_channel_min": 55.0,
+      "decoded_channel_max": 198.0,
+      "normalized_encoded_modulation": 0.560784
+    }
+  ]
+}
