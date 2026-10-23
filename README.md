@@ -328,6 +328,13 @@ patterns, and per-heater phase queues. Independent Python references match the
 selected ARM routines for 3,072 tone coefficients, 4,830 pixel calculations,
 9,702 fast-history values, and 103 phase-queue cases. This remains an offline FS
 firmware experiment with neutral calibration, not a full physical print model.
+The [JPEG quality and format investigation](JPEG_QUALITY_AND_FORMATS.md) executes
+the recovered firmware's header parser and sampling setup on 35 cases. All 18
+baseline quality/sampling variants pass. Separate host-decoded comparisons show
+that 4:4:4 preserves CAL-03 fine color detail much better than raising quality
+while retaining 4:2:0. [Candidate files and results](experiments/jpeg-quality/README.md)
+are available offline; complete firmware decoding and physical acceptance of
+these alternatives remain unverified, and the renderer's defaults are unchanged.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per

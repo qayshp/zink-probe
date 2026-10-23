@@ -64,6 +64,11 @@ failed enhancement path matched its plain path, as previously documented.
 
 ## JPEG equivalence and differences
 
+A later [quality and format experiment](JPEG_QUALITY_AND_FORMATS.md) compares
+quality 90/95/100 and 4:2:0/4:2:2/4:4:4 on the unchanged CAL-03 raster, with
+isolated firmware header/setup tests. Those research candidates do not change
+the quality-90 4:2:0 defaults or the Android-equivalence results below.
+
 All compared Android/Python JPEGs use identical quantization tables and 4:2:0
 sampling. For the three pixel-exact sizes above, **the complete JPEG is byte-exact
 after removing only Android's ICC APP2 segment**. This is stronger than equal

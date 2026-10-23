@@ -1,0 +1,1778 @@
+{
+  "firmware_sha256": "68cc7a635342e1e882b1e552c9d1ee2803b1c5928d61a0612f69e689d9f08a60",
+  "main_sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+  "source_sha256": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe",
+  "source": "Unchanged SELECT-CAL-03 prepared RGB bitmap, 768 x 1152",
+  "pillow_version": "13.0.0",
+  "numpy_version": "2.5.4",
+  "unicorn_version": "2.1.4",
+  "scope": "Host-decoded image metrics; actual firmware header parser and baseline sampling setup only; no firmware entropy decoding or physical printing",
+  "baseline_byte_exact": true,
+  "optimized_vs_standard_pixels_equal": true,
+  "variants": {
+    "q90-420-standard": {
+      "bytes": 117674,
+      "sha256": "c44c695560f395bd1e1a7a6ea890515e80f6c98fdb8f9129872bf1bc8391bf3f",
+      "quality": 90,
+      "sampling": "420",
+      "optimize": false,
+      "rgb_mae": 2.222701,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.745948,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.301961,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 0.592157,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 0.117647
+      }
+    },
+    "q90-420-optimized": {
+      "bytes": 96490,
+      "sha256": "f21f5840422fc73f3b535ef3e69381d2a2d91b1ea3a4dce575076d38c68d4d48",
+      "quality": 90,
+      "sampling": "420",
+      "optimize": true,
+      "rgb_mae": 2.222701,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.745948,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.301961,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 0.592157,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 0.117647
+      }
+    },
+    "q90-422-standard": {
+      "bytes": 127295,
+      "sha256": "5fff175b815fff5e4f53192bfda34b08715c40c2f3753cbb4bd2addb5f2cf9fd",
+      "quality": 90,
+      "sampling": "422",
+      "optimize": false,
+      "rgb_mae": 1.225734,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.808892,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q90-422-optimized": {
+      "bytes": 101512,
+      "sha256": "de63069d2a22ee1115ddda00bb9b1b0e5dec5e015f0ebc656d7b27917d65383a",
+      "quality": 90,
+      "sampling": "422",
+      "optimize": true,
+      "rgb_mae": 1.225734,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.808892,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q90-444-standard": {
+      "bytes": 147473,
+      "sha256": "0d4845abd41eec332bae66e93e9e513af73f3e441b0c00fbffe4218b81de5382",
+      "quality": 90,
+      "sampling": "444",
+      "optimize": false,
+      "rgb_mae": 0.26683,
+      "rgb_max_error": 17,
+      "rgb_psnr_db": 47.962652,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q90-444-optimized": {
+      "bytes": 112291,
+      "sha256": "8c91a748e29aee68a8b5ef3c870deb55135fe31f74806c003a8c4b7404ab12b2",
+      "quality": 90,
+      "sampling": "444",
+      "optimize": true,
+      "rgb_mae": 0.26683,
+      "rgb_max_error": 17,
+      "rgb_psnr_db": 47.962652,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.007874,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q95-420-standard": {
+      "bytes": 139841,
+      "sha256": "a48a7682555836631197966bc4c34f3a97973f1927c14e9aee40a067d96be9a6",
+      "quality": 95,
+      "sampling": "420",
+      "optimize": false,
+      "rgb_mae": 2.097683,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.790765,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.298039,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 0.592157,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 0.113725
+      }
+    },
+    "q95-420-optimized": {
+      "bytes": 110634,
+      "sha256": "0183b1e6c913cdf8cdfbf995c6dc160c728ae333741f2b04d5347480af77d2b7",
+      "quality": 95,
+      "sampling": "420",
+      "optimize": true,
+      "rgb_mae": 2.097683,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.790765,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.298039,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 0.592157,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 0.113725
+      }
+    },
+    "q95-422-standard": {
+      "bytes": 150020,
+      "sha256": "19b516b3bcac532d8830137aafe3e909376eca856752bde43b6742d6447d5800",
+      "quality": 95,
+      "sampling": "422",
+      "optimize": false,
+      "rgb_mae": 1.095783,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.898976,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q95-422-optimized": {
+      "bytes": 115847,
+      "sha256": "b15519ba11b4c2bfb6e2293c63589f3cf812a1a3f0d01f86d095f74bfe0c7c7d",
+      "quality": 95,
+      "sampling": "422",
+      "optimize": true,
+      "rgb_mae": 1.095783,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.898976,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.588235,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.117647,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q95-444-standard": {
+      "bytes": 171740,
+      "sha256": "2529e0caf53f584d1378736fb3c7b7711a2b06c9f08e3299e8b31dd86e2a41dd",
+      "quality": 95,
+      "sampling": "444",
+      "optimize": false,
+      "rgb_mae": 0.132712,
+      "rgb_max_error": 8,
+      "rgb_psnr_db": 53.547954,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q95-444-optimized": {
+      "bytes": 127471,
+      "sha256": "21b338cb68592ec8acc999584d990f67b6a74dd0f27d2027a256983aa1693ae8",
+      "quality": 95,
+      "sampling": "444",
+      "optimize": true,
+      "rgb_mae": 0.132712,
+      "rgb_max_error": 8,
+      "rgb_psnr_db": 53.547954,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.007874,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q100-420-standard": {
+      "bytes": 187874,
+      "sha256": "e65d8151eafa5d1882e52012345e8ab08d96cd53e231459d7f6b655652c33359",
+      "quality": 100,
+      "sampling": "420",
+      "optimize": false,
+      "rgb_mae": 1.992656,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.807028,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.298039,
+        "r1-M-vertical": 0.592157,
+        "r1-M-horizontal": 0.588235,
+        "r1-Y-vertical": 0.113725,
+        "r1-Y-horizontal": 0.113725
+      }
+    },
+    "q100-420-optimized": {
+      "bytes": 132963,
+      "sha256": "4690e39486d74a1e32a00bee411bb1110ba3a5df99349967861ec3cae3e97cee",
+      "quality": 100,
+      "sampling": "420",
+      "optimize": true,
+      "rgb_mae": 1.992656,
+      "rgb_max_error": 162,
+      "rgb_psnr_db": 27.807028,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 0.298039,
+        "r1-M-vertical": 0.592157,
+        "r1-M-horizontal": 0.588235,
+        "r1-Y-vertical": 0.113725,
+        "r1-Y-horizontal": 0.113725
+      }
+    },
+    "q100-422-standard": {
+      "bytes": 198619,
+      "sha256": "da8a46c818b6557514eea0bfe7a933135d510286f413dacdb5a77c41f6c7cf53",
+      "quality": 100,
+      "sampling": "422",
+      "optimize": false,
+      "rgb_mae": 0.986686,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.919322,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.592157,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.113725,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q100-422-optimized": {
+      "bytes": 138636,
+      "sha256": "d073fcd7c55cfae6c11645616f053bf06fd20cf48c05e96f414faf39533bf949",
+      "quality": 100,
+      "sampling": "422",
+      "optimize": true,
+      "rgb_mae": 0.986686,
+      "rgb_max_error": 141,
+      "rgb_psnr_db": 30.919322,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 0.298039,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 0.592157,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 0.113725,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q100-444-standard": {
+      "bytes": 222584,
+      "sha256": "04521871ed932c28155c8d8947972db25e94d6ad6b837a2f57ab60a1e3b35bdf",
+      "quality": 100,
+      "sampling": "444",
+      "optimize": false,
+      "rgb_mae": 0.015924,
+      "rgb_max_error": 1,
+      "rgb_psnr_db": 66.110242,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    },
+    "q100-444-optimized": {
+      "bytes": 151545,
+      "sha256": "50b58d8cc26ba7349e7874861e8c76b16b4b0f5ac6d2962fa0051d970de83944",
+      "quality": 100,
+      "sampling": "444",
+      "optimize": true,
+      "rgb_mae": 0.015924,
+      "rgb_max_error": 1,
+      "rgb_psnr_db": 66.110242,
+      "one_pixel_requested_channel_modulation": {
+        "r1-K-vertical": 1.0,
+        "r1-K-horizontal": 1.0,
+        "r1-G128-vertical": 1.0,
+        "r1-G128-horizontal": 1.0,
+        "r1-C-vertical": 1.0,
+        "r1-C-horizontal": 1.0,
+        "r1-M-vertical": 1.0,
+        "r1-M-horizontal": 1.0,
+        "r1-Y-vertical": 1.0,
+        "r1-Y-horizontal": 1.0
+      }
+    }
+  },
+  "header_cases": {
+    "q90-420-standard": {
+      "input_bytes": 117674,
+      "input_sha256": "c44c695560f395bd1e1a7a6ea890515e80f6c98fdb8f9129872bf1bc8391bf3f",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q90-420-optimized": {
+      "input_bytes": 96490,
+      "input_sha256": "f21f5840422fc73f3b535ef3e69381d2a2d91b1ea3a4dce575076d38c68d4d48",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q90-422-standard": {
+      "input_bytes": 127295,
+      "input_sha256": "5fff175b815fff5e4f53192bfda34b08715c40c2f3753cbb4bd2addb5f2cf9fd",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q90-422-optimized": {
+      "input_bytes": 101512,
+      "input_sha256": "de63069d2a22ee1115ddda00bb9b1b0e5dec5e015f0ebc656d7b27917d65383a",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q90-444-standard": {
+      "input_bytes": 147473,
+      "input_sha256": "0d4845abd41eec332bae66e93e9e513af73f3e441b0c00fbffe4218b81de5382",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q90-444-optimized": {
+      "input_bytes": 112291,
+      "input_sha256": "8c91a748e29aee68a8b5ef3c870deb55135fe31f74806c003a8c4b7404ab12b2",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-420-standard": {
+      "input_bytes": 139841,
+      "input_sha256": "a48a7682555836631197966bc4c34f3a97973f1927c14e9aee40a067d96be9a6",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-420-optimized": {
+      "input_bytes": 110634,
+      "input_sha256": "0183b1e6c913cdf8cdfbf995c6dc160c728ae333741f2b04d5347480af77d2b7",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-422-standard": {
+      "input_bytes": 150020,
+      "input_sha256": "19b516b3bcac532d8830137aafe3e909376eca856752bde43b6742d6447d5800",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-422-optimized": {
+      "input_bytes": 115847,
+      "input_sha256": "b15519ba11b4c2bfb6e2293c63589f3cf812a1a3f0d01f86d095f74bfe0c7c7d",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-444-standard": {
+      "input_bytes": 171740,
+      "input_sha256": "2529e0caf53f584d1378736fb3c7b7711a2b06c9f08e3299e8b31dd86e2a41dd",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q95-444-optimized": {
+      "input_bytes": 127471,
+      "input_sha256": "21b338cb68592ec8acc999584d990f67b6a74dd0f27d2027a256983aa1693ae8",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-420-standard": {
+      "input_bytes": 187874,
+      "input_sha256": "e65d8151eafa5d1882e52012345e8ab08d96cd53e231459d7f6b655652c33359",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-420-optimized": {
+      "input_bytes": 132963,
+      "input_sha256": "4690e39486d74a1e32a00bee411bb1110ba3a5df99349967861ec3cae3e97cee",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-422-standard": {
+      "input_bytes": 198619,
+      "input_sha256": "da8a46c818b6557514eea0bfe7a933135d510286f413dacdb5a77c41f6c7cf53",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-422-optimized": {
+      "input_bytes": 138636,
+      "input_sha256": "d073fcd7c55cfae6c11645616f053bf06fd20cf48c05e96f414faf39533bf949",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 2,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-444-standard": {
+      "input_bytes": 222584,
+      "input_sha256": "04521871ed932c28155c8d8947972db25e94d6ad6b837a2f57ab60a1e3b35bdf",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "q100-444-optimized": {
+      "input_bytes": 151545,
+      "input_sha256": "50b58d8cc26ba7349e7874861e8c76b16b4b0f5ac6d2962fa0051d970de83944",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 1,
+      "mcu_blocks": 3,
+      "quantization_range": [
+        1,
+        1
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "existing-cal03-android": {
+      "input_bytes": 96964,
+      "input_sha256": "2d9780c4af5115836bf571f09a89adb87473eb344af2bc7c2c24f702b7938785",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "printed-cal02-python": {
+      "input_bytes": 117204,
+      "input_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "progressive-q95-sub0": {
+      "input_bytes": 122351,
+      "input_sha256": "21f24ac45333e892898050d4b15baeeb886dc43da4988b754bef9cefa1c6c856",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": true,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "progressive-disabled-sub0": {
+      "input_bytes": 122351,
+      "input_sha256": "21f24ac45333e892898050d4b15baeeb886dc43da4988b754bef9cefa1c6c856",
+      "status": 259,
+      "error_flags_hex": "0x10000",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "unsupported SOF %#x",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "progressive-q95-sub1": {
+      "input_bytes": 110891,
+      "input_sha256": "bd411210c463bf165fb2ec13deefe8ade2914da5a8502a2662daa085c17e3cd8",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          1,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": true,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "progressive-disabled-sub1": {
+      "input_bytes": 110891,
+      "input_sha256": "bd411210c463bf165fb2ec13deefe8ade2914da5a8502a2662daa085c17e3cd8",
+      "status": 259,
+      "error_flags_hex": "0x10000",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "unsupported SOF %#x",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "progressive-q95-sub2": {
+      "input_bytes": 105550,
+      "input_sha256": "14a9bba21d7d5d6a39c9e772dcc1ad276a6225e199cca1e7f0bb6c55b9e2eb7a",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": true,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": [
+        1,
+        12
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "progressive-disabled-sub2": {
+      "input_bytes": 105550,
+      "input_sha256": "14a9bba21d7d5d6a39c9e772dcc1ad276a6225e199cca1e7f0bb6c55b9e2eb7a",
+      "status": 259,
+      "error_flags_hex": "0x10000",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "unsupported SOF %#x",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "gray-jpeg": {
+      "input_bytes": 82083,
+      "input_sha256": "4d6dc91c8dc8c779e8c43739fa5ccf0e9fb5c057dbace54a650d44b1cc5161c7",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 1,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          1,
+          0
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 4,
+      "mcu_blocks": 1,
+      "quantization_range": [
+        5,
+        61
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "cmyk-jpeg": {
+      "input_bytes": 233615,
+      "input_sha256": "9ddc7a122fb02088083d26b95ecf9629b164e7863c2242cb5050a7abd9e486bb",
+      "status": 259,
+      "error_flags_hex": "0x1080",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 4,
+      "component_id_index_h_v_q": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": [
+        5,
+        61
+      ],
+      "diagnostics": [
+        "Not supported CMYK space",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "png": {
+      "input_bytes": 43425,
+      "input_sha256": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe",
+      "status": 259,
+      "error_flags_hex": "0x40",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "bmp": {
+      "input_bytes": 3126,
+      "input_sha256": "7fde8eedca81484e8680aac626fda5f3ad9537b51d58c00e0455ac2f3e34b9d5",
+      "status": 259,
+      "error_flags_hex": "0x40",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "header-only-sof1-8bit": {
+      "input_bytes": 96490,
+      "input_sha256": "98e6be39296eb5194b94f8cb15e0bc86035a7ba58506ca9d77474201cd0ac10c",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          2,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 0,
+      "mcu_blocks": 6,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    },
+    "header-only-sof3-lossless": {
+      "input_bytes": 96490,
+      "input_sha256": "be47984f924da56575335146aea001881ac70b97db0a3204389f94e38d51e778",
+      "status": 259,
+      "error_flags_hex": "0x8000",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "unsupported SOF %#x",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "header-only-sof9-arithmetic": {
+      "input_bytes": 96490,
+      "input_sha256": "6bb0f4006005c5386834db0dd3e31e2d4187b98e598d2321d8244c4c9a11b847",
+      "status": 259,
+      "error_flags_hex": "0x8000",
+      "synthetic_stream_eof": false,
+      "width": 0,
+      "height": 0,
+      "precision": 0,
+      "components": 0,
+      "component_id_index_h_v_q": [],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": null,
+      "diagnostics": [
+        "unsupported SOF %#x",
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "header-only-12bit": {
+      "input_bytes": 96490,
+      "input_sha256": "f934245158e65155d5fd18d907f4682a684de74a7075335c3d645c6041aba4f8",
+      "status": 259,
+      "error_flags_hex": "0x1000",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 12,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": false,
+      "sampling_mode": null,
+      "mcu_blocks": null,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [
+        "JPG=:  error from jpeg header read"
+      ]
+    },
+    "header-only-vertical422": {
+      "input_bytes": 101512,
+      "input_sha256": "80edc570a68445ef83d83f68abd99e71dc25195b0fee01a318916c5f7f1f957a",
+      "status": 0,
+      "error_flags_hex": "0x0",
+      "synthetic_stream_eof": false,
+      "width": 768,
+      "height": 1152,
+      "precision": 8,
+      "components": 3,
+      "component_id_index_h_v_q": [
+        [
+          1,
+          0,
+          1,
+          2,
+          0
+        ],
+        [
+          2,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          3,
+          2,
+          1,
+          1,
+          1
+        ]
+      ],
+      "progressive_recognized": false,
+      "sampling_setup_executed": true,
+      "sampling_mode": 3,
+      "mcu_blocks": 4,
+      "quantization_range": [
+        2,
+        24
+      ],
+      "diagnostics": [],
+      "quantization_matches_host_header": true
+    }
+  }
+}
