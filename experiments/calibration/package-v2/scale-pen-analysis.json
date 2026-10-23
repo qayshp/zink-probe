@@ -1,0 +1,63 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "scale_interpretation": "Visible marking read as metre scale 1:300; one labelled unit corresponds to 1000/300 mm on the pen.",
+  "method": "Manual x-coordinate picks; label=(a*x+b)/(c*x+1) fitted to 0/10/20. Approximate transfer to paper edge nearest pen.",
+  "limitations": "Raised scale and paper are different planes; strongly oblique capture, unknown height, alignment, lens distortion and scale manufacturing accuracy. No calibrated uncertainty. Decimal output is calculation precision only. Do not use to refine crop or printer DPI.",
+  "measurements": [
+    {
+      "name": "1-Photo-1.jpg",
+      "sha256": "e5e71483f450bbd6c181881f54d7bb9872a0a8f15506be42b916a13a41d1bb5a",
+      "tick_x_for_labels_0_10_20": [
+        964,
+        643,
+        310
+      ],
+      "nearby_paper_edge_endpoint_x": [
+        101,
+        963
+      ],
+      "photo_dimensions": [
+        1280,
+        960
+      ],
+      "coefficients_a_b_c": [
+        -0.030067448600915567,
+        28.985020451282608,
+        -5.417558306471267e-05
+      ],
+      "apparent_edge_endpoint_labels": [
+        26.090970992782246,
+        0.031722442913893804
+      ],
+      "apparent_length_mm": 86.86416183289451
+    },
+    {
+      "name": "2-Photo-2.jpg",
+      "sha256": "4d4e2ebe3aa073029fa4cb1b7de991be7dc33a6ff20980fa518718454c2001db",
+      "tick_x_for_labels_0_10_20": [
+        1220,
+        760,
+        309
+      ],
+      "nearby_paper_edge_endpoint_x": [
+        22,
+        1215
+      ],
+      "photo_dimensions": [
+        1280,
+        960
+      ],
+      "coefficients_a_b_c": [
+        -0.022103509115859628,
+        26.966281121348747,
+        2.205449911781968e-05
+      ],
+      "apparent_edge_endpoint_labels": [
+        26.467162080739094,
+        0.10763337828001451
+      ],
+      "apparent_length_mm": 87.8650956748636
+    }
+  ]
+}

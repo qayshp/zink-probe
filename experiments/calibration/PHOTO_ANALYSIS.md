@@ -18,6 +18,8 @@ one-pixel vertical structure at approximately the expected period. The original
 wide-view impression of an almost solid patch should be read as low captured
 contrast, not proof that the pattern was erased. Geometry estimates below are
 unchanged; the close-ups add detail rather than independent whole-sheet geometry.
+Later [scale-pen photographs](SCALE_PEN_ANALYSIS.md) provide a rough long-edge size
+check consistent with nominal paper dimensions, with substantial geometric limits.
 
 ## Geometry: real content loss near the paper edges
 
