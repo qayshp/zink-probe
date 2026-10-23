@@ -1,0 +1,307 @@
+{
+  "scope": "Different Sprocket family; not an exact Select FA image or compatibility test",
+  "vendor_signature_verified": false,
+  "inputs": {
+    "FA": {
+      "url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/HP500-P1L1FA/P1L1FA2443AR.rbn",
+      "file": "P1L1FA2443AR.rbn",
+      "sha256": "5c034fa7740eaf4ab30949faa45addd4270ff2fd79dc81069fe3d2926280b98f",
+      "md5": "9a969ef63a1e2ae89413c5ed51da6f80",
+      "size": 2148288,
+      "main_size": 1765696,
+      "main_sha256": "925903f0eaba77dd4f4d1de8c1c1df78f0aceebb39f9d4e67d741837e37fbf2c",
+      "main_code_copy_length": 1476280
+    },
+    "FS": {
+      "url": "https://d1te6mvvpy6zcm.cloudfront.net/firmwares/HP500-P1L1FS/P1L1FS2443AR.rbn",
+      "file": "P1L1FS2443AR.rbn",
+      "sha256": "f9701b228b955ff8841974f9f5dba85fddd9a980b1c8d56aa32705462571cea0",
+      "md5": "08fe279baab3fed5f6ca4143dd9eb822",
+      "size": 2148388,
+      "main_size": 1765696,
+      "main_sha256": "4b54a6f9098aa43bcef4680c7f4f83584c1d7b7e4b9796029ddcc36cda5dcf30",
+      "main_code_copy_length": 1476584
+    }
+  },
+  "partitions": {
+    "BOOT": {
+      "identical_payload": true,
+      "FA": {
+        "size": 458752,
+        "sha256": "e9d267432a32d63a4d2714f8ad308beb938a2d6ea51d50e7829b938c84489bfc"
+      },
+      "FS": {
+        "size": 458752,
+        "sha256": "e9d267432a32d63a4d2714f8ad308beb938a2d6ea51d50e7829b938c84489bfc"
+      }
+    },
+    "END": {
+      "identical_payload": true,
+      "FA": {
+        "size": 64,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50"
+      },
+      "FS": {
+        "size": 64,
+        "sha256": "3d9eae666b06b1a975071aca838b4bb5f27a8324eb2ddab0c8eccd71ceae6b50"
+      }
+    },
+    "FBOOT_DSG": {
+      "identical_payload": true,
+      "FA": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      },
+      "FS": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      }
+    },
+    "FIRMWARE": {
+      "identical_payload": false,
+      "FA": {
+        "size": 1099113,
+        "sha256": "79f728204e11802806de02db5c1d9554c7e33ea7940d41fed390fa153bb665d1"
+      },
+      "FS": {
+        "size": 1099213,
+        "sha256": "92380f7ab5d6ad9d6e563a5e6d1c97e479793f8400df2f4eec77d3f325be1540"
+      }
+    },
+    "GJB_M": {
+      "identical_payload": true,
+      "FA": {
+        "size": 4096,
+        "sha256": "d375d9fb26e7d8b324725b3c1f67cfc3417f3048a6220f60ddf3c95d1bb65dbc"
+      },
+      "FS": {
+        "size": 4096,
+        "sha256": "d375d9fb26e7d8b324725b3c1f67cfc3417f3048a6220f60ddf3c95d1bb65dbc"
+      }
+    },
+    "LUT1_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "4a4df507e806730d23d888cb029b1e3e2ac481d7a9305981e15fbb2d9195ec03"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "4a4df507e806730d23d888cb029b1e3e2ac481d7a9305981e15fbb2d9195ec03"
+      }
+    },
+    "LUT2_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "6a6ac2d9758d393a1e3390d4a86fd67f4bf2ac221c43a2c9551c18c7fd0aa1c6"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "6a6ac2d9758d393a1e3390d4a86fd67f4bf2ac221c43a2c9551c18c7fd0aa1c6"
+      }
+    },
+    "LUT3_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "1e9bada506ceadb924dfd3f99a374cba9f026c279281730ee79411acf3dc95b1"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "1e9bada506ceadb924dfd3f99a374cba9f026c279281730ee79411acf3dc95b1"
+      }
+    },
+    "LUT4_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "f485d0e70428e57e77c8b1757e5dcce1c70e645dbaa78133af7c187600d05f2a"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "f485d0e70428e57e77c8b1757e5dcce1c70e645dbaa78133af7c187600d05f2a"
+      }
+    },
+    "LUT5_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "bb016cfc0fb5e84e0dcaef916ce19071360afc8968dbdecfc8f4119e66896846"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "bb016cfc0fb5e84e0dcaef916ce19071360afc8968dbdecfc8f4119e66896846"
+      }
+    },
+    "LUT6_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "a5ddb7837dd51d5a44d2c9e7b073f1db7e8dd54a0684cfff3bc1c399139f2e9a"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "a5ddb7837dd51d5a44d2c9e7b073f1db7e8dd54a0684cfff3bc1c399139f2e9a"
+      }
+    },
+    "LUT7_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "e6e731aa19348a30208dd846fc5f105dc04fa0cc90f6f74e15df975e1893fc7e"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "e6e731aa19348a30208dd846fc5f105dc04fa0cc90f6f74e15df975e1893fc7e"
+      }
+    },
+    "LUT8_Z21": {
+      "identical_payload": true,
+      "FA": {
+        "size": 20480,
+        "sha256": "0e34a7427f6cfabf6130c3b075b9341e0aaeccaca0ceae7ea8d6facea8276ddd"
+      },
+      "FS": {
+        "size": 20480,
+        "sha256": "0e34a7427f6cfabf6130c3b075b9341e0aaeccaca0ceae7ea8d6facea8276ddd"
+      }
+    },
+    "MMT": {
+      "identical_payload": true,
+      "FA": {
+        "size": 16384,
+        "sha256": "acf0874947368e7784ae966176319f47e9fa6097ebd011bbf67f628a4d6eee71"
+      },
+      "FS": {
+        "size": 16384,
+        "sha256": "acf0874947368e7784ae966176319f47e9fa6097ebd011bbf67f628a4d6eee71"
+      }
+    },
+    "NVRAM": {
+      "identical_payload": true,
+      "FA": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      },
+      "FS": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      }
+    },
+    "NVRAM_2": {
+      "identical_payload": true,
+      "FA": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      },
+      "FS": {
+        "size": 65536,
+        "sha256": "71189f7fb6aed638640078fba3a35fda6c39c8962e74dcc75935aac948da9063"
+      }
+    },
+    "PADDING": {
+      "identical_payload": true,
+      "FA": {
+        "size": 49152,
+        "sha256": "abd8e2a70d51a53287941838446e6ed141005d401faf597fd7c6de0bbc8c329d"
+      },
+      "FS": {
+        "size": 49152,
+        "sha256": "abd8e2a70d51a53287941838446e6ed141005d401faf597fd7c6de0bbc8c329d"
+      }
+    },
+    "PADDING2": {
+      "identical_payload": true,
+      "FA": {
+        "size": 12288,
+        "sha256": "2a32d9a94209e87b46358ff2151efee07dea13d3171a3dfb4331dede6e060479"
+      },
+      "FS": {
+        "size": 12288,
+        "sha256": "2a32d9a94209e87b46358ff2151efee07dea13d3171a3dfb4331dede6e060479"
+      }
+    },
+    "ROMTAB": {
+      "identical_payload": false,
+      "FA": {
+        "size": 328,
+        "sha256": "395263c7552c32f8efd832200956933894530b0836a9d289cfec7647e154c13f"
+      },
+      "FS": {
+        "size": 328,
+        "sha256": "48f0d1ce962b78e4115c1177dc30dce4eb4b1f65516f9d34e43f164f5a892858"
+      }
+    },
+    "STREAK_CORRECTION": {
+      "identical_payload": true,
+      "FA": {
+        "size": 8192,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910"
+      },
+      "FS": {
+        "size": 8192,
+        "sha256": "af4cad5236be18bcc34f8c2f92f792e6e255eb05f1cdeef07b50bac869082910"
+      }
+    },
+    "STRTAB": {
+      "identical_payload": true,
+      "FA": {
+        "size": 204,
+        "sha256": "5352e7d112e3f3a63ddd97dbfad0d9ad91aa3b1fc4cdff97818b9317fcab35bb"
+      },
+      "FS": {
+        "size": 204,
+        "sha256": "5352e7d112e3f3a63ddd97dbfad0d9ad91aa3b1fc4cdff97818b9317fcab35bb"
+      }
+    },
+    "TMD_REPLACE": {
+      "identical_payload": true,
+      "FA": {
+        "size": 131072,
+        "sha256": "cb94ceb79fbfc6a2bfc36e923263e928910b426bec33060dd32f5dd2246cc4b3"
+      },
+      "FS": {
+        "size": 131072,
+        "sha256": "cb94ceb79fbfc6a2bfc36e923263e928910b426bec33060dd32f5dd2246cc4b3"
+      }
+    },
+    "TONESCALE": {
+      "identical_payload": true,
+      "FA": {
+        "size": 4096,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546"
+      },
+      "FS": {
+        "size": 4096,
+        "sha256": "a117cc21155698c697139064742225264446b772221ec0bfeb5f8262fdd5a546"
+      }
+    },
+    "ZINK_THC": {
+      "identical_payload": true,
+      "FA": {
+        "size": 4096,
+        "sha256": "3fe292d31259a3d390ff13c46ea58099c24ea895bfabd04c9ff51a914725cf8b"
+      },
+      "FS": {
+        "size": 4096,
+        "sha256": "3fe292d31259a3d390ff13c46ea58099c24ea895bfabd04c9ff51a914725cf8b"
+      }
+    }
+  },
+  "differing_partition_payloads": [
+    "FIRMWARE",
+    "ROMTAB"
+  ],
+  "exclusive_printable_strings_min8": {
+    "FA": [
+      "14:17:36 Oct 22 2024",
+      "P1L1FA2443AR"
+    ],
+    "FS": [
+      "09:32:40 Oct 23 2024",
+      "P1L1FS2443AR",
+      "dbgmon thread suspend %x"
+    ]
+  }
+}

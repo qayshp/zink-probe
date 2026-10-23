@@ -1,0 +1,1173 @@
+{
+  "firmware_sha256": "68cc7a635342e1e882b1e552c9d1ee2803b1c5928d61a0612f69e689d9f08a60",
+  "main_sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+  "scope": "Unadjusted shipped LUTs; synthetic temperature state; no full boot/thermal pipeline or device access",
+  "unicorn_version": "2.1.4",
+  "scatter_entries": [
+    {
+      "source": "0x1000280",
+      "destination": "0x0",
+      "length": 64,
+      "operation": "copy"
+    },
+    {
+      "source": "0x10002c0",
+      "destination": "0x40",
+      "length": 36,
+      "operation": "copy"
+    },
+    {
+      "source": "0x10002e4",
+      "destination": "0x200",
+      "length": 328,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1000440",
+      "destination": "0x380",
+      "length": 1240,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1000940",
+      "destination": "0x880",
+      "length": 1112048,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1114000",
+      "destination": "0x40118000",
+      "length": 1468,
+      "operation": "copy"
+    },
+    {
+      "source": "0x11145c0",
+      "destination": "0x1185c0",
+      "length": 2344,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1114f00",
+      "destination": "0x118f00",
+      "length": 246480,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1151200",
+      "destination": "0x2f15c0",
+      "length": 68,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1151280",
+      "destination": "0x311b40",
+      "length": 4736,
+      "operation": "copy"
+    },
+    {
+      "source": "0x1114000",
+      "destination": "0x114000",
+      "length": 16384,
+      "operation": "zero"
+    },
+    {
+      "source": "0x1151200",
+      "destination": "0x155200",
+      "length": 1688508,
+      "operation": "zero"
+    },
+    {
+      "source": "0x1151244",
+      "destination": "0x2f1604",
+      "length": 1324,
+      "operation": "zero"
+    }
+  ],
+  "service_stub_counts": {
+    "0x2a66c": 38,
+    "0x1c474": 38,
+    "0x4dddc": 19,
+    "0x8c54c": 19
+  },
+  "map_knots": [
+    20,
+    30,
+    40,
+    50,
+    60,
+    70
+  ],
+  "adjacent_unsigned_map_delta_range": [
+    [
+      -47,
+      6
+    ],
+    [
+      -91,
+      10
+    ],
+    [
+      -12,
+      93
+    ],
+    [
+      -28,
+      96
+    ],
+    [
+      0,
+      82
+    ]
+  ],
+  "raw_maps_compared": 6,
+  "pixels_per_raw_map": 1843,
+  "total_pixel_comparisons": 11172,
+  "pixel_mismatches": 0,
+  "whole_blended_maps_compared": 19,
+  "blend_byte_mismatches": 0,
+  "selection_cases": [
+    {
+      "input_temperature": 0,
+      "weight_over_256": 0,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 20.0,
+      "step": 0.0390625,
+      "map_sha256": "5e19862522bcff391229ebbb630ed205a231900e9cc56fe2e8fad50c11a5bf09",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          11,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          23,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 19.9,
+      "weight_over_256": 0,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 20.0,
+      "step": 0.0390625,
+      "map_sha256": "5e19862522bcff391229ebbb630ed205a231900e9cc56fe2e8fad50c11a5bf09",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          11,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          23,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 20,
+      "weight_over_256": 0,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 20.0,
+      "step": 0.0390625,
+      "map_sha256": "5e19862522bcff391229ebbb630ed205a231900e9cc56fe2e8fad50c11a5bf09",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          11,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          23,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 20.5,
+      "weight_over_256": 0,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 20.0,
+      "step": 0.0390625,
+      "map_sha256": "5e19862522bcff391229ebbb630ed205a231900e9cc56fe2e8fad50c11a5bf09",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          11,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          23,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 20.51,
+      "weight_over_256": 0,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 20.0,
+      "step": 0.0390625,
+      "map_sha256": "5e19862522bcff391229ebbb630ed205a231900e9cc56fe2e8fad50c11a5bf09",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          11,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          23,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 25,
+      "weight_over_256": 115,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 24.4921875,
+      "step": 0.0390625,
+      "map_sha256": "a3f9936521c40b5405c8e327c401b6bbeefd4a0b95d3dba8be5083631dca580c",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          10,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          20,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 30.49,
+      "weight_over_256": 255,
+      "interval_index": 0,
+      "low_knot": 20.0,
+      "quantized_temperature": 29.9609375,
+      "step": 0.0390625,
+      "map_sha256": "701330da72ab5987ed61e597133a9000e08346ef9046a38ed77fcdd8b4ae51ce",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          8,
+          255,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          16,
+          17
+        ],
+        "gray128": [
+          138,
+          140,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 30.5,
+      "weight_over_256": 0,
+      "interval_index": 1,
+      "low_knot": 30.0,
+      "quantized_temperature": 30.0,
+      "step": 0.0390625,
+      "map_sha256": "74654ca2855a49fc15c41800385357ec649c67602a1fb5f1c2d1e1b46f7e6c06",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          7,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          15,
+          17
+        ],
+        "gray128": [
+          138,
+          141,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 30.51,
+      "weight_over_256": 0,
+      "interval_index": 1,
+      "low_knot": 30.0,
+      "quantized_temperature": 30.0,
+      "step": 0.0390625,
+      "map_sha256": "74654ca2855a49fc15c41800385357ec649c67602a1fb5f1c2d1e1b46f7e6c06",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          7,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          0,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          15,
+          17
+        ],
+        "gray128": [
+          138,
+          141,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 35,
+      "weight_over_256": 115,
+      "interval_index": 1,
+      "low_knot": 30.0,
+      "quantized_temperature": 34.4921875,
+      "step": 0.0390625,
+      "map_sha256": "093ffce177b56a4a697fab1b90e2d614a6658d65cdbbec37a03875dda946c183",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          4,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          2,
+          254,
+          18
+        ],
+        "yellow": [
+          254,
+          253,
+          8,
+          17
+        ],
+        "gray128": [
+          138,
+          142,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 40.5,
+      "weight_over_256": 0,
+      "interval_index": 2,
+      "low_knot": 40.0,
+      "quantized_temperature": 40.0,
+      "step": 0.0390625,
+      "map_sha256": "9428b451bff3df9b26857fdf225d18789b73d3a07067781dfcdabf04126c2c64",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          7,
+          254,
+          17
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          137,
+          144,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 45,
+      "weight_over_256": 115,
+      "interval_index": 2,
+      "low_knot": 40.0,
+      "quantized_temperature": 44.4921875,
+      "step": 0.0390625,
+      "map_sha256": "4c486d3f41c26f549388d1f5f9c73b00952cefefaaa98a460c2a2e439bec8091",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          48,
+          254,
+          17
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          137,
+          144,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 50.5,
+      "weight_over_256": 0,
+      "interval_index": 3,
+      "low_knot": 50.0,
+      "quantized_temperature": 50.0,
+      "step": 0.0390625,
+      "map_sha256": "d1994a27433b3ebedc9f17aa1ed96828e1747d7671d644dc2f2189fd6f22f74b",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          99,
+          254,
+          17
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          137,
+          145,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 55,
+      "weight_over_256": 115,
+      "interval_index": 3,
+      "low_knot": 50.0,
+      "quantized_temperature": 54.4921875,
+      "step": 0.0390625,
+      "map_sha256": "896cadece1f5e6d52213f9b42fa6a8949934c7e4fbfcd0628a45f1eeeef91948",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          139,
+          254,
+          17
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          137,
+          145,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 60.5,
+      "weight_over_256": 0,
+      "interval_index": 4,
+      "low_knot": 60.0,
+      "quantized_temperature": 60.0,
+      "step": 0.0390625,
+      "map_sha256": "94038ec2780dbf5d14d79b09363e91ef46b7161d7cc37fdc9591048dbaee1e98",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          188,
+          254,
+          16
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          136,
+          147,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 65,
+      "weight_over_256": 115,
+      "interval_index": 4,
+      "low_knot": 60.0,
+      "quantized_temperature": 64.4921875,
+      "step": 0.0390625,
+      "map_sha256": "622c9dbd319fc080892044d6eb59571c2d160a787f24d05909cf4198139150fc",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          217,
+          254,
+          16
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          136,
+          147,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 70,
+      "weight_over_256": 243,
+      "interval_index": 4,
+      "low_knot": 60.0,
+      "quantized_temperature": 69.4921875,
+      "step": 0.0390625,
+      "map_sha256": "11e8882a94f6b72877c37707da62ec5f771c035e405f76f68b34b1bf4f7328dc",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          250,
+          254,
+          16
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          136,
+          147,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 70.5,
+      "weight_over_256": 256,
+      "interval_index": 4,
+      "low_knot": 60.0,
+      "quantized_temperature": 70.0,
+      "step": 0.0390625,
+      "map_sha256": "d58752069a79c2a1c19bc93520ac846913a89118e692989f41f12c668801c7c5",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          254,
+          254,
+          16
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          136,
+          147,
+          154,
+          18
+        ]
+      }
+    },
+    {
+      "input_temperature": 80,
+      "weight_over_256": 256,
+      "interval_index": 4,
+      "low_knot": 60.0,
+      "quantized_temperature": 70.0,
+      "step": 0.0390625,
+      "map_sha256": "d58752069a79c2a1c19bc93520ac846913a89118e692989f41f12c668801c7c5",
+      "intermediate_rgb_and_mdx": {
+        "black": [
+          0,
+          0,
+          0,
+          30
+        ],
+        "white": [
+          253,
+          254,
+          254,
+          29
+        ],
+        "cyan": [
+          0,
+          254,
+          254,
+          20
+        ],
+        "magenta": [
+          254,
+          254,
+          254,
+          16
+        ],
+        "yellow": [
+          254,
+          253,
+          0,
+          17
+        ],
+        "gray128": [
+          136,
+          147,
+          154,
+          18
+        ]
+      }
+    }
+  ],
+  "mdx_duty_divider_pairs": [
+    [
+      4,
+      1
+    ],
+    [
+      17,
+      4
+    ],
+    [
+      13,
+      3
+    ],
+    [
+      9,
+      2
+    ],
+    [
+      14,
+      3
+    ],
+    [
+      19,
+      4
+    ],
+    [
+      5,
+      1
+    ],
+    [
+      21,
+      4
+    ],
+    [
+      16,
+      3
+    ],
+    [
+      11,
+      2
+    ],
+    [
+      17,
+      3
+    ],
+    [
+      23,
+      4
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      25,
+      4
+    ],
+    [
+      19,
+      3
+    ],
+    [
+      13,
+      2
+    ],
+    [
+      20,
+      3
+    ],
+    [
+      27,
+      4
+    ],
+    [
+      7,
+      1
+    ],
+    [
+      29,
+      4
+    ],
+    [
+      22,
+      3
+    ],
+    [
+      15,
+      2
+    ],
+    [
+      23,
+      3
+    ],
+    [
+      31,
+      4
+    ],
+    [
+      8,
+      1
+    ],
+    [
+      25,
+      3
+    ],
+    [
+      25,
+      3
+    ],
+    [
+      17,
+      2
+    ],
+    [
+      26,
+      3
+    ],
+    [
+      26,
+      3
+    ],
+    [
+      9,
+      1
+    ],
+    [
+      28,
+      3
+    ],
+    [
+      28,
+      3
+    ],
+    [
+      19,
+      2
+    ],
+    [
+      29,
+      3
+    ],
+    [
+      29,
+      3
+    ],
+    [
+      10,
+      1
+    ]
+  ]
+}

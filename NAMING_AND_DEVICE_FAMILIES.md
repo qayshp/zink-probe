@@ -108,6 +108,16 @@ For our observed Select firmware **G1L1FA2105AR**:
 | `2105A` (positions 6–10) | Compared lexicographically when deciding whether a candidate is newer | Semantic meaning of A |
 | `R` (position 11) | If the preceding comparison is equal, a lower character is considered newer | Semantic meaning of R and rationale for reverse ordering |
 
+**2026-10-23 firmware follow-up:** a matched HP500 `P1L1FA2443AR` /
+`P1L1FS2443AR` pair has identical color/thermal resource partitions but different
+program builds. FS contains a conditional debug-monitor suspension block absent
+from the matched FA startup sequence; downloaded Select FS has a similar check.
+This supports a build/debug-policy distinction, not an authoritative expansion
+of FA/FS or proof that Select FA and FS are interchangeable. See
+[the traced evidence and remaining limits](FIRMWARE_LUT_TRACE.md#5-what-fa-versus-fs-now-tells-us).
+Likewise, the LUT's fourth component is now identified as an **MDX magenta
+duty/divider index**, while the full words behind MDX remain unknown.
+
 This describes `bt/hplpp/HPLPPFirmwareUpdateResolver.java`, not a recommendation
 to alter firmware strings or perform updates. Case-insensitive full equality is
 handled before comparison; only the DEFAULT update type is applicable there.

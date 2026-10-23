@@ -3,6 +3,13 @@
 2026-10-22. Offline follow-up to the question whether CAL-03's requested RGB
 cyan, magenta and yellow isolate physical dye layers.
 
+**2026-10-23 follow-up:** [LUT execution and factory-path tracing](FIRMWARE_LUT_TRACE.md)
+resolves temperature selection, RGB interpolation and the fourth byte's MDX role.
+It also finds that the QA pattern entries below are placeholders and that the
+factory JPEG path clears counters. A matched FA/FS pair from another family
+narrows the naming difference to distinct software builds with a debug-policy
+difference, while exact Select FA equivalence remains unverified.
+
 **Found:** populated color/tone/thermal resources and executable factory/test
 branches in downloadable Grand Bahama firmware. **Not established:** an RGB
 triplet that isolates one physical dye layer, a complete RGB-to-heat model, or a
@@ -97,9 +104,9 @@ are not established dye densities or pulse durations.
 The LUT record count is exactly **17 cubed**. More than size matching supports
 this: in the 2105 main image, the adjustment routine at `0x2ba68` reads/writes
 the first three bytes, skips the fourth, and loops **0x1331 = 4,913** times
-(`0x2bc78–0x2bca0`; literal at `0x2bd20`). The fourth byte's meaning remains
-unknown. Axis order and interpolation/selection still need tracing before
-applying the tables to arbitrary RGB pixels.
+(`0x2bc78–0x2bca0`; literal at `0x2bd20`). The follow-up establishes RGB-axis
+order, temperature selection, trilinear interpolation, and a fourth-byte index
+into a magenta duty/divider table; see [the execution comparison](FIRMWARE_LUT_TRACE.md).
 
 The loader at `0x2bd3c` looks up all six named LUT resources. It optionally applies
 three-component adjustments at six color-cube corners, with code/logging that
@@ -170,10 +177,12 @@ Select LUT file, single-dye command, or verified test-page button was recovered.
 
 The 2105 program contains an executed QA help-menu routine at `0xb670–0xb6dc`
 whose entries include TPH test, test-pattern selection and continuous-print
-selection. Other entries perform battery, Bluetooth, USB and LED tests and write
-NVRAM defaults. Source-path strings associate it with `ds_QaTest.c`.
-This is stronger than a lone unused diagnostic string, but does not establish
-accessibility through the normal app protocol or what any pattern looks like.
+selection. Source-path strings associate it with `ds_QaTest.c`.
+**Follow-up correction:** tracing the dispatcher shows pattern/continuous-print
+entries are no-ops and TPH/Bluetooth/USB/battery entries only log messages in
+this build. Some other entries change state, including NVRAM defaults. The menu
+does not establish a working pattern generator or accessibility through the
+normal app protocol. See [the traced entry table](FIRMWARE_LUT_TRACE.md#4-factory-patterns-and-mcal-findings-versus-misleading-leads).
 
 An engine-test path offers **MCal mode**. Its wrapper at `0x1bcf4` calls
 `0x30adc`, which changes state used in tone/TMD setup. The precise expansion of
@@ -188,15 +197,17 @@ logged as `__FACTORY_MODE__`, calls `0xd868`, changes state, and continues into
 the image handling path. The normal branch is separately logged. This marker
 also occurs in the 2210 image. It was not found in the recovered HP Java.
 
-That branch has state-changing side effects whose complete meaning is unknown.
+The follow-up establishes that this branch zeros 16 counter-store entries and a
+configuration field. Persistence and all field meanings remain incompletely traced.
 No specially marked JPEG was constructed or transmitted. It is not yet a
 confirmed maintenance interface, a safe read-only switch, or a pure-dye bypass.
 Likewise, “Enable USB Debuging” and debug-task strings are leads; we have not
 established a reachable USB/UART console on this printer.
 
-Addresses here refer to the decompressed 2105 file. Some later string literals
-have a relocation difference from file offsets; this investigation does not
-assign function identities solely from those unresolved pointers.
+Addresses here refer to the decompressed 2105 file. The follow-up resolves the
+startup scatter layout: the traced code uses runtime address = file offset minus
+`0xc0`, while data sections have their own mappings. It uses those mappings for
+absolute-pointer analysis and isolated execution.
 
 ## What kind of calibration page would answer the question?
 
@@ -228,10 +239,11 @@ verified isolated dye layers**. The new evidence explains why that distinction
 matters: the stored maps are only part of a configurable, calibration-dependent
 pipeline before thermal control.
 
-The highest-return next research step is to trace LUT selection/interpolation,
-the fourth record byte, and the MCal/test-pattern generator offline, then seek an
-exact FA firmware match. That could establish whether a meaningful bypass or
-channel-isolating stimulus exists before spending another sheet.
+The [subsequent trace](FIRMWARE_LUT_TRACE.md) completes the initial LUT arithmetic
+and fourth-byte investigation, narrows MCal bypasses, and rejects the QA-menu
+entries as evidence of a generator. An exact Select FA image and the remaining
+tone/thermal stages are still needed for a complete model; no channel-isolating
+stimulus or safe factory page has been established.
 
 For the ordinary Mac/Linux/Windows driver, continue sending the known JPEG input
 and let firmware perform its own color and thermal processing. Reapplying its

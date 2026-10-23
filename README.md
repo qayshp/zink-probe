@@ -315,6 +315,13 @@ recovers six color LUTs, tone/thermal data, and factory-test code from public
 Grand Bahama FS firmware. It records the unresolved FS/FA compatibility boundary
 and why nominal RGB CMY patches still do not establish isolated dye activation.
 Its inspector is offline; no factory mode or extra print was invoked.
+The [LUT execution and factory-path follow-up](FIRMWARE_LUT_TRACE.md) identifies
+temperature selection, trilinear RGB interpolation, and the fourth component's
+magenta duty/divider role. An independent Python reference matches 11,172 pixel
+cases and 19 complete blended maps in isolated ARM execution. The QA pattern
+entries prove to be placeholders; the factory JPEG path clears counters. A
+matched FA/FS pair from another family shows identical color resources and a
+debug-monitor policy difference, while exact Select FA equivalence remains open.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per
