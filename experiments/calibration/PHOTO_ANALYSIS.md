@@ -20,6 +20,9 @@ contrast, not proof that the pattern was erased. Geometry estimates below are
 unchanged; the close-ups add detail rather than independent whole-sheet geometry.
 Later [scale-pen photographs](SCALE_PEN_ANALYSIS.md) provide a rough long-edge size
 check consistent with nominal paper dimensions, with substantial geometric limits.
+[Clarified operator measurements](SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
+now supply approximate 58×87 mm paper and 53×83 mm reference-frame dimensions,
+supporting about 322–323 input pixels/inch and the earlier total-crop estimate.
 
 ## Geometry: real content loss near the paper edges
 
@@ -120,8 +123,10 @@ make actual prints worse. Color management is a separate experiment from geometr
 ## Most useful next evidence: recapture this sheet
 
 No additional print is required. Close-ups have now been supplied and analyzed
-in [the follow-up](CLOSEUP_ANALYSIS.md). The controlled capture rotation and
-physical-scale measurements below remain outstanding:
+in [the follow-up](CLOSEUP_ANALYSIS.md), and approximate physical dimensions are
+recorded in [the scale analysis](SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements).
+A controlled capture rotation remains useful; more precise physical readings
+would be a refinement of the existing evidence:
 
 1. For a controlled follow-up to the close-ups, keep the sheet flat with even
    diffuse light and sharp focus. Rotate the **sheet** 90 degrees while

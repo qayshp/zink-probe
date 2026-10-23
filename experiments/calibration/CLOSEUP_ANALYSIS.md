@@ -99,9 +99,10 @@ document how the phone and paper were oriented during capture.
 4. **More paper is unnecessary for the next measurement.** The close-ups have
    supplied the missing magnification. A documented 90-degree paper rotation
    relative to the sensor, or a calibrated scan at both orientations, would help
-   isolate directionality. Physical cross-to-cross and sheet measurements would
-   quantify image placement in millimeters. Feed speed cannot be recovered from
-   these static photographs.
+   isolate directionality. Subsequent
+   [operator measurements](SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
+   now give approximate physical image placement: about 322–323 input pixels/inch.
+   Feed speed cannot be recovered from these static photographs.
 
 ## Reproduction
 

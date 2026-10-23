@@ -1,0 +1,47 @@
+{
+  "chart_id": "SELECT-CAL-02",
+  "date": "2026-10-22",
+  "source": "Operator clarification: Approximately 58 mm (53 mm) and 87 mm (83 mm)",
+  "interpretation": "Outside parentheses: paper; inside parentheses: printed reference frame. x is short dimension, y is long dimension.",
+  "provenance": "Operator-reported approximate measurements following readings from the inch scale on the pen. These clarified millimeter values supersede the earlier conflicting inch fractions.",
+  "uncertainty": "Not quantified; values are approximate. Derived decimals represent arithmetic precision only, not measurement accuracy.",
+  "scope": "One existing sheet. Opposite frame spans were not individually specified. No new print or device communication.",
+  "payload_sha256": "14e1530787508578341510cbdf827352a604d19b1b14039fc3cf785e26078206",
+  "formulas": {
+    "mm_per_input_pixel": "reference_span_mm / reference_span_input_px",
+    "input_pixels_per_inch": "25.4 / mm_per_input_pixel",
+    "extrapolated_full_image_mm": "input_dimension_px * mm_per_input_pixel",
+    "visible_input_span_px": "paper_dimension_mm / mm_per_input_pixel",
+    "total_clipped_input_px": "input_dimension_px - visible_input_span_px",
+    "total_clipped_fraction": "total_clipped_input_px / input_dimension_px"
+  },
+  "assumptions": "Uniform image scale inferred from reference spans; approximate paper dimensions. Total clipping has no edge-specific allocation from these four measurements alone. Physical heater pitch and native DPI are not inferred.",
+  "axes": {
+    "x": {
+      "paper_dimension_mm": 58,
+      "reference_span_mm": 53,
+      "reference_span_input_px": 672,
+      "input_dimension_px": 768,
+      "mm_per_input_pixel": 0.07886904761904762,
+      "input_pixels_per_inch": 322.05283018867925,
+      "extrapolated_full_image_mm": 60.57142857142857,
+      "visible_input_span_px": 735.3962264150944,
+      "total_clipped_input_px": 32.60377358490564,
+      "total_clipped_fraction": 0.042452830188679215,
+      "extrapolated_physical_overfill_mm": 2.5714285714285694
+    },
+    "y": {
+      "paper_dimension_mm": 87,
+      "reference_span_mm": 83,
+      "reference_span_input_px": 1056,
+      "input_dimension_px": 1152,
+      "mm_per_input_pixel": 0.07859848484848485,
+      "input_pixels_per_inch": 323.16144578313254,
+      "extrapolated_full_image_mm": 90.54545454545455,
+      "visible_input_span_px": 1106.8915662650602,
+      "total_clipped_input_px": 45.10843373493981,
+      "total_clipped_fraction": 0.03915662650602414,
+      "extrapolated_physical_overfill_mm": 3.5454545454545467
+    }
+  }
+}

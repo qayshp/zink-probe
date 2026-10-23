@@ -108,8 +108,10 @@ Private files: `logs/cal02-preflight.json`, `logs/cal02-one-print-attempt.json`,
 counts/timings/status samples and event frames, without serial/MAC/device identity.
 
 The supplied photographs confirm the chart's emergence and visible appearance.
-Next, use that same sheet for a physical scale measurement and captures at two
-physical orientations, as described in [the photo analysis](PHOTO_ANALYSIS.md).
+Subsequent [operator measurements](SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
+give approximate paper/frame dimensions and about 322–323 input pixels/inch.
+That same sheet remains useful for more precise measurements and controlled
+captures at two physical orientations, as described in [the photo analysis](PHOTO_ANALYSIS.md).
 Record which edge emerged first if observed. The
 [measurement procedure](README.md#proposed-future-one-sheet-procedure--not-executed)
 and blank worksheet remain applicable, using CAL-02's manifest for its additional

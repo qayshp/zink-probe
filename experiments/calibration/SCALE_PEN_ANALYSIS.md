@@ -4,6 +4,55 @@
 with a graduated face. They provide a rough physical scale check. No print,
 device communication, configuration write, or driver change was made.
 
+## Subsequent operator measurements
+
+The operator clarified the physical dimensions as **approximately 58×87 mm for
+the paper and 53×83 mm between the printed reference lines**. These values
+supersede the earlier conflicting inch fractions. They are approximate reports,
+with no stated uncertainty or separate readings for the two opposite sides.
+The photo-only pen estimates below remain historical evidence rather than the
+preferred physical-scale estimate.
+
+The known reference spans are 672 input pixels across the short dimension and
+1056 along the long dimension. Therefore:
+
+| Quantity | Short dimension, x | Long dimension, y |
+| --- | ---: | ---: |
+| Reported paper dimension | ~58 mm | ~87 mm |
+| Reported printed reference span | ~53 mm | ~83 mm |
+| Reference span in the input image | 672 px | 1056 px |
+| Calculated input-image scale | ~322 pixels/inch | ~323 pixels/inch |
+| Physical size corresponding to one input pixel | ~0.079 mm | ~0.079 mm |
+| Extrapolated full 768×1152 image size | ~60.6 mm | ~90.5 mm |
+| Approximate input span fitting on the paper | ~735 px | ~1107 px |
+| Total input pixels beyond the paper, both edges combined | ~33 px | ~45 px |
+| Fraction of input dimension outside the paper | ~4.2% | ~3.9% |
+
+For example, `672 / 53 * 25.4 = 322.05` input pixels per inch across, and
+`1056 / 83 * 25.4 = 323.16` along. The difference is only about 0.34%, smaller
+than these approximate measurements can reliably resolve. The results support
+nearly equal physical scaling of the input raster in both directions. They do
+not establish a precise anisotropic stretch requiring correction.
+
+Extrapolating the frame's scale to the whole image assumes approximately uniform
+scaling. The resulting visible span, about 735×1107 input pixels, closely agrees
+with the earlier photograph-based estimate of roughly 736×1107. This strengthens
+the evidence for about 4% total loss in each input dimension on this sheet. The
+four physical dimensions alone cannot locate that loss between opposing edges;
+the earlier left/right/top/bottom asymmetry remains photo-derived.
+
+**Driver implication:** preserve the validated 768×1152 target and record the
+observed physical placement separately. A future fit/safe-area option could
+compensate for this apparent overfill; no correction is enabled from this one
+sheet. The roughly 79-micrometre input-pixel footprint describes image scale on
+paper, not physical heater spacing. Native DPI, element count, and how the
+firmware maps the image to its physical marking process remain unresolved.
+
+The clarified inputs, formulas and full arithmetic are retained in
+[operator-measurements.json](package-v2/operator-measurements.json). The existing
+blank measurement worksheet remains a template; unreported opposite-side spans,
+corner offsets, feed timing and uncertainty have not been filled by assumption.
+
 ## Reading the scale
 
 After rotating an inspection crop for legibility, I read the visible end marking
@@ -15,6 +64,9 @@ comes from the photograph; the pen's exact model and manufacturing accuracy have
 not been established.
 
 ## What can be estimated
+
+The following estimates were made from the oblique photographs before the
+operator supplied the physical dimensions above.
 
 Using manual picks of the 0, 10 and 20 tick positions, a one-dimensional
 projective fit accounts for changing spacing along the ruler. Transferring that
