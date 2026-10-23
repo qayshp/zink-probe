@@ -322,6 +322,12 @@ cases and 19 complete blended maps in isolated ARM execution. The QA pattern
 entries prove to be placeholders; the factory JPEG path clears counters. A
 matched FA/FS pair from another family shows identical color resources and a
 debug-monitor policy difference, while exact Select FA equivalence remains open.
+The [tone-to-heater trace](FIRMWARE_THERMAL_TRACE.md) follows the mapped RGB and
+MDX through coefficient generation, heat history, spatial compensation, pulse
+patterns, and per-heater phase queues. Independent Python references match the
+selected ARM routines for 3,072 tone coefficients, 4,830 pixel calculations,
+9,702 fast-history values, and 103 phase-queue cases. This remains an offline FS
+firmware experiment with neutral calibration, not a full physical print model.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per

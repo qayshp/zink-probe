@@ -21,6 +21,12 @@ Everything here was offline: no printer connection, debug activation, setting
 change, firmware update, marked JPEG transmission, or print. CAL-03 is unchanged
 and unprinted. Vendor binaries and extracted tables stay in ignored local logs.
 
+The subsequent [tone and thermal trace](FIRMWARE_THERMAL_TRACE.md) follows these
+mapped components through coefficient generation, heat history, spatial
+compensation, pulse occupancy, and per-heater command queues. It establishes
+that the MDX duty/divider ratio is inverse occupancy: 7/1 means one on-slot in
+seven, with a correspondingly longer phase, not seven percent on.
+
 ## Evidence and execution boundary
 
 The principal package is `G1L1FS2105AR_1.0.7.rbn`, SHA-256

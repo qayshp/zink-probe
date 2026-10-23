@@ -1,0 +1,172 @@
+{
+  "firmware_sha256": "68cc7a635342e1e882b1e552c9d1ee2803b1c5928d61a0612f69e689d9f08a60",
+  "main_sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+  "scope": "Neutral media calibration; selected ARM arithmetic and fast history update only; no complete multiscale history, full phase planner, hardware execution or printer access",
+  "unicorn_version": "2.1.4",
+  "stub_meanings": {
+    "0x299f8": "neutral media calibration fetch",
+    "0x37674": "skip thermal-history buffer initialization",
+    "0x7f10c0": "synthetic allocator",
+    "0x7f11c0": "synthetic free",
+    "0x39d00": "unsigned division quotient/remainder",
+    "0x8c54c": "log sink"
+  },
+  "stub_counts": {
+    "0x299f8": 1,
+    "0x7f10c0": 2,
+    "0x37674": 1,
+    "0x7f11c0": 2,
+    "0x39d00": 385,
+    "0x8c54c": 8
+  },
+  "gamma_coefficients_compared": 3072,
+  "gamma_mismatches": 0,
+  "gamma_samples": {
+    "Y": {
+      "0": [
+        6285,
+        1862,
+        742,
+        766
+      ],
+      "128": [
+        3940,
+        1894,
+        698,
+        744
+      ],
+      "255": [
+        3076,
+        1952,
+        680,
+        717
+      ]
+    },
+    "M": {
+      "0": [
+        12377,
+        5922,
+        4545,
+        2004
+      ],
+      "128": [
+        8750,
+        4738,
+        5220,
+        1663
+      ],
+      "255": [
+        6693,
+        3752,
+        5438,
+        1478
+      ]
+    },
+    "C": {
+      "0": [
+        26618,
+        21805,
+        4159,
+        3406
+      ],
+      "128": [
+        15518,
+        15536,
+        3477,
+        3362
+      ],
+      "255": [
+        13184,
+        14229,
+        3505,
+        2955
+      ]
+    }
+  },
+  "thermal_rows_compared": 30,
+  "thermal_pixels_compared": 4830,
+  "thermal_raw_and_spatial_mismatches": 0,
+  "thermal_fixture_limits": [
+    25600,
+    51200,
+    65280
+  ],
+  "thermal_fixture_neighbor_coefficients": [
+    12,
+    37,
+    121
+  ],
+  "fast_history_cases_compared": 36,
+  "fast_history_values_compared": 9702,
+  "fast_history_mismatches": 0,
+  "nominal_fast_history_coefficients": {
+    "Y": {
+      "drive": 4935,
+      "decay": 63920,
+      "spread": 11796
+    },
+    "M": {
+      "drive": 4579,
+      "decay": 59308,
+      "spread": 14417
+    },
+    "C": {
+      "drive": 3480,
+      "decay": 45068,
+      "spread": 17694
+    }
+  },
+  "phase_queue_cases_compared": 103,
+  "phase_queue_mismatches": 0,
+  "example_phase_words": [
+    "0x00260064",
+    "0x00120046",
+    "0x00250014",
+    "0x00280078",
+    "0x002502ca"
+  ],
+  "fixed_mdx_patterns_checked": 37,
+  "generated_pattern_cases_compared": 33,
+  "generated_pattern_mismatches": 0,
+  "resource_fallback_M_interval": 7,
+  "resource_C_intervals": [
+    14,
+    13,
+    12,
+    11,
+    10,
+    9,
+    8
+  ],
+  "mdx_examples": {
+    "0": {
+      "mask": "0x88888888",
+      "repeat": 32,
+      "numerator": 4,
+      "divider": 1,
+      "on_bits": 8
+    },
+    "17": {
+      "mask": "0x04081020",
+      "repeat": 27,
+      "numerator": 27,
+      "divider": 4,
+      "on_bits": 4
+    },
+    "18": {
+      "mask": "0x08102040",
+      "repeat": 28,
+      "numerator": 7,
+      "divider": 1,
+      "on_bits": 4
+    },
+    "36": {
+      "mask": "0x20080200",
+      "repeat": 30,
+      "numerator": 10,
+      "divider": 1,
+      "on_bits": 3
+    }
+  },
+  "configured_miniT_microseconds": 6.800000190734863
+}
