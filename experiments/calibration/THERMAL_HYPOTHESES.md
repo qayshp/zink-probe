@@ -50,11 +50,23 @@ contrast: see the background of Codonics'
 [US8063925B2, *Thermal or density management of imaging device*](https://patents.google.com/patent/US8063925B2/en).
 That patent is not a description of this Select's implementation.
 
-If paper travel is along the chart's long axis, vertical bars repeatedly energize
-the same neighboring tracks, while horizontal bars repeatedly switch a given
-heater between dark and light. Under that assumption, the stronger vertical loss
-fits lateral interaction more directly than a simple residual-heat trail alone.
-The physical feed mapping/first edge was not recorded, so this remains conditional.
+The operator subsequently confirmed: "The short edge emerges first from the
+printer. So it feeds along the long edge." This establishes paper travel along
+the approximately 87 mm long axis, parallel to the chart's vertical bars. In the
+expected linear-head arrangement, the row of individual heating elements spans
+the approximately 58 mm short axis. That head arrangement is a mechanical
+inference, not an internal inspection or a count of elements.
+
+With this feed-axis mapping, vertical bars repeatedly energize the same
+neighboring tracks, while horizontal bars repeatedly switch a given heater
+between dark and light. The stronger vertical loss therefore fits lateral
+interaction more directly than a simple residual-heat trail alone. This remains
+a hypothesis about the cause: the observation also allows direction-dependent
+firmware sampling/filtering and capture effects. The operator has not specified
+whether the chart's labeled TOP or bottom edge emerged first, so the sign of
+travel within chart coordinates and the temporal order of repeats A/B/C remain
+unknown. Native heater spacing, element count and along-feed thermal timing also
+remain unknown.
 
 ZINK's own
 [US20120218367A1, *Thermal Response Correction System for Multicolor Printing*](https://patents.google.com/patent/US20120218367A1/en)
@@ -93,8 +105,10 @@ For a future, separately authorized sheet, the highest-value comparisons would b
    gap widths. This separates line width from neighboring coverage better than
    changing black and white run widths together.
 3. Identical test regions preceded by a solid dark patch or white space, using
-   several blank separations and a recorded feed direction. This tests a history
-   effect more directly than orientation alone.
+   several blank separations and the labeled leading edge recorded. The feed
+   axis is now known, but the leading chart edge is needed to establish which
+   region was printed first. This tests a history effect more directly than
+   orientation alone.
 4. Repeated controls at different positions. A stable pattern-dependent result
    should be distinguished from page-position, illumination or warm-up changes.
 
