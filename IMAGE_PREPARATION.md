@@ -177,6 +177,42 @@ wheel. No CI test connects to a printer. JPEG golden bytes are enforced for the
 recorded/current Pillow builds; arbitrary future encoders are not promised to
 produce byte-identical compressed streams.
 
+### Recorded results, 2026-10-24
+
+Implementation commit [`31b065c`](https://github.com/qayshp/zink-probe/commit/31b065c2940ec67fdeaf320b09afbddb1702e9c3)
+passed [all six CI jobs](https://github.com/qayshp/zink-probe/actions/runs/40134111389):
+
+| Runner | Python 3.11 | Python 3.14 |
+| --- | --- | --- |
+| macOS | Passed | Passed |
+| Linux (Ubuntu) | Passed | Passed |
+| Windows | Passed | Passed |
+
+Each ran **484 passing tests, 2 expected native-binding skips**, plus the 8 earlier
+image-research tests and 11 calibration-transcript tests. Both macOS jobs then
+installed the native extra and passed the 2 skipped binding tests without opening
+Bluetooth. The 66 new image-preparation cases ran on every platform. CLI
+preparation, simulated transfer and wheel building also passed in every job.
+
+All six generated the same **125,874-byte** JPEG from the committed synthetic
+source using fit, quality 100 and 4:4:4. SHA-256:
+
+```text
+819313892c0a381a71ecdf4d8c8be49c86356b56e68945c71b0d7beef98b2c85
+```
+
+Every simulated transfer reconstructed those bytes exactly. The three historical
+CAL-02/CAL-03 payload comparisons were also byte-exact in all six jobs. This is
+cross-platform output evidence for these fixtures, not a blanket guarantee for
+every future Pillow/codec version.
+
+Local macOS validation passed **486 tests** with native dependencies installed,
+the same 8 + 11 research tests, lint, formatting and wheel build. A separate fresh
+environment confirmed that the built wheel's core imports without Pillow, that
+`zink-prepare --help` works there, and that image preparation gives an installation
+hint until the `images` extra is installed. The committed fit/fill PNGs were
+visually inspected and all bundle hashes verified. No printer was contacted.
+
 Primary library references: [Pillow EXIF transpose](https://pillow.readthedocs.io/en/stable/reference/ImageOps.html#PIL.ImageOps.exif_transpose),
 [ImageCms color transforms](https://pillow.readthedocs.io/en/stable/reference/ImageCms.html),
 and [JPEG encoding options](https://pillow.readthedocs.io/en/stable/handbook/image-file-formats.html#jpeg).
