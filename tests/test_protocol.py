@@ -1,5 +1,6 @@
 import asyncio
 import json
+import os
 import stat
 
 import pytest
@@ -176,7 +177,9 @@ def test_read_only_transcript_and_private_raw_trace(tmp_path):
             assert {request[0] for request in connection.requests} == {4, 8, 10, 36}
         trace.frame("ble", "tx", b"\x81\x04\x01")
         trace.close()
-        assert stat.S_IMODE(path.stat().st_mode) == 0o600
+        if os.name == "posix":
+            assert stat.S_IMODE(path.stat().st_mode) == 0o600
+        # Windows uses the containing directory's ACL, not POSIX mode bits.
         records = [json.loads(line) for line in path.read_text().splitlines()]
         assert records[-1]["hex"] == "810401"
         with pytest.raises(FileExistsError):

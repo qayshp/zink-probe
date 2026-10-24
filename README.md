@@ -1,10 +1,13 @@
 # zink-probe
 
-Milestone 1: **read-only macOS Python diagnostics** for the **HP Sprocket Select**
-over BLE and Bluetooth Classic RFCOMM, plus an explicit, bounded settings test.
-Ordinary `discover` and `probe` sessions remain read-only. A separate, hash-pinned
-[CAL-02 first-sheet experiment](experiments/calibration/REVISION_2.md) implements
-one explicitly authorized print attempt; this is not yet a general print driver.
+**HP Sprocket Select diagnostics and a portable single-job engine.** macOS BLE
+and RFCOMM diagnostics are physically validated; the portable engine runs against
+a simulated printer with macOS/Linux/Windows CI. Ordinary `discover` and `probe`
+sessions remain read-only, with a separate bounded settings test. Two separately
+authorized calibration sheets have been printed on one Select, including
+[CAL-03 at quality 100 / 4:4:4](experiments/calibration/CAL03_PRINT.md).
+Native transport adapters for the new engine and OS print queues are still future
+work; this is not yet an installable general-purpose desktop print driver.
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
@@ -19,13 +22,29 @@ Use Python 3.11 or newer on macOS. Development was checked with Homebrew Python
 
 ```sh
 python3 -m venv .venv
-.venv/bin/python -m pip install -e '.[dev]'
+.venv/bin/python -m pip install -e '.[macos,dev]'
 .venv/bin/zink-probe --help
 ```
 
 The Python used for `venv` must be 3.11+. The older Apple-provided Python 3.9 is
 insufficient. For the initial development machine, `/opt/homebrew/bin/python3.14`
 was used explicitly.
+
+## Portable engine and simulated printing
+
+The core needs Python 3.11+ on macOS, Linux or Windows, with no native Bluetooth
+dependencies. Install `.[dev]` for its tests and offline simulator:
+
+```sh
+python -m pip install -e '.[dev]'
+zink-simulate experiments/jpeg-quality/q100-444-optimized.jpg --journal logs/simulated-jobs.sqlite --name SELECT-CAL-03 --allow-alternative-sampling --encoder-quality 100
+```
+
+This command cannot contact a real printer. The [engine documentation](PORTABLE_JOB_ENGINE.md)
+covers the transport interface, persistent job record, no-retry policy, read-only
+reconciliation and completion criteria. [CI results](https://github.com/qayshp/zink-probe/actions/workflows/ci.yml)
+cover Python 3.11 and 3.14 on all three operating systems. Hardware printing
+support is not implied by those simulated tests.
 
 ## Discover and probe
 
@@ -212,8 +231,8 @@ separately and cannot satisfy a response queue. Payload meanings remain undecode
 
 ```sh
 .venv/bin/pytest -q
-.venv/bin/ruff check .
-.venv/bin/ruff format --check .
+.venv/bin/ruff check src tests
+.venv/bin/ruff format --check src/zink_probe/jobs tests/test_jobs.py
 ```
 
 Tests cover command rejection, typed identity/status decoding, MAC byte order,
@@ -231,8 +250,8 @@ remaining limits, including a transient connection timeout after pairing.
 
 Known limits:
 
-- Validation covers one Select and firmware version; other units/firmware and
-  printing behavior are unverified. The physical probe corrected two reference
+- Validation covers one Select and firmware version; other units/firmware are
+  unverified. Two experimental image prints succeeded on that unit. The probe corrected two reference
   assumptions: DeviceId is a fixed 16-byte value (reported in wire-order hex), and
     FeatureSetVersion is a little-endian uint16.
 - Classic pairing must already exist. RFCOMM channel 2 was confirmed on this Select.
@@ -240,7 +259,8 @@ Known limits:
   permission UI may require operator action. Native synchronous RFCOMM open/write
   calls have OS-controlled blocking; `--timeout` bounds response waits, not those
   native calls. There is no claim of a global hard timeout.
-- No automatic reconnection, continuous polling, printing, or PAPPL integration.
+- Ordinary diagnostics do not print. The portable job engine has no automatic
+  reconnection or mutation retry; native adapters and PAPPL integration remain later work.
 - Optional unsupported identity tags are reported individually. Unknown fields,
   invalid framing, and truncated data fail explicitly rather than guessing.
 
@@ -293,7 +313,9 @@ The prepared [SELECT-CAL-03 thermal/color chart](experiments/calibration/REVISIO
 adds matched black/gray/CMY patterns, spacing controls, paired conditioning regions,
 and clear end markers. Its Python and six original Android renders agree; the
 [image package](experiments/calibration/package-v3/README.md) is committed, with
-decoded-JPEG baselines for color-subsampling effects. CAL-03 has not been printed.
+decoded-JPEG baselines for color-subsampling effects. The [quality-100 4:4:4 print](experiments/calibration/CAL03_PRINT.md)
+subsequently succeeded, with B / TWO confirmed as the leading edge. That exact
+encoding has its own decoded references; the original quality-90 package remains intact.
 
 The [first authorized physical print](experiments/calibration/FIRST_PRINT.md)
 accepted the pinned CAL-02 JPEG and reported one completed page. It also exposed
@@ -333,15 +355,15 @@ the recovered firmware's header parser and sampling setup on 35 cases. All 18
 baseline quality/sampling variants pass. Separate host-decoded comparisons show
 that 4:4:4 preserves CAL-03 fine color detail much better than raising quality
 while retaining 4:2:0. [Candidate files and results](experiments/jpeg-quality/README.md)
-are available offline; complete firmware decoding and physical acceptance of
-these alternatives remain unverified, and the renderer's defaults are unchanged.
+are available offline. The exact quality-100 4:4:4 CAL-03 payload now has physical
+acceptance evidence on the tested FA unit; other alternatives remain unprinted,
+and the renderer's defaults are unchanged.
 Approximate [operator measurements](experiments/calibration/SCALE_PEN_ANALYSIS.md#subsequent-operator-measurements)
 of a 53×83 mm reference frame on 58×87 mm paper imply about 322–323 input
 pixels/inch in both directions and corroborate roughly 4% total edge loss per
 dimension. This establishes image placement approximately, not native heater DPI.
 
-The [proposed driver roadmap](DRIVER_ROADMAP.md) prioritizes a portable single-job
-engine with simulated-printer tests and macOS/Linux/Windows CI, then platform
-transport adapters and later OS queue integration. Thermal research does not
-block that work; current physical support remains limited to the tested macOS
-Select setup.
+The [driver roadmap](DRIVER_ROADMAP.md) now marks the [portable single-job engine](PORTABLE_JOB_ENGINE.md)
+and simulated-printer CI milestone as implemented. Next are native transport
+adapters and later OS queue integration. Current physical communication evidence
+remains limited to the tested macOS Select setup.

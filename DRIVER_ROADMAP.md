@@ -1,31 +1,28 @@
-# Proposed path to a Select driver for macOS, Linux and Windows
+# Path to a Select driver for macOS, Linux and Windows
 
-2026-10-22. This is a proposal, not a claim of cross-platform support. One Select
-unit and one CAL-02 print have been physically validated on macOS. The normal CLI
-is explicitly gated to macOS; RFCOMM uses PyObjC/IOBluetooth and pumps the native
-run loop. The existing portable pieces are protocol parsing, much of the probe
-logic, and the offline image-preparation experiment. Family-wide compatibility
-remains outside the first shipping target.
+Updated 2026-10-24. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
+are implemented with three-OS CI. One Select has physical communication evidence
+on macOS and two successful calibration sheets, CAL-02 and CAL-03. Native
+Linux/Windows printing is still a proposal. The existing diagnostic CLI is gated
+to macOS; its RFCOMM implementation uses PyObjC/IOBluetooth and pumps the native
+run loop. Family-wide compatibility remains outside the first shipping target.
 
-## Highest-return next milestone: a portable single-job engine
+## Implemented milestone: a portable single-job engine
 
-Extract the tested message construction, acknowledgement checks and finite job
-state from `experiments/calibration/first_print.py` into an OS-independent library.
-Retain the completed experiment and its persistent attempt record unchanged.
-Introduce a small transport interface around connection, framed request/reply,
-asynchronous events, timeout and close behavior. Keep policy separate from native
-I/O so ordinary diagnostics remain read-only and printing is an explicit path.
+The new `zink_probe.jobs` library carries the tested message construction,
+acknowledgement checks and finite job states into an OS-independent implementation.
+The completed CAL-02 sender and claim remain unchanged. A small asynchronous
+byte-stream interface supports framing, events, deadlines and cleanup. Policy
+is separate from native I/O; ordinary diagnostics remain read-only.
 
-The first deliverable should run entirely against a simulated printer on all
-three operating systems. Cover stream fragmentation/coalescing, interleaved
-events, invalid handles/offsets, lost acknowledgements, disconnects and completion
-that cannot be confirmed. Test job bytes against sanitized evidence from the
-successful print. An upload-complete reply must not be equated with physical
-completion. An ambiguous outcome must never cause an automatic resubmission.
-Durable local job identity and an uncertainty state are more useful than promising
-exactly-once printing that the protocol cannot guarantee after a lost reply.
+The deliverable runs against a simulated printer, covering fragmentation,
+coalesced events, invalid handles/offsets, lost replies, interruption, and uncertain
+completion. Golden tests include every successful CAL-03 upload acknowledgement.
+SQLite claims prevent replaying the same local job or creating a new claim for
+the same device while an earlier claim is unresolved. This does not promise
+exactly-once printing across independent journals, computers or lost replies.
 
-Acceptance criteria:
+Implemented checks (runner results are linked from the engine documentation):
 
 - macOS/Linux/Windows CI can import and exercise the core without Bluetooth
   hardware or native macOS modules; share the same protocol golden fixtures.
@@ -89,6 +86,7 @@ PAPPL remains a later integration target, with host/platform suitability checked
 at that milestone. Queue integration should translate documents/jobs into the
 same preparation and submission interfaces, not duplicate protocol logic.
 
-CAL-03 can run in parallel as a bounded image-quality experiment. The recommended
-next engineering task is the portable job engine plus simulated-printer test
-suite and three-OS CI, followed by read-only Linux/Windows adapter validation.
+CAL-03 has now printed at quality 100 / 4:4:4 with B / TWO leading. Appearance
+analysis can proceed separately. The recommended next engineering task is a
+macOS stream adapter for the new engine, preserving the current native run-loop
+and deadline constraints, followed by read-only Linux/Windows adapter validation.

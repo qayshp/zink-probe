@@ -5,15 +5,17 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "zink-probe"
 version = "0.1.0"
-description = "macOS HP Sprocket Select diagnostics and bounded configuration research"
+description = "HP Sprocket Select diagnostics and portable single-job protocol engine"
 requires-python = ">=3.11"
-dependencies = ["bleak>=1,<4", "pyobjc-framework-IOBluetooth>=11,<13; sys_platform == 'darwin'"]
+dependencies = []
 
 [project.optional-dependencies]
+macos = ["bleak>=1,<4", "pyobjc-framework-IOBluetooth>=11,<13; sys_platform == 'darwin'"]
 dev = ["pytest>=8", "ruff>=0.11"]
 
 [project.scripts]
 zink-probe = "zink_probe.cli:main"
+zink-simulate = "zink_probe.jobs.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
