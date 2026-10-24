@@ -16,6 +16,7 @@ dev = ["pytest>=8", "ruff>=0.11"]
 [project.scripts]
 zink-probe = "zink_probe.cli:main"
 zink-simulate = "zink_probe.jobs.cli:main"
+zink-macos-check = "zink_probe.jobs.macos_probe:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

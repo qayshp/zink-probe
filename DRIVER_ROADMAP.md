@@ -7,6 +7,12 @@ Linux/Windows printing is still a proposal. The existing diagnostic CLI is gated
 to macOS; its RFCOMM implementation uses PyObjC/IOBluetooth and pumps the native
 run loop. Family-wide compatibility remains outside the first shipping target.
 
+The new engine's [macOS adapter](experiments/macos-adapter/README.md) is implemented
+and validated with read-only identity/status/capability/configuration/counter
+checks across fresh connections. Simulated full jobs traverse the same adapter
+with a fake native callback backend. Actual printing through this adapter and
+the portable engine together is still a separate, unperformed acceptance test.
+
 ## Implemented milestone: a portable single-job engine
 
 The new `zink_probe.jobs` library carries the tested message construction,
@@ -41,7 +47,7 @@ maintainable implementation before adding another operating system's I/O.
 
 | Platform | Proposed route | Required evidence |
 | --- | --- | --- |
-| macOS | Adapt the existing IOBluetooth RFCOMM implementation to the interface | Existing diagnostics still work; event-loop and timeout behavior remain explicit. |
+| macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
 | Linux | Prototype BlueZ discovery/pairing integration and an RFCOMM byte stream | Physical read-only identity/status, clean disconnect and reconnection; no assumption that macOS identifiers or pairing behavior transfer. |
 | Windows | Prototype a narrow native Bluetooth socket adapter, or an equivalent verified Windows RFCOMM API | Physical read-only identity/status and failure reporting on a supported Windows host. |
 
@@ -86,7 +92,7 @@ PAPPL remains a later integration target, with host/platform suitability checked
 at that milestone. Queue integration should translate documents/jobs into the
 same preparation and submission interfaces, not duplicate protocol logic.
 
-CAL-03 has now printed at quality 100 / 4:4:4 with B / TWO leading. Appearance
-analysis can proceed separately. The recommended next engineering task is a
-macOS stream adapter for the new engine, preserving the current native run-loop
-and deadline constraints, followed by read-only Linux/Windows adapter validation.
+CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
+can proceed separately. With the macOS adapter's read-only milestone complete,
+the recommended next task is promoting image preparation into a public API/CLI,
+followed by native Linux/Windows adapters and read-only hardware validation.

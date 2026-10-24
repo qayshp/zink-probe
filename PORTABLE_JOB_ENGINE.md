@@ -8,9 +8,13 @@ simulated printer exercises the byte-stream boundary. This is the shared engine
 milestone from [the driver roadmap](DRIVER_ROADMAP.md).
 
 **Native Linux/Windows printing and OS print queues are not implemented yet.**
+The [macOS stream adapter](experiments/macos-adapter/README.md) now passes real
+read-only checks and simulated jobs through its native callback facade. Physical
+printing through this adapter/engine combination remains untested.
 The existing macOS diagnostic command retains its deny-by-default write policy.
-The new CLI uses only the simulated printer. Physical CAL-02 and CAL-03 were sent
-with their separately bounded experimental senders, not the new library.
+`zink-simulate` uses only the simulated printer; `zink-macos-check` opens real
+read-only sessions. Physical CAL-02 and CAL-03 were sent with their separately
+bounded experimental senders, not the new library.
 
 ## Use without a printer
 
@@ -43,8 +47,9 @@ dependencies have moved into the `macos` optional dependency group.
 | `SimulatedPrinter` | In-memory protocol peer with chunk fragmentation, events and injected failure behavior; not a firmware emulator |
 
 The supplied stream implements `async write(bytes)`, `async read(maximum)`, and
-`async close()`. A future native adapter must make these operations cancellable
-or document native blocking limits, and must treat write exceptions as possibly
+`async close()`. The macOS adapter uses asynchronous native open/write callbacks
+with bounded waits and documents the synchronous API-entry/close-call limits.
+Adapters must treat write exceptions as possibly
 having transmitted bytes. The engine owns and closes the supplied session.
 Framing and application policy remain separate: the job session is explicit,
 while ordinary probe transports still reject PrintStart, FileWrite, job-property
@@ -209,9 +214,11 @@ test tools, runs lint and the full test suite, checks the bounded calibration
 transcripts, simulates the exact quality-100 CAL-03 payload, and builds a wheel.
 It follows the [GitHub Python matrix workflow guidance](https://docs.github.com/en/actions/tutorials/build-and-test-code/python).
 Action revisions are pinned to commits verified from their official repositories.
+Native callback-facade tests run on all runners; macOS also checks the real PyObjC
+delegate buffer metadata without opening Bluetooth.
 Live results are available in [GitHub Actions](https://github.com/qayshp/zink-probe/actions/workflows/ci.yml).
 
 CI establishes software behavior on those runners. It does not validate their
-Bluetooth stacks, pairing, printer communication or paper output. Next is a
-macOS stream adapter and read-only adapter validation, followed by Linux and
-Windows transports; OS queue/IPP/PAPPL integration remains later work.
+Bluetooth stacks, pairing, printer communication or paper output. Separate local
+read-only validation now covers the macOS adapter. General image preparation and
+Linux/Windows transports remain next; OS queue/IPP/PAPPL integration is later work.

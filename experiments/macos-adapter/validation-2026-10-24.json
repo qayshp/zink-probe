@@ -1,0 +1,455 @@
+{
+  "traces": [
+    {
+      "trace_file": "20261024T182511-macos-adapter-48cdf688.jsonl",
+      "trace_sha256": "73a5bd8f9e560ad105d6680b1fae03d95b54e2274550f1cb89bf4949804e0dd7",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 1,
+      "reply_count": 0,
+      "opcode_counts": {
+        "0x0A": 1
+      },
+      "attempted_tx_bytes": 7,
+      "pending_request_at_end": "0a02",
+      "errors": [],
+      "successful_sessions": []
+    },
+    {
+      "trace_file": "20261024T182611-macos-adapter-70b5e837.jsonl",
+      "trace_sha256": "45968dbba2b9d26c262ffcc3d6bf8b94ce748b7ec429a0eae6623e3fc7a9aaa6",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 35,
+      "reply_count": 35,
+      "opcode_counts": {
+        "0x04": 13,
+        "0x08": 2,
+        "0x0A": 1,
+        "0x1A": 10,
+        "0x24": 1,
+        "0x28": 1,
+        "0x2A": 1,
+        "0x2C": 2,
+        "0x3A": 4
+      },
+      "attempted_tx_bytes": 266,
+      "pending_request_at_end": null,
+      "errors": [
+        "ConnectionError: RFCOMM channel closed; no reconnect or resend"
+      ],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
+    },
+    {
+      "trace_file": "20261024T182737-macos-adapter-8dcd9488.jsonl",
+      "trace_sha256": "808e45e82551744b6105974f296fed096217c18306bfe32bee8bb003a54faba9",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 35,
+      "reply_count": 35,
+      "opcode_counts": {
+        "0x04": 13,
+        "0x08": 2,
+        "0x0A": 1,
+        "0x1A": 10,
+        "0x24": 1,
+        "0x28": 1,
+        "0x2A": 1,
+        "0x2C": 2,
+        "0x3A": 4
+      },
+      "attempted_tx_bytes": 266,
+      "pending_request_at_end": null,
+      "errors": [
+        "TimeoutError: "
+      ],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
+    },
+    {
+      "trace_file": "20261024T182912-macos-adapter-delayed.jsonl",
+      "trace_sha256": "659d53c18e6dfbeba2226eed65827d416714424fa33ef98b1c2176125de9d279",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 70,
+      "reply_count": 70,
+      "opcode_counts": {
+        "0x04": 26,
+        "0x08": 4,
+        "0x0A": 2,
+        "0x1A": 20,
+        "0x24": 2,
+        "0x28": 2,
+        "0x2A": 2,
+        "0x2C": 4,
+        "0x3A": 8
+      },
+      "attempted_tx_bytes": 532,
+      "pending_request_at_end": null,
+      "errors": [],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        },
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
+    },
+    {
+      "trace_file": "20261024T183024-macos-adapter-7f8f8625.jsonl",
+      "trace_sha256": "be8810e5e0d8881968bdc316280dcc75e95f59a3a057a7abd76f52da14785776",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 70,
+      "reply_count": 70,
+      "opcode_counts": {
+        "0x04": 26,
+        "0x08": 4,
+        "0x0A": 2,
+        "0x1A": 20,
+        "0x24": 2,
+        "0x28": 2,
+        "0x2A": 2,
+        "0x2C": 4,
+        "0x3A": 8
+      },
+      "attempted_tx_bytes": 532,
+      "pending_request_at_end": null,
+      "errors": [],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        },
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
+    },
+    {
+      "trace_file": "20261024T183522-macos-adapter-9169b9f7.jsonl",
+      "trace_sha256": "f8d3a9029f557aec4dcf0986b73f28195fb0e2f5d91d46642c1da65cc41a5c54",
+      "date_utc": "2026-10-24",
+      "all_attempted_requests_read_only": true,
+      "request_count": 70,
+      "reply_count": 70,
+      "opcode_counts": {
+        "0x04": 26,
+        "0x08": 4,
+        "0x0A": 2,
+        "0x1A": 20,
+        "0x24": 2,
+        "0x28": 2,
+        "0x2A": 2,
+        "0x2C": 4,
+        "0x3A": 8
+      },
+      "attempted_tx_bytes": 532,
+      "pending_request_at_end": null,
+      "errors": [],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        },
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": 1006,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -6,8 +6,10 @@ a simulated printer with macOS/Linux/Windows CI. Ordinary `discover` and `probe`
 sessions remain read-only, with a separate bounded settings test. Two separately
 authorized calibration sheets have been printed on one Select, including
 [CAL-03 at quality 100 / 4:4:4](experiments/calibration/CAL03_PRINT.md).
-Native transport adapters for the new engine and OS print queues are still future
-work; this is not yet an installable general-purpose desktop print driver.
+The new engine's [macOS RFCOMM adapter](experiments/macos-adapter/README.md) is now
+validated with read-only hardware checks and simulated jobs. Native Linux/Windows
+adapters and OS print queues remain future work; this is not yet an installable
+general-purpose desktop print driver.
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
@@ -45,6 +47,22 @@ covers the transport interface, persistent job record, no-retry policy, read-onl
 reconciliation and completion criteria. [CI results](https://github.com/qayshp/zink-probe/actions/workflows/ci.yml)
 cover Python 3.11 and 3.14 on all three operating systems. Hardware printing
 support is not implied by those simulated tests.
+
+### Read-only checks through the new macOS adapter
+
+After installing `.[macos,dev]`, use the Classic MAC and fixed protocol device ID
+from a trusted probe result:
+
+```sh
+zink-macos-check --address AA:BB:CC:DD:EE:FF --device-id YOUR_32_HEX_DIGIT_DEVICE_ID
+```
+
+Replace the placeholders with the selected printer's actual identifiers. This
+command runs two read-only connections through the portable framing layer and
+new async IOBluetooth adapter. It cannot submit an image or change settings.
+It compares identity, configuration and counters, records private raw frames,
+waits two seconds between connections, and stops at the first failure.
+See [validation results and limitations](experiments/macos-adapter/README.md).
 
 ## Discover and probe
 

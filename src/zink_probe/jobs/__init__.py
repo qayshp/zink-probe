@@ -1,4 +1,7 @@
-"""Portable single-job engine. No native Bluetooth imports or hardware CLI."""
+"""Portable single-job engine with no eager native Bluetooth imports.
+
+The separate macos_probe CLI exposes read-only hardware checks, not submission.
+"""
 
 from .engine import JobEngine, JobResult
 from .journal import JobJournal
