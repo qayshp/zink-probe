@@ -1,9 +1,12 @@
 # SELECT-CAL-03: matched color and thermal-hypothesis controls
 
-Prepared offline on 2026-10-22. **No CAL-03 sheet has been printed.** The operator
+Prepared offline on 2026-10-22. **Update, 2026-10-24: CAL-03 printed successfully
+at quality 100 / 4:4:4, with B / TWO first.** See [the print record](CAL03_PRINT.md)
+and use its exact JPEG/reference baselines for measurements. The original
+quality-90 preparation results below are preserved. The operator
 requested preparation of a second chart after observing directional contrast
 loss in CAL-02. This package does not add a printer command or change the spent
-CAL-02 attempt record. A future physical print remains a separate action.
+CAL-02 attempt record. The later physical test used a separate bounded sender.
 
 ![Candidate JPEG, decoded for display](package-v3/python.jpg)
 
@@ -41,7 +44,7 @@ individual thermal layers; the printer's color conversion remains involved.
 
 V means the bars run parallel to the long/feed axis. H means they run across the
 short axis, with variation along the feed direction. The feed axis was confirmed
-by the operator; the leading artwork edge still needs observation on this sheet.
+by the operator; the later CAL-03 print confirmed B / TWO as the leading artwork edge.
 All measurement patches and end squares are inside x=64..688 and y=64..1084,
 well inward of the first sheet's approximate crop boundaries. The 672×1056-pixel
 reference frame is retained. The candidate is 768×1152, with PhotoFix omitted and
@@ -125,13 +128,13 @@ Android JPEG: 96,964 bytes. The committed package includes source, Python and
 Android PNG/JPEG outputs, manifests, comparisons and verification results.
 Vendor binaries, private captures and logs remain ignored.
 
-## Before and after a future authorized print
+## Measurement procedure and execution update
 
-1. Keep this JPEG unchanged and PhotoFix off. A fresh device preflight and a new,
-   separately bounded submission would be required; do not reuse the spent
-   CAL-02 sender or its attempt record.
-2. Record the sheet emerging, keeping the end marker visible. Do not pull on the
-   moving sheet. Log which end appeared first and the video timing if available.
+1. The completed print used the separate quality-100 4:4:4 JPEG with PhotoFix off.
+   Preserve that exact file and its decoded reference. The bounded claims are
+   spent; do not reuse the CAL-02 or CAL-03 sender to obtain another sheet.
+2. The user observed **B / TWO first**. Video was not required. This establishes
+   the artwork's leading edge but does not measure exact paper velocity.
 3. Photograph the whole sheet and close-ups under diffuse, consistent lighting.
    Keep the camera settings fixed where possible; record a 90-degree physical
    paper rotation relative to the camera sensor. Saved image orientation alone

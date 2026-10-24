@@ -2,6 +2,12 @@
 
 2026-10-23. Offline follow-up to the [tone-to-heater trace](FIRMWARE_THERMAL_TRACE.md).
 
+**Physical follow-up, 2026-10-24:** the exact quality-100 4:4:4 CAL-03 candidate
+was subsequently accepted and printed by the tested FA Select. The user confirmed
+successful emergence with B / TWO first. See [the separate print record](experiments/calibration/CAL03_PRINT.md).
+The results and evidence boundaries below describe the preceding offline study;
+other encodings and firmware-wide equivalence remain unverified.
+
 **4:4:4 JPEG is a promising driver option.** The recovered FS2105 firmware has
 explicit sampling configurations for it, and its real ARM header parser and
 baseline sampling setup accept all six tested 4:4:4 quality/Huffman variants.
@@ -10,8 +16,9 @@ color detail much more than raising JPEG quality while retaining 4:2:0.
 
 This does **not** establish a new physical printer mode. No device connection,
 upload, print, setting change, factory mode, or firmware update occurred. The
-existing renderer still produces quality-90 baseline 4:2:0 JPEG. CAL-03 is
-unchanged and unprinted; alternative encodings live in a separate research folder.
+existing renderer still produces quality-90 baseline 4:2:0 JPEG. At the time of
+this offline study CAL-03 was unchanged and unprinted; alternative encodings
+were retained in a separate research folder for the later physical test.
 
 ## Evidence boundary
 

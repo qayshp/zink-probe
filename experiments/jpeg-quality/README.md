@@ -1,8 +1,10 @@
 # Offline CAL-03 JPEG quality experiment
 
 The same prepared CAL-03 RGB bitmap, encoded with different JPEG settings.
-**Research candidates only: no printer communication or printing.** The original
-CAL-03 package and the default renderer have not changed.
+The comparison scripts perform **no printer communication or printing**. The
+quality-100 4:4:4 candidate was subsequently printed in the separately authorized
+[CAL-03 experiment](../calibration/CAL03_PRINT.md). The original quality-90 package
+and the default renderer have not changed.
 
 Read [the findings and evidence boundaries](../../JPEG_QUALITY_AND_FORMATS.md).
 The [machine-readable results](results.json) record 18 baseline encodings and
@@ -11,9 +13,9 @@ firmware's pixel decoder or a physical print.
 
 | Image | Parameters | Bytes | Status |
 |---|---|---:|---|
-| [Original CAL-03](../calibration/package-v3/python.jpg) | Quality 90, 4:2:0 | 96,490 | Existing prepared file; CAL-03 unprinted |
+| [Original CAL-03](../calibration/package-v3/python.jpg) | Quality 90, 4:2:0 | 96,490 | This encoding remains unprinted |
 | [Quality 95 candidate](q95-444-optimized.jpg) | Quality 95, 4:4:4 | 127,471 | Offline header/setup accepted; physical result unknown |
-| [Quality 100 candidate](q100-444-optimized.jpg) | Quality 100, 4:4:4 | 151,545 | Offline header/setup accepted; physical result unknown |
+| [Quality 100 printed file](q100-444-optimized.jpg) | Quality 100, 4:4:4 | 151,545 | One successful physical CAL-03 print on the FA unit, 2026-10-24 |
 
 All three are baseline JPEGs with optimized Huffman coding and no PhotoFix.
 Candidate SHA-256 values:

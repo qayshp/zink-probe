@@ -1,0 +1,602 @@
+{
+  "date_local": "2026-10-24",
+  "timezone": "America/Los_Angeles",
+  "firmware": "G1L1FA2105AR",
+  "payload_sha256": "50b58d8cc26ba7349e7874861e8c76b16b4b0f5ac6d2962fa0051d970de83944",
+  "payload_bytes": 151545,
+  "jpeg_quality": 100,
+  "sampling": "4:4:4",
+  "copies": 1,
+  "operator_confirmation": {
+    "sheet_emerged": true,
+    "leading_end": "B / TWO",
+    "source": "User report in this chat"
+  },
+  "job_id": 14,
+  "file_handle": 5,
+  "job_name_max": 16,
+  "successful_transaction_opcode_counts": {
+    "04": 13,
+    "08": 33,
+    "0a": 1,
+    "0c": 1,
+    "0e": 152,
+    "1a": 10,
+    "24": 1,
+    "28": 1,
+    "2a": 1,
+    "2c": 33,
+    "30": 1,
+    "3a": 4
+  },
+  "upload_seconds": 5.94624387496151,
+  "chunks": 152,
+  "last_chunk_payload": 847,
+  "first_printing_observation_seconds": 8.169787166872993,
+  "last_printing_observation_seconds": 62.57768587488681,
+  "first_idle_after_print_seconds": 64.6720805419609,
+  "page_counter_before": 11,
+  "page_counter_after": 12,
+  "calibration_counter_before": 2,
+  "calibration_counter_after": 2,
+  "configuration_unchanged": true,
+  "all_upload_ack_offsets_verified": true,
+  "rejected_transactions": [
+    {
+      "stage": "cal03-name-rejection",
+      "job_id": 13,
+      "file_handle": 4,
+      "mutation_opcodes": [
+        "0xc",
+        "0x30"
+      ],
+      "final_reply": "013007",
+      "acknowledged_image_chunks": 0
+    },
+    {
+      "stage": "cal03-handle-rejection",
+      "job_id": 13,
+      "file_handle": 4,
+      "mutation_opcodes": [
+        "0x30",
+        "0xe"
+      ],
+      "final_reply": "010e08",
+      "acknowledged_image_chunks": 0
+    }
+  ],
+  "events": [
+    "0308000e00",
+    "03010007",
+    "0306000e00",
+    "03010001"
+  ],
+  "wire_vectors": {
+    "start_request": "0c01f94f0200",
+    "start_reply": "0d050e00",
+    "properties_request": "300e000301010d53454c4543542d43414c2d3033",
+    "properties_reply": "31",
+    "file_write_replies": [
+      "0f0501e6030000f94f0200",
+      "0f0501cc070000f94f0200",
+      "0f0501b20b0000f94f0200",
+      "0f0501980f0000f94f0200",
+      "0f05017e130000f94f0200",
+      "0f050164170000f94f0200",
+      "0f05014a1b0000f94f0200",
+      "0f0501301f0000f94f0200",
+      "0f050116230000f94f0200",
+      "0f0501fc260000f94f0200",
+      "0f0501e22a0000f94f0200",
+      "0f0501c82e0000f94f0200",
+      "0f0501ae320000f94f0200",
+      "0f050194360000f94f0200",
+      "0f05017a3a0000f94f0200",
+      "0f0501603e0000f94f0200",
+      "0f050146420000f94f0200",
+      "0f05012c460000f94f0200",
+      "0f0501124a0000f94f0200",
+      "0f0501f84d0000f94f0200",
+      "0f0501de510000f94f0200",
+      "0f0501c4550000f94f0200",
+      "0f0501aa590000f94f0200",
+      "0f0501905d0000f94f0200",
+      "0f050176610000f94f0200",
+      "0f05015c650000f94f0200",
+      "0f050142690000f94f0200",
+      "0f0501286d0000f94f0200",
+      "0f05010e710000f94f0200",
+      "0f0501f4740000f94f0200",
+      "0f0501da780000f94f0200",
+      "0f0501c07c0000f94f0200",
+      "0f0501a6800000f94f0200",
+      "0f05018c840000f94f0200",
+      "0f050172880000f94f0200",
+      "0f0501588c0000f94f0200",
+      "0f05013e900000f94f0200",
+      "0f050124940000f94f0200",
+      "0f05010a980000f94f0200",
+      "0f0501f09b0000f94f0200",
+      "0f0501d69f0000f94f0200",
+      "0f0501bca30000f94f0200",
+      "0f0501a2a70000f94f0200",
+      "0f050188ab0000f94f0200",
+      "0f05016eaf0000f94f0200",
+      "0f050154b30000f94f0200",
+      "0f05013ab70000f94f0200",
+      "0f050120bb0000f94f0200",
+      "0f050106bf0000f94f0200",
+      "0f0501ecc20000f94f0200",
+      "0f0501d2c60000f94f0200",
+      "0f0501b8ca0000f94f0200",
+      "0f05019ece0000f94f0200",
+      "0f050184d20000f94f0200",
+      "0f05016ad60000f94f0200",
+      "0f050150da0000f94f0200",
+      "0f050136de0000f94f0200",
+      "0f05011ce20000f94f0200",
+      "0f050102e60000f94f0200",
+      "0f0501e8e90000f94f0200",
+      "0f0501ceed0000f94f0200",
+      "0f0501b4f10000f94f0200",
+      "0f05019af50000f94f0200",
+      "0f050180f90000f94f0200",
+      "0f050166fd0000f94f0200",
+      "0f05014c010100f94f0200",
+      "0f050132050100f94f0200",
+      "0f050118090100f94f0200",
+      "0f0501fe0c0100f94f0200",
+      "0f0501e4100100f94f0200",
+      "0f0501ca140100f94f0200",
+      "0f0501b0180100f94f0200",
+      "0f0501961c0100f94f0200",
+      "0f05017c200100f94f0200",
+      "0f050162240100f94f0200",
+      "0f050148280100f94f0200",
+      "0f05012e2c0100f94f0200",
+      "0f050114300100f94f0200",
+      "0f0501fa330100f94f0200",
+      "0f0501e0370100f94f0200",
+      "0f0501c63b0100f94f0200",
+      "0f0501ac3f0100f94f0200",
+      "0f050192430100f94f0200",
+      "0f050178470100f94f0200",
+      "0f05015e4b0100f94f0200",
+      "0f0501444f0100f94f0200",
+      "0f05012a530100f94f0200",
+      "0f050110570100f94f0200",
+      "0f0501f65a0100f94f0200",
+      "0f0501dc5e0100f94f0200",
+      "0f0501c2620100f94f0200",
+      "0f0501a8660100f94f0200",
+      "0f05018e6a0100f94f0200",
+      "0f0501746e0100f94f0200",
+      "0f05015a720100f94f0200",
+      "0f050140760100f94f0200",
+      "0f0501267a0100f94f0200",
+      "0f05010c7e0100f94f0200",
+      "0f0501f2810100f94f0200",
+      "0f0501d8850100f94f0200",
+      "0f0501be890100f94f0200",
+      "0f0501a48d0100f94f0200",
+      "0f05018a910100f94f0200",
+      "0f050170950100f94f0200",
+      "0f050156990100f94f0200",
+      "0f05013c9d0100f94f0200",
+      "0f050122a10100f94f0200",
+      "0f050108a50100f94f0200",
+      "0f0501eea80100f94f0200",
+      "0f0501d4ac0100f94f0200",
+      "0f0501bab00100f94f0200",
+      "0f0501a0b40100f94f0200",
+      "0f050186b80100f94f0200",
+      "0f05016cbc0100f94f0200",
+      "0f050152c00100f94f0200",
+      "0f050138c40100f94f0200",
+      "0f05011ec80100f94f0200",
+      "0f050104cc0100f94f0200",
+      "0f0501eacf0100f94f0200",
+      "0f0501d0d30100f94f0200",
+      "0f0501b6d70100f94f0200",
+      "0f05019cdb0100f94f0200",
+      "0f050182df0100f94f0200",
+      "0f050168e30100f94f0200",
+      "0f05014ee70100f94f0200",
+      "0f050134eb0100f94f0200",
+      "0f05011aef0100f94f0200",
+      "0f050100f30100f94f0200",
+      "0f0501e6f60100f94f0200",
+      "0f0501ccfa0100f94f0200",
+      "0f0501b2fe0100f94f0200",
+      "0f050198020200f94f0200",
+      "0f05017e060200f94f0200",
+      "0f0501640a0200f94f0200",
+      "0f05014a0e0200f94f0200",
+      "0f050130120200f94f0200",
+      "0f050116160200f94f0200",
+      "0f0501fc190200f94f0200",
+      "0f0501e21d0200f94f0200",
+      "0f0501c8210200f94f0200",
+      "0f0501ae250200f94f0200",
+      "0f050194290200f94f0200",
+      "0f05017a2d0200f94f0200",
+      "0f050160310200f94f0200",
+      "0f050146350200f94f0200",
+      "0f05012c390200f94f0200",
+      "0f0501123d0200f94f0200",
+      "0f0501f8400200f94f0200",
+      "0f0501de440200f94f0200",
+      "0f0501c4480200f94f0200",
+      "0f0501aa4c0200f94f0200",
+      "0f0502f94f0200f94f0200"
+    ]
+  },
+  "samples": [
+    {
+      "elapsed": 6.017,
+      "print_status": "idle",
+      "system_flags": 0,
+      "current_job_id": 0,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 8.17,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 10.251,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 12.321,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 14.392,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 16.488,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 18.593,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 20.662,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 22.732,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 24.828,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 26.899,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 28.981,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 31.11,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 33.2,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 35.285,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 37.377,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 39.484,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 41.6,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 43.683,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 45.779,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 47.881,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 49.976,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 52.082,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 54.225,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 56.307,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 58.379,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 60.474,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 62.578,
+      "print_status": "printing",
+      "system_flags": 4,
+      "current_job_id": 14,
+      "progress": 0,
+      "battery_status": "in_use",
+      "battery_percent": 100,
+      "jobs": [
+        14
+      ]
+    },
+    {
+      "elapsed": 64.672,
+      "print_status": "idle",
+      "system_flags": 0,
+      "current_job_id": 0,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": []
+    },
+    {
+      "elapsed": 66.744,
+      "print_status": "idle",
+      "system_flags": 0,
+      "current_job_id": 0,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 100,
+      "jobs": []
+    },
+    {
+      "elapsed": 68.84,
+      "print_status": "idle",
+      "system_flags": 0,
+      "current_job_id": 0,
+      "progress": 0,
+      "battery_status": "charging",
+      "battery_percent": 97,
+      "jobs": []
+    }
+  ]
+}

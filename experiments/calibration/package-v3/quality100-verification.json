@@ -1,0 +1,610 @@
+{
+  "payload": "experiments/jpeg-quality/q100-444-optimized.jpg",
+  "sha256": "50b58d8cc26ba7349e7874861e8c76b16b4b0f5ac6d2962fa0051d970de83944",
+  "bytes": 151545,
+  "size": [
+    768,
+    1152
+  ],
+  "sampling": "4:4:4",
+  "quality": 100,
+  "quantization_all_ones": true,
+  "baseline": true,
+  "source_unchanged": true,
+  "source_sha256": "80b550f87bbb8983b437668c8e78266dc6cdcbeaaadcf7c876ec4198a8ab79fe",
+  "repeat_groups": [
+    {
+      "group": "solid-K",
+      "patches": [
+        "solid-A-K",
+        "solid-B-K"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "solid-G128",
+      "patches": [
+        "solid-A-G128",
+        "solid-B-G128"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "solid-C",
+      "patches": [
+        "solid-A-C",
+        "solid-B-C"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "solid-M",
+      "patches": [
+        "solid-A-M",
+        "solid-B-M"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "solid-Y",
+      "patches": [
+        "solid-A-Y",
+        "solid-B-Y"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-K-vertical",
+      "patches": [
+        "r2-K-vertical",
+        "repeat-r2-K-vertical"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-K-horizontal",
+      "patches": [
+        "r2-K-horizontal",
+        "repeat-r2-K-horizontal"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-G128-vertical",
+      "patches": [
+        "r2-G128-vertical",
+        "repeat-r2-G128-vertical"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-G128-horizontal",
+      "patches": [
+        "r2-G128-horizontal",
+        "repeat-r2-G128-horizontal"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-C-vertical",
+      "patches": [
+        "r2-C-vertical",
+        "repeat-r2-C-vertical"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-C-horizontal",
+      "patches": [
+        "r2-C-horizontal",
+        "repeat-r2-C-horizontal"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-M-vertical",
+      "patches": [
+        "r2-M-vertical",
+        "repeat-r2-M-vertical"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-M-horizontal",
+      "patches": [
+        "r2-M-horizontal",
+        "repeat-r2-M-horizontal"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-Y-vertical",
+      "patches": [
+        "r2-Y-vertical",
+        "repeat-r2-Y-vertical"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "r2-Y-horizontal",
+      "patches": [
+        "r2-Y-horizontal",
+        "repeat-r2-Y-horizontal"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "target-K",
+      "patches": [
+        "target-g8-K-heated",
+        "target-g8-K-reference",
+        "target-g32-K-reference",
+        "target-g32-K-heated"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "target-G128",
+      "patches": [
+        "target-g8-G128-heated",
+        "target-g8-G128-reference",
+        "target-g32-G128-reference",
+        "target-g32-G128-heated"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "target-C",
+      "patches": [
+        "target-g8-C-heated",
+        "target-g8-C-reference",
+        "target-g32-C-reference",
+        "target-g32-C-heated"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "target-M",
+      "patches": [
+        "target-g8-M-heated",
+        "target-g8-M-reference",
+        "target-g32-M-reference",
+        "target-g32-M-heated"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    },
+    {
+      "group": "target-Y",
+      "patches": [
+        "target-g8-Y-heated",
+        "target-g8-Y-reference",
+        "target-g32-Y-reference",
+        "target-g32-Y-heated"
+      ],
+      "maximum_decoded_rgb_difference_from_first": 0
+    }
+  ],
+  "line_baselines": [
+    {
+      "patch": "r1-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r1-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r2-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "r4-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g6-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "g14-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-K-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-K-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-G128-vertical",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-G128-horizontal",
+      "rgb_channel": "R",
+      "min": 128.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-C-vertical",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-C-horizontal",
+      "rgb_channel": "R",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-M-vertical",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-M-horizontal",
+      "rgb_channel": "G",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-Y-vertical",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    },
+    {
+      "patch": "repeat-r2-Y-horizontal",
+      "rgb_channel": "B",
+      "min": 0.0,
+      "max": 255.0,
+      "normalized_encoded_modulation": 1.0
+    }
+  ],
+  "scope": "Host-decoded exact payload reference; no physical-print measurements"
+}
