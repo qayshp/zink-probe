@@ -161,8 +161,10 @@ Upload completion never counts as physical completion. The engine requires:
   count is unchanged.
 - No foreign queued/current job or contradictory counter change was observed.
 
-An observation timeout or contradiction leaves `uncertain`. A constant zero
-progress percentage does not imply a stall; both actual sheets showed that
+An observation timeout or contradiction leaves `uncertain`. Contradictory
+samples are retained and permanently block automatic completion attribution for
+that job, including after process restart; a later idle reading cannot erase them.
+A constant zero progress percentage does not imply a stall; both actual sheets showed that
 behavior. These observations are separate requests, not an atomic snapshot.
 Counters and status are indirect evidence; `physical_ejection_confirmed` remains
 false in the library result. User observation confirmed the actual CAL-03 sheet.
@@ -191,6 +193,11 @@ acceptance, a single optional empty final chunk, cancellation, database failure,
 restart, competing local claims, counter changes, foreign jobs, and disappearance
 without completion evidence. Imports are tested with native Bluetooth modules
 explicitly forbidden.
+
+The first Windows CI run exposed a test-discovery portability issue: pytest's
+automatic parameter ID contained the entire truncated JPEG and exceeded Windows'
+32,767-character environment-variable limit. Explicit short case IDs preserve
+the same test input and assertions while allowing that case to execute there.
 
 [The CI workflow](.github/workflows/ci.yml) runs Python 3.11 and 3.14 on Ubuntu,
 macOS and Windows: six combinations. It installs only the portable package and

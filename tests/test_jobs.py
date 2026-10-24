@@ -60,7 +60,11 @@ def test_encoding_description_and_explicit_alternative():
 
 
 @pytest.mark.parametrize(
-    "data", [b"", b"png", JPEG[:-2], b"\xff\xd8\xff\xe0\xff\xff\xff\xd9"]
+    "data",
+    [b"", b"png", JPEG[:-2], b"\xff\xd8\xff\xe0\xff\xff\xff\xd9"],
+    # Pytest puts node IDs in PYTEST_CURRENT_TEST; a whole JPEG exceeds the
+    # Windows environment-variable limit before the test can even run.
+    ids=["empty", "wrong-format", "missing-eoi", "truncated-segment"],
 )
 def test_invalid_image_envelope(data):
     with pytest.raises(ProtocolError):
@@ -548,3 +552,37 @@ def test_lost_final_ack_never_becomes_completed_by_guess(journal):
     result = asyncio.run(engine(printer, journal).reconcile(job.local_id))
     assert result.state == "uncertain"
     assert printer.pages == 12 and len(printer.mutations) == before
+
+
+@pytest.mark.parametrize("contradiction", ["foreign", "counter"])
+def test_contradictory_observation_survives_reconciliation(tmp_path, contradiction):
+    path, job = tmp_path / "jobs.sqlite", spec()
+
+    def fault(request, reply, printer):
+        if printer.finished_upload and request[0] == 58:
+            if contradiction == "foreign":
+                printer.extra_jobs = [77]
+            else:
+                printer.pages = 14
+        return reply
+
+    printer = SimulatedPrinter(fault=fault)
+    with JobJournal(path) as journal:
+        result = asyncio.run(engine(printer, journal).run(job))
+        assert result.state == "uncertain"
+        record = journal.get(job.local_id)
+        assert record["seen_printing"] and record["attribution_blocked"]
+        assert record["last_observation"]
+    printer.closed = False
+    printer.fault = None
+    printer.extra_jobs = []
+    printer.pages = 12
+    printer.polls = 10
+    printer.printed = True
+    mutations = len(printer.mutations)
+    with JobJournal(path) as restarted:
+        result = asyncio.run(engine(printer, restarted).reconcile(job.local_id))
+        assert result.state == "uncertain"
+        assert "Earlier contradictory" in result.error
+        assert restarted.get(job.local_id)["attribution_blocked"]
+    assert len(printer.mutations) == mutations

@@ -9,7 +9,7 @@ from dataclasses import dataclass
 
 from ..capabilities import read_capabilities, read_metrics
 from ..probe import negotiate, read_config, read_identity, read_status, require_select
-from ..protocol import check_response
+from ..protocol import ProtocolError, check_response
 from .journal import SubmissionBlocked
 from .model import RemoteRejected, UploadPlan, require
 
@@ -261,6 +261,10 @@ class JobEngine:
             async with asyncio.timeout(self.observation_timeout):
                 while True:
                     record = self.journal.get(local_id)
+                    require(
+                        not record.get("attribution_blocked"),
+                        "Earlier contradictory observations prevent completion attribution",
+                    )
                     sample = await observation(self.session)
                     status, job = sample["status"], record["job_id"]
                     seen = record["seen_printing"] or (
@@ -270,32 +274,41 @@ class JobEngine:
                     )
                     baseline = record["baseline"]
                     delta = sample["pages"] - baseline["pages"]
-                    # Foreign activity and calibration/counter changes break
-                    # attribution; never turn a disappearing job into success.
-                    require(
-                        sample["calibrations"] == baseline["calibrations"],
-                        "Calibration counter changed",
-                    )
-                    require(
-                        0 <= delta <= record["copies"],
-                        "Page counter reset or unexpected extra pages",
-                    )
-                    require(
-                        all(j == job for j in sample["jobs"]), "Foreign job observed"
-                    )
-                    require(
-                        status.get("current_job_id") in (0, job),
-                        "Foreign current job observed",
-                    )
-                    normal = status.get("print_status_code") in (1, 2, 7, 16)
-                    require(
-                        normal and status.get("system_flags", -1) in (0, 4),
-                        "Printer reports a blocking or unknown state",
-                    )
-                    require(
-                        status.get("queue_status_code") in (1, 4),
-                        "Queue paused or unknown",
-                    )
+                    try:
+                        # Foreign activity and calibration/counter changes break
+                        # attribution; never turn a disappearing job into success.
+                        require(
+                            sample["calibrations"] == baseline["calibrations"],
+                            "Calibration counter changed",
+                        )
+                        require(
+                            0 <= delta <= record["copies"],
+                            "Page counter reset or unexpected extra pages",
+                        )
+                        require(
+                            all(j == job for j in sample["jobs"]),
+                            "Foreign job observed",
+                        )
+                        require(
+                            status.get("current_job_id") in (0, job),
+                            "Foreign current job observed",
+                        )
+                        normal = status.get("print_status_code") in (1, 2, 7, 16)
+                        require(
+                            normal and status.get("system_flags", -1) in (0, 4),
+                            "Printer reports a blocking or unknown state",
+                        )
+                        require(
+                            status.get("queue_status_code") in (1, 4),
+                            "Queue paused or unknown",
+                        )
+                    except ProtocolError as exc:
+                        self.journal.update(
+                            local_id,
+                            attribution_blocked=str(exc),
+                            last_observation=sample,
+                        )
+                        raise
                     stable_idle = stable_idle + 1 if idle(sample) else 0
                     completed = (
                         seen
