@@ -121,3 +121,7 @@ Pillow/NumPy research environment; the public job-engine tests need neither
 vendor binaries nor image-processing libraries. The sender's default invocation
 only validates the hash. Its execution claims are spent and must not be removed
 or reused to obtain another sheet.
+
+The subsequent [two-photo analysis](CAL03_PHOTO_ANALYSIS.md) examines directional
+color response and the conditioning controls. It retains the reported physical
+rotation, paper curl, and capture limitations separately from protocol evidence.

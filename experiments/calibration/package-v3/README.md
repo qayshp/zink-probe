@@ -25,3 +25,8 @@ The plain Python JPEG is 96,490 bytes, SHA-256
 That original encoding loses substantial channel modulation in one-pixel CMY
 stripes. For the physical sheet, use the linked quality-100 4:4:4 payload and its
 own `quality100-verification.json` references instead.
+
+The [two-photo assessment](../CAL03_PHOTO_ANALYSIS.md) records exploratory
+color/direction and conditioning comparisons after the operator's reported
+90-degree rotation. `photo-analysis.json` and `photo-comparison.png` contain
+sanitized measurements and a plot; original photographs remain private.
