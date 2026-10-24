@@ -1,0 +1,193 @@
+{
+  "schema_version": 1,
+  "offline": true,
+  "selected_mode": "fill",
+  "variants": {
+    "fit": {
+      "schema_version": 1,
+      "offline": true,
+      "profile": "hp-sprocket-select-768x1152",
+      "source": {
+        "input_size": [
+          900,
+          600
+        ],
+        "input_mode": "RGB",
+        "input_format": "PNG",
+        "exif_orientation": 1,
+        "orientation_applied": false,
+        "oriented_size": [
+          900,
+          600
+        ],
+        "color_conversion": "assumed-srgb",
+        "source_icc_sha256": null,
+        "rendering_intent": null,
+        "alpha_composited": false,
+        "background_srgb": [
+          255,
+          255,
+          255
+        ],
+        "compositing_space": "encoded-srgb",
+        "input_sha256": "cd1709071b547ae1c8baa5dafd60a0805a6b2b6a2b4d9a39de2fda3cec786990"
+      },
+      "geometry": {
+        "mode": "fit",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.8533333333333334,
+        "upscaled": false,
+        "source_crop_box": [
+          5.684341886080802e-14,
+          0.0,
+          900.0,
+          600.0
+        ],
+        "scaled_image_box": [
+          0.0,
+          320.0,
+          768.0,
+          832.0
+        ],
+        "padding_pixels": {
+          "left": 0.0,
+          "right": 0.0,
+          "top": 320.0,
+          "bottom": 320.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "encoding": {
+        "format": "baseline-jpeg",
+        "quality": 90,
+        "subsampling": "4:2:0",
+        "optimized_huffman": true,
+        "quantization_all_ones": false,
+        "bytes": 44912,
+        "sha256": "c3b04ecc993f2bef23b3a45d4d2f447d78587309a967b1fc6518cf226001300f",
+        "color_space": "sRGB",
+        "icc_embedded": false,
+        "exif_embedded": false
+      },
+      "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+      "photofix": false,
+      "physical_print_validated": false,
+      "versions": {
+        "python": "3.14.8",
+        "pillow": "13.0.0",
+        "littlecms": "2.19",
+        "jpeg": "6.2",
+        "libjpeg_turbo": "3.2.0"
+      }
+    },
+    "fill": {
+      "schema_version": 1,
+      "offline": true,
+      "profile": "hp-sprocket-select-768x1152",
+      "source": {
+        "input_size": [
+          900,
+          600
+        ],
+        "input_mode": "RGB",
+        "input_format": "PNG",
+        "exif_orientation": 1,
+        "orientation_applied": false,
+        "oriented_size": [
+          900,
+          600
+        ],
+        "color_conversion": "assumed-srgb",
+        "source_icc_sha256": null,
+        "rendering_intent": null,
+        "alpha_composited": false,
+        "background_srgb": [
+          255,
+          255,
+          255
+        ],
+        "compositing_space": "encoded-srgb",
+        "input_sha256": "cd1709071b547ae1c8baa5dafd60a0805a6b2b6a2b4d9a39de2fda3cec786990"
+      },
+      "geometry": {
+        "mode": "fill",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 1.92,
+        "upscaled": true,
+        "source_crop_box": [
+          250.0,
+          0.0,
+          650.0,
+          600.0
+        ],
+        "scaled_image_box": [
+          -480.0,
+          0.0,
+          1248.0,
+          1152.0
+        ],
+        "padding_pixels": {
+          "left": 0.0,
+          "right": 0.0,
+          "top": 0.0,
+          "bottom": 0.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "encoding": {
+        "format": "baseline-jpeg",
+        "quality": 90,
+        "subsampling": "4:2:0",
+        "optimized_huffman": true,
+        "quantization_all_ones": false,
+        "bytes": 52030,
+        "sha256": "e560d407b7a5409ab4be0a997b60af26c2fa141e134ce50b284949d6a8a8cdc3",
+        "color_space": "sRGB",
+        "icc_embedded": false,
+        "exif_embedded": false
+      },
+      "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+      "photofix": false,
+      "physical_print_validated": false,
+      "versions": {
+        "python": "3.14.8",
+        "pillow": "13.0.0",
+        "littlecms": "2.19",
+        "jpeg": "6.2",
+        "libjpeg_turbo": "3.2.0"
+      }
+    }
+  },
+  "files": {
+    "image.jpg": {
+      "bytes": 52030,
+      "sha256": "e560d407b7a5409ab4be0a997b60af26c2fa141e134ce50b284949d6a8a8cdc3"
+    },
+    "raster.png": {
+      "bytes": 78860,
+      "sha256": "9f3163de9624047f4e8752d24f12a98851cae96479dd06744ed094f9ca5f4fbe"
+    },
+    "preview.png": {
+      "bytes": 192723,
+      "sha256": "1ad96b3b8c359c617541330483be2a1d3a2bc7f47412b279e6fbe2305695a9b3"
+    },
+    "fit-preview.png": {
+      "bytes": 153661,
+      "sha256": "9910dd91995efba270ed09a386ee512c23d11d2cc106c58aad24d8f19ee63d3a"
+    },
+    "fill-preview.png": {
+      "bytes": 192723,
+      "sha256": "1ad96b3b8c359c617541330483be2a1d3a2bc7f47412b279e6fbe2305695a9b3"
+    },
+    "preview.html": {
+      "bytes": 1606,
+      "sha256": "7805b333d21f294016d445a768607414dafade51bf30ea4b27467103af27eb2b"
+    }
+  }
+}

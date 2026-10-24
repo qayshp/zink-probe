@@ -10,6 +10,7 @@ requires-python = ">=3.11"
 dependencies = []
 
 [project.optional-dependencies]
+images = ["Pillow>=13,<14"]
 macos = ["bleak>=1,<4", "pyobjc-framework-IOBluetooth>=11,<13; sys_platform == 'darwin'"]
 dev = ["pytest>=8", "ruff>=0.11"]
 
@@ -17,6 +18,7 @@ dev = ["pytest>=8", "ruff>=0.11"]
 zink-probe = "zink_probe.cli:main"
 zink-simulate = "zink_probe.jobs.cli:main"
 zink-macos-check = "zink_probe.jobs.macos_probe:main"
+zink-prepare = "zink_probe.prepare_cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

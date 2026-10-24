@@ -71,13 +71,14 @@ establish Bluetooth or physical print compatibility.
 
 ## User-facing preparation and printing
 
-Promote the offline preparation code into a public API/CLI with explicit EXIF
-orientation, transparency compositing, input color-space handling, preview and
-fit/fill choices. The current `prepare.py` intentionally assumes an already
-oriented/edited sRGB input, so it is not yet a complete arbitrary-photo pipeline.
-Keep the measured Select crop as a provisional profile with an optional safe-area
-mode; do not hard-code one sheet's offsets as universal mechanical correction.
-Retain image fixtures and recorded encoder versions across operating systems.
+The [public image-preparation API/CLI](IMAGE_PREPARATION.md) is now implemented
+with EXIF orientation, ICC-to-sRGB conversion, transparency compositing, fit/fill
+previews, JPEG quality/sampling options and three-platform tests. The older
+`prepare.py` remains the Android-compared research reference. Default CAL-02 and
+CAL-03 encodings retain exact regression fixtures. Preparation has no transport.
+An optional physical safe-area profile remains future work; one sheet's offsets
+are not hard-coded as universal mechanical correction. Digital fit/padding does
+not promise lossless physical edge retention.
 
 Expose discovery, status, offline prepare/preview, and explicit single-job print
 as separate operations. Add useful error/status reporting before a GUI. Thermal
@@ -94,5 +95,7 @@ same preparation and submission interfaces, not duplicate protocol logic.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With the macOS adapter's read-only milestone complete,
-the recommended next task is promoting image preparation into a public API/CLI,
-followed by native Linux/Windows adapters and read-only hardware validation.
+and the offline preparation API/CLI implemented, the recommended next task is a
+native Linux adapter with simulated faults and read-only hardware validation,
+followed by the Windows adapter. Printing through each new adapter/engine remains
+a separately authorized physical acceptance test.

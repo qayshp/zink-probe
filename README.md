@@ -1,6 +1,6 @@
 # zink-probe
 
-**HP Sprocket Select diagnostics and a portable single-job engine.** macOS BLE
+**HP Sprocket Select image preparation, diagnostics and a portable single-job engine.** macOS BLE
 and RFCOMM diagnostics are physically validated; the portable engine runs against
 a simulated printer with macOS/Linux/Windows CI. Ordinary `discover` and `probe`
 sessions remain read-only, with a separate bounded settings test. Two separately
@@ -10,6 +10,11 @@ The new engine's [macOS RFCOMM adapter](experiments/macos-adapter/README.md) is 
 validated with read-only hardware checks and simulated jobs. Native Linux/Windows
 adapters and OS print queues remain future work; this is not yet an installable
 general-purpose desktop print driver.
+
+The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
+orientation, ICC-to-sRGB conversion, centered fit/fill previews and JPEG quality /
+chroma sampling. They require no Bluetooth dependencies and are tested in the
+same three-platform CI matrix. See the [committed preview example](examples/image-preparation/README.md).
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
@@ -32,13 +37,29 @@ The Python used for `venv` must be 3.11+. The older Apple-provided Python 3.9 is
 insufficient. For the initial development machine, `/opt/homebrew/bin/python3.14`
 was used explicitly.
 
+## Offline image preparation
+
+On macOS, Linux or Windows, with Python 3.11+:
+
+```sh
+python -m pip install -e '.[images]'
+zink-prepare photo.jpg prepared-photo --mode fill --quality 90 --subsampling 4:2:0
+```
+
+Open `prepared-photo/preview.html` for both fit/fill previews. The new directory
+also contains the selected JPEG, its decoded PNG preview, the raster before
+compression and a manifest of transformations/settings. Nothing is sent to a
+printer. Use `--mode fit` to preserve the whole image with white padding, or
+`--quality 100 --subsampling 4:4:4` for higher-information encoding.
+See [supported inputs, color policy and Python examples](IMAGE_PREPARATION.md).
+
 ## Portable engine and simulated printing
 
 The core needs Python 3.11+ on macOS, Linux or Windows, with no native Bluetooth
-dependencies. Install `.[dev]` for its tests and offline simulator:
+dependencies. Install `.[images,dev]` for the complete tests and offline simulator:
 
 ```sh
-python -m pip install -e '.[dev]'
+python -m pip install -e '.[images,dev]'
 zink-simulate experiments/jpeg-quality/q100-444-optimized.jpg --journal logs/simulated-jobs.sqlite --name SELECT-CAL-03 --allow-alternative-sampling --encoder-quality 100
 ```
 

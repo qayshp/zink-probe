@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Select image preview</title>
+<style>
+body{font:17px system-ui,sans-serif;background:#f0f2f5;color:#17202d;max-width:1050px;margin:32px auto;padding:0 20px}
+h1{font-size:28px} .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}
+figure{margin:0;padding:18px;background:white;border:1px solid #ccd2da;border-radius:12px}
+img{display:block;width:100%;height:auto;border:1px solid #ccd2da;box-sizing:border-box}
+figcaption{margin-bottom:14px} h2{margin:0 0 6px;font-size:21px}
+@media(max-width:600px){.grid{grid-template-columns:1fr}}
+</style>
+<h1>Select image preview</h1>
+<p>Selected: <strong>FILL</strong> · JPEG quality 90 · 4:2:0 · 768 × 1152</p>
+<p>Both previews show decoded JPEG pixels. Fit keeps the whole image with white padding;
+fill centers and crops it to cover the canvas. These are digital previews, not a prediction of paper color or edge trimming.</p>
+<div class="grid">
+<figure><figcaption><h2>Fit</h2>Whole image, centered on white.</figcaption><img src="fit-preview.png" alt="Fit JPEG preview"></figure>
+<figure><figcaption><h2>Fill</h2>Full canvas, with a centered crop.</figcaption><img src="fill-preview.png" alt="Fill JPEG preview"></figure>
+</div>
+<p><a href="image.jpg">Selected JPEG</a> · <a href="preview.png">Selected decoded preview</a> ·
+<a href="raster.png">Selected pixels before JPEG compression</a> · <a href="manifest.json">Preparation details</a></p>
+<p>Everything was prepared locally. Nothing was sent to a printer.</p>
+</html>

@@ -1,5 +1,10 @@
 # Python reproduction of Select image preparation
 
+**2026-10-24 update:** the [public API and CLI](IMAGE_PREPARATION.md) now add EXIF
+orientation, ICC-to-sRGB normalization, fit/fill previews and JPEG options. The
+experiment below is retained as the historical Android comparison; its original
+already-oriented sRGB input boundary still applies to those measurements.
+
 2026-10-22. An independent offline Python implementation now reproduces the
 Select's measured final bitmap geometry and JPEG settings. We compared it against
 existing outputs of the original Android APK 3.0.2921.1 / 74251, rather than against
