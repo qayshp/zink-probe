@@ -34,12 +34,15 @@ def spec(**kwargs):
 
 
 def engine(printer, journal, **kwargs):
+    # Durable commits can take longer on hosted Windows filesystems. Successful
+    # paths must not depend on the 150 ms bound used by intentional timeout cases.
+    observation_timeout = kwargs.pop("observation_timeout", 10)
     return JobEngine(
         FramedSession(printer, timeout=0.03),
         journal,
         DEVICE_ID,
         poll_interval=0,
-        observation_timeout=0.15,
+        observation_timeout=observation_timeout,
         **kwargs,
     )
 
@@ -340,7 +343,7 @@ def test_write_failure_after_remote_acceptance_is_uncertain(journal):
 def test_disappearance_without_printing_is_not_completion(journal):
     printer = SimulatedPrinter()
     printer.disappear_without_print = True
-    result = asyncio.run(engine(printer, journal).run(spec()))
+    result = asyncio.run(engine(printer, journal, observation_timeout=0.15).run(spec()))
     assert result.state == "uncertain"
     assert printer.pages == 11
 
@@ -549,7 +552,9 @@ def test_lost_final_ack_never_becomes_completed_by_guess(journal):
     printer.closed = printer.hang = False
     printer.fault = None
     before = len(printer.mutations)
-    result = asyncio.run(engine(printer, journal).reconcile(job.local_id))
+    result = asyncio.run(
+        engine(printer, journal, observation_timeout=0.15).reconcile(job.local_id)
+    )
     assert result.state == "uncertain"
     assert printer.pages == 12 and len(printer.mutations) == before
 

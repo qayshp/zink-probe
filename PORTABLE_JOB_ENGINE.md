@@ -198,6 +198,10 @@ The first Windows CI run exposed a test-discovery portability issue: pytest's
 automatic parameter ID contained the entire truncated JPEG and exceeded Windows'
 32,767-character environment-variable limit. Explicit short case IDs preserve
 the same test input and assertions while allowing that case to execute there.
+The second run exposed an overly short 150 ms test-only completion deadline on
+a slower Windows runner. Ordinary simulator cases now allow ten seconds;
+intentional timeout cases retain their short deadline. The engine's three-minute
+default and full durable writes are unchanged.
 
 [The CI workflow](.github/workflows/ci.yml) runs Python 3.11 and 3.14 on Ubuntu,
 macOS and Windows: six combinations. It installs only the portable package and
