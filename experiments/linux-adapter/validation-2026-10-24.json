@@ -1,0 +1,19 @@
+{
+  "traces": [
+    {
+      "trace_file": "linux-colorberry-preflight-20261024.jsonl",
+      "trace_sha256": "3f615b248d8fa923f39b2e731fcad54513723284d80c93f2698228747097e791",
+      "date_utc": "2026-10-25",
+      "all_attempted_requests_read_only": true,
+      "request_count": 0,
+      "reply_count": 0,
+      "opcode_counts": {},
+      "attempted_tx_bytes": 0,
+      "pending_request_at_end": null,
+      "errors": [
+        "ConnectionError: Printer is not known to BlueZ on the selected adapter; pair it first using the Linux Bluetooth settings"
+      ],
+      "successful_sessions": []
+    }
+  ]
+}

@@ -503,7 +503,7 @@ def test_core_imports_without_native_modules():
 import sys
 class ForbidNative:
     def find_spec(self, fullname, path=None, target=None):
-        if fullname.split('.')[0] in {'objc','Foundation','IOBluetooth','bleak','PIL'}:
+        if fullname.split('.')[0] in {'objc','Foundation','IOBluetooth','bleak','PIL','dbus_fast'}:
             raise AssertionError(fullname)
 sys.meta_path.insert(0,ForbidNative())
 import zink_probe.jobs

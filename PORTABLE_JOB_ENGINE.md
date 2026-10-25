@@ -7,7 +7,11 @@ observation, durable local records, and read-only reconciliation. A deterministi
 simulated printer exercises the byte-stream boundary. This is the shared engine
 milestone from [the driver roadmap](DRIVER_ROADMAP.md).
 
-**Native Linux/Windows printing and OS print queues are not implemented yet.**
+**Physical printing through the portable adapters and OS print queues remain unvalidated.**
+The [Linux socket adapter](LINUX_ADAPTER.md) is implemented with read-only BlueZ
+preflight, real-socket simulation and ARM64 host tests. Its initial live pairing
+attempt was cancelled by the Bluetooth stack; [hardware evidence](experiments/linux-adapter/README.md)
+records this limit. A native Windows adapter remains future work.
 The [macOS stream adapter](experiments/macos-adapter/README.md) now passes real
 read-only checks and simulated jobs through its native callback facade. Physical
 printing through this adapter/engine combination remains untested.
@@ -209,7 +213,7 @@ intentional timeout cases retain their short deadline. The engine's three-minute
 default and full durable writes are unchanged.
 
 [The CI workflow](.github/workflows/ci.yml) runs Python 3.11 and 3.14 on Ubuntu,
-macOS and Windows: six combinations. It installs only the portable package and
+macOS and Windows: six combinations. It installs the portable package, image extra and
 test tools, runs lint and the full test suite, checks the bounded calibration
 transcripts, simulates the exact quality-100 CAL-03 payload, and builds a wheel.
 It follows the [GitHub Python matrix workflow guidance](https://docs.github.com/en/actions/tutorials/build-and-test-code/python).
@@ -220,5 +224,5 @@ Live results are available in [GitHub Actions](https://github.com/qayshp/zink-pr
 
 CI establishes software behavior on those runners. It does not validate their
 Bluetooth stacks, pairing, printer communication or paper output. Separate local
-read-only validation now covers the macOS adapter. General image preparation and
-Linux/Windows transports remain next; OS queue/IPP/PAPPL integration is later work.
+read-only validation covers the macOS adapter. [General image preparation](IMAGE_PREPARATION.md) is implemented.
+Linux physical validation and the Windows transport remain next; OS queue/IPP/PAPPL integration is later work.

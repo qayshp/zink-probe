@@ -7,8 +7,11 @@ sessions remain read-only, with a separate bounded settings test. Two separately
 authorized calibration sheets have been printed on one Select, including
 [CAL-03 at quality 100 / 4:4:4](experiments/calibration/CAL03_PRINT.md).
 The new engine's [macOS RFCOMM adapter](experiments/macos-adapter/README.md) is now
-validated with read-only hardware checks and simulated jobs. Native Linux/Windows
-adapters and OS print queues remain future work; this is not yet an installable
+validated with read-only hardware checks and simulated jobs. A new
+[Linux RFCOMM adapter](LINUX_ADAPTER.md) passes simulated socket jobs and ARM64
+Linux tests; its [live pairing/validation status](experiments/linux-adapter/README.md)
+is recorded separately. A native Windows adapter and OS print queues remain
+future work; this is not yet an installable
 general-purpose desktop print driver.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
@@ -84,6 +87,20 @@ new async IOBluetooth adapter. It cannot submit an image or change settings.
 It compares identity, configuration and counters, records private raw frames,
 waits two seconds between connections, and stops at the first failure.
 See [validation results and limitations](experiments/macos-adapter/README.md).
+
+### Read-only Linux checks
+
+On a Linux host with BlueZ and the Select already paired:
+
+```sh
+python -m pip install -e '.[linux]'
+zink-linux-check --address AA:BB:CC:DD:EE:FF --device-id YOUR_32_HEX_DIGIT_DEVICE_ID --adapter hci0
+```
+
+The command checks the existing pairing/controller state, then performs the same
+two read-only inspections through Linux's RFCOMM channel 2 socket. It does not
+pair, change power/trust settings, upload images or retry failed requests.
+See [Linux requirements, behavior and troubleshooting](LINUX_ADAPTER.md).
 
 ## Discover and probe
 

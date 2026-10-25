@@ -3,7 +3,7 @@
 Updated 2026-10-24. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
 are implemented with three-OS CI. One Select has physical communication evidence
 on macOS and two successful calibration sheets, CAL-02 and CAL-03. Native
-Linux/Windows printing is still a proposal. The existing diagnostic CLI is gated
+Linux/Windows physical printing remains unvalidated. The original diagnostic CLI is gated
 to macOS; its RFCOMM implementation uses PyObjC/IOBluetooth and pumps the native
 run loop. Family-wide compatibility remains outside the first shipping target.
 
@@ -48,7 +48,7 @@ maintainable implementation before adding another operating system's I/O.
 | Platform | Proposed route | Required evidence |
 | --- | --- | --- |
 | macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
-| Linux | Prototype BlueZ discovery/pairing integration and an RFCOMM byte stream | Physical read-only identity/status, clean disconnect and reconnection; no assumption that macOS identifiers or pairing behavior transfer. |
+| Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs and ARM64 host tests pass. Initial physical validation is blocked by pairing cancellation; see the [evidence](experiments/linux-adapter/README.md). |
 | Windows | Prototype a narrow native Bluetooth socket adapter, or an equivalent verified Windows RFCOMM API | Physical read-only identity/status and failure reporting on a supported Windows host. |
 
 [BlueZ's Profile API](https://bluez.readthedocs.io/en/latest/profile-api/) documents
@@ -96,6 +96,6 @@ same preparation and submission interfaces, not duplicate protocol logic.
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With the macOS adapter's read-only milestone complete,
 and the offline preparation API/CLI implemented, the recommended next task is a
-native Linux adapter with simulated faults and read-only hardware validation,
-followed by the Windows adapter. Printing through each new adapter/engine remains
+completion of Linux pairing and read-only physical validation, followed by the
+Windows adapter. The Linux implementation and simulated socket tests are in place. Printing through each new adapter/engine remains
 a separately authorized physical acceptance test.
