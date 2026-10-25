@@ -1,8 +1,9 @@
 """Reuse PAPPL's pinned native dependency project; build our small front end."""
+
 import shutil
 import sys
-from pathlib import Path
 import xml.etree.ElementTree as ET
+from pathlib import Path
 
 root = Path(sys.argv[1]).resolve()
 namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
