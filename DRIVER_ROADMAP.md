@@ -49,13 +49,13 @@ maintainable implementation before adding another operating system's I/O.
 | --- | --- | --- |
 | macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
 | Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs, ARM64 host tests and two read-only Select connections pass; see the [evidence](experiments/linux-adapter/README.md). Physical printing through this adapter remains untested. |
-| Windows | Prototype a narrow native Bluetooth socket adapter, or an equivalent verified Windows RFCOMM API | Physical read-only identity/status and failure reporting on a supported Windows host. |
+| Windows | Implemented nonblocking Winsock RFCOMM stream with cached pairing preflight | Simulated jobs and native ARM64 Windows tests pass. Initial pairing attempts failed authentication; [current hardware evidence](experiments/windows-adapter/README.md) distinguishes this from application-protocol validation. |
 
 [BlueZ's Profile API](https://bluez.readthedocs.io/en/latest/profile-api/) documents
 RFCOMM channel/client integration and connection delivery.
 [Microsoft's Bluetooth Winsock documentation](https://learn.microsoft.com/en-us/windows/win32/bluetooth/bluetooth-programming-with-windows-sockets)
-provides a supported Windows route. These are candidate adapter foundations,
-not evidence that this printer has been tested there.
+provides the implemented Windows route. Native interface availability and
+simulated jobs do not by themselves establish physical printer compatibility.
 
 [Bleak](https://bleak.readthedocs.io/en/latest/) already offers BLE GATT backends
 for these platforms and may be retained for discovery/diagnostics. It is not an
@@ -96,7 +96,9 @@ same preparation and submission interfaces, not duplicate protocol logic.
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With the macOS adapter's read-only milestone complete,
 and the offline preparation API/CLI implemented, the recommended next task is a
-Windows adapter with simulated jobs and read-only physical validation. The Linux
-implementation, simulated socket tests and read-only physical checks are complete.
+completion of Windows pairing/read-only physical validation, followed by a
+unified preparation/status/submission interface using the three adapters. The
+Windows implementation and simulated tests are in place; the Linux implementation,
+simulated socket tests and read-only physical checks are complete.
 Printing through each new adapter/engine remains
 a separately authorized physical acceptance test.

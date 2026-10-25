@@ -20,6 +20,7 @@ zink-probe = "zink_probe.cli:main"
 zink-simulate = "zink_probe.jobs.cli:main"
 zink-macos-check = "zink_probe.jobs.macos_probe:main"
 zink-linux-check = "zink_probe.jobs.linux_probe:main"
+zink-windows-check = "zink_probe.jobs.windows_probe:main"
 zink-prepare = "zink_probe.prepare_cli:main"
 
 [tool.setuptools.packages.find]

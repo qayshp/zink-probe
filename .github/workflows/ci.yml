@@ -28,7 +28,7 @@ jobs:
       - name: Lint
         run: python -m ruff check src tests
       - name: Formatting of portable engine and image preparation
-        run: python -m ruff format --check src/zink_probe/jobs src/zink_probe/images.py src/zink_probe/prepare_cli.py tests/test_jobs.py tests/test_macos_stream.py tests/test_linux_stream.py tests/test_images.py tests/fixtures/images/make_profile.py
+        run: python -m ruff format --check src/zink_probe/jobs src/zink_probe/images.py src/zink_probe/prepare_cli.py tests/test_jobs.py tests/test_macos_stream.py tests/test_linux_stream.py tests/test_windows_stream.py tests/test_images.py tests/fixtures/images/make_profile.py
       - name: Test diagnostics, portable jobs and image preparation
         run: python -m pytest -q
       - name: Test earlier image research contract

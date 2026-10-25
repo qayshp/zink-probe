@@ -11,7 +11,10 @@ milestone from [the driver roadmap](DRIVER_ROADMAP.md).
 The [Linux socket adapter](LINUX_ADAPTER.md) is implemented with read-only BlueZ
 preflight, real-socket simulation and ARM64 host tests. Two live read-only
 connections to the Select passed after pairing; [hardware evidence](experiments/linux-adapter/README.md)
-records the initial pairing issue and successful checks. A native Windows adapter remains future work.
+records the initial pairing issue and successful checks. The [Windows adapter](WINDOWS_ADAPTER.md)
+is implemented and passes simulated jobs plus native ARM64 Windows interface tests;
+its [pairing and hardware validation evidence](experiments/windows-adapter/README.md)
+is recorded separately.
 The [macOS stream adapter](experiments/macos-adapter/README.md) now passes real
 read-only checks and simulated jobs through its native callback facade. Physical
 printing through this adapter/engine combination remains untested.
@@ -225,5 +228,5 @@ Live results are available in [GitHub Actions](https://github.com/qayshp/zink-pr
 CI establishes software behavior on those runners. It does not validate their
 Bluetooth stacks, pairing, printer communication or paper output. Separate local
 read-only validation covers the macOS and Linux adapters. [General image preparation](IMAGE_PREPARATION.md) is implemented.
-The Windows transport and physical printing through the new adapters remain
-next; OS queue/IPP/PAPPL integration is later work.
+Windows physical read-only validation and physical printing through the new adapters
+remain next; OS queue/IPP/PAPPL integration is later work.

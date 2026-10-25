@@ -1,0 +1,19 @@
+{
+  "traces": [
+    {
+      "trace_file": "windows-surface-preflight-20261025.jsonl",
+      "trace_sha256": "953c3a86bec1853576371cb5b661748ef347b21747f93c0004f3a7059bc2f463",
+      "date_utc": "2026-10-25",
+      "all_attempted_requests_read_only": true,
+      "request_count": 0,
+      "reply_count": 0,
+      "opcode_counts": {},
+      "attempted_tx_bytes": 0,
+      "pending_request_at_end": null,
+      "errors": [
+        "ConnectionError: Printer is not paired on the selected radio; pair the exact Select in Windows Bluetooth settings"
+      ],
+      "successful_sessions": []
+    }
+  ]
+}

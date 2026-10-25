@@ -33,11 +33,16 @@ bounded BR/EDR discovery. The printer was not previously paired to ColorBerry.
 One one-shot pairing command could not find the expired discovery entry. A
 subsequent discovery/pairing session kept discovery active, observed the printer
 connect briefly, and ended with BlueZ `org.bluez.Error.AuthenticationCanceled`.
-Those initial attempts did not establish a bond. The user then closed the phone
-app and ensured the printer was awake. The Mac was checked and was not connected.
-A new bounded discovery/pairing session succeeded, leaving the Select paired and
-bonded on ColorBerry. This sequence does not prove which prior condition caused
-the cancellation. One-time host pairing was performed separately from the
+Those initial attempts did not establish a bond. The Mac was checked and was not
+connected. A later bounded discovery/pairing session succeeded, leaving the
+Select paired and bonded on ColorBerry. The user subsequently clarified that
+the phone app had already been closed throughout the preceding day: no app was
+closed and no deliberate wake action was taken in response to the question.
+The printer was powered on, possibly asleep (large front LED off), and the user
+noticed that LED turn on early during the investigation. The observations do
+not establish which device or operation woke it, or what caused the earlier
+pairing cancellation. The earlier wording attributing a phone-app closure or
+confirmed wake action to the user was incorrect. One-time host pairing was performed separately from the
 read-only CLI, using the user's project-setup authorization. Existing pairings,
 controller power and trust flags were not removed or changed; temporary discovery
 was stopped when its client exited.
