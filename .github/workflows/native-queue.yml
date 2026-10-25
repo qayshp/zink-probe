@@ -1,0 +1,48 @@
+name: Native IPP queue
+on:
+  push:
+    paths: ['native/**', '.github/workflows/native-queue.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: michaelrsweet/pappl
+          ref: 02050bdbd4b3e610180c0433f47b7bf2c4569e44
+          path: build-pappl
+      - name: Generate queue project
+        run: python native/build_windows.py build-pappl
+      - name: Restore pinned dependencies and build x64 queue
+        shell: pwsh
+        run: |
+          $vs = & "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe" -latest -products * -requires Microsoft.Component.MSBuild -property installationPath
+          $msbuild = Join-Path $vs 'MSBuild\Current\Bin\MSBuild.exe'
+          Push-Location build-pappl/vcnet
+          nuget restore pappl.sln -NonInteractive
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          & $msbuild zink-ipp.vcxproj /m /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          Pop-Location
+      - name: Assemble runtime and check launch without a printer
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path native-dist
+          Copy-Item build-pappl/vcnet/x64/Release/*.exe native-dist
+          Copy-Item build-pappl/vcnet/x64/Release/*.dll native-dist
+          Get-ChildItem build-pappl/vcnet/packages -Recurse -Filter *.dll | Where-Object { $_.FullName -match '\\bin\\x64\\(?:v142\\)?Release\\' } | Copy-Item -Destination native-dist
+          Copy-Item build-pappl/LICENSE native-dist/PAPPL-LICENSE.txt
+          Copy-Item build-pappl/NOTICE native-dist/PAPPL-NOTICE.txt
+          native-dist/zink-ipp.exe --version
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          Get-ChildItem native-dist -File | Get-FileHash -Algorithm SHA256 | Select-Object Path,Hash | ConvertTo-Json | Set-Content native-dist/SHA256.json
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: zink-ipp-windows-x64
+          path: native-dist/
+          retention-days: 14
