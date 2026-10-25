@@ -35,7 +35,7 @@ static bool save_state(pappl_system_t *system, void *data) {
   return papplSystemSaveState(system, state_path);
 }
 
-static int run_worker(const char *path, const char *key, int quality) {
+static int run_worker(pappl_job_t *job, const char *path, const char *key, int quality) {
   char q[16];
   snprintf(q, sizeof(q), "%d", quality);
 #ifdef _WIN32
@@ -53,9 +53,19 @@ static int run_worker(const char *path, const char *key, int quality) {
   memset(&startup, 0, sizeof(startup)); startup.cb = sizeof(startup);
   memset(&process, 0, sizeof(process));
   if (!CreateProcessW(wide_python, wide_command, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &startup, &process)) return 1;
-  if (WaitForSingleObject(process.hProcess, 360000) == WAIT_OBJECT_0)
-    GetExitCodeProcess(process.hProcess, &result);
-  else { TerminateProcess(process.hProcess, 3); result = 3; }
+  for (unsigned elapsed = 0; elapsed < 360000; elapsed += 500) {
+    if (WaitForSingleObject(process.hProcess, 500) == WAIT_OBJECT_0) {
+      GetExitCodeProcess(process.hProcess, &result);
+      break;
+    }
+    if (papplJobIsCanceled(job) || elapsed == 359500) {
+      /* A forced stop leaves durable claims intact. The printer may already
+       * be printing; cancellation is never a reason to replay the job. */
+      TerminateProcess(process.hProcess, 3); result = 3;
+      WaitForSingleObject(process.hProcess, 5000);
+      break;
+    }
+  }
   CloseHandle(process.hThread); CloseHandle(process.hProcess);
   return (int)result;
 #else
@@ -103,7 +113,7 @@ static bool start_page(pappl_job_t *job, pappl_pr_options_t *options, pappl_devi
   if (!data) return false;
   data->pages++;
   if (data->pages != 1 || h->cupsWidth == 0 || h->cupsHeight == 0 || h->cupsWidth > 4096 || h->cupsHeight > 4096 ||
-      h->cupsBitsPerColor != 8 || h->cupsBitsPerPixel != 24 || h->cupsColorSpace != CUPS_CSPACE_SRGB ||
+      h->NumCopies > 1 || h->cupsBitsPerColor != 8 || h->cupsBitsPerPixel != 24 || h->cupsColorSpace != CUPS_CSPACE_SRGB ||
       h->cupsBytesPerLine != h->cupsWidth * 3 || h->cupsColorOrder != CUPS_ORDER_CHUNKED) {
     data->failed = true;
     papplJobSetMessage(job, "Expected one bounded 8-bit sRGB raster page; nothing was sent.");
@@ -150,7 +160,7 @@ static bool end_job(pappl_job_t *job, pappl_pr_options_t *options, pappl_device_
   if (!data) return false;
   if (data->file) { fclose(data->file); data->failed = true; }
   if (!data->failed && data->complete && data->pages == 1 && !papplJobIsCanceled(job) && papplJobGetState(job) != IPP_JSTATE_ABORTED) {
-    int result = run_worker(data->path, data->key, options->print_quality);
+    int result = run_worker(job, data->path, data->key, options->print_quality);
     ok = result == 0;
     papplJobSetMessage(job, ok ? "Select job processed; see the local job record." : "Select job stopped. Check its local record; do not blindly resend.");
   }
@@ -169,7 +179,9 @@ static bool printer_status(pappl_printer_t *printer) { (void)printer; return tru
 static bool driver(pappl_system_t *system, const char *name, const char *uri, const char *id, pappl_pr_driver_data_t *d, ipp_t **attrs, void *context) {
   (void)system; (void)name; (void)uri; (void)id; (void)attrs; (void)context;
   cupsCopyString(d->make_and_model, "HP Sprocket Select", sizeof(d->make_and_model));
-  d->format = "image/pwg-raster";
+  /* A NULL native format disables raw bypass; PAPPL's standard raster and
+   * image filters still drive the callbacks below. */
+  d->format = NULL;
   d->rstartjob_cb = start_job; d->rstartpage_cb = start_page;
   d->rwriteline_cb = write_line; d->rendpage_cb = end_page; d->rendjob_cb = end_job;
   d->status_cb = printer_status;
@@ -205,7 +217,7 @@ int main(int argc, char **argv) {
   system = papplSystemCreate(PAPPL_SOPTIONS_NO_TLS | PAPPL_SOPTIONS_NO_DNS_SD,
                             "HP Sprocket Select", port, NULL, argv[4], argv[5], PAPPL_LOGLEVEL_DEBUG, NULL, false);
   if (!system) return 1;
-  papplSystemSetHostName(system, "localhost");
+  papplSystemSetHostName(system, "127.0.0.1");
   papplSystemSetPrinterDrivers(system, 1, &entry, NULL, NULL, driver, NULL);
   papplSystemSetSaveCallback(system, save_state, NULL);
   if (!papplSystemLoadState(system, state_path)) {
