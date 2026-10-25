@@ -26,6 +26,10 @@ jobs:
           Push-Location build-pappl/vcnet
           nuget restore pappl.sln -NonInteractive
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          # This pinned package contains v142 import libraries, also ABI-compatible
+          # with v143. Its props otherwise silently selects a nonexistent folder.
+          $jpegProps = 'packages/libjpeg-turbo-v142.2.0.4.3/build/native/libjpeg-turbo-v142.props'
+          (Get-Content $jpegProps -Raw).Replace('$(PlatformToolset)', 'v142') | Set-Content $jpegProps
           & $msbuild zink-ipp.vcxproj /m /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           Pop-Location
