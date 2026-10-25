@@ -4,6 +4,10 @@ The [Windows RFCOMM adapter](../../WINDOWS_ADAPTER.md) and `zink-windows-check`
 are implemented. This milestone authorizes simulated jobs and read-only printer
 checks, not physical printing.
 
+**Two real read-only Select connections from Surface now pass.** The user
+completed pairing through Windows settings, after which the existing adapter
+connected, inspected the printer, closed and reconnected without code changes.
+
 ## Host and native interface evidence
 
 The user confirmed Surface was near the Select. SSH reached the expected
@@ -44,16 +48,68 @@ printer remained unpaired. One further bounded setup attempt with callback
 logging reached the same method/capability exchange and failed with the same
 code. The user was asked to try the normal Windows pairing UI; neither attempt
 establishes a cause for the authentication failure. Discovery or authentication
-traffic can be observed
-by the printer; no conclusion about its wake cause follows from that alone.
+traffic can be observed by the printer; no conclusion about its wake cause
+follows from that alone.
 
-The [sanitized frame audit](validation-2026-10-25.json) records the preflight
-refusal and zero transmitted protocol frames. Raw identifiers, discovery logs
-and protocol traces remain private. A final cached-state check still reported
-the Select unpaired. **Real Windows-to-printer application communication has
-not yet been validated.** The remaining prerequisite is a successful Windows
-pairing, followed by the existing two-session read-only command.
-Physical printing, bulk upload throughput and mid-print loss remain unvalidated.
+The [sanitized frame audit](validation-2026-10-25.json) preserves that initial
+preflight refusal with zero transmitted protocol frames, alongside the successful
+follow-up below. Raw identifiers, discovery logs and protocol traces remain private.
+
+## Successful physical read-only checks
+
+After the user reported successful pairing through Surface's normal Windows UI,
+the native cached-state check confirmed `authenticated=true` and
+`connected=false`. All deployed Python source hashes and the private target
+selection file were checked against the verified local checkout before use.
+The implementation remains the code from `8c6ca18`; no adapter fix was needed.
+
+The existing CLI then completed two fresh read-only inspections, using Surface's
+ARM64 Python 3.12.10 and the default Windows event loop. The trace was copied
+back and independently audited offline. It was not edited or redacted in place;
+the public JSON contains only a sanitized summary and its SHA-256 digest.
+
+| Observation | Both Windows sessions |
+| --- | --- |
+| Exact expected printer identity | Matched |
+| Model / firmware | Select `0x48D3` / `G1L1FA2105AR` |
+| Negotiated maximum application message | 1000 bytes |
+| Capability table | 227 bytes |
+| Status / queue / flags | Idle / empty / zero |
+| Battery | 100%, reported charging |
+| Printed-page counter | 12 before and after |
+| Calibration-card counter | 2 before and after |
+| Configuration | Unchanged within and between connections |
+| Requests / matching replies | 35 / 35 per connection |
+| Application wire TX / RX | 266 / 870 bytes per connection |
+| Native send calls | 35 per connection |
+| Local socket closure | Closed without error; fresh reconnect succeeded |
+
+The independent [frame auditor](../macos-adapter/audit_trace.py) accepted all
+**70 outgoing requests** and correlated all **70 replies**, with no error or
+pending request at the end. There were no PrintStart, image FileWrite,
+job-property writes, configuration writes, reset, queue-resume or cancellation
+requests. Capability FileRead requests were scoped to handles granted during
+the corresponding session. Total application-framed traffic was 532 bytes sent
+and 1740 bytes received; these counts exclude Bluetooth/link overhead.
+An additional offline consistency check confirmed no partial frame remained
+in either direction, each session contained exactly 35 complete outgoing and
+35 complete incoming frames, and trace byte counts matched the native socket
+counters. The public report was checked against the private selection file to
+ensure that neither the target MAC nor fixed device ID was included.
+
+Identity, capability-table data and both configuration snapshots also matched
+the earlier successful ColorBerry/Linux results exactly. This comparison uses
+the private original traces and exposes no MAC, fixed device ID or custom name.
+
+The complete two-session sequence took about 5.38 seconds, including the intended
+two-second gap. This is a small read-only transaction timing, not a print-upload
+throughput measurement. Local socket closure is not a separate printer disconnect
+ACK. Successful ordinary Windows pairing resolved the prerequisite; it does not
+explain why the two earlier programmatic pairing attempts failed.
+
+**Real Windows-to-printer read-only communication and reconnection are now
+validated.** Physical printing, bulk upload throughput and mid-print loss through
+this adapter remain unvalidated. No print or settings change was performed.
 
 ## Software checks
 
@@ -72,6 +128,8 @@ additional native-binding checks and Linux passed its D-Bus/Python-capability
 check. Every job also passed the eight earlier image-research tests, eleven
 calibration transcript tests, both simulated-job CLI runs, offline image
 preparation/preview and wheel building. Local dependency consistency also passed.
+The successful hardware follow-up changes only documentation and audit evidence;
+the tested application code is unchanged.
 
 The socket facade replaces only Bluetooth bind/connect and cached metadata;
 real local sockets carry requests and replies. Simulated jobs reconstruct both

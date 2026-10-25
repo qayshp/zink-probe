@@ -10,9 +10,10 @@ The new engine's [macOS RFCOMM adapter](experiments/macos-adapter/README.md) is 
 validated with read-only hardware checks and simulated jobs. A new
 [Linux RFCOMM adapter](LINUX_ADAPTER.md) passes simulated socket jobs, ARM64
 Linux tests, and [two live read-only printer connections](experiments/linux-adapter/README.md).
-A [Windows RFCOMM adapter](WINDOWS_ADAPTER.md) passes simulated jobs and native
-ARM64 Windows checks; its [physical pairing/validation status](experiments/windows-adapter/README.md)
-is recorded separately. OS print queues remain future work; this is not yet an installable
+A [Windows RFCOMM adapter](WINDOWS_ADAPTER.md) passes simulated jobs, native
+ARM64 Windows checks, and [two live read-only Select connections](experiments/windows-adapter/README.md).
+All three adapters now have read-only hardware evidence. OS print queues remain
+future work; this is not yet an installable
 general-purpose desktop print driver.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF

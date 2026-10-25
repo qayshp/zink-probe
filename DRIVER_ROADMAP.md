@@ -49,7 +49,7 @@ maintainable implementation before adding another operating system's I/O.
 | --- | --- | --- |
 | macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
 | Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs, ARM64 host tests and two read-only Select connections pass; see the [evidence](experiments/linux-adapter/README.md). Physical printing through this adapter remains untested. |
-| Windows | Implemented nonblocking Winsock RFCOMM stream with cached pairing preflight | Simulated jobs and native ARM64 Windows tests pass. Initial pairing attempts failed authentication; [current hardware evidence](experiments/windows-adapter/README.md) distinguishes this from application-protocol validation. |
+| Windows | Implemented nonblocking Winsock RFCOMM stream with cached pairing preflight | Simulated jobs, native ARM64 Windows tests and two real read-only Select connections pass after ordinary Windows pairing; see the [hardware evidence](experiments/windows-adapter/README.md). Physical printing through this adapter remains untested. |
 
 [BlueZ's Profile API](https://bluez.readthedocs.io/en/latest/profile-api/) documents
 RFCOMM channel/client integration and connection delivery.
@@ -94,11 +94,9 @@ at that milestone. Queue integration should translate documents/jobs into the
 same preparation and submission interfaces, not duplicate protocol logic.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
-can proceed separately. With the macOS adapter's read-only milestone complete,
-and the offline preparation API/CLI implemented, the recommended next task is a
-completion of Windows pairing/read-only physical validation, followed by a
-unified preparation/status/submission interface using the three adapters. The
-Windows implementation and simulated tests are in place; the Linux implementation,
-simulated socket tests and read-only physical checks are complete.
-Printing through each new adapter/engine remains
-a separately authorized physical acceptance test.
+can proceed separately. With all three adapters' read-only hardware milestones
+complete and the offline preparation API/CLI implemented, the recommended next
+task is a unified preparation/status/submission interface using the three
+adapters. Existing simulated jobs cover transfer and failure behavior without
+paper. Printing through each new adapter/engine remains a separately authorized
+physical acceptance test.

@@ -4,6 +4,11 @@
 Classic Bluetooth RFCOMM channel 2. `zink-windows-check` exposes only read-only
 printer inspection. This does not install an OS print queue.
 
+Two real read-only inspections and reconnection now pass on ARM64 Surface after
+pairing through Windows settings. The [hardware report](experiments/windows-adapter/README.md)
+includes the independent 70-request/70-reply audit. Physical printing through
+this adapter has not been tested.
+
 ## Installation and read-only use
 
 Use 64-bit desktop Windows Python 3.11+ (x64 or ARM64), a working Classic
