@@ -52,8 +52,9 @@ def test_capture_prepares_without_transport(
 
 
 @pytest.mark.parametrize("quality", [4, 5])
-def test_simulated_job_uses_exact_prepared_payload(tmp_path, quality):
-    args = setup(tmp_path, "simulated")
+@pytest.mark.parametrize("layout", ["fill", "preserve-edges"])
+def test_simulated_job_uses_exact_prepared_payload(tmp_path, quality, layout):
+    args = setup(tmp_path, "simulated", preparation_mode=layout)
     code, record = worker.process(*args, quality)
     assert code == 0 and record["state"] == "completed"
     assert record["payload_bytes_match"] and record["print_start_count"] == 1
@@ -128,7 +129,15 @@ def test_input_outside_private_incoming_rejected(tmp_path):
 
 
 @pytest.mark.parametrize(
-    "extra", [{"mode": "unknown"}, {"schema": 2}, {"address": "00:11:22:33:44:55"}]
+    "extra",
+    [
+        {"mode": "unknown"},
+        {"schema": 2},
+        {"address": "00:11:22:33:44:55"},
+        {"preparation_mode": "preserve"},
+        {"preparation_mode": None},
+        {"journal_path": "relative.sqlite"},
+    ],
 )
 def test_bad_config(tmp_path, extra):
     args = setup(tmp_path)
@@ -152,3 +161,67 @@ def test_worker_disconnect_keeps_receipt_and_raw(tmp_path, monkeypatch):
     assert args[1].exists()
     with pytest.raises(FileExistsError):
         worker.process(*args, 4)
+
+
+def test_preserve_capture_has_margins_and_separate_guide(tmp_path, monkeypatch):
+    monkeypatch.setattr(worker, "stream_factory", forbidden)
+    journal = tmp_path / "must-not-open.sqlite"
+    args = setup(tmp_path, preparation_mode="preserve-edges", journal_path=str(journal))
+    code, record = worker.process(*args, 5)
+    assert code == 0 and record["preparation_mode"] == "preserve-edges"
+    output = tmp_path / "jobs" / args[2]
+    manifest = json.loads((output / "preparation.json").read_text())
+    assert manifest["geometry"]["scaled_image_box"] == [48, 72, 720, 1080]
+    with Image.open(output / "image.jpg") as image:
+        assert image.getpixel((24, 576)) == (255, 255, 255)
+        assert image.getpixel((384, 576)) != (255, 255, 255)
+    assert (output / "safe-area-preview.png").read_bytes() != (
+        output / "preview.png"
+    ).read_bytes()
+    assert not journal.exists()
+
+
+def test_two_layouts_share_unresolved_job_guard(tmp_path, monkeypatch):
+    from zink_probe.images import prepare_image
+    from zink_probe.jobs import JobJournal, JobSpec
+    from zink_probe.jobs.simulator import DEVICE_ID
+
+    # Represent a first queue that stopped with an unresolved claim. The second
+    # queue's different private directory/layout must not bypass this claim.
+    journal_path = tmp_path / "borderless" / "jobs.sqlite"
+    previous = JobSpec(prepare_image(Image.new("RGB", (64, 96))).jpeg)
+    with JobJournal(journal_path) as journal:
+        journal.claim(previous, DEVICE_ID, {})
+    root = tmp_path / "preserve"
+    root.mkdir()
+    args = setup(
+        root,
+        "simulated",
+        preparation_mode="preserve-edges",
+        journal_path=str(journal_path),
+    )
+    streams = []
+
+    def factory(*args):
+        def stream(*args, **kwargs):
+            result = SimulatedStream(*args, **kwargs)
+            streams.append(result)
+            return result
+
+        return stream
+
+    monkeypatch.setattr(worker, "stream_factory", factory)
+    code, record = worker.process(*args, 4)
+    assert code == 3 and "unresolved" in record["error"]
+    assert not (root / "jobs.sqlite").exists()
+    from zink_probe.protocol import validate_request
+
+    # A separate connection can still do its normal read-only preflight; the
+    # shared journal must reject the job before any mutation or payload upload.
+    assert streams and streams[0].requests
+    for stream in streams:
+        for request in stream.requests:
+            validate_request(request, read_handles=(9,))  # Simulator's feature file.
+        assert not stream.uploaded
+    with JobJournal(journal_path) as journal:
+        assert journal.active_for_device(DEVICE_ID)["local_id"] == previous.local_id

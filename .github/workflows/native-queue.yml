@@ -18,6 +18,9 @@ jobs:
           path: build-pappl
       - name: Generate queue project
         run: python native/build_windows.py build-pappl
+      - name: Check both queue installer layouts without installation
+        shell: pwsh
+        run: ./native/Test-QueueLayout.ps1
       - name: Restore pinned dependencies and build x64 queue
         shell: pwsh
         run: |

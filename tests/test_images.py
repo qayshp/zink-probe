@@ -288,13 +288,75 @@ def test_tall_fit_side_padding_and_tall_fill_crop():
 
 def test_small_matching_aspect_scales_without_letterbox():
     results = prepare_comparison(Image.new("RGB", (96, 144), "red"))
-    for result in results.values():
+    for result in (results["fit"], results["fill"]):
         assert result.manifest["geometry"]["scale"] == 8
         assert result.manifest["geometry"]["padding_pixels"] == dict(
             left=0, right=0, top=0, bottom=0
         )
         assert decoded(result.raster_png).getextrema() == ((255, 255), (0, 0), (0, 0))
     assert results["fit"].jpeg == results["fill"].jpeg
+
+
+@pytest.mark.parametrize(
+    "size", [(96, 144), (900, 600), (600, 900), (80, 80), (80, 400), (101, 157)]
+)
+def test_preserve_edges_fits_whole_source_inside_conservative_box(size):
+    # Four colored corners make losing any edge detectable, not just metadata.
+    source = Image.new("RGB", size, "black")
+    w, h = size
+    for color, box in [
+        ("red", (0, 0, w // 4, h // 4)),
+        ("lime", (3 * w // 4, 0, w, h // 4)),
+        ("blue", (0, 3 * h // 4, w // 4, h)),
+        ("yellow", (3 * w // 4, 3 * h // 4, w, h)),
+    ]:
+        source.paste(color, box)
+    prepared = prepare_image(source, PreparationOptions("preserve-edges", 100, "4:4:4"))
+    geometry = prepared.manifest["geometry"]
+    assert geometry["source_crop_box"] == [0, 0, w, h]
+    assert min(geometry["padding_pixels"].values()) >= 48 - 1e-9
+    x0, y0, x1, y1 = geometry["scaled_image_box"]
+    assert (x1 - x0) / (y1 - y0) == pytest.approx(w / h)
+    raster = decoded(prepared.raster_png)
+    assert raster.crop((0, 0, 48, 1152)).getextrema() == ((255, 255),) * 3
+    for fx, fy, color in [
+        (0.1, 0.1, (255, 0, 0)),
+        (0.9, 0.1, (0, 255, 0)),
+        (0.1, 0.9, (0, 0, 255)),
+        (0.9, 0.9, (255, 255, 0)),
+    ]:
+        assert (
+            raster.getpixel((round(x0 + fx * (x1 - x0)), round(y0 + fy * (y1 - y0))))
+            == color
+        )
+    assert prepared.manifest["safe_area"]["applied_to_layout"]
+    assert not prepared.manifest["safe_area"]["guaranteed"]
+
+
+def test_preserve_matching_aspect_has_expected_margins_and_orientation():
+    source = Image.new("RGB", (144, 96), "red")
+    source.getexif()[274] = 6
+    prepared = prepare_image(source, PreparationOptions("preserve-edges"))
+    assert prepared.manifest["source"]["oriented_size"] == [96, 144]
+    assert prepared.manifest["geometry"]["scaled_image_box"] == [48, 72, 720, 1080]
+    assert prepared.manifest["geometry"]["scale"] == 7
+
+
+@pytest.mark.parametrize("mode", images.MODES)
+def test_safe_guide_is_separate_from_payload_and_decoded_preview(mode):
+    prepared = prepare_image(
+        Image.new("RGB", (96, 144), "white"), PreparationOptions(mode)
+    )
+    before = (prepared.jpeg, prepared.raster_png, prepared.preview_png)
+    guide = decoded(images.safe_area_preview(prepared))
+    assert guide.getpixel((10, 576)) != (255, 255, 255)
+    assert guide.getpixel((384, 576)) == (255, 255, 255)
+    assert (
+        guide.crop((50, 50, 718, 1102)).tobytes()
+        == decoded(prepared.preview_png).crop((50, 50, 718, 1102)).tobytes()
+    )
+    assert before == (prepared.jpeg, prepared.raster_png, prepared.preview_png)
+    assert decoded(prepared.jpeg).tobytes() == decoded(prepared.preview_png).tobytes()
 
 
 @pytest.mark.parametrize("quality", [1, 90, 100])
@@ -400,7 +462,17 @@ def test_cli_bundle_manifest_and_exclusive_destination(tmp_path, capsys):
     assert summary["offline"] and summary["ok"]
     manifest = json.loads((output / "manifest.json").read_text())
     assert manifest["selected_mode"] == "fit"
-    assert len(list(output.iterdir())) == 7
+    assert {p.name for p in output.iterdir()} == {
+        "image.jpg",
+        "raster.png",
+        "preview.png",
+        "fit-preview.png",
+        "fill-preview.png",
+        "preserve-edges-preview.png",
+        "safe-area-preview.png",
+        "preview.html",
+        "manifest.json",
+    }
     for filename, record in manifest["files"].items():
         contents = (output / filename).read_bytes()
         assert record == {

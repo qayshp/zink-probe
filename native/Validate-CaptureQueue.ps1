@@ -1,16 +1,20 @@
 # Sends synthetic pages through the Windows spooler ONLY to the capture queue.
 # The explicit config/process guards must pass before PrintDocument.Print().
 [CmdletBinding()]
-param([string]$Root = (Join-Path $env:LOCALAPPDATA 'ZinkProbe'))
+param(
+    [string]$Root = (Join-Path $env:LOCALAPPDATA 'ZinkProbe'),
+    [ValidateSet('Fill','PreserveEdges')][string]$PreparationMode = 'Fill'
+)
 $ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
+if ($PreparationMode -eq 'PreserveEdges') { $Root = Join-Path $Root 'preserve-edges' }
 $data = Join-Path $Root 'capture'
 $configPath = Join-Path $data 'config.json'
 $config = Get-Content $configPath -Raw | ConvertFrom-Json
 if ($config.mode -ne 'capture' -or $config.address -or $config.device_id) { throw 'This check requires a capture-only configuration without printer credentials.' }
-$processes = @(Get-CimInstance Win32_Process -Filter "Name = 'zink-ipp.exe'")
+$processes = @(Get-CimInstance Win32_Process -Filter "Name = 'zink-ipp.exe'" | Where-Object { $_.CommandLine.Contains('"' + $configPath + '"') })
 if ($processes.Count -ne 1 -or !$processes[0].CommandLine.Contains($configPath)) { throw 'The running bridge must be the capture instance.' }
-$queueName = 'HP Sprocket Select (capture)'
+$queueName = if ($PreparationMode -eq 'PreserveEdges') { 'HP Sprocket Select (Preserve edges) (capture)' } else { 'HP Sprocket Select (capture)' }
 $queue = Get-Printer -Name $queueName
 if ($queue.DriverName -ne 'Microsoft IPP Class Driver') { throw 'Expected Windows native IPP Class Driver.' }
 Add-Type -AssemblyName System.Drawing

@@ -83,12 +83,19 @@ def wait_job(port, job_id):
     raise TimeoutError("IPP job did not reach a terminal state")
 
 
-def run(executable, root):
+def run(executable, root, layout="fill"):
     root.mkdir(parents=True)
     for name in ("incoming", "jobs", "spool"):
         (root / name).mkdir()
     (root / "config.json").write_text(
-        json.dumps({"schema": 1, "mode": "capture", "data_dir": str(root)})
+        json.dumps(
+            {
+                "schema": 1,
+                "mode": "capture",
+                "data_dir": str(root),
+                "preparation_mode": layout,
+            }
+        )
     )
     with socket.socket() as sock:
         sock.bind(("127.0.0.1", 0))
@@ -158,6 +165,16 @@ def run(executable, root):
             r["state"] == "captured" and not r["bluetooth_opened"] for r in receipts
         )
         assert {r["encoding"]["sampling"] for r in receipts} == {"4:2:0", "4:4:4"}
+        assert all(r["preparation_mode"] == layout for r in receipts)
+        for job in (root / "jobs").iterdir():
+            manifest = json.loads((job / "preparation.json").read_text())
+            assert manifest["geometry"]["mode"] == layout
+            assert (job / "safe-area-preview.png").is_file()
+            if layout == "preserve-edges":
+                assert min(manifest["geometry"]["padding_pixels"].values()) >= 48
+                with Image.open(job / "image.jpg") as prepared:
+                    assert prepared.getpixel((24, 576)) == (255, 255, 255)
+                    assert prepared.getpixel((384, 576))[2] > 150
         assert not list(root.rglob("frames.jsonl"))
         report = {
             "native_start": True,
@@ -166,6 +183,7 @@ def run(executable, root):
             "copies_2_rejected": True,
             "jobs": outcomes,
             "bluetooth_opened": False,
+            "preparation_mode": layout,
         }
         (root / "smoke-result.json").write_text(json.dumps(report, indent=2))
         print(json.dumps(report))
@@ -179,4 +197,5 @@ if __name__ == "__main__":
     parser.add_argument("executable", type=Path)
     parser.add_argument("output", type=Path)
     args = parser.parse_args()
-    run(args.executable.resolve(), args.output.resolve())
+    for layout in ("fill", "preserve-edges"):
+        run(args.executable.resolve(), args.output.resolve() / layout, layout)

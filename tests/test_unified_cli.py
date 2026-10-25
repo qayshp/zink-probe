@@ -56,7 +56,8 @@ def forbidden(*args, **kwargs):
     raise AssertionError("No transport should be constructed")
 
 
-def test_prepare_plan_submit_show_reconcile_workflow(tmp_path, capsys):
+@pytest.mark.parametrize("layout", ["fit", "fill", "preserve-edges"])
+def test_prepare_plan_submit_show_reconcile_workflow(tmp_path, capsys, layout):
     bundle, plan, journal = (
         tmp_path / "prepared",
         tmp_path / "job",
@@ -68,13 +69,14 @@ def test_prepare_plan_submit_show_reconcile_workflow(tmp_path, capsys):
         ROOT / "examples/image-preparation/source.png",
         bundle,
         "--mode",
-        "fit",
+        layout,
         "--quality",
         100,
         "--subsampling",
         "4:4:4",
     )
     assert code == 0 and prepared["offline"]
+    assert prepared["selected_mode"] == layout
     code, planned = invoke(
         capsys, "plan", bundle, plan, "--simulated", "--allow-alternative-sampling"
     )

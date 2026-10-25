@@ -16,10 +16,23 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import PIL
-from PIL import Image, ImageCms, ImageFile, ImageOps, JpegImagePlugin, features
+from PIL import (
+    Image,
+    ImageCms,
+    ImageDraw,
+    ImageFile,
+    ImageOps,
+    JpegImagePlugin,
+    features,
+)
 from PIL.PngImagePlugin import PngInfo
 
 SIZE = (768, 1152)
+MODES = ("fill", "fit", "preserve-edges")
+# CAL-02's 48px reference frame survived on one sheet. This is a conservative
+# content-placement policy, not a measurement of universal firmware overscan.
+SAFE_INSET = 48
+SAFE_BOX = (48, 48, 720, 1104)  # Exclusive right/bottom; 672 x 1056 input pixels.
 MAX_PIXELS = 64_000_000
 MAX_INPUT_BYTES = 100 * 1024 * 1024
 MAX_PROFILE_BYTES = 4 * 1024 * 1024
@@ -37,8 +50,8 @@ class PreparationOptions:
     subsampling: str = "4:2:0"
 
     def __post_init__(self):
-        if self.mode not in ("fit", "fill"):
-            raise PreparationError("Mode must be fit or fill")
+        if self.mode not in MODES:
+            raise PreparationError("Mode must be fill, fit, or preserve-edges")
         if type(self.quality) is not int or not 1 <= self.quality <= 100:
             raise PreparationError("JPEG quality must be an integer from 1 to 100")
         if self.subsampling not in SAMPLING:
@@ -242,6 +255,8 @@ def _png(image):
 def _render(source, source_metadata, options):
     w, h = source.size
     scale = (max if options.mode == "fill" else min)(SIZE[0] / w, SIZE[1] / h)
+    if options.mode == "preserve-edges":
+        scale = min((SIZE[0] - 2 * SAFE_INSET) / w, (SIZE[1] - 2 * SAFE_INSET) / h)
     left, top = (w - SIZE[0] / scale) / 2, (h - SIZE[1] / scale) / 2
     raster = source.transform(
         SIZE,
@@ -314,6 +329,15 @@ def _render(source, source_metadata, options):
             "exif_embedded": False,
         },
         "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+        "safe_area": {
+            "policy": "select-conservative-48px-v1",
+            "box": list(SAFE_BOX),
+            "inset_pixels": SAFE_INSET,
+            "applied_to_layout": options.mode == "preserve-edges",
+            "basis": "CAL-02 reference frame survived on one sheet",
+            "guaranteed": False,
+            "note": "Suggested content area, not an exact trim boundary or physical-size calibration",
+        },
         "photofix": False,
         "physical_print_validated": False,
         "versions": {
@@ -325,6 +349,25 @@ def _render(source, source_metadata, options):
         },
     }
     return PreparedImage(jpeg, _png(raster), preview, manifest)
+
+
+def safe_area_preview(prepared: PreparedImage) -> bytes:
+    """Decoded JPEG plus a violet content guide, never a printable payload.
+
+    The outer 48px band is tinted; the inset is a suggested content area. Guides
+    do not predict exact physical trimming. The PreparedImage is not modified.
+    """
+    with Image.open(io.BytesIO(prepared.preview_png)) as image:
+        base = image.convert("RGBA")
+    guide = Image.new("RGBA", SIZE)
+    draw = ImageDraw.Draw(guide)
+    draw.rectangle((0, 0, SIZE[0] - 1, SIZE[1] - 1), fill=(111, 66, 193, 65))
+    left, top, right, bottom = SAFE_BOX
+    draw.rectangle((left, top, right - 1, bottom - 1), fill=(0, 0, 0, 0))
+    draw.rectangle(
+        (left, top, right - 1, bottom - 1), outline=(111, 66, 193, 255), width=2
+    )
+    return _png(Image.alpha_composite(base, guide).convert("RGB"))
 
 
 def prepare_image(
@@ -346,7 +389,7 @@ def prepare_image(
 def prepare_comparison(
     source: str | Path | Image.Image, options: PreparationOptions | None = None
 ) -> dict[str, PreparedImage]:
-    """Normalize once and return both fit/fill results with the same JPEG settings."""
+    """Normalize once and compare all three layouts with identical JPEG settings."""
     options = PreparationOptions() if options is None else options
     if not isinstance(options, PreparationOptions):
         raise TypeError("options must be PreparationOptions")
@@ -357,5 +400,5 @@ def prepare_comparison(
             metadata,
             PreparationOptions(mode, options.quality, options.subsampling),
         )
-        for mode in ("fit", "fill")
+        for mode in MODES
     }

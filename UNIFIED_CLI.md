@@ -25,7 +25,7 @@ Pillow to decode-check JPEGs; read-only status does not need Pillow.
 
 | Command | Purpose | Printer access |
 | --- | --- | --- |
-| `prepare INPUT BUNDLE` | EXIF/sRGB, fit/fill, JPEG and previews | None |
+| `prepare INPUT BUNDLE` | EXIF/sRGB, fill/fit/preserve-edges, JPEG and safe-area previews | None |
 | `plan BUNDLE JOB` | Snapshot JPEG; bind printer, name, copies and stable UUID | None |
 | `show JOB [--journal FILE]` | Validate job; display optional journal record | None |
 | `status --address MAC --device-id ID` | Identity, firmware, battery, status, queue, config and counters | Read-only |
@@ -72,7 +72,7 @@ through `show` below is offline except `status`, which only reads the printer:
 
 ```sh
 zink status --address PRINTER_MAC --device-id PROTOCOL_DEVICE_ID
-zink prepare photo.jpg prepared-photo --mode fit --quality 100 --subsampling 4:4:4
+zink prepare photo.jpg prepared-photo --mode preserve-edges --quality 100 --subsampling 4:4:4
 zink plan prepared-photo photo-job --device-id PROTOCOL_DEVICE_ID --name PHOTO --copies 1 --allow-alternative-sampling
 zink show photo-job
 ```

@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "offline": true,
+  "selected_mode": "preserve-edges",
+  "variants": {
+    "fill": {
+      "schema_version": 1,
+      "offline": true,
+      "profile": "hp-sprocket-select-768x1152",
+      "source": {
+        "input_size": [
+          768,
+          1152
+        ],
+        "input_mode": "RGB",
+        "input_format": "PNG",
+        "exif_orientation": 1,
+        "orientation_applied": false,
+        "oriented_size": [
+          768,
+          1152
+        ],
+        "color_conversion": "assumed-srgb",
+        "source_icc_sha256": null,
+        "rendering_intent": null,
+        "alpha_composited": false,
+        "background_srgb": [
+          255,
+          255,
+          255
+        ],
+        "compositing_space": "encoded-srgb",
+        "input_sha256": "87e70ab711cbfb2b4c1374d9300adb20cdbd96d0e6533e6066a875ad93be178f"
+      },
+      "geometry": {
+        "mode": "fill",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 1.0,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          768.0,
+          1152.0
+        ],
+        "scaled_image_box": [
+          0.0,
+          0.0,
+          768.0,
+          1152.0
+        ],
+        "padding_pixels": {
+          "left": 0.0,
+          "right": 0.0,
+          "top": 0.0,
+          "bottom": 0.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "encoding": {
+        "format": "baseline-jpeg",
+        "quality": 100,
+        "subsampling": "4:4:4",
+        "optimized_huffman": true,
+        "quantization_all_ones": true,
+        "bytes": 205260,
+        "sha256": "37a87b3c8fd2d927f71fe1cdaaaa5d23ba1049385129cedb6aab56f529b5149f",
+        "color_space": "sRGB",
+        "icc_embedded": false,
+        "exif_embedded": false
+      },
+      "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+      "safe_area": {
+        "policy": "select-conservative-48px-v1",
+        "box": [
+          48,
+          48,
+          720,
+          1104
+        ],
+        "inset_pixels": 48,
+        "applied_to_layout": false,
+        "basis": "CAL-02 reference frame survived on one sheet",
+        "guaranteed": false,
+        "note": "Suggested content area, not an exact trim boundary or physical-size calibration"
+      },
+      "photofix": false,
+      "physical_print_validated": false,
+      "versions": {
+        "python": "3.14.8",
+        "pillow": "13.0.0",
+        "littlecms": "2.19",
+        "jpeg": "6.2",
+        "libjpeg_turbo": "3.2.0"
+      }
+    },
+    "fit": {
+      "schema_version": 1,
+      "offline": true,
+      "profile": "hp-sprocket-select-768x1152",
+      "source": {
+        "input_size": [
+          768,
+          1152
+        ],
+        "input_mode": "RGB",
+        "input_format": "PNG",
+        "exif_orientation": 1,
+        "orientation_applied": false,
+        "oriented_size": [
+          768,
+          1152
+        ],
+        "color_conversion": "assumed-srgb",
+        "source_icc_sha256": null,
+        "rendering_intent": null,
+        "alpha_composited": false,
+        "background_srgb": [
+          255,
+          255,
+          255
+        ],
+        "compositing_space": "encoded-srgb",
+        "input_sha256": "87e70ab711cbfb2b4c1374d9300adb20cdbd96d0e6533e6066a875ad93be178f"
+      },
+      "geometry": {
+        "mode": "fit",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 1.0,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          768.0,
+          1152.0
+        ],
+        "scaled_image_box": [
+          0.0,
+          0.0,
+          768.0,
+          1152.0
+        ],
+        "padding_pixels": {
+          "left": 0.0,
+          "right": 0.0,
+          "top": 0.0,
+          "bottom": 0.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "encoding": {
+        "format": "baseline-jpeg",
+        "quality": 100,
+        "subsampling": "4:4:4",
+        "optimized_huffman": true,
+        "quantization_all_ones": true,
+        "bytes": 205260,
+        "sha256": "37a87b3c8fd2d927f71fe1cdaaaa5d23ba1049385129cedb6aab56f529b5149f",
+        "color_space": "sRGB",
+        "icc_embedded": false,
+        "exif_embedded": false
+      },
+      "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+      "safe_area": {
+        "policy": "select-conservative-48px-v1",
+        "box": [
+          48,
+          48,
+          720,
+          1104
+        ],
+        "inset_pixels": 48,
+        "applied_to_layout": false,
+        "basis": "CAL-02 reference frame survived on one sheet",
+        "guaranteed": false,
+        "note": "Suggested content area, not an exact trim boundary or physical-size calibration"
+      },
+      "photofix": false,
+      "physical_print_validated": false,
+      "versions": {
+        "python": "3.14.8",
+        "pillow": "13.0.0",
+        "littlecms": "2.19",
+        "jpeg": "6.2",
+        "libjpeg_turbo": "3.2.0"
+      }
+    },
+    "preserve-edges": {
+      "schema_version": 1,
+      "offline": true,
+      "profile": "hp-sprocket-select-768x1152",
+      "source": {
+        "input_size": [
+          768,
+          1152
+        ],
+        "input_mode": "RGB",
+        "input_format": "PNG",
+        "exif_orientation": 1,
+        "orientation_applied": false,
+        "oriented_size": [
+          768,
+          1152
+        ],
+        "color_conversion": "assumed-srgb",
+        "source_icc_sha256": null,
+        "rendering_intent": null,
+        "alpha_composited": false,
+        "background_srgb": [
+          255,
+          255,
+          255
+        ],
+        "compositing_space": "encoded-srgb",
+        "input_sha256": "87e70ab711cbfb2b4c1374d9300adb20cdbd96d0e6533e6066a875ad93be178f"
+      },
+      "geometry": {
+        "mode": "preserve-edges",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.875,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          768.0,
+          1152.0
+        ],
+        "scaled_image_box": [
+          48.0,
+          72.0,
+          720.0,
+          1080.0
+        ],
+        "padding_pixels": {
+          "left": 48.0,
+          "right": 48.0,
+          "top": 72.0,
+          "bottom": 72.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "encoding": {
+        "format": "baseline-jpeg",
+        "quality": 100,
+        "subsampling": "4:4:4",
+        "optimized_huffman": true,
+        "quantization_all_ones": true,
+        "bytes": 176012,
+        "sha256": "eb973cdb2d7ecb17423014898660e17cc801e71c23e20fd969fe3b620af9cfcb",
+        "color_space": "sRGB",
+        "icc_embedded": false,
+        "exif_embedded": false
+      },
+      "preview": "PNG of fully decoded output JPEG, tagged sRGB",
+      "safe_area": {
+        "policy": "select-conservative-48px-v1",
+        "box": [
+          48,
+          48,
+          720,
+          1104
+        ],
+        "inset_pixels": 48,
+        "applied_to_layout": true,
+        "basis": "CAL-02 reference frame survived on one sheet",
+        "guaranteed": false,
+        "note": "Suggested content area, not an exact trim boundary or physical-size calibration"
+      },
+      "photofix": false,
+      "physical_print_validated": false,
+      "versions": {
+        "python": "3.14.8",
+        "pillow": "13.0.0",
+        "littlecms": "2.19",
+        "jpeg": "6.2",
+        "libjpeg_turbo": "3.2.0"
+      }
+    }
+  },
+  "files": {
+    "image.jpg": {
+      "bytes": 176012,
+      "sha256": "eb973cdb2d7ecb17423014898660e17cc801e71c23e20fd969fe3b620af9cfcb"
+    },
+    "raster.png": {
+      "bytes": 52917,
+      "sha256": "c6d832c7edee7df6b421551613777d12646d4300f8505684f5aa1c76b092b8de"
+    },
+    "preview.png": {
+      "bytes": 94361,
+      "sha256": "4bfb57a235f3310780ab3010ce3f9a5842a4e5684377d57c9f5a62b9834e925f"
+    },
+    "fit-preview.png": {
+      "bytes": 83894,
+      "sha256": "98010b3a1adf8f18ae466fae9083337474fb3bb0aa1772d4e4a42e7dd7c5a166"
+    },
+    "fill-preview.png": {
+      "bytes": 83894,
+      "sha256": "98010b3a1adf8f18ae466fae9083337474fb3bb0aa1772d4e4a42e7dd7c5a166"
+    },
+    "preserve-edges-preview.png": {
+      "bytes": 94361,
+      "sha256": "4bfb57a235f3310780ab3010ce3f9a5842a4e5684377d57c9f5a62b9834e925f"
+    },
+    "safe-area-preview.png": {
+      "bytes": 94480,
+      "sha256": "955cd3f318066b04518cc7e4b7ac241825845a3e43c1e37868831612d19d89cf"
+    },
+    "preview.html": {
+      "bytes": 2936,
+      "sha256": "08f4c3528007d3007eff0f4d57ca3f795bba9840ca185f8361ae0a4344bb7537"
+    }
+  }
+}

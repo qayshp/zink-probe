@@ -50,6 +50,14 @@ def read_config(path):
     if not root.is_absolute() or not root.is_dir():
         raise ValueError("data_dir must be an existing absolute private directory")
     config["data_dir"] = root.resolve()
+    config.setdefault("preparation_mode", "fill")
+    if config["preparation_mode"] not in ("fill", "preserve-edges"):
+        raise ValueError("preparation_mode must be fill or preserve-edges")
+    if "journal_path" in config:
+        journal = Path(config["journal_path"])
+        if not journal.is_absolute():
+            raise ValueError("journal_path must be absolute")
+        config["journal_path"] = journal.resolve()
     if config["mode"] == "live":
         if not config.get("address") or len(bytes.fromhex(config["device_id"])) != 16:
             raise ValueError("Live mode needs a paired address and expected identity")
@@ -112,7 +120,7 @@ async def submit(config, spec, journal, trace):
 
 
 def process(config_path, input_path, key, quality):
-    from .images import PreparationOptions, prepare_image
+    from .images import PreparationOptions, prepare_image, safe_area_preview
 
     if str(UUID(key)) != key or quality not in QUALITY:
         raise ValueError("Expected canonical job UUID and an IPP quality enum")
@@ -137,13 +145,16 @@ def process(config_path, input_path, key, quality):
         "local_id": key,
         "mode": config["mode"],
         "ipp_quality": quality,
+        "preparation_mode": config["preparation_mode"],
         "source_size": list(image.size),
         "physical_ejection_confirmed": False,
     }
     write_json(output / "claim.json", record)
     try:
         q, sampling = QUALITY[quality]
-        prepared = prepare_image(image, PreparationOptions("fill", q, sampling))
+        prepared = prepare_image(
+            image, PreparationOptions(config["preparation_mode"], q, sampling)
+        )
         spec = JobSpec(
             prepared.jpeg,
             name="Windows photo" if os.name == "nt" else "IPP photo",
@@ -153,6 +164,7 @@ def process(config_path, input_path, key, quality):
         )
         write_private(output / "image.jpg", spec.jpeg)
         write_private(output / "preview.png", prepared.preview_png)
+        write_private(output / "safe-area-preview.png", safe_area_preview(prepared))
         write_json(output / "preparation.json", prepared.manifest)
         record.update(
             jpeg_bytes=len(spec.jpeg),
@@ -165,7 +177,9 @@ def process(config_path, input_path, key, quality):
         else:
             trace = Trace(output / "frames.jsonl")
             try:
-                with JobJournal(root / "jobs.sqlite") as journal:
+                with JobJournal(
+                    config.get("journal_path", root / "jobs.sqlite")
+                ) as journal:
                     result = asyncio.run(submit(config, spec, journal, trace))
                 record.update(result)
             finally:

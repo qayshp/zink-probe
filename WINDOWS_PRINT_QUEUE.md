@@ -20,7 +20,10 @@ one page, and one copy. Set portrait/landscape and fit/fill in the application's
 preview. The Windows renderer supplies the complete page; the bridge preserves
 that layout and resamples it to 768 × 1152 before JPEG encoding. Mechanical edge
 loss remains possible, just as in the original app. This integration does not
-apply an unproven crop/thermal/color correction.
+apply an automatic crop/thermal/color correction. An optional
+[Preserve edges queue](PRESERVE_EDGES.md#windows-file--print-option) now insets the
+whole rendered page on white, while the original queue keeps borderless fill.
+That second queue is implemented but has not been installed on Surface or printed.
 
 | Standard quality selection | JPEG produced by the worker |
 | --- | --- |
@@ -121,13 +124,29 @@ Installation/activation alone does not print. A later **Print** action to the li
 queue does consume paper. Never use Windows' “Print test page” during a paper-free
 installation check.
 
+### Optional Preserve edges queue
+
+Add `-PreparationMode PreserveEdges` to the installer arguments to create a
+separate **HP Sprocket Select (Preserve edges) (capture)** queue. It uses port 8632
+and a separate `preserve-edges` subdirectory/task/runtime, leaving the existing
+borderless queue available. `-PlanOnly` previews those choices without changing
+the computer. `Validate-CaptureQueue.ps1 -PreparationMode PreserveEdges` selects
+that profile for a later explicitly requested capture-only OS spooler check.
+
+Live activation uses the same flag plus `-Mode Live -DeviceConfig ...`; it
+requires an existing borderless Live configuration for the same printer so both
+layouts share its durable job journal. Do not create independent journals for
+two queues targeting the same printer. Detailed placement and preview limitations
+are in [Preserve edges](PRESERVE_EDGES.md). This milestone does not deploy either
+profile or authorize any print.
+
 ## Private records and recovery
 
 `%LOCALAPPDATA%\ZinkProbe\live` contains:
 
 - `config.json`: expected device identity and Bluetooth endpoint.
 - `jobs.sqlite`: the shared durable engine journal for this queue.
-- `jobs\<UUID>`: immutable claim, prepared JPEG, decoded preview, preparation
+- `jobs\<UUID>`: immutable claim, prepared JPEG, decoded preview, separate safe-area PNG, preparation
   manifest, raw protocol trace and result (when the worker finishes).
 - `incoming`: temporary raw pages; successful pages are removed after a durable
   receipt is written. Failed/uncertain raster data is retained.
@@ -166,7 +185,7 @@ of hardcoding 999. It fails if the pinned source changes. The separate reference
 PAPPL checkout is untouched. The pinned JPEG package uses v142 import-library
 paths; the build explicitly selects those ABI-compatible imports under v143.
 
-The workflow runs a real loopback IPP capture test for Normal and High JPEG jobs,
+The workflow runs a real loopback IPP capture test for Normal and High JPEG jobs in both layouts,
 checks media/copy/format capabilities, and rejects two copies. Portable worker
 tests run with the existing macOS/Linux/Windows matrix. Surface's actual Windows
 spooler test is separate from that CI evidence.

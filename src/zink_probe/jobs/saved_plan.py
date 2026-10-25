@@ -77,7 +77,7 @@ def create_plan(
     )
     jpeg = bounded_read(bundle / "image.jpg", MAX_JPEG)
     mode = manifest["selected_mode"]
-    require(mode in ("fit", "fill"), "Invalid preparation mode")
+    require(mode in ("fit", "fill", "preserve-edges"), "Invalid preparation mode")
     source_encoding = manifest["variants"][mode]["encoding"]
     spec = JobSpec(
         jpeg,

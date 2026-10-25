@@ -1,4 +1,4 @@
-"""Prepare a local image and fit/fill preview bundle. No printer access."""
+"""Prepare a local image and compare layouts with safe-area guides. No printer access."""
 
 import argparse
 import hashlib
@@ -10,26 +10,41 @@ from pathlib import Path
 def _html(selected, quality, subsampling):
     # All interpolated values are validated enumerations/integers, never source
     # names, EXIF, ICC text, or user paths. No remote resources or scripts.
+    labels = {
+        "fill": "Borderless fill",
+        "fit": "Fit",
+        "preserve-edges": "Preserve edges",
+    }
     return f"""<!doctype html>
 <html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 <title>Select image preview</title>
 <style>
-body{{font:17px system-ui,sans-serif;background:#f0f2f5;color:#17202d;max-width:1050px;margin:32px auto;padding:0 20px}}
-h1{{font-size:28px}} .grid{{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px}}
+body{{font:17px system-ui,sans-serif;background:#f0f2f5;color:#17202d;max-width:1250px;margin:32px auto;padding:0 20px;line-height:1.5}}
+h1{{font-size:28px}} .grid{{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:20px}}
 figure{{margin:0;padding:18px;background:white;border:1px solid #ccd2da;border-radius:12px}}
 img{{display:block;width:100%;height:auto;border:1px solid #ccd2da;box-sizing:border-box}}
 figcaption{{margin-bottom:14px}} h2{{margin:0 0 6px;font-size:21px}}
-@media(max-width:600px){{.grid{{grid-template-columns:1fr}}}}
+.page{{position:relative}} .guide{{display:none;position:absolute;inset:4.166667% 6.25%;border:2px solid #6f42c1;box-shadow:0 0 0 100px #6f42c141;pointer-events:none}}
+.page{{overflow:hidden}} #guides:checked ~ .grid .guide{{display:block}}
+label{{cursor:pointer}} .note{{border-left:4px solid #6f42c1;padding:8px 16px;background:white}}
+@media(max-width:800px){{.grid{{grid-template-columns:1fr}}}}
 </style>
 <h1>Select image preview</h1>
-<p>Selected: <strong>{selected.upper()}</strong> · JPEG quality {quality} · {subsampling} · 768 × 1152</p>
-<p>Both previews show decoded JPEG pixels. Fit keeps the whole image with white padding;
-fill centers and crops it to cover the canvas. These are digital previews, not a prediction of paper color or edge trimming.</p>
+<p>Selected: <strong>{labels[selected]}</strong> · JPEG quality {quality} · {subsampling} · 768 × 1152</p>
+<p>Compare the same image in three layouts. These previews show decoded JPEG pixels;
+the printer can trim additional content beyond the digital preview.</p>
+<p class="note"><strong>Suggested safe area: 48 pixels inside each edge.</strong>
+The violet band marks content at greater risk of trimming. The inner box is a conservative
+placement guide based on one CAL-02 sheet, not an exact cut line or a guarantee.
+Preserve edges fits the whole source inside it, adding white margins. Paper color and final border widths can differ.</p>
+<input id="guides" type="checkbox" checked> <label for="guides">Show safe-area guides (preview only; never printed)</label>
 <div class="grid">
-<figure><figcaption><h2>Fit</h2>Whole image, centered on white.</figcaption><img src="fit-preview.png" alt="Fit JPEG preview"></figure>
-<figure><figcaption><h2>Fill</h2>Full canvas, with a centered crop.</figcaption><img src="fill-preview.png" alt="Fill JPEG preview"></figure>
+<figure><figcaption><h2>Borderless fill</h2>Cover the canvas with a centered crop. Default.</figcaption><div class="page"><img src="fill-preview.png" alt="Borderless fill JPEG preview"><span class="guide" aria-hidden="true"></span></div></figure>
+<figure><figcaption><h2>Fit</h2>Keep the whole source, using the full digital canvas.</figcaption><div class="page"><img src="fit-preview.png" alt="Fit JPEG preview"><span class="guide" aria-hidden="true"></span></div></figure>
+<figure><figcaption><h2>Preserve edges</h2>Keep the whole source inside the inset, on white.</figcaption><div class="page"><img src="preserve-edges-preview.png" alt="Preserve edges JPEG preview"><span class="guide" aria-hidden="true"></span></div></figure>
 </div>
 <p><a href="image.jpg">Selected JPEG</a> · <a href="preview.png">Selected decoded preview</a> ·
+<a href="safe-area-preview.png">Selected preview with guides</a> ·
 <a href="raster.png">Selected pixels before JPEG compression</a> · <a href="manifest.json">Preparation details</a></p>
 <p>Everything was prepared locally. Nothing was sent to a printer.</p>
 </html>
@@ -38,6 +53,8 @@ fill centers and crops it to cover the canvas. These are digital previews, not a
 
 def write_bundle(destination, results, options):
     """Create a new private directory; never overwrite any existing output."""
+    from .images import safe_area_preview
+
     destination = Path(destination)
     selected = results[options.mode]
     files = {
@@ -46,6 +63,8 @@ def write_bundle(destination, results, options):
         "preview.png": selected.preview_png,
         "fit-preview.png": results["fit"].preview_png,
         "fill-preview.png": results["fill"].preview_png,
+        "preserve-edges-preview.png": results["preserve-edges"].preview_png,
+        "safe-area-preview.png": safe_area_preview(selected),
         "preview.html": _html(
             options.mode, options.quality, options.subsampling
         ).encode(),
@@ -86,7 +105,12 @@ def add_arguments(parser):
     parser.add_argument(
         "output", type=Path, help="New output directory; must not already exist"
     )
-    parser.add_argument("--mode", choices=("fit", "fill"), default="fill")
+    parser.add_argument(
+        "--mode",
+        choices=("fill", "fit", "preserve-edges"),
+        default="fill",
+        help="fill: borderless crop (default); fit: full canvas; preserve-edges: inset whole image",
+    )
     parser.add_argument(
         "--quality", type=int, default=90, help="JPEG quality 1..100 (default 90)"
     )

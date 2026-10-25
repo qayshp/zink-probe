@@ -2,7 +2,7 @@
 
 2026-10-24. `zink_probe.images` and `zink-prepare` turn a photo into a fully
 decoded/checked **768 × 1152 baseline JPEG**, with EXIF orientation, explicit
-color handling and fit/fill previews. Preparation has no Bluetooth dependency,
+color handling and fill/fit/preserve-edges previews. Preparation has no Bluetooth dependency,
 imports no transport, and cannot submit a job. It runs on Python 3.11+ with the
 optional `images` extra on macOS, Linux and Windows.
 
@@ -34,6 +34,7 @@ shows the result without sharing a personal photo.
 | --- | --- |
 | `--mode fill` (default) | Scale uniformly to cover the canvas; crop equally from opposing sides. |
 | `--mode fit` | Scale uniformly to keep the whole image; center it on white padding. |
+| `--mode preserve-edges` | Fit the whole image inside a conservative 48-pixel inset; center it on white. |
 | `--quality 1..100` | JPEG encoder quality, default **90**. Quality 100 remains lossy. |
 | `--subsampling 4:2:0` (default) | Matches the measured app's ordinary JPEG sampling. |
 | `--subsampling 4:2:2` | Intermediate chroma sampling; available for offline experiments. |
@@ -50,17 +51,20 @@ printed. The default remains quality 90 / 4:2:0. See the earlier
 
 | File | Meaning |
 | --- | --- |
-| `image.jpg` | Selected fit/fill result, ready for the separate job engine. |
+| `image.jpg` | Selected layout result, ready for the separate job engine. |
 | `raster.png` | Selected RGB pixels before JPEG compression. |
 | `preview.png` | Lossless PNG of the **decoded selected JPEG**, including compression changes. |
-| `fit-preview.png`, `fill-preview.png` | Both framing choices, each decoded from a JPEG using the requested quality/sampling. |
-| `preview.html` | Side-by-side local preview and links to the selected artifacts. |
+| `fit-preview.png`, `fill-preview.png`, `preserve-edges-preview.png` | Three framing choices, each decoded from a JPEG using the requested quality/sampling. |
+| `safe-area-preview.png` | Selected decoded JPEG with a violet suggested-safe-area guide. Preview only. |
+| `preview.html` | Three layouts with toggleable safe-area guides and links to selected artifacts. |
 | `manifest.json` | Source hash, transformations, framing geometry, encoder settings/versions and artifact hashes. |
 
 The previews show digital pixels. They do not predict paper color, contrast,
 thermal response or the printer's unequal physical edge trimming. Fit preserves
 the image inside the digital canvas; it does not guarantee that the printer
-retains every border pixel. No correction derived from a single sheet is applied.
+retains every border pixel. The optional Preserve edges policy deliberately adds
+white margins; it does not apply asymmetric offsets or predict exact trimming.
+See [policy, evidence, examples and Windows queue support](PRESERVE_EDGES.md).
 
 The manifest records the source file's hash but not its filename, full path, EXIF
 description, GPS data or ICC description. Paths appear only in the CLI's local
@@ -72,9 +76,9 @@ with mode 0700 and files with 0600; Windows uses the parent directory's ACLs.
 
 ```python
 from pathlib import Path
-from zink_probe.images import PreparationOptions, prepare_image, prepare_comparison
+from zink_probe.images import PreparationOptions, prepare_image, prepare_comparison, safe_area_preview
 
-options = PreparationOptions(mode="fit", quality=100, subsampling="4:4:4")
+options = PreparationOptions(mode="preserve-edges", quality=100, subsampling="4:4:4")
 result = prepare_image(Path("photo.jpg"), options)
 
 # Immutable byte payloads; no files are written by these preparation functions.
@@ -83,14 +87,15 @@ before_compression = result.raster_png
 decoded_preview = result.preview_png
 details = result.manifest
 
-both = prepare_comparison("photo.jpg", options)
-assert set(both) == {"fit", "fill"}
+guided_preview = safe_area_preview(result)  # Separate PNG; never submit this guide.
+layouts = prepare_comparison("photo.jpg", options)
+assert set(layouts) == {"fit", "fill", "preserve-edges"}
 ```
 
 `prepare_image` returns `PreparedImage`; `prepare_comparison` normalizes the input
-once and returns two results with the same encoder settings. `options.mode`
+once and returns three results with the same encoder settings. `options.mode`
 selects a single result in `prepare_image` and the CLI; comparison always returns
-both modes. The manifest is a regular dictionary intended for serialization.
+all modes. The manifest is a regular dictionary intended for serialization.
 Invalid image data/settings raise `PreparationError`, a `ValueError` subclass.
 Programmer errors such as an unsupported options type raise `TypeError`.
 
@@ -117,7 +122,7 @@ submission safeguards. This example cannot access real printer hardware.
    Refuse Pillow's global truncated-image allowance. PNG structural verification
    runs before decoding.
 2. Apply EXIF orientation 1–8, including reflected/transposed cases, **before**
-   calculating fit/fill. Remove source EXIF/XMP/comment metadata from outputs.
+   calculating layout. Remove source EXIF/XMP/comment metadata from outputs.
 3. Convert an embedded ICC profile to sRGB with LittleCMS, using relative
    colorimetric intent and black-point compensation. Validate that the profile
    color space matches the image. Invalid, undecodable, mismatched or oversized
@@ -133,7 +138,9 @@ submission safeguards. This example cannot access real printer hardware.
    linear-light alpha compositing. Grayscale and palette images become RGB.
 6. Render into 768 × 1152 using centered inverse-affine bilinear sampling.
    Fill uses `max(768 / width, 1152 / height)`, fit uses `min(...)`. Small images
-   may enlarge: 96 × 144 becomes 768 × 1152 at 8×, with no padding in either mode.
+   may enlarge: 96 × 144 becomes 768 × 1152 at 8×, with no padding in fit/fill.
+   Preserve edges uses `min(672 / width, 1056 / height)`; that same source
+   becomes 672 × 1008 at 7× with 48/72-pixel horizontal/vertical margins.
    Geometry is recorded as floating-point source crop/scaled-image bounds;
    interpolation can blend half a source pixel beyond a nominal crop edge.
 7. Encode a baseline JPEG with optimized Huffman tables, the chosen quality
@@ -150,7 +157,7 @@ PNG also accepted. It rejects animated/multi-frame files, 16-bit PNG, PNG CICP/H
 metadata, unsupported modes, GIF, TIFF, HEIC and RAW. Export those to an 8-bit
 sRGB JPEG/PNG first. This version does not implement HDR tone mapping, PhotoFix,
 arbitrary editor rotations, decorative borders, perceptual sharpening or thermal
-precompensation. EXIF orientation and fit/fill are the supported geometry API.
+precompensation. EXIF orientation and the three centered layouts are the geometry API.
 
 ## Validation and compatibility boundary
 

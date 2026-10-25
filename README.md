@@ -20,7 +20,7 @@ now validates the basic queue-to-paper path at quality 100 / 4:4:4; native
 macOS/Linux queue installation is still future work.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
-orientation, ICC-to-sRGB conversion, centered fit/fill previews and JPEG quality /
+orientation, ICC-to-sRGB conversion, centered layout previews and JPEG quality /
 chroma sampling. They require no Bluetooth dependencies and are tested in the
 same three-platform CI matrix. See the [committed preview example](examples/image-preparation/README.md).
 
@@ -61,12 +61,15 @@ python -m pip install -e '.[images]'
 zink-prepare photo.jpg prepared-photo --mode fill --quality 90 --subsampling 4:2:0
 ```
 
-Open `prepared-photo/preview.html` for both fit/fill previews. The new directory
+Open `prepared-photo/preview.html` to compare borderless fill, fit and Preserve edges,
+with toggleable safe-area guides. The new directory
 also contains the selected JPEG, its decoded PNG preview, the raster before
 compression and a manifest of transformations/settings. Nothing is sent to a
-printer. Use `--mode fit` to preserve the whole image with white padding, or
+printer. Use `--mode preserve-edges` to fit the whole image inside a conservative
+48-pixel inset, `--mode fit` to use the full digital canvas, or
 `--quality 100 --subsampling 4:4:4` for higher-information encoding.
 See [supported inputs, color policy and Python examples](IMAGE_PREPARATION.md).
+See the [Preserve edges example and calibration limits](PRESERVE_EDGES.md).
 
 ## Portable engine and simulated printing
 

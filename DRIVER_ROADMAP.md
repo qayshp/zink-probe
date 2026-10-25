@@ -78,9 +78,11 @@ with EXIF orientation, ICC-to-sRGB conversion, transparency compositing, fit/fil
 previews, JPEG quality/sampling options and three-platform tests. The older
 `prepare.py` remains the Android-compared research reference. Default CAL-02 and
 CAL-03 encodings retain exact regression fixtures. Preparation has no transport.
-An optional physical safe-area profile remains future work; one sheet's offsets
-are not hard-coded as universal mechanical correction. Digital fit/padding does
-not promise lossless physical edge retention.
+An opt-in [Preserve edges policy](PRESERVE_EDGES.md) now fits inside a conservative
+48-pixel inset and shows a preview-only guide. One sheet's asymmetric offsets are
+not hard-coded as universal mechanical correction. Digital fit/padding does not
+promise lossless physical edge retention. The optional second Windows queue is
+implemented for later installation; it has not been deployed or physically printed.
 
 The [unified CLI](UNIFIED_CLI.md) now exposes offline prepare/preview, saved job
 plans, status, explicit single-job submission and read-only reconciliation.
