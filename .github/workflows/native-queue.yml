@@ -42,9 +42,28 @@ jobs:
           Get-ChildItem build-pappl/vcnet/packages -Recurse -Filter *.dll | Where-Object { $_.FullName -match '\\bin\\x64\\(?:v142\\)?Release\\' } | Copy-Item -Destination native-dist
           Copy-Item build-pappl/LICENSE native-dist/PAPPL-LICENSE.txt
           Copy-Item build-pappl/NOTICE native-dist/PAPPL-NOTICE.txt
+          # Preserve all dependency license/notice files alongside their DLLs.
+          Get-ChildItem build-pappl/vcnet/packages -Recurse -File | Where-Object { $_.Name -match '(?i)^(license|copying|notice)' } | ForEach-Object {
+            $relative = $_.FullName.Substring((Resolve-Path build-pappl/vcnet/packages).Path.Length + 1)
+            $destination = Join-Path 'native-dist/licenses' $relative
+            New-Item -ItemType Directory -Force (Split-Path $destination) | Out-Null
+            Copy-Item $_.FullName $destination
+          }
           native-dist/zink-ipp.exe --version
           if ($LASTEXITCODE) { exit $LASTEXITCODE }
           Get-ChildItem native-dist -File | Get-FileHash -Algorithm SHA256 | Select-Object Path,Hash | ConvertTo-Json | Set-Content native-dist/SHA256.json
+      - name: Exercise the real IPP listener and raster pipeline without Bluetooth
+        shell: pwsh
+        run: |
+          python -m pip install '.[images]'
+          python native/smoke.py native-dist/zink-ipp.exe logs/native-smoke
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-smoke-evidence
+          path: logs/native-smoke/
+          retention-days: 14
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: zink-ipp-windows-x64
