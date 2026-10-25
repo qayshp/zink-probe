@@ -1,0 +1,144 @@
+{
+  "date": "2026-10-25",
+  "platform": "Windows ARM64 on Surface",
+  "route": "Windows application -> Microsoft IPP Class Driver -> local PAPPL -> portable preparation and job engine -> Windows RFCOMM -> Select",
+  "physical_sheet_confirmed_by_user": true,
+  "user_observation": "Printed image matches the preview closely, with a little additional edge cropping.",
+  "photo_and_image_data_published": false,
+  "metadata": {
+    "result": {
+      "state": "completed",
+      "mode": "live",
+      "ipp_quality": 5,
+      "source_size": [
+        1370,
+        2055
+      ],
+      "jpeg_bytes": 777668,
+      "encoding": {
+        "width": 768,
+        "height": 1152,
+        "precision": 8,
+        "sampling": "4:4:4",
+        "progressive": false,
+        "quantization_all_ones": true,
+        "declared_encoder_quality": 100
+      },
+      "acknowledged_bytes": 777668,
+      "error": null,
+      "close_error": null,
+      "physical_ejection_confirmed": false
+    },
+    "geometry": {
+      "mode": "fill",
+      "output_size": [
+        768,
+        1152
+      ],
+      "scale": 0.5605839416058395,
+      "upscaled": false,
+      "source_crop_box": [
+        1.1368683772161603e-13,
+        0.0,
+        1370.0,
+        2055.0
+      ],
+      "scaled_image_box": [
+        -5.684341886080802e-14,
+        0.0,
+        768.0,
+        1152.0
+      ],
+      "padding_pixels": {
+        "left": 0.0,
+        "right": 0.0,
+        "top": 0.0,
+        "bottom": 0.0
+      },
+      "resampling": "inverse-affine-bilinear"
+    },
+    "encoding": {
+      "format": "baseline-jpeg",
+      "quality": 100,
+      "subsampling": "4:4:4",
+      "optimized_huffman": true,
+      "quantization_all_ones": true,
+      "bytes": 777668,
+      "color_space": "sRGB",
+      "icc_embedded": false,
+      "exif_embedded": false
+    },
+    "journal": {
+      "state": "completed",
+      "copies": 1,
+      "acknowledged_bytes": 777668,
+      "upload_acknowledged": true,
+      "seen_printing": true,
+      "pending": null,
+      "error": null,
+      "attribution_blocked": null
+    },
+    "before": {
+      "pages": 12,
+      "calibrations": 2,
+      "firmware": "G1L1FA2105AR"
+    },
+    "after": {
+      "pages": 13,
+      "calibrations": 2,
+      "status": {
+        "system_flags": 0,
+        "print_status_code": 1,
+        "battery_percent": 99,
+        "print_progress_percent": 0,
+        "current_job_id": 0,
+        "battery_status_code": 1,
+        "queue_status_code": 1,
+        "number_of_hosts": 1,
+        "print_status": "idle",
+        "battery_status": "in_use",
+        "queue_status": "empty",
+        "system_flag_labels": [],
+        "system_flags_unknown_mask": 0
+      },
+      "jobs": []
+    },
+    "first_state_times": {
+      "claimed": "2026-10-25T18:09:04.700616+00:00",
+      "request_pending": "2026-10-25T18:09:04.714883+00:00",
+      "accepted": "2026-10-25T18:09:04.767258+00:00",
+      "uploading": "2026-10-25T18:09:04.796158+00:00",
+      "uploaded": "2026-10-25T18:09:59.182582+00:00",
+      "printing": "2026-10-25T18:10:01.657750+00:00",
+      "completed": "2026-10-25T18:10:59.253227+00:00"
+    },
+    "wire_audit": {
+      "request_counts": {
+        "0x04": 13,
+        "0x08": 29,
+        "0x0A": 1,
+        "0x0C": 1,
+        "0x0E": 780,
+        "0x1A": 5,
+        "0x24": 1,
+        "0x28": 1,
+        "0x2A": 1,
+        "0x2C": 29,
+        "0x30": 1,
+        "0x3A": 58
+      },
+      "replies": 920,
+      "events": 4,
+      "all_replies_correlated": true,
+      "no_partial_frames_or_pending_requests": true
+    }
+  },
+  "timing_seconds": {
+    "claim_to_upload_ack": 54.482,
+    "upload_ack_to_protocol_completion": 60.071,
+    "claim_to_protocol_completion": 114.553
+  },
+  "timing_limit": "Polling/journal timestamps, not independently measured physical ejection timing.",
+  "automatic_ejection_flag_explanation": "The immutable worker result remains false because the protocol engine cannot independently confirm physical ejection. Human confirmation is recorded separately above.",
+  "edge_loss_interpretation": "Bridge preparation retained the complete Windows raster, to floating-point tolerance. Additional physical edge loss is consistent with CAL-02; exact per-edge loss for this photo is not measured."
+}

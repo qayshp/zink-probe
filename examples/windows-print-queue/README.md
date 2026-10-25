@@ -1,5 +1,9 @@
 # Windows spooler capture examples
 
+**A subsequent real photo has now printed successfully through the Windows
+queue.** See the [first physical print report](FIRST_PRINT.md). The images below
+remain paper-free capture tests, separate from that user-confirmed print.
+
 These images were rendered by Windows' **Microsoft IPP Class Driver** on an
 ARM64 Surface, received by the local PAPPL queue as 1370 × 2055 sRGB raster,
 and prepared by the Python worker at 768 × 1152, JPEG quality 90 / 4:2:0.

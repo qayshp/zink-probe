@@ -1,5 +1,10 @@
 # Windows adapter validation — 2026-10-25
 
+This report covers the original read-only adapter milestone. A later
+[Windows queue photo print](../../examples/windows-print-queue/FIRST_PRINT.md)
+now supplies the first physical print evidence for this adapter and the portable
+engine together; the historical checks below did not print.
+
 The [Windows RFCOMM adapter](../../WINDOWS_ADAPTER.md) and `zink-windows-check`
 are implemented. This milestone authorizes simulated jobs and read-only printer
 checks, not physical printing.

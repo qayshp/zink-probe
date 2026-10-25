@@ -3,7 +3,9 @@
 Updated 2026-10-25. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
 are implemented with three-OS CI. One Select has physical communication evidence
 on macOS and two successful calibration sheets, CAL-02 and CAL-03. Native
-Linux/Windows physical printing remains unvalidated. The original diagnostic CLI is gated
+One [Windows queue photo](examples/windows-print-queue/FIRST_PRINT.md) has now
+printed through the portable engine at quality 100 / 4:4:4. Linux physical
+printing remains unvalidated. The original diagnostic CLI is gated
 to macOS; its RFCOMM implementation uses PyObjC/IOBluetooth and pumps the native
 run loop. Family-wide compatibility remains outside the first shipping target.
 
@@ -49,7 +51,7 @@ maintainable implementation before adding another operating system's I/O.
 | --- | --- | --- |
 | macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
 | Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs, ARM64 host tests and two read-only Select connections pass; see the [evidence](experiments/linux-adapter/README.md). Physical printing through this adapter remains untested. |
-| Windows | Implemented nonblocking Winsock RFCOMM stream with cached pairing preflight | Simulated jobs, native ARM64 Windows tests and two real read-only Select connections pass after ordinary Windows pairing; see the [hardware evidence](experiments/windows-adapter/README.md). Physical printing through this adapter remains untested. |
+| Windows | Implemented nonblocking Winsock RFCOMM stream with cached pairing preflight | Simulated jobs, ARM64 Windows tests, real read-only connections and one [user-confirmed photo through the Windows queue](examples/windows-print-queue/FIRST_PRINT.md) pass. Physical fault/cancellation cases remain untested. |
 
 [BlueZ's Profile API](https://bluez.readthedocs.io/en/latest/profile-api/) documents
 RFCOMM channel/client integration and connection delivery.
@@ -93,8 +95,9 @@ IPP Class Driver and a per-user local PAPPL process. Windows renders application
 pages to sRGB raster; a bounded subprocess passes them through the existing
 preparation and durable submission interfaces. Surface's portrait/landscape
 capture jobs validate the actual OS spooler path without Bluetooth writes, and
-a two-page job is rejected before dispatch. Physical Windows-queue printing is
-still unvalidated. Native macOS/Linux builds, service installation and queue
+a two-page job is rejected before dispatch. A subsequent user-submitted photo
+physically printed at quality 100 / 4:4:4, with acknowledged transfer, printing
+observed, one-page counter increment and return to idle. Native macOS/Linux builds, service installation and queue
 registration are the next integration milestone.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis

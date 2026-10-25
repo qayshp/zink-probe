@@ -68,9 +68,11 @@
     "live_worker_jobs": 0,
     "incoming_rasters": 0,
     "expected_device_identity_configured": true,
-    "capture_jobs_replayed_into_live_queue": false
+    "capture_jobs_replayed_into_live_queue": false,
+    "observation_scope": "Installation snapshot before the later first physical print; not a current job-directory count."
   },
-  "physical_prints_in_this_milestone": 0,
-  "physical_windows_queue_printing_validated": false,
-  "macos_linux_native_queue_installers": "future work"
+  "physical_prints_in_this_milestone": 1,
+  "physical_windows_queue_printing_validated": true,
+  "macos_linux_native_queue_installers": "future work",
+  "physical_print_evidence": "first-physical-print-2026-10-25.json"
 }

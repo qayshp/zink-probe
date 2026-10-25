@@ -1,13 +1,17 @@
 # Portable single-job engine
 
-2026-10-24. The new `zink_probe.jobs` library runs without native Bluetooth or
+Updated 2026-10-25. The `zink_probe.jobs` library runs without native Bluetooth or
 image-processing dependencies on macOS, Linux, and Windows. It implements
 preflight, one job allocation, job properties, sequential JPEG upload, status
 observation, durable local records, and read-only reconciliation. A deterministic
 simulated printer exercises the byte-stream boundary. This is the shared engine
 milestone from [the driver roadmap](DRIVER_ROADMAP.md).
 
-**Physical printing through the portable adapters and OS print queues remain unvalidated.**
+**One physical photo through the Windows adapter and OS print queue now passes.**
+The [first Windows print report](examples/windows-print-queue/FIRST_PRINT.md)
+records quality 100 / 4:4:4, complete upload acknowledgement, printing observed,
+a one-page counter increment, idle completion and the user's confirmation of
+the sheet. Physical printing through the macOS/Linux adapters remains unvalidated.
 The [Linux socket adapter](LINUX_ADAPTER.md) is implemented with read-only BlueZ
 preflight, real-socket simulation and ARM64 host tests. Two live read-only
 connections to the Select passed after pairing; [hardware evidence](experiments/linux-adapter/README.md)

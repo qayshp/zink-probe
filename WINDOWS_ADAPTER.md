@@ -6,8 +6,11 @@ printer inspection. This does not install an OS print queue.
 
 Two real read-only inspections and reconnection now pass on ARM64 Surface after
 pairing through Windows settings. The [hardware report](experiments/windows-adapter/README.md)
-includes the independent 70-request/70-reply audit. Physical printing through
-this adapter has not been tested.
+includes the independent 70-request/70-reply audit. A subsequent
+[physical photo through the Windows IPP queue](examples/windows-print-queue/FIRST_PRINT.md)
+now validates this adapter with the portable engine: one quality-100/4:4:4 job,
+complete acknowledgement, printing observed, one-page increment and a
+user-confirmed sheet. Physical fault and cancellation cases remain untested.
 
 ## Installation and read-only use
 

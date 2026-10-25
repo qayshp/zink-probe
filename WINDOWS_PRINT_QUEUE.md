@@ -6,6 +6,12 @@ an experimental photo printer integration, not an HP-provided driver. The native
 queue process is x64; Windows ARM64 emulation runs it on Surface while Python,
 Bluetooth, and Microsoft's print driver remain ARM64 native.
 
+**One real photo printed successfully from Surface's Windows print dialog on
+2026-10-25**, at quality 100 / 4:4:4. The user confirmed physical output and a
+close preview match with slightly more edge cropping. The engine observed
+printing, complete upload acknowledgement, a one-page counter increment and
+return to idle. See the [acceptance report](examples/windows-print-queue/FIRST_PRINT.md).
+
 ## Using the queue
 
 Choose **HP Sprocket Select** in an application's Print dialog. Select the
@@ -34,7 +40,7 @@ starts the bridge at logon. The printer must be powered on, nearby, and availabl
 to this host. The bridge listens only on `127.0.0.1`; it is not shared on the LAN,
 does not require a firewall exception, and does not change the default printer.
 
-## Supported scope and remaining acceptance test
+## Supported scope and validation limits
 
 - One page and one copy per job. Multi-page jobs are rejected before **any** page
   is submitted, even when the first raster page was decoded successfully.
@@ -45,8 +51,9 @@ does not require a firewall exception, and does not change the default printer.
   without opening Bluetooth. The differently named capture queue must not be
   mistaken for the live printer.
 - Simulated jobs validate complete protocol execution and payload equality.
-  Read-only Bluetooth checks validate the real adapter separately. A physical
-  sheet through this new Windows queue remains a separate acceptance test.
+  Read-only Bluetooth checks validate the real adapter separately. One physical
+  photo through this Windows queue has now passed with user confirmation;
+  interrupted printing, cancellation and paper-out behavior remain unvalidated.
   The installed Surface environment's [two-connection read-only follow-up](examples/windows-print-queue/README.md#successful-read-only-hardware-follow-up)
   succeeded on 2026-10-25 after an earlier connection timeout, with an independent
   70-request/70-reply frame audit and unchanged settings/page counters.

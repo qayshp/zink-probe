@@ -15,8 +15,9 @@ ARM64 Windows checks, and [two live read-only Select connections](experiments/wi
 All three adapters now have read-only hardware evidence. An experimental
 [Windows File → Print queue](WINDOWS_PRINT_QUEUE.md) now uses Microsoft's IPP
 Class Driver, a local PAPPL frontend and the same portable engine. Capture-mode
-Windows spooler checks consume no paper. Physical printing through the new queue
-remains unvalidated; native macOS/Linux queue installation is still future work.
+Windows spooler checks consume no paper. A subsequent [real Windows photo print](examples/windows-print-queue/FIRST_PRINT.md)
+now validates the basic queue-to-paper path at quality 100 / 4:4:4; native
+macOS/Linux queue installation is still future work.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
 orientation, ICC-to-sRGB conversion, centered fit/fill previews and JPEG quality /
@@ -437,6 +438,8 @@ dimension. This establishes image placement approximately, not native heater DPI
 The [driver roadmap](DRIVER_ROADMAP.md) now marks the [portable single-job engine](PORTABLE_JOB_ENGINE.md)
 and simulated-printer CI milestone as implemented. All three native adapters now
 have read-only hardware evidence, and the [unified CLI](UNIFIED_CLI.md) joins
-preparation, status and explicit submission. Portable discovery/printer profiles,
-packaging and later OS queue integration remain ahead. Physical printing through
-the new adapters and portable engine still requires separate acceptance tests.
+preparation, status and explicit submission. The Windows IPP queue has now
+produced one user-confirmed photo through the portable engine. Portable
+discovery/printer profiles, easier packaging and macOS/Linux queue installation
+remain ahead. Physical printing through the macOS/Linux adapters still requires
+separate acceptance tests.
