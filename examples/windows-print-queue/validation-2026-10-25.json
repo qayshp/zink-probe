@@ -11,7 +11,11 @@
   "installed_executable_sha256": "8427fa696b173f43faecbcd42385d0161c03ad09bc872c0fb3ca961f4abc1528",
   "native_ci": "https://github.com/qayshp/zink-probe/actions/runs/40178742537",
   "portable_ci_all_six_jobs_passed": "https://github.com/qayshp/zink-probe/actions/runs/40178742536",
-  "local_tests": {"passed": 639, "skipped": 2, "new_worker_tests": 18},
+  "local_tests": {
+    "passed": 639,
+    "skipped": 2,
+    "new_worker_tests": 18
+  },
   "native_capture_smoke_on_ci_and_surface": {
     "real_http_ipp_endpoint": true,
     "normal_90_420": true,
@@ -23,18 +27,33 @@
     "portrait": "passed",
     "landscape": "passed",
     "two_page_document": "whole job aborted before worker dispatch",
-    "input_raster": [1370, 2055],
-    "output_jpeg": [768, 1152],
+    "input_raster": [
+      1370,
+      2055
+    ],
+    "output_jpeg": [
+      768,
+      1152
+    ],
     "repeat_after_final_native_update": "same successful portrait/landscape captures and two-page rejection",
     "bluetooth_opened": false,
-    "restart": {"completed_captures_before": 4, "completed_captures_after": 4, "replayed": false}
+    "restart": {
+      "completed_captures_before": 4,
+      "completed_captures_after": 4,
+      "replayed": false
+    }
   },
   "read_only_printer_check": {
-    "outcome": "connection timeout before protocol exchange",
-    "windows_error": 10060,
-    "protocol_frames": 0,
-    "current_physical_readiness": "unconfirmed",
-    "earlier_windows_read_only_success": "See experiments/windows-adapter/README.md"
+    "initial_attempt": {
+      "outcome": "connection timeout before protocol exchange",
+      "windows_error": 10060,
+      "protocol_frames": 0,
+      "earlier_windows_read_only_success": "See experiments/windows-adapter/README.md"
+    },
+    "follow_up": "read-only-followup-2026-10-25.json",
+    "follow_up_result": "two fresh read-only connections succeeded; exact identity matched; idle and empty; configuration and counters unchanged",
+    "current_physical_readiness": "verified at 2026-10-25T17:43Z; not continuous monitoring",
+    "physical_print_test_performed": false
   },
   "installed_final_state": {
     "name": "HP Sprocket Select",

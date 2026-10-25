@@ -1,0 +1,141 @@
+{
+  "follow_up_time_utc": "2026-10-25T17:43:40.654667+00:00",
+  "installed_windows_queue_environment": true,
+  "exact_expected_identity_matched_both_sessions": true,
+  "audit": {
+    "trace_file": "windows-queue-read-only-awake.jsonl",
+    "trace_sha256": "6d9d2312ab6ae523593f65ebc1a40b6424c4ab110f6435715793eb65a0fec0d1",
+    "date_utc": "2026-10-25",
+    "all_attempted_requests_read_only": true,
+    "request_count": 70,
+    "reply_count": 70,
+    "opcode_counts": {
+      "0x04": 26,
+      "0x08": 4,
+      "0x0A": 2,
+      "0x1A": 20,
+      "0x24": 2,
+      "0x28": 2,
+      "0x2A": 2,
+      "0x2C": 4,
+      "0x3A": 8
+    },
+    "attempted_tx_bytes": 532,
+    "pending_request_at_end": null,
+    "errors": [],
+    "successful_sessions": [
+      {
+        "firmware": "G1L1FA2105AR",
+        "super_model": 18643,
+        "max_message": 1000,
+        "capability_bytes": 227,
+        "pages": [
+          12,
+          12
+        ],
+        "calibrations": [
+          2,
+          2
+        ],
+        "status": {
+          "system_flags": 0,
+          "print_status_code": 1,
+          "battery_percent": 100,
+          "print_progress_percent": 0,
+          "current_job_id": 0,
+          "battery_status_code": 2,
+          "queue_status_code": 1,
+          "number_of_hosts": 1,
+          "print_status": "idle",
+          "battery_status": "charging",
+          "queue_status": "empty",
+          "system_flag_labels": [],
+          "system_flags_unknown_mask": 0
+        },
+        "configuration_unchanged": true,
+        "counters_unchanged": true,
+        "transport": {
+          "mtu": null,
+          "native_writes": 35,
+          "tx_bytes": 266,
+          "rx_bytes": 870,
+          "closed": true,
+          "close_error": null
+        }
+      },
+      {
+        "firmware": "G1L1FA2105AR",
+        "super_model": 18643,
+        "max_message": 1000,
+        "capability_bytes": 227,
+        "pages": [
+          12,
+          12
+        ],
+        "calibrations": [
+          2,
+          2
+        ],
+        "status": {
+          "system_flags": 0,
+          "print_status_code": 1,
+          "battery_percent": 100,
+          "print_progress_percent": 0,
+          "current_job_id": 0,
+          "battery_status_code": 2,
+          "queue_status_code": 1,
+          "number_of_hosts": 1,
+          "print_status": "idle",
+          "battery_status": "charging",
+          "queue_status": "empty",
+          "system_flag_labels": [],
+          "system_flags_unknown_mask": 0
+        },
+        "configuration_unchanged": true,
+        "counters_unchanged": true,
+        "transport": {
+          "mtu": null,
+          "native_writes": 35,
+          "tx_bytes": 266,
+          "rx_bytes": 870,
+          "closed": true,
+          "close_error": null
+        }
+      }
+    ]
+  },
+  "framing_consistency": [
+    {
+      "messages": {
+        "tx": 35,
+        "rx": 35
+      },
+      "bytes": {
+        "tx": 266,
+        "rx": 870
+      },
+      "no_partial_frames": true
+    },
+    {
+      "messages": {
+        "tx": 35,
+        "rx": 35
+      },
+      "bytes": {
+        "tx": 266,
+        "rx": 870
+      },
+      "no_partial_frames": true
+    }
+  ],
+  "queue_state_after_check": {
+    "worker_jobs": 0,
+    "windows_jobs": 0,
+    "task_running": true,
+    "queue_name": "HP Sprocket Select",
+    "incoming": 0
+  },
+  "physical_prints": 0,
+  "settings_changed": false,
+  "initial_timeout_cause": "not established"
+}

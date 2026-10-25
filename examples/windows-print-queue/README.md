@@ -23,3 +23,25 @@ before invoking the worker, so there was no partial first-page dispatch.
 See the [installation and operation guide](../../WINDOWS_PRINT_QUEUE.md) and
 [sanitized validation record](validation-2026-10-25.json). Raw device identifiers,
 protocol traces, local configuration and spool logs remain private.
+
+## Successful read-only hardware follow-up
+
+After the user said they would wake the printer, the installed Windows queue's
+Python environment completed **two fresh Bluetooth connections** at
+2026-10-25 17:43 UTC. Both matched the expected Select identity and firmware
+`G1L1FA2105AR`, reported idle/empty with 100% battery and charging, and closed
+without error. The printed-page counter remained 12 and calibration counter 2;
+configuration was unchanged within and between the two checks.
+
+The [sanitized frame audit](read-only-followup-2026-10-25.json) independently
+validated all 70 outgoing requests as read-only and correlated all 70 replies.
+It also checked complete frame boundaries, dynamically granted capability-read
+handles, and byte counts against the native socket counters: 532 bytes sent and
+1,740 received in total, excluding Bluetooth overhead. No printing, image upload,
+settings write, reset or cancellation command was sent. The live Windows queue
+and worker directories remained empty, and its background task remained running.
+
+This supersedes the earlier timeout as the latest communication result. It does
+not establish the cause of that timeout, provide continuous readiness monitoring,
+or validate a physical sheet through the Windows queue. No code, pairing or
+permission change was required for this successful follow-up.

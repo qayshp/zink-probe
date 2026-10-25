@@ -47,6 +47,9 @@ does not require a firewall exception, and does not change the default printer.
 - Simulated jobs validate complete protocol execution and payload equality.
   Read-only Bluetooth checks validate the real adapter separately. A physical
   sheet through this new Windows queue remains a separate acceptance test.
+  The installed Surface environment's [two-connection read-only follow-up](examples/windows-print-queue/README.md#successful-read-only-hardware-follow-up)
+  succeeded on 2026-10-25 after an earlier connection timeout, with an independent
+  70-request/70-reply frame audit and unchanged settings/page counters.
 - Queue availability describes the local bridge. It is not a continuous live
   battery/paper/temperature reading. Actual identity and readiness are checked
   when a job connects, before any mutating protocol command.
