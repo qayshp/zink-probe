@@ -110,3 +110,43 @@ It checks margins, sidecar previews, supported media and copy rejection. A
 PowerShell test checks distinct installer names/ports/tasks/runtime paths without
 installing anything. The portable suite runs on macOS, Linux and Windows; no
 test in either CI workflow accesses a printer.
+
+### Recorded results
+
+Implementation [`cfa380e`](https://github.com/qayshp/zink-probe/commit/cfa380eefcbd9a537044dcc898c0da687515d6dd)
+passed **658 tests with two expected optional-binding skips** locally on macOS,
+plus 8 earlier image-research tests and 11 calibration-transcript tests. Lint,
+formatting and wheel build passed. Default calibration JPEGs remained byte-exact.
+
+The [portable CI run](https://github.com/qayshp/zink-probe/actions/runs/40222249271)
+passed all six jobs for that implementation:
+
+| Platform | Python 3.11 | Python 3.14 |
+| --- | --- | --- |
+| macOS | Passed | Passed |
+| Linux (Ubuntu) | Passed | Passed |
+| Windows | Passed | Passed |
+
+Each job covers the three-layout unit/integration suite, earlier image and
+calibration tests, installed CLI preparation, simulated submission and wheel
+build. The unified CLI workflow now prepares with `preserve-edges`; its saved
+payload is reconstructed byte-for-byte by the simulated printer.
+
+The [native Windows workflow](https://github.com/qayshp/zink-probe/actions/runs/40222249266)
+passed its offline installer-layout check, native build and four actual loopback
+IPP **captures**: fill/preserve-edges, each at Normal and High. PAPPL supplied
+1370 × 2055 pages; Preserve edges placed the complete page into
+`[48, 72, 720, 1080]` on the 768 × 1152 output, while fill retained zero padding.
+Both profiles rejected two copies. No Bluetooth was opened. The downloaded
+capture artifacts' payload hashes and decoded-preview equality were independently
+verified. The [public result summary](examples/preserve-edges/native-capture-validation.json)
+contains only synthetic-fixture geometry/encoding/results, no private photo or
+device identifier.
+
+The committed portrait example's selected JPEG is **176,012 bytes**, quality 100 /
+4:4:4, SHA-256 `eb973cdb2d7ecb17423014898660e17cc801e71c23e20fd969fe3b620af9cfcb`.
+All bundle hashes and HTML links were verified. The PNG comparison was visually
+inspected. The embedded browser refused local `file:` navigation, so interactive
+HTML toggle behavior was not browser-tested in this run; its markup/CSS were
+inspected without bypassing that restriction. No claim of physical edge retention
+or on-Surface installation follows from these offline tests.

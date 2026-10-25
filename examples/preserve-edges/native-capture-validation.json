@@ -1,0 +1,250 @@
+{
+  "schema": 1,
+  "date": "2026-10-25",
+  "implementation_commit": "cfa380eefcbd9a537044dcc898c0da687515d6dd",
+  "ci_url": "https://github.com/qayshp/zink-probe/actions/runs/40222249266",
+  "fixture": "synthetic solid-color JPEG from native/smoke.py; no personal image",
+  "hardware_contacted": false,
+  "profiles": [
+    {
+      "native_start": true,
+      "loopback_ipp": true,
+      "media": "58x87mm",
+      "copies_2_rejected": true,
+      "jobs": [
+        {
+          "ipp_job": 1,
+          "quality": 4,
+          "state": "completed-in-capture-mode"
+        },
+        {
+          "ipp_job": 2,
+          "quality": 5,
+          "state": "completed-in-capture-mode"
+        }
+      ],
+      "bluetooth_opened": false,
+      "preparation_mode": "fill",
+      "captured_images": [
+        {
+          "source_size": [
+            1370,
+            2055
+          ],
+          "geometry": {
+            "mode": "fill",
+            "output_size": [
+              768,
+              1152
+            ],
+            "scale": 0.5605839416058395,
+            "upscaled": false,
+            "source_crop_box": [
+              1.1368683772161603e-13,
+              0.0,
+              1370.0,
+              2055.0
+            ],
+            "scaled_image_box": [
+              -5.684341886080802e-14,
+              0.0,
+              768.0,
+              1152.0
+            ],
+            "padding_pixels": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "resampling": "inverse-affine-bilinear"
+          },
+          "encoding": {
+            "format": "baseline-jpeg",
+            "quality": 90,
+            "subsampling": "4:2:0",
+            "optimized_huffman": true,
+            "quantization_all_ones": false,
+            "bytes": 5472,
+            "sha256": "a357badb90616e89145979646dcad52f3c9e8c319fe4b505f3db4d247fd7c754",
+            "color_space": "sRGB",
+            "icc_embedded": false,
+            "exif_embedded": false
+          },
+          "decoded_preview_matches_payload": true,
+          "safe_area_preview_present": true,
+          "physical_ejection_confirmed": false
+        },
+        {
+          "source_size": [
+            1370,
+            2055
+          ],
+          "geometry": {
+            "mode": "fill",
+            "output_size": [
+              768,
+              1152
+            ],
+            "scale": 0.5605839416058395,
+            "upscaled": false,
+            "source_crop_box": [
+              1.1368683772161603e-13,
+              0.0,
+              1370.0,
+              2055.0
+            ],
+            "scaled_image_box": [
+              -5.684341886080802e-14,
+              0.0,
+              768.0,
+              1152.0
+            ],
+            "padding_pixels": {
+              "left": 0.0,
+              "right": 0.0,
+              "top": 0.0,
+              "bottom": 0.0
+            },
+            "resampling": "inverse-affine-bilinear"
+          },
+          "encoding": {
+            "format": "baseline-jpeg",
+            "quality": 100,
+            "subsampling": "4:4:4",
+            "optimized_huffman": true,
+            "quantization_all_ones": true,
+            "bytes": 10655,
+            "sha256": "46548b1872a899809ea90a90235a44cc53e49c59624d35c62abb0830b296f770",
+            "color_space": "sRGB",
+            "icc_embedded": false,
+            "exif_embedded": false
+          },
+          "decoded_preview_matches_payload": true,
+          "safe_area_preview_present": true,
+          "physical_ejection_confirmed": false
+        }
+      ]
+    },
+    {
+      "native_start": true,
+      "loopback_ipp": true,
+      "media": "58x87mm",
+      "copies_2_rejected": true,
+      "jobs": [
+        {
+          "ipp_job": 1,
+          "quality": 4,
+          "state": "completed-in-capture-mode"
+        },
+        {
+          "ipp_job": 2,
+          "quality": 5,
+          "state": "completed-in-capture-mode"
+        }
+      ],
+      "bluetooth_opened": false,
+      "preparation_mode": "preserve-edges",
+      "captured_images": [
+        {
+          "source_size": [
+            1370,
+            2055
+          ],
+          "geometry": {
+            "mode": "preserve-edges",
+            "output_size": [
+              768,
+              1152
+            ],
+            "scale": 0.4905109489051095,
+            "upscaled": false,
+            "source_crop_box": [
+              0.0,
+              0.0,
+              1370.0,
+              2055.0
+            ],
+            "scaled_image_box": [
+              48.0,
+              72.0,
+              720.0,
+              1080.0
+            ],
+            "padding_pixels": {
+              "left": 48.0,
+              "right": 48.0,
+              "top": 72.0,
+              "bottom": 72.0
+            },
+            "resampling": "inverse-affine-bilinear"
+          },
+          "encoding": {
+            "format": "baseline-jpeg",
+            "quality": 90,
+            "subsampling": "4:2:0",
+            "optimized_huffman": true,
+            "quantization_all_ones": false,
+            "bytes": 6695,
+            "sha256": "f5a27e71e3c3236a56507b95ced48bd492645db4a49ba9692c51ac622450affd",
+            "color_space": "sRGB",
+            "icc_embedded": false,
+            "exif_embedded": false
+          },
+          "decoded_preview_matches_payload": true,
+          "safe_area_preview_present": true,
+          "physical_ejection_confirmed": false
+        },
+        {
+          "source_size": [
+            1370,
+            2055
+          ],
+          "geometry": {
+            "mode": "preserve-edges",
+            "output_size": [
+              768,
+              1152
+            ],
+            "scale": 0.4905109489051095,
+            "upscaled": false,
+            "source_crop_box": [
+              0.0,
+              0.0,
+              1370.0,
+              2055.0
+            ],
+            "scaled_image_box": [
+              48.0,
+              72.0,
+              720.0,
+              1080.0
+            ],
+            "padding_pixels": {
+              "left": 48.0,
+              "right": 48.0,
+              "top": 72.0,
+              "bottom": 72.0
+            },
+            "resampling": "inverse-affine-bilinear"
+          },
+          "encoding": {
+            "format": "baseline-jpeg",
+            "quality": 100,
+            "subsampling": "4:4:4",
+            "optimized_huffman": true,
+            "quantization_all_ones": true,
+            "bytes": 11662,
+            "sha256": "46ea73d37b202c583b785bb428c5b44c48614193631434fb7167a43c5e41515d",
+            "color_space": "sRGB",
+            "icc_embedded": false,
+            "exif_embedded": false
+          },
+          "decoded_preview_matches_payload": true,
+          "safe_area_preview_present": true,
+          "physical_ejection_confirmed": false
+        }
+      ]
+    }
+  ]
+}
