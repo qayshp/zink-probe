@@ -14,7 +14,7 @@ def patch(root):
     replacements = {
         'ippAddRange(client->response, IPP_TAG_PRINTER, "copies-supported", 1, 999);': 'ippAddRange(client->response, IPP_TAG_PRINTER, "copies-supported", 1, data->copies_supported);',
         "if (intvalue < 1 || intvalue > 999)": "if (intvalue < 1 || intvalue > driver_data.copies_supported)",
-        "ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > 999)": "ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > printer->driver_data.copies_supported)",
+        "ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > 999)": "ippGetInteger(attr, 0) < 1 || ippGetInteger(attr, 0) > client->printer->driver_data.copies_supported)",
     }
     for before, after in replacements.items():
         if source.count(before) != 1:
