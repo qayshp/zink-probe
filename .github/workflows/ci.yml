@@ -28,7 +28,7 @@ jobs:
       - name: Lint
         run: python -m ruff check src tests
       - name: Formatting of portable engine and image preparation
-        run: python -m ruff format --check src/zink_probe/jobs src/zink_probe/images.py src/zink_probe/prepare_cli.py tests/test_jobs.py tests/test_macos_stream.py tests/test_linux_stream.py tests/test_windows_stream.py tests/test_images.py tests/fixtures/images/make_profile.py
+        run: python -m ruff format --check src/zink_probe/jobs src/zink_probe/images.py src/zink_probe/prepare_cli.py src/zink_probe/unified_cli.py tests/test_unified_cli.py tests/test_jobs.py tests/test_macos_stream.py tests/test_linux_stream.py tests/test_windows_stream.py tests/test_images.py tests/fixtures/images/make_profile.py
       - name: Test diagnostics, portable jobs and image preparation
         run: python -m pytest -q
       - name: Test earlier image research contract
@@ -41,6 +41,14 @@ jobs:
         run: zink-prepare examples/image-preparation/source.png logs/ci-prepared --mode fit --quality 100 --subsampling 4:4:4
       - name: Simulate the newly prepared payload
         run: zink-simulate logs/ci-prepared/image.jpg --journal logs/ci-prepared.sqlite --name PREPARED --allow-alternative-sampling --encoder-quality 100
+      - name: Unified CLI offline preparation and simulation-only job lifecycle
+        run: |
+          zink prepare examples/image-preparation/source.png logs/ci-unified-prepared --mode fill
+          zink plan logs/ci-unified-prepared logs/ci-unified-job --simulated
+          zink status --transport simulated --log logs/ci-unified-status.jsonl
+          zink submit logs/ci-unified-job --journal logs/ci-unified.sqlite --log logs/ci-unified-submit.jsonl
+          zink show logs/ci-unified-job --journal logs/ci-unified.sqlite
+          zink reconcile logs/ci-unified-job --journal logs/ci-unified.sqlite
       - name: Build portable wheel
         run: python -m build --wheel
       - name: Validate macOS callback bindings without opening Bluetooth

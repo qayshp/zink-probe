@@ -44,6 +44,13 @@ was used explicitly.
 
 ## Offline image preparation
 
+The [unified `zink` CLI](UNIFIED_CLI.md) now provides `prepare`, `plan`, `show`,
+`status`, `submit` and read-only `reconcile` on all three platforms. It preserves
+one stable job ID and the exact planned JPEG across attempts. `submit` prints
+when given a real-printer plan; simulation-only plans cannot open Bluetooth.
+See the guide for installation, offline examples and deliberate submission.
+The older commands below remain supported.
+
 On macOS, Linux or Windows, with Python 3.11+:
 
 ```sh
@@ -422,6 +429,8 @@ pixels/inch in both directions and corroborate roughly 4% total edge loss per
 dimension. This establishes image placement approximately, not native heater DPI.
 
 The [driver roadmap](DRIVER_ROADMAP.md) now marks the [portable single-job engine](PORTABLE_JOB_ENGINE.md)
-and simulated-printer CI milestone as implemented. Next are native transport
-adapters and later OS queue integration. Current physical communication evidence
-remains limited to the tested macOS Select setup.
+and simulated-printer CI milestone as implemented. All three native adapters now
+have read-only hardware evidence, and the [unified CLI](UNIFIED_CLI.md) joins
+preparation, status and explicit submission. Portable discovery/printer profiles,
+packaging and later OS queue integration remain ahead. Physical printing through
+the new adapters and portable engine still requires separate acceptance tests.

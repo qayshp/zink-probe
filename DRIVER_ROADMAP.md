@@ -1,6 +1,6 @@
 # Path to a Select driver for macOS, Linux and Windows
 
-Updated 2026-10-24. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
+Updated 2026-10-25. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
 are implemented with three-OS CI. One Select has physical communication evidence
 on macOS and two successful calibration sheets, CAL-02 and CAL-03. Native
 Linux/Windows physical printing remains unvalidated. The original diagnostic CLI is gated
@@ -80,8 +80,9 @@ An optional physical safe-area profile remains future work; one sheet's offsets
 are not hard-coded as universal mechanical correction. Digital fit/padding does
 not promise lossless physical edge retention.
 
-Expose discovery, status, offline prepare/preview, and explicit single-job print
-as separate operations. Add useful error/status reporting before a GUI. Thermal
+The [unified CLI](UNIFIED_CLI.md) now exposes offline prepare/preview, saved job
+plans, status, explicit single-job submission and read-only reconciliation.
+Portable discovery/pairing and friendlier installation remain future work. Thermal
 precompensation is optional research and should not block basic printing or be
 enabled from one photographed chart.
 
@@ -95,8 +96,9 @@ same preparation and submission interfaces, not duplicate protocol logic.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With all three adapters' read-only hardware milestones
-complete and the offline preparation API/CLI implemented, the recommended next
-task is a unified preparation/status/submission interface using the three
-adapters. Existing simulated jobs cover transfer and failure behavior without
-paper. Printing through each new adapter/engine remains a separately authorized
-physical acceptance test.
+complete and the unified CLI implemented, the next software step is portable
+discovery and persistent printer profiles, followed by packaging and queue
+integration design. Existing simulated jobs cover transfer and failure behavior
+without paper. Printing through each new adapter/engine remains a separately
+authorized physical acceptance test; do not spend a sheet as an implicit part of
+discovery, packaging or CI.

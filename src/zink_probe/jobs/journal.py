@@ -46,6 +46,13 @@ class JobJournal:
         ).fetchone()
         return json.loads(row[0]) if row else None
 
+    def active_for_device(self, device_id):
+        row = self.db.execute(
+            "SELECT record FROM jobs WHERE device=? AND state NOT IN ('completed', 'rejected')",
+            (device_id,),
+        ).fetchone()
+        return json.loads(row[0]) if row else None
+
     def claim(self, spec, device_id, baseline):
         record = {
             "schema": 1,

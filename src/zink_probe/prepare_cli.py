@@ -81,8 +81,7 @@ def write_bundle(destination, results, options):
     return manifest
 
 
-def main(argv=None):
-    parser = argparse.ArgumentParser(description=__doc__)
+def add_arguments(parser):
     parser.add_argument("input", type=Path, help="Single-frame JPEG or PNG")
     parser.add_argument(
         "output", type=Path, help="New output directory; must not already exist"
@@ -94,7 +93,9 @@ def main(argv=None):
     parser.add_argument(
         "--subsampling", choices=("4:2:0", "4:2:2", "4:4:4"), default="4:2:0"
     )
-    args = parser.parse_args(argv)
+
+
+def run(args):
     try:
         from .images import PreparationOptions, prepare_comparison
     except ImportError:
@@ -138,6 +139,12 @@ def main(argv=None):
             )
         )
         return 130 if isinstance(exc, KeyboardInterrupt) else 1
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__)
+    add_arguments(parser)
+    return run(parser.parse_args(argv))
 
 
 if __name__ == "__main__":

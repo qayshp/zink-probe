@@ -16,6 +16,7 @@ macos = ["bleak>=1,<4", "pyobjc-framework-IOBluetooth>=11,<13; sys_platform == '
 dev = ["pytest>=8", "ruff>=0.11"]
 
 [project.scripts]
+zink = "zink_probe.unified_cli:main"
 zink-probe = "zink_probe.cli:main"
 zink-simulate = "zink_probe.jobs.cli:main"
 zink-macos-check = "zink_probe.jobs.macos_probe:main"

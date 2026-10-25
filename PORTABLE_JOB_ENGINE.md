@@ -228,6 +228,6 @@ Live results are available in [GitHub Actions](https://github.com/qayshp/zink-pr
 CI establishes software behavior on those runners. It does not validate their
 Bluetooth stacks, pairing, printer communication or paper output. Separate local
 read-only validation covers the macOS, Linux and Windows adapters. [General image preparation](IMAGE_PREPARATION.md) is implemented.
-A unified preparation/status/submission interface is next; physical printing
+The [unified preparation/status/submission CLI](UNIFIED_CLI.md) is implemented; physical printing
 through the new adapters requires separate authorization and validation.
 OS queue/IPP/PAPPL integration is later work.
