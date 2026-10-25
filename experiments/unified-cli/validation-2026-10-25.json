@@ -1,0 +1,437 @@
+{
+  "schema_version": 1,
+  "implementation_commit": "73d5f815edf5c549839a1fa4808840ef0db05d3e",
+  "hardware_printing_performed": false,
+  "total_attempted_requests": 210,
+  "total_replies": 210,
+  "attempts": [
+    {
+      "platform": "Darwin",
+      "architecture": "arm64",
+      "python": "3.14.8",
+      "phase": "initial",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "94a066fdcb033946ec43a3b89f86d2f04612633abc8acbdc467bfdc29b3fcabe",
+      "io_timeout_seconds": 10,
+      "exit_code": 0,
+      "command_error": null,
+      "closed_event_count": 2,
+      "audit": {
+        "trace_file": "unified-macos-20261025.jsonl",
+        "trace_sha256": "296bbdf134e156a6b0906e9dbef9f7bfe1f9d6508e4865e7df54d32c9f1a4407",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 70,
+        "reply_count": 70,
+        "opcode_counts": {
+          "0x04": 26,
+          "0x08": 4,
+          "0x0A": 2,
+          "0x1A": 20,
+          "0x24": 2,
+          "0x28": 2,
+          "0x2A": 2,
+          "0x2C": 4,
+          "0x3A": 8
+        },
+        "attempted_tx_bytes": 532,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": [
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": 1006,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          },
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": 1006,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "platform": "Linux",
+      "architecture": "aarch64",
+      "python": "3.11.2",
+      "phase": "initial",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "94a066fdcb033946ec43a3b89f86d2f04612633abc8acbdc467bfdc29b3fcabe",
+      "io_timeout_seconds": 10,
+      "exit_code": 1,
+      "command_error": "TimeoutError: ",
+      "closed_event_count": 1,
+      "audit": {
+        "trace_file": "unified-linux-20261025.jsonl",
+        "trace_sha256": "a1e22f34f38ba96366022aaa6b0d34888ad182293c9ca489d05b35cc2e70d722",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 0,
+        "reply_count": 0,
+        "opcode_counts": {},
+        "attempted_tx_bytes": 0,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": []
+      }
+    },
+    {
+      "platform": "Linux",
+      "architecture": "aarch64",
+      "python": "3.11.2",
+      "phase": "initial",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "94a066fdcb033946ec43a3b89f86d2f04612633abc8acbdc467bfdc29b3fcabe",
+      "io_timeout_seconds": 30,
+      "exit_code": 1,
+      "command_error": "TimeoutError: ",
+      "closed_event_count": 1,
+      "audit": {
+        "trace_file": "unified-linux-followup-20261025.jsonl",
+        "trace_sha256": "6d64f5270b4e96c0bf4d4202e889719b72149d25f7d095c590738226141c10c4",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 0,
+        "reply_count": 0,
+        "opcode_counts": {},
+        "attempted_tx_bytes": 0,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": []
+      }
+    },
+    {
+      "platform": "Windows",
+      "architecture": "ARM64",
+      "python": "3.12.10",
+      "phase": "initial",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "94a066fdcb033946ec43a3b89f86d2f04612633abc8acbdc467bfdc29b3fcabe",
+      "io_timeout_seconds": 10,
+      "exit_code": 0,
+      "command_error": null,
+      "closed_event_count": 2,
+      "audit": {
+        "trace_file": "unified-windows-20261025.jsonl",
+        "trace_sha256": "f76773800ea328468a73946f145d9f7f4cd9700734424d9529ee25138799a4d9",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 70,
+        "reply_count": 70,
+        "opcode_counts": {
+          "0x04": 26,
+          "0x08": 4,
+          "0x0A": 2,
+          "0x1A": 20,
+          "0x24": 2,
+          "0x28": 2,
+          "0x2A": 2,
+          "0x2C": 4,
+          "0x3A": 8
+        },
+        "attempted_tx_bytes": 532,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": [
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": null,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          },
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": null,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "platform": "Darwin",
+      "architecture": "arm64",
+      "python": "3.14.8",
+      "phase": "committed",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "0d75db8bb668ee8b9f260797aadced5e3a15862e38c64494d03dcce2b3e2d852",
+      "io_timeout_seconds": 10,
+      "exit_code": 0,
+      "command_error": null,
+      "closed_event_count": 1,
+      "audit": {
+        "trace_file": "unified-macos-final-20261025.jsonl",
+        "trace_sha256": "ff28300796cb41f3bae28100e8de941b2495cdfb220c488ad0615f005cf1fb50",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 35,
+        "reply_count": 35,
+        "opcode_counts": {
+          "0x04": 13,
+          "0x08": 2,
+          "0x0A": 1,
+          "0x1A": 10,
+          "0x24": 1,
+          "0x28": 1,
+          "0x2A": 1,
+          "0x2C": 2,
+          "0x3A": 4
+        },
+        "attempted_tx_bytes": 266,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": [
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": 1006,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          }
+        ]
+      }
+    },
+    {
+      "platform": "Windows",
+      "architecture": "ARM64",
+      "python": "3.12.10",
+      "phase": "committed",
+      "source_hashes_matched": true,
+      "source_tree_sha256": "0d75db8bb668ee8b9f260797aadced5e3a15862e38c64494d03dcce2b3e2d852",
+      "io_timeout_seconds": 10,
+      "exit_code": 0,
+      "command_error": null,
+      "closed_event_count": 1,
+      "audit": {
+        "trace_file": "unified-windows-final-20261025.jsonl",
+        "trace_sha256": "9cbc4ab3d858c72ee3f2db16ca54811a4cd1d9ce5546d46b92a90ac2b626a92c",
+        "date_utc": "2026-10-25",
+        "all_attempted_requests_read_only": true,
+        "request_count": 35,
+        "reply_count": 35,
+        "opcode_counts": {
+          "0x04": 13,
+          "0x08": 2,
+          "0x0A": 1,
+          "0x1A": 10,
+          "0x24": 1,
+          "0x28": 1,
+          "0x2A": 1,
+          "0x2C": 2,
+          "0x3A": 4
+        },
+        "attempted_tx_bytes": 266,
+        "pending_request_at_end": null,
+        "errors": [],
+        "successful_sessions": [
+          {
+            "firmware": "G1L1FA2105AR",
+            "super_model": 18643,
+            "max_message": 1000,
+            "capability_bytes": 227,
+            "pages": [
+              12,
+              12
+            ],
+            "calibrations": [
+              2,
+              2
+            ],
+            "status": {
+              "system_flags": 0,
+              "print_status_code": 1,
+              "battery_percent": 100,
+              "print_progress_percent": 0,
+              "current_job_id": 0,
+              "battery_status_code": 2,
+              "queue_status_code": 1,
+              "number_of_hosts": 1,
+              "print_status": "idle",
+              "battery_status": "charging",
+              "queue_status": "empty",
+              "system_flag_labels": [],
+              "system_flags_unknown_mask": 0
+            },
+            "configuration_unchanged": true,
+            "counters_unchanged": true,
+            "transport": {
+              "mtu": null,
+              "native_writes": 35,
+              "tx_bytes": 266,
+              "rx_bytes": 870,
+              "closed": true,
+              "close_error": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

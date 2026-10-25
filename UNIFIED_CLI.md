@@ -167,6 +167,8 @@ connection failures, lost allocation/status replies, cancellation/deadlines,
 duplicate/unresolved guards and allowlisted reconciliation. CI runs the installed
 CLI workflow on macOS/Linux/Windows with Python 3.11 and 3.14. Hardware validation
 for this milestone is read-only: no sheets are printed by the new CLI.
+See [recorded software/hardware results and the frame audit](experiments/unified-cli/README.md),
+including the unresolved ColorBerry connection timeouts.
 
 See [portable engine](PORTABLE_JOB_ENGINE.md), [preparation](IMAGE_PREPARATION.md),
 [macOS](experiments/macos-adapter/README.md), [Linux](LINUX_ADAPTER.md) and

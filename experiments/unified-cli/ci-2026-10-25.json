@@ -1,0 +1,64 @@
+{
+  "implementation_commit": "73d5f815edf5c549839a1fa4808840ef0db05d3e",
+  "run_url": "https://github.com/qayshp/zink-probe/actions/runs/40174504117",
+  "jobs": [
+    {
+      "id": 121112169938,
+      "name": "macos-latest / Python 3.14",
+      "conclusion": "success",
+      "test_summaries": [
+        "619 passed, 4 skipped in 33.27s",
+        "2 passed in 0.44s"
+      ],
+      "unified_installed_cli": "success"
+    },
+    {
+      "id": 121112170051,
+      "name": "ubuntu-latest / Python 3.14",
+      "conclusion": "success",
+      "test_summaries": [
+        "619 passed, 4 skipped in 26.18s",
+        "1 passed in 0.04s"
+      ],
+      "unified_installed_cli": "success"
+    },
+    {
+      "id": 121112170072,
+      "name": "macos-latest / Python 3.11",
+      "conclusion": "success",
+      "test_summaries": [
+        "619 passed, 4 skipped in 34.85s",
+        "2 passed in 0.67s"
+      ],
+      "unified_installed_cli": "success"
+    },
+    {
+      "id": 121112170080,
+      "name": "windows-latest / Python 3.11",
+      "conclusion": "success",
+      "test_summaries": [
+        "620 passed, 3 skipped in 430.65s (0:07:10)"
+      ],
+      "unified_installed_cli": "success"
+    },
+    {
+      "id": 121112170085,
+      "name": "windows-latest / Python 3.14",
+      "conclusion": "success",
+      "test_summaries": [
+        "620 passed, 3 skipped in 253.87s (0:04:13)"
+      ],
+      "unified_installed_cli": "success"
+    },
+    {
+      "id": 121112170202,
+      "name": "ubuntu-latest / Python 3.11",
+      "conclusion": "success",
+      "test_summaries": [
+        "619 passed, 4 skipped in 24.24s",
+        "1 passed in 0.04s"
+      ],
+      "unified_installed_cli": "success"
+    }
+  ]
+}

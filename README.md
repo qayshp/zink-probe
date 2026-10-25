@@ -260,8 +260,8 @@ them before sharing. No cloud service is used by the CLI.
 
 ## Read-only boundary
 
-For ordinary discovery/probe sessions the transport code validates every outbound
-command against a read-only allowlist:
+For ordinary `zink-probe` discovery/probe sessions and unified `zink status` /
+`zink reconcile`, every outbound command is validated against a read-only allowlist:
 
 | Command | Purpose |
 | --- | --- |
@@ -282,8 +282,11 @@ reads; “read-only” does not mean passive Bluetooth sniffing. The separate
 `settings-test` command temporarily adds exact `1C 01 <minutes:u16LE>` and
 `1C 03 <standard RGB>` grants, with restoration as described above. Time writes,
 resource allocation, print-start, uploads, pause/resume, reboot, and firmware
-operations remain unavailable. There is no arbitrary-command escape hatch or image
-dependency. The settings-test trace explicitly records `read_only: false`.
+operations remain unavailable to these diagnostic commands. They have no
+arbitrary-command escape hatch. The settings-test trace explicitly records
+`read_only: false`. The separate `zink submit` command can allocate/upload/print
+only through a validated saved job and the portable engine's journal guards;
+see the [unified CLI guide](UNIFIED_CLI.md).
 
 A rejected connection-setup command is logged and the probe attempts actual reads,
 following a quirk observed in the Sprocket 200 reference. Successful reads, rather
@@ -325,7 +328,8 @@ Known limits:
   calls have OS-controlled blocking; `--timeout` bounds response waits, not those
   native calls. There is no claim of a global hard timeout.
 - Ordinary diagnostics do not print. The portable job engine has no automatic
-  reconnection or mutation retry; native adapters and PAPPL integration remain later work.
+  reconnection or mutation retry. Native adapters and the unified CLI are implemented;
+  physical print acceptance through those adapters and PAPPL integration remain later work.
 - Optional unsupported identity tags are reported individually. Unknown fields,
   invalid framing, and truncated data fail explicitly rather than guessing.
 
