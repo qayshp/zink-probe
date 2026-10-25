@@ -5,7 +5,10 @@ import sys
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from patch_pappl import patch
+
 root = Path(sys.argv[1]).resolve()
+patch(root)
 namespace = "http://schemas.microsoft.com/developer/msbuild/2003"
 ET.register_namespace("", namespace)
 tree = ET.parse(root / "vcnet/testpappl.vcxproj")

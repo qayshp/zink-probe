@@ -26,7 +26,7 @@ jobs:
       - name: Install portable core, offline image preparation and test tools
         run: python -m pip install -e ".[images,dev]" build
       - name: Lint
-        run: python -m ruff check src tests
+        run: python -m ruff check src tests native/*.py
       - name: Formatting of portable engine and image preparation
         run: python -m ruff format --check src/zink_probe/jobs src/zink_probe/images.py src/zink_probe/prepare_cli.py src/zink_probe/unified_cli.py tests/test_unified_cli.py tests/test_jobs.py tests/test_macos_stream.py tests/test_linux_stream.py tests/test_windows_stream.py tests/test_images.py tests/fixtures/images/make_profile.py
       - name: Test diagnostics, portable jobs and image preparation
