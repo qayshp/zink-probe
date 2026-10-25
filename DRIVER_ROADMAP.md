@@ -48,7 +48,7 @@ maintainable implementation before adding another operating system's I/O.
 | Platform | Proposed route | Required evidence |
 | --- | --- | --- |
 | macOS | Implemented async IOBluetooth RFCOMM stream with a read-only diagnostic command | Real read-only checks passed; full jobs and faults pass through a simulated native facade. Physical printing through the new engine remains untested. |
-| Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs and ARM64 host tests pass. Initial physical validation is blocked by pairing cancellation; see the [evidence](experiments/linux-adapter/README.md). |
+| Linux | Implemented nonblocking RFCOMM socket stream with read-only BlueZ preflight | Real-socket simulated jobs, ARM64 host tests and two read-only Select connections pass; see the [evidence](experiments/linux-adapter/README.md). Physical printing through this adapter remains untested. |
 | Windows | Prototype a narrow native Bluetooth socket adapter, or an equivalent verified Windows RFCOMM API | Physical read-only identity/status and failure reporting on a supported Windows host. |
 
 [BlueZ's Profile API](https://bluez.readthedocs.io/en/latest/profile-api/) documents
@@ -96,6 +96,7 @@ same preparation and submission interfaces, not duplicate protocol logic.
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With the macOS adapter's read-only milestone complete,
 and the offline preparation API/CLI implemented, the recommended next task is a
-completion of Linux pairing and read-only physical validation, followed by the
-Windows adapter. The Linux implementation and simulated socket tests are in place. Printing through each new adapter/engine remains
+Windows adapter with simulated jobs and read-only physical validation. The Linux
+implementation, simulated socket tests and read-only physical checks are complete.
+Printing through each new adapter/engine remains
 a separately authorized physical acceptance test.

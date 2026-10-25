@@ -48,7 +48,7 @@ jobs:
         run: |
           python -m pip install -e ".[macos]"
           python -m pytest -q tests/test_macos_stream.py::test_native_delegate_metadata_without_bluetooth_connection tests/test_extended.py::test_native_sdp_serializer
-      - name: Validate Linux socket constants and D-Bus bindings without Bluetooth
+      - name: Validate Linux Python capability handling and D-Bus bindings without Bluetooth
         if: runner.os == 'Linux'
         run: |
           python -m pip install -e ".[linux]"

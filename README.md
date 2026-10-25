@@ -8,9 +8,9 @@ authorized calibration sheets have been printed on one Select, including
 [CAL-03 at quality 100 / 4:4:4](experiments/calibration/CAL03_PRINT.md).
 The new engine's [macOS RFCOMM adapter](experiments/macos-adapter/README.md) is now
 validated with read-only hardware checks and simulated jobs. A new
-[Linux RFCOMM adapter](LINUX_ADAPTER.md) passes simulated socket jobs and ARM64
-Linux tests; its [live pairing/validation status](experiments/linux-adapter/README.md)
-is recorded separately. A native Windows adapter and OS print queues remain
+[Linux RFCOMM adapter](LINUX_ADAPTER.md) passes simulated socket jobs, ARM64
+Linux tests, and [two live read-only printer connections](experiments/linux-adapter/README.md).
+A native Windows adapter and OS print queues remain
 future work; this is not yet an installable
 general-purpose desktop print driver.
 

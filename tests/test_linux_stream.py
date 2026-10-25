@@ -14,6 +14,7 @@ from zink_probe.jobs import FramedSession, JobEngine, JobJournal, JobSpec
 from zink_probe.jobs.diagnostics import ReadOnlySession, inspect_printer
 from zink_probe.jobs.linux import (
     LinuxRfcommStream,
+    _new_socket,
     managed_objects,
     normalize_address,
     select_device,
@@ -635,11 +636,48 @@ def test_bluez_reads_only_object_manager_and_disconnects(monkeypatch, failure):
     run(case())
 
 
-def test_native_linux_dbus_message_without_bus_or_bluetooth():
+@pytest.mark.parametrize("missing", ["AF_BLUETOOTH", "BTPROTO_RFCOMM"])
+def test_python_build_without_bluetooth_fails_before_socket_creation(
+    monkeypatch, missing
+):
+    monkeypatch.setattr("zink_probe.jobs.linux.sys.platform", "linux")
+    monkeypatch.setattr(socket, "AF_BLUETOOTH", 31, raising=False)
+    monkeypatch.setattr(socket, "BTPROTO_RFCOMM", 3, raising=False)
+    monkeypatch.delattr(socket, missing)
+
+    def forbidden(*args):
+        pytest.fail("Unsupported Python must fail before socket creation")
+
+    monkeypatch.setattr(socket, "socket", forbidden)
+    with pytest.raises(
+        RuntimeError, match="Python build has no Linux RFCOMM.*distribution"
+    ):
+        _new_socket()
+
+
+def test_native_linux_dbus_message_without_bus_or_bluetooth(monkeypatch):
     if sys.platform != "linux":
         pytest.skip("Linux native dependency smoke check")
     dbus = pytest.importorskip("dbus_fast")
-    assert socket.AF_BLUETOOTH and socket.BTPROTO_RFCOMM
+    # Some hosted CPython builds omit Bluetooth at compile time. Validate that
+    # path explicitly; do not confuse a Linux runner with a Bluetooth build.
+    calls = []
+    marker = object()
+
+    def constructor(*args):
+        calls.append(args)
+        return marker
+
+    monkeypatch.setattr(socket, "socket", constructor)
+    if all(hasattr(socket, name) for name in ("AF_BLUETOOTH", "BTPROTO_RFCOMM")):
+        assert _new_socket() is marker
+        assert calls == [
+            (socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
+        ]
+    else:
+        with pytest.raises(RuntimeError, match="Python build has no Linux RFCOMM"):
+            _new_socket()
+        assert not calls
     message = dbus.Message(
         destination="org.bluez",
         path="/",

@@ -7,7 +7,7 @@ queue or a claim of physical printing through the portable engine.
 
 ## Install and check
 
-Use Python 3.11+ on Linux, a Bluetooth controller that supports BR/EDR (Classic),
+Use Python 3.11+ built with Bluetooth socket support on Linux, a Bluetooth controller that supports BR/EDR (Classic),
 BlueZ, and a printer already paired on that controller:
 
 ```sh
@@ -134,8 +134,12 @@ allocation attempt and no replay. These fixtures consume no paper.
 
 The [CI matrix](.github/workflows/ci.yml) runs the socket-facade tests on macOS,
 Linux and Windows with Python 3.11 and 3.14. Ubuntu additionally installs the
-Linux extra and checks native socket constants and D-Bus message construction,
-without a bus connection or Bluetooth hardware. Linux hardware validation and
+Linux extra and checks D-Bus message construction and the socket factory's
+handling of the installed Python's capabilities, without a bus connection or
+Bluetooth hardware. GitHub's tested Python 3.11/3.14 builds omit Bluetooth socket
+constants; CI verifies their explicit unsupported-build error. ColorBerry's
+distribution Python provides those constants and passed real RFCOMM checks.
+Linux hardware validation and
 its limits are recorded in [the experiment report](experiments/linux-adapter/README.md).
 
 ## Troubleshooting and remaining scope
@@ -150,7 +154,11 @@ its limits are recorded in [the experiment report](experiments/linux-adapter/REA
 - **Timeout / refused / unreachable:** check printer power, range and whether
   another app holds the connection. A failed job is not automatically replayed.
 - **No Bluetooth/RFCOMM support:** check the Linux kernel, controller, and Python
-  socket build. Successful simulation cannot supply missing radio hardware.
+  socket build. A Python build missing `socket.AF_BLUETOOTH` or
+  `socket.BTPROTO_RFCOMM` cannot use this adapter, even with working BlueZ. Use a
+  build with Bluetooth support, such as the distribution's Python. Installing
+  the Linux pip extra cannot add missing compiled-in socket support. Successful
+  simulation cannot supply missing radio hardware.
 
 BLE discovery, automatic pairing, dynamic SDP channel selection, Windows native
 transport, OS queues and IPP/PAPPL integration remain separate work. Physical

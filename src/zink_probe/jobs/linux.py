@@ -139,7 +139,10 @@ def _new_socket():
     if sys.platform != "linux":
         raise RuntimeError("The Linux RFCOMM socket adapter requires Linux")
     if not all(hasattr(socket, key) for key in ("AF_BLUETOOTH", "BTPROTO_RFCOMM")):
-        raise RuntimeError("This Python build has no Linux RFCOMM socket support")
+        raise RuntimeError(
+            "This Python build has no Linux RFCOMM socket support; use a Python "
+            "build with Bluetooth support (such as your distribution's Python)"
+        )
     return socket.socket(socket.AF_BLUETOOTH, socket.SOCK_STREAM, socket.BTPROTO_RFCOMM)
 
 

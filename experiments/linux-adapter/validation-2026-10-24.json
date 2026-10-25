@@ -14,6 +14,108 @@
         "ConnectionError: Printer is not known to BlueZ on the selected adapter; pair it first using the Linux Bluetooth settings"
       ],
       "successful_sessions": []
+    },
+    {
+      "trace_file": "linux-colorberry-paired-20261024.jsonl",
+      "trace_sha256": "13d22c62582acb1b9747db989164beaac461e6bd1ca54be0c11540608c5a0d63",
+      "date_utc": "2026-10-25",
+      "all_attempted_requests_read_only": true,
+      "request_count": 70,
+      "reply_count": 70,
+      "opcode_counts": {
+        "0x04": 26,
+        "0x08": 4,
+        "0x0A": 2,
+        "0x1A": 20,
+        "0x24": 2,
+        "0x28": 2,
+        "0x2A": 2,
+        "0x2C": 4,
+        "0x3A": 8
+      },
+      "attempted_tx_bytes": 532,
+      "pending_request_at_end": null,
+      "errors": [],
+      "successful_sessions": [
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": null,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        },
+        {
+          "firmware": "G1L1FA2105AR",
+          "super_model": 18643,
+          "max_message": 1000,
+          "capability_bytes": 227,
+          "pages": [
+            12,
+            12
+          ],
+          "calibrations": [
+            2,
+            2
+          ],
+          "status": {
+            "system_flags": 0,
+            "print_status_code": 1,
+            "battery_percent": 100,
+            "print_progress_percent": 0,
+            "current_job_id": 0,
+            "battery_status_code": 2,
+            "queue_status_code": 1,
+            "number_of_hosts": 1,
+            "print_status": "idle",
+            "battery_status": "charging",
+            "queue_status": "empty",
+            "system_flag_labels": [],
+            "system_flags_unknown_mask": 0
+          },
+          "configuration_unchanged": true,
+          "counters_unchanged": true,
+          "transport": {
+            "mtu": null,
+            "native_writes": 35,
+            "tx_bytes": 266,
+            "rx_bytes": 870,
+            "closed": true,
+            "close_error": null
+          }
+        }
+      ]
     }
   ]
 }
