@@ -40,11 +40,19 @@ received numeric-comparison method 3 with remote no-input/no-output capability
 3 and authentication requirements 4. It allowed only that target's Just Works
 confirmation; it did not guess a PIN or accept unrelated devices. The first
 attempt returned Windows error **1244 (`ERROR_NOT_AUTHENTICATED`)**, and the
-printer remained unpaired. Discovery or authentication traffic can be observed
+printer remained unpaired. One further bounded setup attempt with callback
+logging reached the same method/capability exchange and failed with the same
+code. The user was asked to try the normal Windows pairing UI; neither attempt
+establishes a cause for the authentication failure. Discovery or authentication
+traffic can be observed
 by the printer; no conclusion about its wake cause follows from that alone.
 
-Raw identifiers, discovery logs and protocol traces remain private. Pairing
-success and real-printer read-only results, if obtained, are recorded below.
+The [sanitized frame audit](validation-2026-10-25.json) records the preflight
+refusal and zero transmitted protocol frames. Raw identifiers, discovery logs
+and protocol traces remain private. A final cached-state check still reported
+the Select unpaired. **Real Windows-to-printer application communication has
+not yet been validated.** The remaining prerequisite is a successful Windows
+pairing, followed by the existing two-session read-only command.
 Physical printing, bulk upload throughput and mid-print loss remain unvalidated.
 
 ## Software checks
@@ -54,6 +62,16 @@ The skips are the Linux-only and Windows-only native dependency checks. Surface
 adds actual ARM64 Windows execution and native interface evidence. The CI matrix
 runs the portable tests on macOS, Linux and Windows with Python 3.11 and 3.14;
 Windows additionally executes the native DLL smoke test in the regular suite.
+
+All six CI jobs passed for implementation commit `8c6ca18` in
+[GitHub Actions run 40171627043](https://github.com/qayshp/zink-probe/actions/runs/40171627043):
+macOS, Ubuntu and Windows, each with Python 3.11 and 3.14. Windows passed 567
+tests with three platform/dependency skips; the other portable suites passed
+566 with four skips. After installing the platform extras, macOS passed two
+additional native-binding checks and Linux passed its D-Bus/Python-capability
+check. Every job also passed the eight earlier image-research tests, eleven
+calibration transcript tests, both simulated-job CLI runs, offline image
+preparation/preview and wheel building. Local dependency consistency also passed.
 
 The socket facade replaces only Bluetooth bind/connect and cached metadata;
 real local sockets carry requests and replies. Simulated jobs reconstruct both
