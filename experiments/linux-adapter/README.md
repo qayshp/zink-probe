@@ -117,3 +117,14 @@ socket/bind and real-printer evidence above.
 Final local verification: **528 passed, 1 skipped** on macOS, **43 Linux adapter
 tests passed** on ColorBerry, lint/format checks passed, and installed dependency
 consistency passed. The macOS skip is the Linux-only dependency smoke check.
+
+All six hosted jobs passed for implementation commit `f6de580` in
+[GitHub Actions run 40170143042](https://github.com/qayshp/zink-probe/actions/runs/40170143042):
+macOS, Ubuntu and Windows, each with Python 3.11 and 3.14. Each portable suite
+passed 526 tests with three platform/dependency skips. After installing the
+platform extra, macOS additionally passed its two native binding tests and Linux
+passed its D-Bus/Python-capability test. Every job also passed the eight earlier
+image-research tests, eleven bounded calibration transcript tests, both CLI
+simulations, offline preparation/preview and wheel building. The hosted Windows
+jobs exercise portable code and simulated Linux sockets, not native Windows
+Bluetooth communication.
