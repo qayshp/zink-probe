@@ -44,7 +44,7 @@ if (!(Test-Path $venvPython)) {
     & $Python -m venv (Join-Path $Root 'venv')
     if ($LASTEXITCODE) { throw 'Python environment creation failed.' }
 }
-& $venvPython -m pip install --upgrade "$Wheel[images]"
+& $venvPython -m pip install --upgrade --force-reinstall "$Wheel[images]"
 if ($LASTEXITCODE) { throw 'Python package installation failed.' }
 $existingTask = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
 if ($existingTask) {
@@ -55,7 +55,7 @@ if ($existingTask) {
 if (Get-NetTCPConnection -State Listen -LocalPort $Port -ErrorAction SilentlyContinue) { throw 'The chosen local port is still in use.' }
 $bin = Join-Path $Root 'bin'
 New-Item -ItemType Directory -Force $bin | Out-Null
-Copy-Item (Join-Path $NativeDirectory '*') $bin -Force
+Copy-Item (Join-Path $NativeDirectory '*') $bin -Recurse -Force
 foreach ($directory in @($data, "$data/incoming", "$data/jobs", "$data/spool")) { New-Item -ItemType Directory $directory | Out-Null }
 $config = @{schema=1; mode=$Mode.ToLowerInvariant(); data_dir=$data; transport='auto'}
 if ($Mode -eq 'Live') {
@@ -81,7 +81,13 @@ for ($i=0; $i -lt 20; $i++) {
 }
 if (!$ready) { throw "Bridge did not listen on loopback; inspect $data/bridge.log and scheduled task result." }
 $uri = "http://127.0.0.1:$Port/ipp/print"
-Add-Printer -Name $queueName -IppURL $uri
-if ($Mode -eq 'Live' -and $old) { Remove-Printer -Name $old.Name }
+if ($Mode -eq 'Live' -and $old) {
+    # Windows deduplicates an existing IPP endpoint even with a different name.
+    # The checked-empty capture queue can retain its native port and be renamed;
+    # PAPPL/worker data above is a fresh live queue with no captured jobs.
+    Rename-Printer -Name $old.Name -NewName $queueName
+} else {
+    Add-Printer -Name $queueName -IppURL $uri
+}
 Get-Printer -Name $queueName | Select-Object Name,DriverName,PortName,PrinterStatus
 Write-Output "Mode: $Mode. Local data: $data. No print job was submitted by this installer."

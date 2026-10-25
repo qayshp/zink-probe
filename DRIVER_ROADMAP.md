@@ -88,17 +88,20 @@ enabled from one photographed chart.
 
 ## OS print queues and later integration
 
-After the shared engine and transport adapters are proven, add a spooler/service
-front end so ordinary applications can reach it through an OS print queue or IPP.
-PAPPL remains a later integration target, with host/platform suitability checked
-at that milestone. Queue integration should translate documents/jobs into the
-same preparation and submission interfaces, not duplicate protocol logic.
+The first [Windows queue](WINDOWS_PRINT_QUEUE.md) is implemented with Microsoft's
+IPP Class Driver and a per-user local PAPPL process. Windows renders application
+pages to sRGB raster; a bounded subprocess passes them through the existing
+preparation and durable submission interfaces. Surface's portrait/landscape
+capture jobs validate the actual OS spooler path without Bluetooth writes, and
+a two-page job is rejected before dispatch. Physical Windows-queue printing is
+still unvalidated. Native macOS/Linux builds, service installation and queue
+registration are the next integration milestone.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With all three adapters' read-only hardware milestones
-complete and the unified CLI implemented, the next software step is portable
-discovery and persistent printer profiles, followed by packaging and queue
-integration design. Existing simulated jobs cover transfer and failure behavior
+complete and the unified CLI implemented, the next software steps are queue
+packaging and native macOS/Linux installation, followed by portable discovery
+and friendlier printer profiles. Existing simulated jobs cover transfer and failure behavior
 without paper. Printing through each new adapter/engine remains a separately
 authorized physical acceptance test; do not spend a sheet as an implicit part of
 discovery, packaging or CI.

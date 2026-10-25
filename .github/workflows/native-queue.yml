@@ -42,6 +42,7 @@ jobs:
           Get-ChildItem build-pappl/vcnet/packages -Recurse -Filter *.dll | Where-Object { $_.FullName -match '\\bin\\x64\\(?:v142\\)?Release\\' } | Copy-Item -Destination native-dist
           Copy-Item build-pappl/LICENSE native-dist/PAPPL-LICENSE.txt
           Copy-Item build-pappl/NOTICE native-dist/PAPPL-NOTICE.txt
+          Copy-Item native/licenses native-dist/licenses -Recurse
           # Preserve all dependency license/notice files alongside their DLLs.
           Get-ChildItem build-pappl/vcnet/packages -Recurse -File | Where-Object { $_.Name -match '(?i)^(license|copying|notice)' } | ForEach-Object {
             $relative = $_.FullName.Substring((Resolve-Path build-pappl/vcnet/packages).Path.Length + 1)

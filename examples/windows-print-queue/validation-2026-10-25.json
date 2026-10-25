@@ -1,0 +1,57 @@
+{
+  "date": "2026-10-25",
+  "platform": "Windows ARM64 on Surface",
+  "architecture": {
+    "ipp_frontend": "x64 PAPPL under Windows ARM64 emulation",
+    "python": "native ARM64 Python 3.12",
+    "windows_driver": "Microsoft IPP Class Driver (Windows ARM64)"
+  },
+  "pappl_revision": "02050bdbd4b3e610180c0433f47b7bf2c4569e44",
+  "native_build_revision": "de88d6d63e3ee8bf5ce1484341b484fa164a06ad",
+  "installed_executable_sha256": "8427fa696b173f43faecbcd42385d0161c03ad09bc872c0fb3ca961f4abc1528",
+  "native_ci": "https://github.com/qayshp/zink-probe/actions/runs/40178742537",
+  "portable_ci_all_six_jobs_passed": "https://github.com/qayshp/zink-probe/actions/runs/40178742536",
+  "local_tests": {"passed": 639, "skipped": 2, "new_worker_tests": 18},
+  "native_capture_smoke_on_ci_and_surface": {
+    "real_http_ipp_endpoint": true,
+    "normal_90_420": true,
+    "high_100_444": true,
+    "two_copies_rejected": true,
+    "bluetooth_opened": false
+  },
+  "windows_spooler_capture": {
+    "portrait": "passed",
+    "landscape": "passed",
+    "two_page_document": "whole job aborted before worker dispatch",
+    "input_raster": [1370, 2055],
+    "output_jpeg": [768, 1152],
+    "repeat_after_final_native_update": "same successful portrait/landscape captures and two-page rejection",
+    "bluetooth_opened": false,
+    "restart": {"completed_captures_before": 4, "completed_captures_after": 4, "replayed": false}
+  },
+  "read_only_printer_check": {
+    "outcome": "connection timeout before protocol exchange",
+    "windows_error": 10060,
+    "protocol_frames": 0,
+    "current_physical_readiness": "unconfirmed",
+    "earlier_windows_read_only_success": "See experiments/windows-adapter/README.md"
+  },
+  "installed_final_state": {
+    "name": "HP Sprocket Select",
+    "valid_and_listed_for_windows_applications": true,
+    "media": "58x87mm",
+    "listener": "127.0.0.1:8631",
+    "task": "ZinkProbe-Select",
+    "task_running_and_logon_trigger_present": true,
+    "mode": "live",
+    "windows_jobs": 0,
+    "pappl_active_jobs": 0,
+    "live_worker_jobs": 0,
+    "incoming_rasters": 0,
+    "expected_device_identity_configured": true,
+    "capture_jobs_replayed_into_live_queue": false
+  },
+  "physical_prints_in_this_milestone": 0,
+  "physical_windows_queue_printing_validated": false,
+  "macos_linux_native_queue_installers": "future work"
+}

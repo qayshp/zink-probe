@@ -12,9 +12,11 @@ validated with read-only hardware checks and simulated jobs. A new
 Linux tests, and [two live read-only printer connections](experiments/linux-adapter/README.md).
 A [Windows RFCOMM adapter](WINDOWS_ADAPTER.md) passes simulated jobs, native
 ARM64 Windows checks, and [two live read-only Select connections](experiments/windows-adapter/README.md).
-All three adapters now have read-only hardware evidence. OS print queues remain
-future work; this is not yet an installable
-general-purpose desktop print driver.
+All three adapters now have read-only hardware evidence. An experimental
+[Windows File → Print queue](WINDOWS_PRINT_QUEUE.md) now uses Microsoft's IPP
+Class Driver, a local PAPPL frontend and the same portable engine. Capture-mode
+Windows spooler checks consume no paper. Physical printing through the new queue
+remains unvalidated; native macOS/Linux queue installation is still future work.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
 orientation, ICC-to-sRGB conversion, centered fit/fill previews and JPEG quality /
@@ -23,7 +25,7 @@ same three-platform CI matrix. See the [committed preview example](examples/imag
 
 This is a separate project because the reference HP implementation is an Android
 photo-booth app, while the eventual goal here is a reusable desktop printer backend
-and later PAPPL integration. Xiaomi and Canon use different protocols. Their drivers
+and a shared PAPPL queue frontend. Xiaomi and Canon use different protocols. Their drivers
 are references, not dependencies. The parent `zink` directory holds those independent
 repositories; this repository owns only `zink-probe`.
 
