@@ -12,6 +12,8 @@ was rejected by the frontend before any worker ran. No Bluetooth session or
 physical print occurred. The default printer was not changed, and the queue is
 not shared with other machines. macOS system-queue installation remains separate.
 
+See the [captured previews and recorded validation](examples/linux-print-queue/README.md).
+
 ## Important status limitation before live Linux printing
 
 The frontend recorded the two-page job as **aborted** (IPP state 8), with no

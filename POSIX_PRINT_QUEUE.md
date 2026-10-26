@@ -1,18 +1,22 @@
 # macOS and Linux native queue foundation
 
 2026-10-26. The same PAPPL frontend used on Windows now has a reproducible
-macOS/Linux build and capture-only integration checks. This is the foundation
-for File → Print on these platforms. It does **not** yet install a macOS or Linux
-system printer, launch agent, or user service. The existing Python Bluetooth
-adapters are unchanged; these tests never connect to a printer.
+macOS/Linux build and capture-only integration checks. A subsequent
+[Linux capture milestone](LINUX_PRINT_QUEUE.md) now installs a user service and
+system CUPS queue on ColorBerry and validates actual PDF spooling. macOS system
+queue/launch-agent installation remains future work. The build script itself
+does not install either OS queue. Existing Python Bluetooth adapters are
+unchanged; these tests never connect to a printer.
 
 ## Build in a private directory
 
 Use Python 3.11+, a C compiler, make, Git, tar and pkg-config. On macOS, install
 Homebrew `pkgconf jpeg-turbo libpng openssl@3`. On Debian/Ubuntu, install
 `build-essential pkg-config libavahi-client-dev libjpeg-dev libpng-dev libssl-dev
-zlib1g-dev`. The Linux development host was unavailable for this milestone;
-the native Linux build is exercised on Ubuntu in CI.
+zlib1g-dev`. The Linux development host was unavailable for the initial build
+milestone. It subsequently became available: native ARM64 builds and actual
+CUPS capture/service checks now have [ColorBerry evidence](examples/linux-print-queue/README.md),
+alongside the Ubuntu CI build.
 
 Obtain the upstream source repositories and build an isolated snapshot:
 
@@ -95,9 +99,10 @@ preparation, simulated job lifecycles, regression fixtures and wheel builds.
 
 ## Next integration work
 
-1. Add capture-first per-user service/queue installers: launchd plus the macOS
-   print system, and a user service plus CUPS on Linux. Preserve separate layout
-   profiles and share one durable journal when both eventually become live.
+1. Complete the Linux capture integration by resolving its documented CUPS
+   failure-reporting mismatch. Add a capture-first macOS launchd/print-system
+   installer. Preserve separate layout profiles and share one durable journal
+   when both eventually become live.
 2. Validate actual OS-rendered pages, orientation, media/quality selection,
    cancellation, restart recovery and job retention through those queues.
 3. Package native dependencies and platform permissions. Keep queue availability

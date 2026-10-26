@@ -102,10 +102,13 @@ a two-page job is rejected before dispatch. A subsequent user-submitted photo
 physically printed at quality 100 / 4:4:4, with acknowledged transfer, printing
 observed, one-page counter increment and return to idle. [Native macOS/Linux builds](POSIX_PRINT_QUEUE.md)
 now pass both-layout capture and bounded cancellation tests locally/on CI, using
-private PAPPL/libcups builds without changing system CUPS. User services, OS queue
-registration and application-to-spooler validation remain the next integration
-milestone on those platforms. Linux host ColorBerry was unreachable during this
-build milestone, so its native frontend has not been deployed there.
+private PAPPL/libcups builds without replacing system CUPS libraries. ColorBerry
+subsequently became reachable and now has an ARM64 build, user service and
+[capture-only CUPS queue](LINUX_PRINT_QUEUE.md). Actual PDF spooler captures,
+two-page rejection and idle-service restart checks passed without Bluetooth.
+CUPS nevertheless reports the rejected job as completed; resolving that mismatch
+is required before live Linux activation. macOS service/queue installation and
+desktop-application UI validation remain outstanding.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With all three adapters' read-only hardware milestones

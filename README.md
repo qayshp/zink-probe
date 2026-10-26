@@ -20,7 +20,10 @@ now validates the basic queue-to-paper path at quality 100 / 4:4:4. A separate
 [Preserve edges capture queue](examples/windows-preserve-edges/README.md) is
 installed and validated on Surface without changing the existing borderless queue.
 The [native macOS/Linux frontend](POSIX_PRINT_QUEUE.md) now builds and passes
-offline capture/cancellation tests; OS queue installation is still future work.
+offline capture/cancellation tests. A [Linux capture queue](LINUX_PRINT_QUEUE.md)
+is installed on ColorBerry and validated through CUPS; a failure-reporting
+mismatch remains to resolve before live Linux printing. macOS OS-queue
+installation is still future work.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
 orientation, ICC-to-sRGB conversion, centered layout previews and JPEG quality /

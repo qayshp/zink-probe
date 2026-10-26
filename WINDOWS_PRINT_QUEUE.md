@@ -200,8 +200,9 @@ spooler test is separate from that CI evidence.
 The [native macOS/Linux build and capture tests](POSIX_PRINT_QUEUE.md) now use
 the same IPP frontend, preparation and job engine. Both platform builds pass
 loopback raster/preparation and cancellation tests. Next install the correct
-user service and register a local IPP queue with each platform's print system.
-Validate actual OS raster output, color, page size, cancellation and restart
-recovery before a separately authorized sheet. Linux requires BlueZ;
-macOS requires its existing IOBluetooth/PyObjC backend. These queue installers
-are not implemented by the Windows milestone.
+user service and register a local IPP queue with macOS's print system. A subsequent
+[Linux capture milestone](LINUX_PRINT_QUEUE.md) now installs a user service and
+CUPS queue on ColorBerry, with actual PDF captures and restart checks. Its
+documented failure-status mismatch must be resolved before live Linux printing.
+Validate remaining OS behavior and recovery before a separately authorized sheet.
+Linux uses BlueZ; macOS uses its existing IOBluetooth/PyObjC backend.

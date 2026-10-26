@@ -1,0 +1,227 @@
+{
+  "date": "2026-10-26",
+  "host": "ColorBerry",
+  "os": "Debian 12",
+  "architecture": "aarch64",
+  "python": "3.11.2",
+  "mode": "capture",
+  "queue": "HP_Sprocket_Select_Preserve_Edges_Capture",
+  "implementation_commit": "d9af97a4aebdc264388e8df6fba916e720c0616e",
+  "native_source_commit": "7c37a9d7e2d26b2e65e1e365a90fd382c6010d2a",
+  "native_build": {
+    "platform": "Linux",
+    "architecture": "aarch64",
+    "pappl_revision": "02050bdbd4b3e610180c0433f47b7bf2c4569e44",
+    "libcups_revision": "f7888eacb576dc13d954c11d0af57af71af3d4a9",
+    "binary_sha256": "78ac89b9a6e3b86feea77b24a01d86c18e9754e9de2116e7a4386740e6284898",
+    "linking": "static PAPPL/libcups; system/package-manager image, TLS and OS libraries",
+    "system_cups_modified": false,
+    "queue_installed": false
+  },
+  "local_listener": "127.0.0.1:8632",
+  "cups_shared": false,
+  "default_printer_changed": false,
+  "captures": [
+    {
+      "state": "captured",
+      "source_size": [
+        1370,
+        2055
+      ],
+      "jpeg_bytes": 36174,
+      "sha256": "02fea8ac93cc8a9816dddd3ca75b0922127091f32fdf03ece97c746453a56d89",
+      "encoding": {
+        "width": 768,
+        "height": 1152,
+        "precision": 8,
+        "sampling": "4:4:4",
+        "progressive": false,
+        "quantization_all_ones": true,
+        "declared_encoder_quality": 100
+      },
+      "bluetooth_opened": false,
+      "orientation": "landscape",
+      "geometry": {
+        "mode": "preserve-edges",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.4905109489051095,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          1370.0,
+          2055.0
+        ],
+        "scaled_image_box": [
+          48.0,
+          72.0,
+          720.0,
+          1080.0
+        ],
+        "padding_pixels": {
+          "left": 48.0,
+          "right": 48.0,
+          "top": 72.0,
+          "bottom": 72.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "artifacts": {
+        "landscape.jpg": "02fea8ac93cc8a9816dddd3ca75b0922127091f32fdf03ece97c746453a56d89",
+        "landscape.png": "8d62047aaf4738f3ec36ca7b6012694960fa30a62e4fb5fae9a003f40a69e06d",
+        "landscape-safe-area.png": "f74698eac276ee39e8ce2e6888ce3aed011ea5fa44857d0736ab2800a3eb7dcb"
+      }
+    },
+    {
+      "state": "captured",
+      "source_size": [
+        1370,
+        2055
+      ],
+      "jpeg_bytes": 38175,
+      "sha256": "ce1a3817588203ea95087e4dbf1ee4f8eb2efbea85e342fc8fddb54dc858c4b9",
+      "encoding": {
+        "width": 768,
+        "height": 1152,
+        "precision": 8,
+        "sampling": "4:4:4",
+        "progressive": false,
+        "quantization_all_ones": true,
+        "declared_encoder_quality": 100
+      },
+      "bluetooth_opened": false,
+      "orientation": "portrait",
+      "geometry": {
+        "mode": "preserve-edges",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.4905109489051095,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          1370.0,
+          2055.0
+        ],
+        "scaled_image_box": [
+          48.0,
+          72.0,
+          720.0,
+          1080.0
+        ],
+        "padding_pixels": {
+          "left": 48.0,
+          "right": 48.0,
+          "top": 72.0,
+          "bottom": 72.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "artifacts": {
+        "portrait.jpg": "ce1a3817588203ea95087e4dbf1ee4f8eb2efbea85e342fc8fddb54dc858c4b9",
+        "portrait.png": "2d728e3073fbad1f64c92e1c908eecf7f85f001cf0863b7aca886cdf8c5b4718",
+        "portrait-safe-area.png": "e92d9e6b16d0f4682342f15d3f4637873d0d7f0533b08a2cf37e1441cf04c8bd"
+      }
+    }
+  ],
+  "preexisting_captures_from_initial_reporting_timeout": 1,
+  "native_job_states": [
+    8,
+    9,
+    9,
+    9
+  ],
+  "cups_job_states_in_submission_order": [
+    9,
+    9,
+    9
+  ],
+  "two_page_rejected_before_worker": true,
+  "rejection_visible_as_cups_failure": false,
+  "restart": {
+    "service_restarted": true,
+    "pid_changed": true,
+    "capture_files_unchanged": true,
+    "files_checked": 19,
+    "observation_seconds": 5,
+    "native_job_states_after_restart": [
+      8,
+      9,
+      9,
+      9
+    ],
+    "active_cups_jobs": 0,
+    "service_enabled": true,
+    "service_active": true,
+    "bluetooth_opened": false
+  },
+  "direct_ipp_smoke": [
+    {
+      "native_start": true,
+      "loopback_ipp": true,
+      "media": "58x87mm",
+      "copies_2_rejected": true,
+      "jobs": [
+        {
+          "ipp_job": 1,
+          "quality": 4,
+          "state": "completed-in-capture-mode"
+        },
+        {
+          "ipp_job": 2,
+          "quality": 5,
+          "state": "completed-in-capture-mode"
+        }
+      ],
+      "bluetooth_opened": false,
+      "preparation_mode": "fill"
+    },
+    {
+      "native_start": true,
+      "loopback_ipp": true,
+      "media": "58x87mm",
+      "copies_2_rejected": true,
+      "jobs": [
+        {
+          "ipp_job": 1,
+          "quality": 4,
+          "state": "completed-in-capture-mode"
+        },
+        {
+          "ipp_job": 2,
+          "quality": 5,
+          "state": "completed-in-capture-mode"
+        }
+      ],
+      "bluetooth_opened": false,
+      "preparation_mode": "preserve-edges"
+    }
+  ],
+  "cancellation_smoke": [
+    {
+      "state": "canceled",
+      "worker_reaped": true,
+      "worker_ignored_sigterm": false,
+      "cancel_seconds": 0.261,
+      "raw_retained": true,
+      "bluetooth_opened": false,
+      "worker": "fake sleeper; no protocol or printer access"
+    },
+    {
+      "state": "canceled",
+      "worker_reaped": true,
+      "worker_ignored_sigterm": true,
+      "cancel_seconds": 2.044,
+      "raw_retained": true,
+      "bluetooth_opened": false,
+      "worker": "fake sleeper; no protocol or printer access"
+    }
+  ],
+  "physical_prints": 0,
+  "bluetooth_opened": false
+}
