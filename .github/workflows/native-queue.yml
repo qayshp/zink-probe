@@ -6,6 +6,59 @@ on:
 permissions:
   contents: read
 jobs:
+  posix:
+    name: ${{ matrix.os }} native capture
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.14'
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: michaelrsweet/pappl
+          ref: 02050bdbd4b3e610180c0433f47b7bf2c4569e44
+          path: build-pappl
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          repository: OpenPrinting/libcups
+          ref: f7888eacb576dc13d954c11d0af57af71af3d4a9
+          path: build-libcups
+      - name: Install macOS build dependencies
+        if: runner.os == 'macOS'
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: '1'
+          HOMEBREW_NO_INSTALL_CLEANUP: '1'
+        run: brew install pkgconf jpeg-turbo libpng openssl@3
+      - name: Install Linux build dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential pkg-config libavahi-client-dev libjpeg-dev libpng-dev libssl-dev zlib1g-dev
+      - name: Build private static PAPPL and libcups libraries and native bridge
+        run: python native/build_posix.py --pappl-source build-pappl --cups-source build-libcups --output logs/posix-build
+      - name: Exercise both native layouts without a printer
+        run: |
+          python -m pip install '.[images]'
+          python native/smoke.py logs/posix-build/zink-ipp logs/posix-smoke
+          python native/cancel_smoke.py logs/posix-build/zink-ipp logs/posix-cancel
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: native-capture-${{ matrix.os }}
+          path: |
+            logs/posix-build/build.log
+            logs/posix-build/build-info.json
+            logs/posix-build/zink-ipp
+            logs/posix-build/licenses/
+            logs/posix-smoke/
+            logs/posix-cancel/
+          retention-days: 14
   windows:
     runs-on: windows-latest
     timeout-minutes: 20

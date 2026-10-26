@@ -18,7 +18,12 @@
 #else
 #  include <unistd.h>
 #  include <sys/wait.h>
+#  include <errno.h>
+#  include <signal.h>
+#  include <spawn.h>
+#  include <time.h>
 #  define O_BINARY 0
+extern char **environ;
 #endif
 
 static const char *python_exe, *config_path, *jobs_dir;
@@ -69,15 +74,35 @@ static int run_worker(pappl_job_t *job, const char *path, const char *key, int q
   CloseHandle(process.hThread); CloseHandle(process.hProcess);
   return (int)result;
 #else
-  pid_t pid = fork();
-  int status;
-  if (pid == 0) {
-    execl(python_exe, python_exe, "-m", "zink_probe.ipp_worker", "--config", config_path,
-          "--input", path, "--job-key", key, "--quality", q, (char *)NULL);
-    _exit(127);
+  pid_t pid, waited;
+  int status = 0;
+  struct timespec start, now, delay = {0, 100000000};
+  char *arguments[] = {(char *)python_exe, "-m", "zink_probe.ipp_worker", "--config",
+                      (char *)config_path, "--input", (char *)path, "--job-key",
+                      (char *)key, "--quality", q, NULL};
+  /* PAPPL is multithreaded. Spawn directly without a shell or post-fork work,
+   * and bound cancellation/deadline handling just as on Windows. */
+  if (clock_gettime(CLOCK_MONOTONIC, &start) ||
+      posix_spawn(&pid, python_exe, NULL, NULL, arguments, environ)) return 1;
+  for (;;) {
+    waited = waitpid(pid, &status, WNOHANG);
+    if (waited == pid) return WIFEXITED(status) ? WEXITSTATUS(status) : 3;
+    if (waited < 0 && errno != EINTR) return 3;
+    if (papplJobIsCanceled(job) || clock_gettime(CLOCK_MONOTONIC, &now) ||
+        now.tv_sec - start.tv_sec >= 360) break;
+    nanosleep(&delay, NULL);
   }
-  if (pid < 0 || waitpid(pid, &status, 0) != pid || !WIFEXITED(status)) return 1;
-  return WEXITSTATUS(status);
+  /* No retry, cleanup of claims or assumption that cancellation retracts a
+   * device job. Give Python a short grace period, then reap a forced stop. */
+  kill(pid, SIGTERM);
+  for (unsigned i = 0; i < 20; i++) {
+    waited = waitpid(pid, &status, WNOHANG);
+    if (waited == pid || (waited < 0 && errno != EINTR)) return 3;
+    nanosleep(&delay, NULL);
+  }
+  kill(pid, SIGKILL);
+  while (waitpid(pid, &status, 0) < 0 && errno == EINTR) {}
+  return 3;
 #endif
 }
 
