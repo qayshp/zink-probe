@@ -1,0 +1,19 @@
+name: iOS accessory probe build
+on:
+  push:
+    paths: ['ios/**', '.github/workflows/ios-probe.yml']
+  pull_request:
+    paths: ['ios/**', '.github/workflows/ios-probe.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile for iPhone (no signing or device access)
+        run: >-
+          xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj
+          -scheme SelectAccessoryProbe -destination 'generic/platform=iOS'
+          -derivedDataPath build/ios-probe CODE_SIGNING_ALLOWED=NO build

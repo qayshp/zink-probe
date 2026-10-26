@@ -364,6 +364,8 @@ See [INVESTIGATION.md](INVESTIGATION.md) for the time-bounded follow-up, source
 provenance, firmware counters, and the complete capability-table findings.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
+See [ios/README.md](ios/README.md) for the independent, read-only iPhone accessory
+probe. It tests advertised session access without sending printer commands.
 
 See [NAMING_AND_DEVICE_FAMILIES.md](NAMING_AND_DEVICE_FAMILIES.md) for confirmed,
 probable, and unknown acronym meanings, resolved app profiles, and future device
