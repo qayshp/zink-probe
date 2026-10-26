@@ -1,8 +1,8 @@
 # Path to a Select driver for macOS, Linux and Windows
 
-Updated 2026-10-25. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
+Updated 2026-10-26. The [portable job engine and simulator](PORTABLE_JOB_ENGINE.md)
 are implemented with three-OS CI. One Select has physical communication evidence
-on macOS and two successful calibration sheets, CAL-02 and CAL-03. Native
+on macOS and two successful calibration sheets, CAL-02 and CAL-03.
 One [Windows queue photo](examples/windows-print-queue/FIRST_PRINT.md) has now
 printed through the portable engine at quality 100 / 4:4:4. Linux physical
 printing remains unvalidated. The original diagnostic CLI is gated
@@ -82,7 +82,8 @@ An opt-in [Preserve edges policy](PRESERVE_EDGES.md) now fits inside a conservat
 48-pixel inset and shows a preview-only guide. One sheet's asymmetric offsets are
 not hard-coded as universal mechanical correction. Digital fit/padding does not
 promise lossless physical edge retention. The optional second Windows queue is
-implemented for later installation; it has not been deployed or physically printed.
+now [installed on Surface in capture mode](examples/windows-preserve-edges/README.md)
+and validated through the actual Windows spooler. It has not physically printed.
 
 The [unified CLI](UNIFIED_CLI.md) now exposes offline prepare/preview, saved job
 plans, status, explicit single-job submission and read-only reconciliation.
@@ -99,8 +100,12 @@ preparation and durable submission interfaces. Surface's portrait/landscape
 capture jobs validate the actual OS spooler path without Bluetooth writes, and
 a two-page job is rejected before dispatch. A subsequent user-submitted photo
 physically printed at quality 100 / 4:4:4, with acknowledged transfer, printing
-observed, one-page counter increment and return to idle. Native macOS/Linux builds, service installation and queue
-registration are the next integration milestone.
+observed, one-page counter increment and return to idle. [Native macOS/Linux builds](POSIX_PRINT_QUEUE.md)
+now pass both-layout capture and bounded cancellation tests locally/on CI, using
+private PAPPL/libcups builds without changing system CUPS. User services, OS queue
+registration and application-to-spooler validation remain the next integration
+milestone on those platforms. Linux host ColorBerry was unreachable during this
+build milestone, so its native frontend has not been deployed there.
 
 CAL-03 has printed at quality 100 / 4:4:4 with B / TWO leading. Appearance analysis
 can proceed separately. With all three adapters' read-only hardware milestones

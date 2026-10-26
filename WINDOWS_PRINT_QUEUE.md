@@ -23,7 +23,10 @@ loss remains possible, just as in the original app. This integration does not
 apply an automatic crop/thermal/color correction. An optional
 [Preserve edges queue](PRESERVE_EDGES.md#windows-file--print-option) now insets the
 whole rendered page on white, while the original queue keeps borderless fill.
-That second queue is implemented but has not been installed on Surface or printed.
+That second queue is now installed on Surface **in capture mode only** as
+**HP Sprocket Select (Preserve edges) (capture)**. Its portrait/landscape Windows
+spooler checks passed; see the [installation evidence and previews](examples/windows-preserve-edges/README.md).
+It saves prepared pages locally and has not physically printed.
 
 | Standard quality selection | JPEG produced by the worker |
 | --- | --- |
@@ -137,8 +140,10 @@ Live activation uses the same flag plus `-Mode Live -DeviceConfig ...`; it
 requires an existing borderless Live configuration for the same printer so both
 layouts share its durable job journal. Do not create independent journals for
 two queues targeting the same printer. Detailed placement and preview limitations
-are in [Preserve edges](PRESERVE_EDGES.md). This milestone does not deploy either
-profile or authorize any print.
+are in [Preserve edges](PRESERVE_EDGES.md). The Preserve edges profile was deployed
+to Surface in Capture mode on 2026-10-26, keeping the existing live borderless
+queue unchanged. Its failed synthetic multi-page queue item was removed after
+validation; diagnostic files remain private. Live activation has not been done.
 
 ## Private records and recovery
 
@@ -190,12 +195,13 @@ checks media/copy/format capabilities, and rejects two copies. Portable worker
 tests run with the existing macOS/Linux/Windows matrix. Surface's actual Windows
 spooler test is separate from that CI evidence.
 
-## macOS and Linux next
+## macOS and Linux foundation
 
-Keep the same IPP frontend, preparation and job engine. Next build/link the native
-PAPPL frontend on each platform, install it with the correct user service and
-Bluetooth permissions, and register a local IPP queue with the platform's print
-system. Validate actual OS raster output, color, page size, cancellation and
-restart recovery before a separately authorized sheet. Linux requires BlueZ;
+The [native macOS/Linux build and capture tests](POSIX_PRINT_QUEUE.md) now use
+the same IPP frontend, preparation and job engine. Both platform builds pass
+loopback raster/preparation and cancellation tests. Next install the correct
+user service and register a local IPP queue with each platform's print system.
+Validate actual OS raster output, color, page size, cancellation and restart
+recovery before a separately authorized sheet. Linux requires BlueZ;
 macOS requires its existing IOBluetooth/PyObjC backend. These queue installers
 are not implemented by the Windows milestone.

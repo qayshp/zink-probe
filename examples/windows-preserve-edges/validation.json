@@ -1,0 +1,147 @@
+{
+  "date": "2026-10-26",
+  "host": "Surface, Windows ARM64",
+  "mode": "capture",
+  "queue": "HP Sprocket Select (Preserve edges) (capture)",
+  "local_port": 8632,
+  "driver": "Microsoft IPP Class Driver",
+  "native_artifact_source_commit": "cfa380eefcbd9a537044dcc898c0da687515d6dd",
+  "native_artifact_run": 40222249266,
+  "wheel_source_commit": "82d0862b1388d2697a3cdfb01a2fe4ce6afd90b5",
+  "python": "Python 3.12.10",
+  "native_sha256": "47797d75b07f5c741fc8879d0de57a20a7c6b371d2ffc871f9bec420f24c2030",
+  "wheel_sha256": "ecf2e6af6d2bd576f13c14f6f453fef2c8b5882f4b3665e59c783f545ca1765f",
+  "unchanged_borderless_checks": {
+    "task": true,
+    "process": true,
+    "job_dirs": true,
+    "binaries": true,
+    "incoming": true,
+    "queue": true,
+    "journal_hash": true,
+    "config_hash": true
+  },
+  "capture_config_contains_device_identity": false,
+  "capture_journal_created": false,
+  "bluetooth_frames_present": false,
+  "jobs": [
+    {
+      "state": "captured",
+      "source_size": [
+        1370,
+        2055
+      ],
+      "jpeg_bytes": 29685,
+      "sha256": "540c2079e100c6a69a077b91a44aba5ecb5316309f233e42b5f19d0ff5587907",
+      "encoding": {
+        "width": 768,
+        "height": 1152,
+        "precision": 8,
+        "sampling": "4:2:0",
+        "progressive": false,
+        "quantization_all_ones": false,
+        "declared_encoder_quality": 90
+      },
+      "bluetooth_opened": false,
+      "orientation": "portrait",
+      "geometry": {
+        "mode": "preserve-edges",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.4905109489051095,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          1370.0,
+          2055.0
+        ],
+        "scaled_image_box": [
+          48.0,
+          72.0,
+          720.0,
+          1080.0
+        ],
+        "padding_pixels": {
+          "left": 48.0,
+          "right": 48.0,
+          "top": 72.0,
+          "bottom": 72.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "artifacts": {
+        "portrait.jpg": "540c2079e100c6a69a077b91a44aba5ecb5316309f233e42b5f19d0ff5587907",
+        "portrait.png": "b0a3497d8160ec45848a7fbeeabf5477c1645b8f6e2dd24ed40e80413e92d9c6",
+        "portrait-safe-area.png": "1c9fef2844dca7f9941e1ed4345305edbd55c9e06c3017e951aa966477a40825"
+      }
+    },
+    {
+      "state": "captured",
+      "source_size": [
+        1370,
+        2055
+      ],
+      "jpeg_bytes": 29376,
+      "sha256": "cd53a631033f29e303d7d43c4e72f76ede907ffe0a777114a74cc3f7ff4ddb90",
+      "encoding": {
+        "width": 768,
+        "height": 1152,
+        "precision": 8,
+        "sampling": "4:2:0",
+        "progressive": false,
+        "quantization_all_ones": false,
+        "declared_encoder_quality": 90
+      },
+      "bluetooth_opened": false,
+      "orientation": "landscape",
+      "geometry": {
+        "mode": "preserve-edges",
+        "output_size": [
+          768,
+          1152
+        ],
+        "scale": 0.4905109489051095,
+        "upscaled": false,
+        "source_crop_box": [
+          0.0,
+          0.0,
+          1370.0,
+          2055.0
+        ],
+        "scaled_image_box": [
+          48.0,
+          72.0,
+          720.0,
+          1080.0
+        ],
+        "padding_pixels": {
+          "left": 48.0,
+          "right": 48.0,
+          "top": 72.0,
+          "bottom": 72.0
+        },
+        "resampling": "inverse-affine-bilinear"
+      },
+      "artifacts": {
+        "landscape.jpg": "cd53a631033f29e303d7d43c4e72f76ede907ffe0a777114a74cc3f7ff4ddb90",
+        "landscape.png": "df60c976194445436067d5833b26bf5790e51a75756f98da93a559b0dcd626d9",
+        "landscape-safe-area.png": "adcb12f99ca93b1d6617a5e4b2bb4b78fd9aa6b1b961df3b0b300ef14b7b071e"
+      }
+    }
+  ],
+  "multi_page": {
+    "pages": 2,
+    "ipp_job": 3,
+    "state": "aborted",
+    "worker_claim_created": false,
+    "successful_capture_count_remained": 2,
+    "raw_diagnostic_retained_bytes": 8446062,
+    "windows_failed_test_item_removed": true
+  },
+  "final_capture_queue_jobs": 0,
+  "final_borderless_queue_jobs": 0,
+  "physical_prints": 0
+}

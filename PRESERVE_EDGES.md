@@ -1,9 +1,10 @@
 # Preserve edges and safe-area previews
 
-2026-10-25. This is an opt-in image-placement policy for the Select. The default
-**Borderless fill** path and its historical JPEG bytes are unchanged. All work
-for this feature is offline: no printer connection, settings changes, deployment
-to Surface or physical print validation.
+Updated 2026-10-26. This is an opt-in image-placement policy for the Select. The
+default **Borderless fill** path and its historical JPEG bytes are unchanged.
+The second queue is now installed on Surface **in capture mode only**, with
+actual Windows spooler validation. No printer connection, settings change or
+physical print was made for this feature.
 
 ## Three layouts
 
@@ -90,8 +91,11 @@ extra margin is applied after the application's preview; safe-area guides are
 provided in our offline HTML/PNG previews, not injected into Windows' native
 print dialog. Inspect a capture result to preview that exact application route.
 
-The second queue has not been installed on Surface in this milestone. The
-[Windows guide](WINDOWS_PRINT_QUEUE.md) explains capture-first installation.
+The second queue is now installed on Surface as **HP Sprocket Select (Preserve
+edges) (capture)**. The [installation report and actual captured previews](examples/windows-preserve-edges/README.md)
+record successful portrait/landscape jobs, two-page rejection, and unchanged
+original borderless runtime/journal. The [Windows guide](WINDOWS_PRINT_QUEUE.md)
+explains capture-first installation.
 `-PlanOnly` displays names/paths/ports without touching files, queues, tasks,
 permissions or Bluetooth; it is a layout plan, not full prerequisite validation.
 
@@ -149,4 +153,7 @@ All bundle hashes and HTML links were verified. The PNG comparison was visually
 inspected. The embedded browser refused local `file:` navigation, so interactive
 HTML toggle behavior was not browser-tested in this run; its markup/CSS were
 inspected without bypassing that restriction. No claim of physical edge retention
-or on-Surface installation follows from these offline tests.
+follows from those original offline tests. On-Surface capture installation and
+validation were subsequently completed on 2026-10-26 as linked above. The new
+[macOS/Linux native build](POSIX_PRINT_QUEUE.md) also validates both layouts in
+temporary local IPP capture servers, without installing OS queues or printing.

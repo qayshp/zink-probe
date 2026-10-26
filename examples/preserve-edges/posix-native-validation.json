@@ -1,0 +1,156 @@
+{
+  "implementation_commit": "ac9618514762f03d7b44d04edba9c6f12a9e9447",
+  "native_ci_run": 40285698094,
+  "platforms": {
+    "macos": {
+      "build": {
+        "platform": "Darwin",
+        "architecture": "arm64",
+        "pappl_revision": "02050bdbd4b3e610180c0433f47b7bf2c4569e44",
+        "libcups_revision": "f7888eacb576dc13d954c11d0af57af71af3d4a9",
+        "binary_sha256": "fc4ce9acf2528aee4bf359ebe534148720fbaea6e6aaea3efd636f4f407e2595",
+        "linking": "static PAPPL/libcups; system/package-manager image, TLS and OS libraries",
+        "system_cups_modified": false,
+        "queue_installed": false
+      },
+      "captures": [
+        {
+          "native_start": true,
+          "loopback_ipp": true,
+          "media": "58x87mm",
+          "copies_2_rejected": true,
+          "jobs": [
+            {
+              "ipp_job": 1,
+              "quality": 4,
+              "state": "completed-in-capture-mode"
+            },
+            {
+              "ipp_job": 2,
+              "quality": 5,
+              "state": "completed-in-capture-mode"
+            }
+          ],
+          "bluetooth_opened": false,
+          "preparation_mode": "fill"
+        },
+        {
+          "native_start": true,
+          "loopback_ipp": true,
+          "media": "58x87mm",
+          "copies_2_rejected": true,
+          "jobs": [
+            {
+              "ipp_job": 1,
+              "quality": 4,
+              "state": "completed-in-capture-mode"
+            },
+            {
+              "ipp_job": 2,
+              "quality": 5,
+              "state": "completed-in-capture-mode"
+            }
+          ],
+          "bluetooth_opened": false,
+          "preparation_mode": "preserve-edges"
+        }
+      ],
+      "cancellations": [
+        {
+          "state": "canceled",
+          "worker_reaped": true,
+          "worker_ignored_sigterm": false,
+          "cancel_seconds": 0.288,
+          "raw_retained": true,
+          "bluetooth_opened": false,
+          "worker": "fake sleeper; no protocol or printer access"
+        },
+        {
+          "state": "canceled",
+          "worker_reaped": true,
+          "worker_ignored_sigterm": true,
+          "cancel_seconds": 3.77,
+          "raw_retained": true,
+          "bluetooth_opened": false,
+          "worker": "fake sleeper; no protocol or printer access"
+        }
+      ]
+    },
+    "linux": {
+      "build": {
+        "platform": "Linux",
+        "architecture": "x86_64",
+        "pappl_revision": "02050bdbd4b3e610180c0433f47b7bf2c4569e44",
+        "libcups_revision": "f7888eacb576dc13d954c11d0af57af71af3d4a9",
+        "binary_sha256": "0678a03ded7e42b33d4c17dbeed6ed505945b92917c94c52f2c1980c3304ffe3",
+        "linking": "static PAPPL/libcups; system/package-manager image, TLS and OS libraries",
+        "system_cups_modified": false,
+        "queue_installed": false
+      },
+      "captures": [
+        {
+          "native_start": true,
+          "loopback_ipp": true,
+          "media": "58x87mm",
+          "copies_2_rejected": true,
+          "jobs": [
+            {
+              "ipp_job": 1,
+              "quality": 4,
+              "state": "completed-in-capture-mode"
+            },
+            {
+              "ipp_job": 2,
+              "quality": 5,
+              "state": "completed-in-capture-mode"
+            }
+          ],
+          "bluetooth_opened": false,
+          "preparation_mode": "fill"
+        },
+        {
+          "native_start": true,
+          "loopback_ipp": true,
+          "media": "58x87mm",
+          "copies_2_rejected": true,
+          "jobs": [
+            {
+              "ipp_job": 1,
+              "quality": 4,
+              "state": "completed-in-capture-mode"
+            },
+            {
+              "ipp_job": 2,
+              "quality": 5,
+              "state": "completed-in-capture-mode"
+            }
+          ],
+          "bluetooth_opened": false,
+          "preparation_mode": "preserve-edges"
+        }
+      ],
+      "cancellations": [
+        {
+          "state": "canceled",
+          "worker_reaped": true,
+          "worker_ignored_sigterm": false,
+          "cancel_seconds": 0.253,
+          "raw_retained": true,
+          "bluetooth_opened": false,
+          "worker": "fake sleeper; no protocol or printer access"
+        },
+        {
+          "state": "canceled",
+          "worker_reaped": true,
+          "worker_ignored_sigterm": true,
+          "cancel_seconds": 2.262,
+          "raw_retained": true,
+          "bluetooth_opened": false,
+          "worker": "fake sleeper; no protocol or printer access"
+        }
+      ]
+    }
+  },
+  "bluetooth_opened": false,
+  "system_queues_installed": false
+}

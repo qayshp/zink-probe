@@ -77,7 +77,21 @@ Local macOS ARM64 validation passed all four captures and both cancellation
 cases (0.263 s and 2.326 s). The portable suite also passed 658 tests with two
 optional-binding skips. The native workflow now builds and runs these checks
 on both macOS and Ubuntu alongside the existing Windows native job; CI results
-are recorded after the run completes.
+are linked below.
+
+The [native CI run for ac96185](https://github.com/qayshp/zink-probe/actions/runs/40285698094)
+passed all three platforms. macOS and Ubuntu each completed four captures and
+both cancellation cases; Windows retained its successful four-capture and
+installer-layout checks. The downloaded macOS/Linux result artifacts and JPEG
+hashes were independently verified. A [sanitized result summary](examples/preserve-edges/posix-native-validation.json)
+records the builds, captures and cancellation timings. The slowest cancellation
+was the deliberately SIGTERM-ignoring macOS CI worker at 3.770 seconds; Ubuntu's
+equivalent was 2.262 seconds. These are test-worker timings, not measurements of
+Bluetooth cancellation or paper stopping.
+
+The [portable CI run for the same implementation](https://github.com/qayshp/zink-probe/actions/runs/40285697336)
+also passed all six macOS/Linux/Windows × Python 3.11/3.14 jobs, including image
+preparation, simulated job lifecycles, regression fixtures and wheel builds.
 
 ## Next integration work
 

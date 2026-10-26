@@ -16,8 +16,11 @@ All three adapters now have read-only hardware evidence. An experimental
 [Windows File → Print queue](WINDOWS_PRINT_QUEUE.md) now uses Microsoft's IPP
 Class Driver, a local PAPPL frontend and the same portable engine. Capture-mode
 Windows spooler checks consume no paper. A subsequent [real Windows photo print](examples/windows-print-queue/FIRST_PRINT.md)
-now validates the basic queue-to-paper path at quality 100 / 4:4:4; native
-macOS/Linux queue installation is still future work.
+now validates the basic queue-to-paper path at quality 100 / 4:4:4. A separate
+[Preserve edges capture queue](examples/windows-preserve-edges/README.md) is
+installed and validated on Surface without changing the existing borderless queue.
+The [native macOS/Linux frontend](POSIX_PRINT_QUEUE.md) now builds and passes
+offline capture/cancellation tests; OS queue installation is still future work.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
 orientation, ICC-to-sRGB conversion, centered layout previews and JPEG quality /
