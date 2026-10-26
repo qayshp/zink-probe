@@ -171,5 +171,38 @@ partial-write handling apply. A complete status response closes the connection.
 Validation: Swift offline tests passed, including every split of a status frame,
 one-byte partial transmission without replay, reordered fields, missing/duplicate
 fields, invalid battery values and unknown status bits/codes. Signed physical
-build and installation succeeded. Physical status values await the user's test;
-no new hardware result is inferred from installation or synthetic test data.
+build and installation succeeded. Physical status values were subsequently confirmed in the user report below;
+no hardware result is inferred from installation or synthetic test data.
+
+## Physical status validation — 2026-10-26
+
+User-supplied build-4 report confirms two successful status exchanges:
+
+| Time UTC | TX | RX | Decoded result |
+| --- | --- | --- | --- |
+| 19:39:04 | `48502b01050801020306` | `48502b010c090100000000020103410601` | Battery 65%, power 1 (in use), state 1 (idle), flags 0 |
+| 19:39:42–43 | `48502b01050801020306` | `48502b010c090100000000020103400601` | Battery 64%, power 1 (in use), state 1 (idle), flags 0 |
+
+Each request sent 10 bytes, received 17 and closed on a validated response.
+Both exact replies are covered by Swift regression tests at every two-part
+frame split. The same report confirms a bounded passive test and three successful
+firmware queries between these status reads. These are separate sessions, not
+an automatic retry loop. No print or settings commands were sent.
+
+Repeated picker results with domain EABluetoothAccessoryPickerErrorDomain/code 2
+preceded connection. The local Apple iPhoneOS27.1 SDK EAAccessoryManager.h enum
+maps 0=already connected, 1=not found, **2=cancelled**, 3=failed. This reports a
+cancelled picker outcome; the log alone does not identify who/what cancelled it
+or establish sleeping, radio contention, permission denial or a printer fault.
+At 19:38:57 the picker succeeded, the accessory appeared, and subsequent requests
+worked. Discovery/reconnection usability remains a separate issue to investigate.
+
+The one-percent reported battery change is not a measured energy cost of these
+requests; rounding, estimate updates and elapsed use are possible explanations.
+Flags 0 means none of the queried system flags were set, not a comprehensive
+health test. Charging and fault-state iOS observations remain untested; their
+mappings come from the established protocol and synthetic tests.
+
+Build-4 commit `155c0d7` passed the dedicated iOS CI workflow. Status hardware
+validation comes from the user's report, not CI. No new device commands were sent
+while recording this result.

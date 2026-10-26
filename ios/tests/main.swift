@@ -49,3 +49,17 @@ for invalid: [UInt8] in [[9], [9,1,0], statusPayload + [3,99], [1,8,3], [9,1,0,0
     expectFailure { _ = try PrinterStatus.decode(invalid) }
 }
 print("Status tests passed: reordered/missing/duplicate fields, unknown flags/states, invalid battery, all frame splits")
+// User-supplied physical iOS status replies, 2026-10-26 19:39:04/43 UTC.
+for battery: UInt8 in [65, 64] {
+    let captured: [UInt8] = [0x48,0x50,0x2b,1,12,9,1,0,0,0,0,2,1,3,battery,6,1]
+    for split in 1..<captured.count {
+        var tested = IdentityWire(mode: .status)
+        _ = try tested.send { $0.count }
+        let partial = try tested.receive(Array(captured.prefix(split))); assert(partial == nil)
+        let result = try tested.receive(Array(captured.dropFirst(split))); assert(result != nil)
+        assert(tested.status?.battery == battery)
+        assert(tested.status?.power == 1 && tested.status?.state == 1 && tested.status?.flags == 0)
+        assert(tested.status?.alerts == "No alerts in queried fields")
+    }
+}
+print("Physical iOS status fixtures passed at every frame split")
