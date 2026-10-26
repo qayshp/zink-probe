@@ -12,6 +12,9 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Test bounded identity wire handling
         run: |
           mkdir -p build
@@ -23,6 +26,11 @@ jobs:
           build/photo-venv/bin/pip install Pillow
           swiftc ios/SelectAccessoryProbe/PhotoPreparation.swift ios/photo-tests/main.swift -o build/ios-photo-tests
           build/photo-venv/bin/python ios/photo-tests/check.py build/ios-photo-tests build/photo-fixtures
+      - name: Compare Swift upload core against Python golden traces
+        run: |
+          PYTHONPATH=src python3 ios/print-tests/generate.py build/ios-upload-fixtures.json
+          swiftc ios/PrintCore/UploadPlan.swift ios/print-tests/main.swift -o build/ios-upload-tests
+          build/ios-upload-tests build/ios-upload-fixtures.json
       - name: Compile for iPhone (no signing or device access)
         run: >-
           xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj

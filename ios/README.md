@@ -240,3 +240,10 @@ segment lengths. CI builds the embedded extension through the app dependency.
 Physical Share-sheet activation and Files export remain unverified for build 6:
 the iPhone was unavailable at build time. This is a development prototype, not an
 App Store distribution or review claim. No printer commands were sent.
+
+## Next printing milestone: offline Swift upload sequencing
+
+See [PrintCore](PrintCore/README.md) for the native upload state machine and
+Python/Swift golden-trace tests. This component is not linked into the app or
+Share extension yet. Durable job journaling, full preflight, framed stream I/O
+and completion observation remain required before enabling real submission.
