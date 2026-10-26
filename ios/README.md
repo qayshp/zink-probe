@@ -185,7 +185,7 @@ User-supplied build-4 report confirms two successful status exchanges:
 
 Each request sent 10 bytes, received 17 and closed on a validated response.
 Both exact replies are covered by Swift regression tests at every two-part
-frame split. The same report confirms a bounded passive test and three successful
+frame split. The same report confirms a bounded passive test and two successful
 firmware queries between these status reads. These are separate sessions, not
 an automatic retry loop. No print or settings commands were sent.
 
