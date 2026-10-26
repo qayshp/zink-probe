@@ -32,18 +32,20 @@ def attribute(tag, name, value):
     )
 
 
-def exchange(port, operation, *, attrs=b"", job_attrs=b"", payload=b""):
+def exchange(
+    port, operation, *, attrs=b"", job_attrs=b"", payload=b"", resource="/ipp/print"
+):
     body = struct.pack(">BBHI", 2, 0, operation, 1) + b"\x01"
     body += attribute(0x47, "attributes-charset", "utf-8")
     body += attribute(0x48, "attributes-natural-language", "en")
-    body += attribute(0x45, "printer-uri", f"ipp://127.0.0.1:{port}/ipp/print")
+    body += attribute(0x45, "printer-uri", f"ipp://127.0.0.1:{port}{resource}")
     body += attrs
     if job_attrs:
         body += b"\x02" + job_attrs
     body += b"\x03" + payload
     conn = http.client.HTTPConnection("127.0.0.1", port, timeout=60)
     try:
-        conn.request("POST", "/ipp/print", body, {"Content-Type": "application/ipp"})
+        conn.request("POST", resource, body, {"Content-Type": "application/ipp"})
         response = conn.getresponse()
         data = response.read()
         if response.status != 200:
