@@ -184,9 +184,16 @@ struct SelectAccessoryProbeApp: App {
                                 if accessory.protocolStrings.isEmpty { Text("No protocols advertised yet.") }
                                 ForEach(accessory.protocolStrings, id: \.self) { name in
                                     if Probe.protocols.contains(name) {
-                                        Button("Passive test \(name)") { probe.start(accessory, protocolName: name) }.disabled(probe.active)
+                                        Button("Passive connection test") { probe.start(accessory, protocolName: name) }
+                                            .buttonStyle(.bordered)
+                                            .accessibilityIdentifier("passive-" + name)
+                                            .disabled(probe.active)
+                                        Text(name).font(.caption)
                                         if accessory.modelNumber == "HPISPSLE" && name == "com.hp.protocol.lifestyle" {
-                                            Button("Read firmware once") { probe.start(accessory, protocolName: name, readIdentity: true) }.disabled(probe.active)
+                                            Button("Read firmware once") { probe.start(accessory, protocolName: name, readIdentity: true) }
+                                                .buttonStyle(.borderedProminent)
+                                                .accessibilityIdentifier("read-firmware")
+                                                .disabled(probe.active)
                                         }
                                     } else { Text("Not tested: \(name)") }
                                 }

@@ -103,3 +103,18 @@ metadata; a mismatch is reported, not silently accepted as matching identity.
 - Physical request/response result is pending the user's run. Installing an app
   does not run this request; the button must be tapped explicitly.
 - No printing authorized or performed by this experiment.
+
+## Build 3 UI correction
+
+The user reported that Passive test and Read firmware behaved as one tappable
+control on the phone. The supplied 19:17:49Z–19:17:59Z report again showed only
+passive observation, TX=0. The two buttons were inside one SwiftUI List row with
+automatic button styling; this structure can give them shared row activation.
+The passive action runs first and its active-session guard prevents the identity
+action from starting. This is an app UI issue, not evidence of protocol rejection
+or incorrect user operation.
+
+Build 3 gives both buttons explicit independent styles (`bordered` for passive,
+`borderedProminent` for identity) and distinct accessibility identifiers. The
+identity wire logic and seven-byte allowlist are unchanged. Signed build and
+installation are checked separately from the pending physical tap/response test.
