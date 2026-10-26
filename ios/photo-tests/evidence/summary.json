@@ -1,0 +1,102 @@
+{
+  "quality-90": {
+    "sampling": 2,
+    "bytes": 27741
+  },
+  "quality-95": {
+    "sampling": 2,
+    "bytes": 28146
+  },
+  "quality-100": {
+    "sampling": 0,
+    "bytes": 44237
+  },
+  "exif_orientations": "all eight passed corner checks",
+  "transparency": "transparent pixels composited white",
+  "p3_conversion": {
+    "littlecms": [
+      193,
+      95,
+      74
+    ],
+    "apple": [
+      192,
+      95,
+      74
+    ]
+  },
+  "raster_comparisons": {
+    "96x144": {
+      "python": {
+        "mean_absolute_rgb": [
+          1.02459716796875,
+          0.9698305483217593,
+          3.0838555230034723
+        ],
+        "max_channel_difference": 73
+      },
+      "android": {
+        "mean_absolute_rgb": [
+          1.02459716796875,
+          0.9698305483217593,
+          3.0838555230034723
+        ],
+        "max_channel_difference": 73
+      }
+    },
+    "768x1152": {
+      "python": {
+        "mean_absolute_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_channel_difference": 0
+      },
+      "android": {
+        "mean_absolute_rgb": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "max_channel_difference": 0
+      }
+    },
+    "1200x1200": {
+      "python": {
+        "mean_absolute_rgb": [
+          0.13389417860243055,
+          0.12065972222222222,
+          0.11303936993634259
+        ],
+        "max_channel_difference": 15
+      },
+      "android": {
+        "mean_absolute_rgb": [
+          0.1361072681568287,
+          0.13020833333333334,
+          0.11564353660300926
+        ],
+        "max_channel_difference": 26
+      }
+    },
+    "1600x900": {
+      "python": {
+        "mean_absolute_rgb": [
+          0.0671703197337963,
+          0.1545138888888889,
+          0.25580964265046297
+        ],
+        "max_channel_difference": 24
+      },
+      "android": {
+        "mean_absolute_rgb": [
+          0.07180334020543981,
+          0.15104166666666666,
+          0.20393428096064814
+        ],
+        "max_channel_difference": 31
+      }
+    }
+  }
+}

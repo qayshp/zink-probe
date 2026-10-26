@@ -185,6 +185,13 @@ struct SelectAccessoryProbeApp: App {
         WindowGroup {
             NavigationStack {
                 List {
+                    Section("Photos") {
+                        NavigationLink("Prepare a photo offline") { PhotoView() }
+                    }
+                    Section("Connection help") {
+                        Text("Paired does not always mean connected. Keep the printer awake nearby, check its connection in iPhone Bluetooth Settings, then refresh here. If another phone or computer is connected, disconnect it there before trying the picker.")
+                        Text("Power-cycling the printer or toggling iPhone Bluetooth has sometimes helped, but no reliable reset sequence is established. Picker cancellation is not proof that the printer is unsupported.").font(.caption)
+                    }
                     Section {
                         Text("No printing or settings changes. Passive tests send nothing; Firmware and status buttons each send one fixed read-only request. Sessions last at most 10 seconds. Opening a connection may wake the printer.")
                         Button("Refresh connected accessories") { probe.refresh() }

@@ -17,6 +17,12 @@ jobs:
           mkdir -p build
           swiftc ios/SelectAccessoryProbe/IdentityWire.swift ios/tests/main.swift -o build/ios-wire-tests
           build/ios-wire-tests
+      - name: Check offline image preparation on Apple frameworks
+        run: |
+          python3 -m venv build/photo-venv
+          build/photo-venv/bin/pip install Pillow
+          swiftc ios/SelectAccessoryProbe/PhotoPreparation.swift ios/photo-tests/main.swift -o build/ios-photo-tests
+          build/photo-venv/bin/python ios/photo-tests/check.py build/ios-photo-tests build/photo-fixtures
       - name: Compile for iPhone (no signing or device access)
         run: >-
           xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj

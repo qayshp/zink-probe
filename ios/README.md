@@ -206,3 +206,10 @@ mappings come from the established protocol and synthetic tests.
 Build-4 commit `155c0d7` passed the dedicated iOS CI workflow. Status hardware
 validation comes from the user's report, not CI. No new device commands were sent
 while recording this result.
+
+## Offline photo preparation — build 5
+
+**Prepare a photo offline** opens the Photos picker, layout/JPEG options, safe-area
+preview, and Files export. No submission is connected. See
+[PHOTO_PREPARATION.md](PHOTO_PREPARATION.md) for supported inputs, Apple/Python/
+Android comparisons, encoder differences and validation limits.
