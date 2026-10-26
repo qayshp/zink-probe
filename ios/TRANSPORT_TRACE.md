@@ -100,8 +100,8 @@ metadata; a mismatch is reported, not silently accepted as matching identity.
   zero writes, error writes, no repeated transmission, two-byte frame lengths,
   unexpected/malformed replies and unsolicited response rejection.
 - Signed iPhone build and installation passed (build 2).
-- Physical request/response result is pending the user's run. Installing an app
-  does not run this request; the button must be tapped explicitly.
+- Physical request/response succeeded in build 3; see the result below.
+  Installing the app never runs this request automatically.
 - No printing authorized or performed by this experiment.
 
 ## Build 3 UI correction
@@ -118,3 +118,32 @@ Build 3 gives both buttons explicit independent styles (`bordered` for passive,
 `borderedProminent` for identity) and distinct accessibility identifiers. The
 identity wire logic and seven-byte allowlist are unchanged. Signed build and
 installation are checked separately from the pending physical tap/response test.
+
+
+## Physical identity exchange succeeded — build 3
+
+The user supplied the following diagnostic result from the installed app on
+2026-10-26. Session started at 19:21:21 UTC, with the response and automatic close
+at 19:21:22 UTC (timestamps have one-second resolution, not precise latency).
+
+- App identity: `org.qayshp.zink.SelectAccessoryProbe`, build 3 / `00a896c`.
+- Accessory: HPISPSLE, hardware 4138, `com.hp.protocol.lifestyle`.
+- TX accepted: **7 bytes**, `48502b01020401`.
+- RX: **20 bytes**, `48502b010f05010c47314c314641323130354152`.
+- Decoded reply: `HP+`, one-byte length type, payload length 15, response 0x05,
+  attribute 0x01, string length 12, ASCII `G1L1FA2105AR`.
+- Firmware exactly matched the accessory metadata. Session closed on success.
+- No setup, print, settings or follow-up command was sent. No paper consumed.
+
+This physically confirms HP+ stream framing and firmware-attribute request/reply
+over the independently signed iOS app's ExternalAccessory session on the FA unit.
+The FS static trace is no longer the sole evidence for this narrow behavior.
+It does not establish every other command, file transfer, printing, background
+reliability, other printer models or App Store distribution approval.
+
+The exact reply is pinned in the Swift regression test, which already exercises
+every two-part split of this frame. The preceding identity implementation and UI
+fix commits both passed the dedicated iOS CI workflow. Next potential milestone:
+a similarly bounded read-only status request, followed by an iOS transport
+abstraction; neither requires printing. No additional request was run in this
+result-recording step.

@@ -5,6 +5,9 @@ func expectFailure(_ action: () throws -> Void) {
 let firmware = Array("G1L1FA2105AR".utf8)
 let payload: [UInt8] = [5, 1, UInt8(firmware.count)] + firmware
 let frame: [UInt8] = [0x48,0x50,0x2b,1,UInt8(payload.count)] + payload
+// Exact physical iOS response supplied by the user, 2026-10-26 19:21:22 UTC.
+let observed: [UInt8] = [0x48,0x50,0x2b,0x01,0x0f,0x05,0x01,0x0c,0x47,0x31,0x4c,0x31,0x46,0x41,0x32,0x31,0x30,0x35,0x41,0x52]
+assert(frame == observed)
 for split in 1..<frame.count {
     var wire = IdentityWire()
     var transmitted: [UInt8] = []

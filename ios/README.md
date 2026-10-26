@@ -134,3 +134,12 @@ This result does not authorize printing or broad command probing.
 
 GitHub iOS compile check for `01eca78`: run `40376389014` passed. The real-device
 session result above comes from the user report, not that build check.
+
+
+## Physical firmware query succeeded — build 3
+
+The user confirmed the separate **Read firmware once** button sent exactly seven
+bytes and received a valid twenty-byte HP+ reply identifying `G1L1FA2105AR`, matching
+accessory metadata. The app closed the session on success. See the
+[exact frames and evidence limits](TRANSPORT_TRACE.md#physical-identity-exchange-succeeded--build-3).
+This is real iOS request/response validation, not a print test.

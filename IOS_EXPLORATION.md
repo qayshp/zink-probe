@@ -195,3 +195,12 @@ report confirming discovery of the Select (`HPISPSLE`, `G1L1FA2105AR`, hardware
 `com.hp.protocol.lifestyle` protocol. Application TX=0 and RX=0; no printing.
 This resolves basic session accessibility for this development build/device,
 but not printer-command framing or production-distribution authorization.
+
+
+The subsequent build-3 physical test also confirmed a firmware-identity exchange:
+TX `48502b01020401`, RX `48502b010f05010c47314c314641323130354152`.
+The returned `G1L1FA2105AR` matched accessory metadata. Thus basic HP+ framing and
+this read-only request are now verified over iOS ExternalAccessory on the actual
+FA printer. See [the transport trace](ios/TRANSPORT_TRACE.md) for the embedded
+Bluetooth-controller analysis and physical evidence; printing remains untested
+on iOS.
