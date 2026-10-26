@@ -32,3 +32,20 @@ let wide = try longHeader.receive([0x48,0x50,0x2b,2,UInt8(payload.count),0] + pa
 var unsolicited = IdentityWire()
 expectFailure { _ = try unsolicited.receive(frame) }
 print("IdentityWire tests passed: partial/zero/error writes, no repeat, fragmented frames, strict response and bounds")
+let statusPayload: [UInt8] = [9,1,0,0,0,0,2,1,3,99,6,2]
+let statusFrame: [UInt8] = [0x48,0x50,0x2b,1,12] + statusPayload
+for split in 1..<statusFrame.count {
+    var statusWire = IdentityWire(mode: .status)
+    var tx: [UInt8] = []
+    for _ in 0..<12 { _ = try statusWire.send { bytes in tx += bytes.prefix(1); return 1 } }
+    assert(tx == [0x48,0x50,0x2b,1,5,8,1,2,3,6])
+    let incomplete = try statusWire.receive(Array(statusFrame.prefix(split))); assert(incomplete == nil)
+    let complete = try statusWire.receive(Array(statusFrame.dropFirst(split))); assert(complete != nil)
+    assert(statusWire.status?.battery == 99 && statusWire.status?.charging == "Charging / external power")
+}
+let unknown = try PrinterStatus.decode([9,6,99,3,100,2,255,1,32,0,0,0])
+assert(unknown.alerts.contains("Unknown flags") && unknown.printer == "Unknown (255)")
+for invalid: [UInt8] in [[9], [9,1,0], statusPayload + [3,99], [1,8,3], [9,1,0,0,0,0,2,1,3,101,6,2]] {
+    expectFailure { _ = try PrinterStatus.decode(invalid) }
+}
+print("Status tests passed: reordered/missing/duplicate fields, unknown flags/states, invalid battery, all frame splits")

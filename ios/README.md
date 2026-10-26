@@ -143,3 +143,33 @@ bytes and received a valid twenty-byte HP+ reply identifying `G1L1FA2105AR`, mat
 accessory metadata. The app closed the session on success. See the
 [exact frames and evidence limits](TRANSPORT_TRACE.md#physical-identity-exchange-succeeded--build-3).
 This is real iOS request/response validation, not a print test.
+
+## Read-only status screen — build 4
+
+Tap **Refresh printer status** under HPISPSLE / lifestyle. Each tap opens one
+bounded session and sends only `48502b01050801020306`: status request 08 with
+fields 01 (32-bit system flags), 02 (printer state), 03 (battery percentage),
+and 06 (battery/power state). These are the established desktop protocol fields;
+iOS identity framing was physically verified before adding this request.
+
+The screen shows battery percentage, charging/external-power state, named printer
+state, alerts and raw codes/flags. “Charging / external power” deliberately does
+not assert that battery current is flowing at full charge. Alerts include known
+flags and error states such as paper jam, tray open, overheat and battery error.
+“No alerts in queried fields” does not claim a complete diagnosis of hardware.
+Unknown codes and flag bits remain visible. Transport/protocol failure is shown
+as a failed refresh, not a printer fault. A refresh clears the previous values;
+success carries a timestamp and remains explicitly a last snapshot, not live
+monitoring. No polling, retries, settings writes, printing, or new setup command.
+
+The status reply must contain each requested field exactly once, in any order.
+Unknown tags, missing/duplicate/truncated fields, invalid battery percentages,
+wrong response opcodes, extra frames and excess data stop the attempt. Unknown
+state/power values are preserved. Existing 10-second / 4096-byte bounds and
+partial-write handling apply. A complete status response closes the connection.
+
+Validation: Swift offline tests passed, including every split of a status frame,
+one-byte partial transmission without replay, reordered fields, missing/duplicate
+fields, invalid battery values and unknown status bits/codes. Signed physical
+build and installation succeeded. Physical status values await the user's test;
+no new hardware result is inferred from installation or synthetic test data.
