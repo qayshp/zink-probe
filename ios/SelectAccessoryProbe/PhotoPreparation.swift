@@ -69,3 +69,39 @@ actor PhotoRenderer {
         Result { try PhotoPreparation.prepare(data, layout: layout, quality: quality) }
     }
 }
+
+// Read the actual JPEG SOF sampling factors; never infer sampling from quality.
+enum JPEGDetails {
+    static func sampling(_ data: Data) -> String {
+        let b = [UInt8](data)
+        guard b.count >= 4, b[0] == 255, b[1] == 216 else { return "Unknown" }
+        var p = 2
+        while p + 4 <= b.count {
+            guard b[p] == 255 else { return "Unknown" }
+            while p < b.count && b[p] == 255 { p += 1 }
+            guard p < b.count else { return "Unknown" }
+            let marker = b[p]; p += 1
+            if marker == 218 || marker == 217 { return "Unknown" }
+            if marker == 1 || (208...215).contains(marker) { continue }
+            guard p + 2 <= b.count else { return "Unknown" }
+            let length = Int(b[p])*256 + Int(b[p+1])
+            guard length >= 2, p + length <= b.count else { return "Unknown" }
+            if [UInt8(192),193,194].contains(marker) {
+                guard length >= 8 else { return "Unknown" }
+                let n = Int(b[p+7])
+                guard length == 8 + 3*n else { return "Unknown" }
+                if n == 1 { return "Grayscale" }
+                guard n == 3 else { return "Unknown" }
+                let factors = [b[p+9],b[p+12],b[p+15]]
+                switch factors {
+                case [17,17,17]: return "4:4:4 — full color resolution"
+                case [33,17,17]: return "4:2:2 — reduced horizontal color resolution"
+                case [34,17,17]: return "4:2:0 — reduced color resolution"
+                default: return "Other sampling: " + factors.map { String(format:"%02x",$0) }.joined(separator: "/")
+                }
+            }
+            p += length
+        }
+        return "Unknown"
+    }
+}

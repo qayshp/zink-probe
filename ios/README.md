@@ -213,3 +213,30 @@ while recording this result.
 preview, and Files export. No submission is connected. See
 [PHOTO_PREPARATION.md](PHOTO_PREPARATION.md) for supported inputs, Apple/Python/
 Android comparisons, encoder differences and validation limits.
+
+## Build 6: JPEG details and offline Share extension
+
+The photo screen now labels the control **JPEG compression quality**, defaults to
+**Maximum · 100**, and explains that it changes compression rather than dimensions.
+The preview reports exact JPEG bytes and chroma sampling parsed from the encoded
+JPEG SOF header, not guessed from the quality setting. The six physical iPhone
+exports previously examined used 4:2:0 at 90/95 and 4:4:4 at 100; this observation
+is not an Apple API guarantee. Quality 100 remains lossy.
+
+**Prepare for Select** is an embedded Share extension. From Photos or another app,
+share one image, choose More if necessary, then Prepare for Select. It reuses the
+same offline layout, quality, decoded-JPEG preview, safe-area guide and Save to
+Files controls. Done dismisses the extension. It accepts image data subject to the
+existing preparation limits (50 MB encoded, 80 MP source, bounded decode), and
+rejects unsupported formats. Host app representations can vary; large photos may
+also encounter iOS extension memory limits. Multiple-image jobs, app handoff,
+background jobs and printing are not implemented. There is no accessory transport
+code in the extension and no App Group is required for this in-extension workflow.
+
+Validation: local signed iPhone app + embedded extension build passed; offline
+orientation, color, layout and metadata checks passed. Added sampling tests cover
+4:4:4, 4:2:2, 4:2:0, grayscale, other factors, every truncated prefix and invalid
+segment lengths. CI builds the embedded extension through the app dependency.
+Physical Share-sheet activation and Files export remain unverified for build 6:
+the iPhone was unavailable at build time. This is a development prototype, not an
+App Store distribution or review claim. No printer commands were sent.

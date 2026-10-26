@@ -3,6 +3,7 @@ import PhotosUI
 import UniformTypeIdentifiers
 
 struct PhotoView: View {
+    var initialData: Data? = nil
     @State private var selection: PhotosPickerItem?
     @State private var source: Data?
     @State private var result: PreparedPhoto?
@@ -17,16 +18,20 @@ struct PhotoView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
+                if initialData == nil {
                 PhotosPicker("Choose photo", selection: $selection, matching: .images)
                     .buttonStyle(.borderedProminent)
+                }
                 Picker("Layout", selection: $layout) {
                     ForEach(PhotoLayout.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }.pickerStyle(.segmented)
-                Picker("JPEG quality", selection: $quality) {
+                Text("JPEG compression quality").font(.headline)
+                Picker("JPEG compression quality", selection: $quality) {
                     Text("High · 90").tag(90)
                     Text("Higher · 95").tag(95)
                     Text("Maximum · 100").tag(100)
                 }
+                Text("Higher quality preserves more detail and usually makes a larger file. Dimensions stay the same; 100 is not lossless.").font(.caption)
                 Toggle("Show safe-area guide", isOn: $guide)
                 if let result {
                     Image(uiImage: UIImage(cgImage: result.preview))
@@ -41,16 +46,22 @@ struct PhotoView: View {
                             }
                         }
                     Button("Save prepared JPEG to Files") { exporting = true }.buttonStyle(.bordered)
-                    Text("768 × 1152 · \(result.jpeg.count.formatted()) bytes").font(.caption)
+                    VStack(alignment: .leading) {
+                        Text("Prepared image details").font(.headline)
+                        Text("768 × 1152 pixels")
+                        Text("File size: \(result.jpeg.count.formatted()) bytes")
+                        Text("Color sampling: \(JPEGDetails.sampling(result.jpeg))")
+                    }.font(.caption)
                 }
                 if busy { ProgressView() }
                 Text(message).font(.callout)
                 Text("The preview shows the decoded JPEG. The purple guide is never included in the image. Preserve edges keeps the whole photo inside a conservative inset; it cannot guarantee exact paper trimming.").font(.caption)
-                Text("Apple JPEG quality controls compression strength. Chroma subsampling is selected by the encoder; 100 does not promise 4:4:4 or match the desktop encoder. No PhotoFix is applied.").font(.caption)
+                Text("Apple JPEG quality controls compression strength. Color sampling is read from the finished JPEG. 4:4:4 retains full color detail; 4:2:0 reduces color detail in both directions. Apple chooses this independently of our UI; quality 100 is not a universal promise of 4:4:4. No PhotoFix is applied.").font(.caption)
                 Text("Offline preparation only — no Print or Send action.").font(.headline)
             }.padding()
         }
         .navigationTitle("Prepare photo")
+        .task { if source == nil, let initialData { source = initialData; render() } }
         .fileExporter(isPresented: $exporting, document: PreparedJPEG(data: result?.jpeg ?? Data()), contentType: .jpeg, defaultFilename: "select-prepared") { outcome in
             if case .failure(let error) = outcome { message = error.localizedDescription }
         }
