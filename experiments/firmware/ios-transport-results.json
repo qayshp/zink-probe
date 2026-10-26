@@ -1,0 +1,23 @@
+{
+  "main_sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+  "hcd_start": "0x12583a",
+  "hcd_end": "0x1418de",
+  "records": 452,
+  "reconstructed_memory_sha256": "6c637fd1c7b404df4dd37651b77008592f277c6f6bccce2aa982fd1c2113bf6a",
+  "protocol_address": "0x224337",
+  "iap_connection_initializer": "0x2187c8",
+  "iap_transport_configuration": "0x224384",
+  "framing_vtable": "0x221118",
+  "iap_receive_callback": "0x2186cc",
+  "receive_dispatch": "0x21de98",
+  "hp_frame_receiver": "0x21ca0c",
+  "hp_frame_sender": "0x21c93c",
+  "iap_output_adapter": "0x2188f4",
+  "magic": "48502b",
+  "length_width_table": [
+    1,
+    2,
+    4
+  ],
+  "limitation": "Related FS firmware; not a dump of the physical FA firmware"
+}

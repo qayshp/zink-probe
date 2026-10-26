@@ -1,7 +1,7 @@
 import SwiftUI
 import ExternalAccessory
 
-// No printer commands or OutputStream.write calls exist in this app.
+// Only one fixed firmware-identity request is permitted on the Select lifestyle session.
 // Opening streams necessarily performs system-managed accessory negotiation.
 final class Probe: NSObject, ObservableObject, StreamDelegate {
     static let protocols = ["com.hp.protocol.bahama", "com.hp.protocol.lifestyle",
@@ -9,6 +9,8 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
     @Published var accessories: [EAAccessory] = []
     @Published var report = ""
     @Published var active = false
+    private var identityMode = false
+    private var wire = IdentityWire()
     private var session: EASession?
     private var timer: Timer?
     private var opened = Set<String>()
@@ -62,13 +64,19 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
         }
     }
 
-    func start(_ accessory: EAAccessory, protocolName: String) {
+    func start(_ accessory: EAAccessory, protocolName: String, readIdentity: Bool = false) {
         guard !active else { return }
         guard accessory.isConnected, Self.protocols.contains(protocolName),
               accessory.protocolStrings.contains(protocolName) else {
             log("Refused: protocol must be declared here and currently advertised by the accessory.")
             return
         }
+        if readIdentity && (accessory.modelNumber != "HPISPSLE" || protocolName != "com.hp.protocol.lifestyle") {
+            log("Refused: identity request is restricted to HPISPSLE / lifestyle.")
+            return
+        }
+        identityMode = readIdentity
+        wire = IdentityWire()
         received = 0
         opened = []
         log("Attempting EASession for \(accessory.name): \(protocolName)")
@@ -82,7 +90,7 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
         }
         session = candidate
         active = true
-        log("Session object created. Opening both streams without writing any application bytes.")
+        log(identityMode ? "Session created; will send one fixed firmware identity request once both streams open." : "Session created; passive observation only, no application writes.")
         for stream: Stream in [input, output] {
             stream.delegate = self
             stream.schedule(in: .main, forMode: .common)
@@ -107,14 +115,33 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
             let count = input.read(&buffer, maxLength: buffer.count)
             if count > 0 {
                 received += count
-                log("Unsolicited RX \(count) bytes: " + buffer.prefix(count).map { String(format: "%02x", $0) }.joined())
+                log("RX \(count) bytes: " + buffer.prefix(count).map { String(format: "%02x", $0) }.joined())
+                if identityMode {
+                    do {
+                        if let firmware = try wire.receive(Array(buffer.prefix(count))) {
+                            log("Validated HP+ firmware response: \(firmware); matches accessory metadata: \(firmware == current.accessory?.firmwareRevision)")
+                            stop("Identity request complete")
+                            return
+                        }
+                    } catch { stop("Unexpected/malformed identity response; no retry: \(error)"); return }
+                }
                 if received >= limit { stop("Receive limit reached") }
             } else if count < 0 { stop("Input read error: \(input.streamError?.localizedDescription ?? "unknown")") }
         }
         if eventCode.contains(.errorOccurred) {
             stop("\(direction) error: \(aStream.streamError?.localizedDescription ?? "unknown")")
         } else if eventCode.contains(.endEncountered) { stop("\(direction) ended") }
-        // hasSpaceAvailable deliberately ignored: never write to the accessory.
+        if identityMode, active, opened.count == 2,
+           let output = current.outputStream, output.hasSpaceAvailable {
+            do {
+                let accepted = try wire.send { bytes in
+                    bytes.withUnsafeBufferPointer { output.write($0.baseAddress!, maxLength: $0.count) }
+                }
+                if !accepted.isEmpty {
+                    log("TX accepted \(accepted.count) bytes: " + accepted.map { String(format: "%02x", $0) }.joined())
+                }
+            } catch { stop("Identity write failed; no retry: \(error)") }
+        }
     }
 
     func stop(_ reason: String = "Stopped by user") {
@@ -128,7 +155,7 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
             stream.remove(from: .main, forMode: .common)
         }
         active = false
-        log("\(reason). Opened streams=\(opened.sorted()); RX=\(received); application TX=0.")
+        log("\(reason). Opened streams=\(opened.sorted()); RX=\(received); application TX=\(wire.sent).")
     }
 }
 
@@ -141,7 +168,7 @@ struct SelectAccessoryProbeApp: App {
             NavigationStack {
                 List {
                     Section {
-                        Text("No printing or printer commands. Each attempt opens a session for at most 10 seconds and records incoming data. Opening a connection may wake the printer.")
+                        Text("No printing or settings changes. Passive tests send nothing; Read firmware sends one fixed identity request. Sessions last at most 10 seconds. Opening a connection may wake the printer.")
                         Button("Refresh connected accessories") { probe.refresh() }
                         Button("Find Sprocket with Apple picker") { probe.picker() }.disabled(probe.active)
                         if probe.active { Button("Close session now") { probe.stop() } }
@@ -157,7 +184,10 @@ struct SelectAccessoryProbeApp: App {
                                 if accessory.protocolStrings.isEmpty { Text("No protocols advertised yet.") }
                                 ForEach(accessory.protocolStrings, id: \.self) { name in
                                     if Probe.protocols.contains(name) {
-                                        Button("Test \(name)") { probe.start(accessory, protocolName: name) }.disabled(probe.active)
+                                        Button("Passive test \(name)") { probe.start(accessory, protocolName: name) }.disabled(probe.active)
+                                        if accessory.modelNumber == "HPISPSLE" && name == "com.hp.protocol.lifestyle" {
+                                            Button("Read firmware once") { probe.start(accessory, protocolName: name, readIdentity: true) }.disabled(probe.active)
+                                        }
                                     } else { Text("Not tested: \(name)") }
                                 }
                             }

@@ -7,15 +7,17 @@ a Share extension or a print implementation.
 
 ## Safety and scope
 
-- No print engine, image payload, printer-command builders, settings commands,
-  network service, BLE writes, or accessory output-stream writes.
+- No print engine, image payload, settings commands, network service or BLE writes.
+  Build 2 adds exactly one fixed firmware-identity request; see
+  [the transport trace](TRANSPORT_TRACE.md). Passive tests still send nothing.
 - Session opening necessarily involves iOS-managed accessory negotiation and may
   wake/connect the printer. "Zero application bytes transmitted" does not mean
   zero Bluetooth traffic or zero transport-level state changes.
 - Explicit per-accessory/per-protocol test buttons; no automatic session attempts.
 - Only the intersection of the app's four declared HP protocols and the live
   accessory's advertised protocols can be opened. No arbitrary protocol entry.
-- Both streams are scheduled and opened, but the output stream is never written.
+- Both streams are scheduled and opened. Only **Read firmware once** writes the
+  fixed seven-byte request; no arbitrary command input or automatic retry exists.
 - A session closes after 10 seconds, 4096 received bytes, stream error/end,
   disconnection, manual stop, or leaving the foreground. No background mode.
 - Apple accessory picker filters names containing “sprocket”; use iOS Settings
@@ -45,7 +47,8 @@ sessions on other apps/computers. Do not assume an empty list proves rejection.
 1. Open **Select Probe**, approve its Bluetooth permission if prompted.
 2. Refresh connected accessories; if needed use Apple's picker or pair/connect
    in iOS Settings, return to the app, and refresh.
-3. Confirm the listed accessory is your Select. Tap a protocol's **Test** button.
+3. Confirm the listed accessory is your Select. Tap **Passive test** for a
+   no-write test, or **Read firmware once** for the bounded identity request.
 4. Wait for the bounded observation to finish; test another advertised protocol
    separately if needed. No photo or paper is needed.
 5. Review/share the diagnostic report, or retrieve the app's `Documents/probe.txt`
@@ -87,8 +90,9 @@ Sources: [project IPA research](../IOS_EXPLORATION.md),
 - Remote launch: denied because the phone was locked. No app report existed yet.
 - Subsequent user-operated physical test: accessory discovery and both session
   streams opened successfully; details below. No incoming bytes were observed.
-- Source review: no accessory output write API, printer-command payload, or
-  print-engine dependency. Local report writes are filesystem operations.
+- Build 1 source review: no accessory output write API, printer-command payload,
+  or print-engine dependency. Build 2 adds only the fixed identity request
+  described in [TRANSPORT_TRACE.md](TRANSPORT_TRACE.md).
 - Dedicated CI compiles the iPhone target without signing. It cannot validate
   Bluetooth, pairing, manufacturer authorization, or a physical session.
 
