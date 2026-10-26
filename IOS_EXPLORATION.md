@@ -184,3 +184,14 @@ ExternalAccessory/BLE declarations, bundled printer frameworks, Mach-O encryptio
 load commands, and accessible symbols/resources. The concrete encryption limits
 and remaining protocol questions are recorded above. All binaries, generated
 metadata, and account-associated archive contents remain local and ignored by Git.
+
+
+## Independent iOS app follow-up — 2026-10-26
+
+The [read-only accessory probe](ios/README.md#physical-session-result--2026-10-26)
+was built and installed under our own app identity. The user supplied a physical
+report confirming discovery of the Select (`HPISPSLE`, `G1L1FA2105AR`, hardware
+`4138`) and successful opening of both EASession streams for its advertised
+`com.hp.protocol.lifestyle` protocol. Application TX=0 and RX=0; no printing.
+This resolves basic session accessibility for this development build/device,
+but not printer-command framing or production-distribution authorization.

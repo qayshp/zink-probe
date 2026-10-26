@@ -85,8 +85,8 @@ Sources: [project IPA research](../IOS_EXPLORATION.md),
   was not independently established.
 - Installation on the user's iPhone 16 Pro Max: confirmed by `devicectl`.
 - Remote launch: denied because the phone was locked. No app report existed yet.
-- Accessory enumeration, session opening, and incoming data: **pending physical
-  interaction**, not validated by successful compilation or installation.
+- Subsequent user-operated physical test: accessory discovery and both session
+  streams opened successfully; details below. No incoming bytes were observed.
 - Source review: no accessory output write API, printer-command payload, or
   print-engine dependency. Local report writes are filesystem operations.
 - Dedicated CI compiles the iPhone target without signing. It cannot validate
@@ -94,3 +94,39 @@ Sources: [project IPA research](../IOS_EXPLORATION.md),
 
 This app does not alter the existing desktop queues or printer settings. The
 user's authorization here is for this read-only feasibility test, not printing.
+
+## Physical session result — 2026-10-26
+
+Evidence: user supplied the app's diagnostic report from the installed iPhone
+build (commit `01eca78`). This is physical-device evidence, not simulation.
+
+| Time (UTC) | Observed event |
+| --- | --- |
+| 18:16:35–18:17:17 | Connected-accessory enumeration returned zero |
+| 18:17:19–18:17:27 | Apple accessory picker completed without error; accessory became visible |
+| 18:17:36 | A second picker invocation reported error domain EABluetoothAccessoryPickerErrorDomain, code 2; accessory remained visible |
+| 18:17:39 | EASession created for `com.hp.protocol.lifestyle`; both streams requested open |
+| 18:17:40 | Input and output each reported `openCompleted` |
+| 18:17:49 | User stopped session; both streams had opened, RX=0, application TX=0 |
+
+Reported identity: name `Sprocket Select`, manufacturer `HP`, model `HPISPSLE`,
+firmware `G1L1FA2105AR`, hardware `4138`. The only advertised protocol in this
+report was **`com.hp.protocol.lifestyle`**, not `com.hp.protocol.bahama`.
+Protocol labels must not be inferred from Android model-family names.
+
+This establishes accessory-session access for our independently signed app on
+this iPhone and this printer/firmware, without additional manufacturer
+coordination during this test. It does not establish unrestricted access for
+other app identities, production distribution, other devices, or other firmware.
+The second picker error did not prevent the later successful session; its exact
+cause was not investigated. Initial empty enumeration was not permanent denial.
+
+No application-level command was transmitted and no unsolicited bytes arrived.
+Thus HP+ frame compatibility, request/response behavior, image transfer and
+printing over this iOS session remain untested. Next useful research is a
+source-backed comparison of the iOS transport framing with our established
+read-only status/identity commands before adding any narrowly bounded request.
+This result does not authorize printing or broad command probing.
+
+GitHub iOS compile check for `01eca78`: run `40376389014` passed. The real-device
+session result above comes from the user report, not that build check.
