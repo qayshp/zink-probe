@@ -263,3 +263,8 @@ Build 7's signed app and embedded offline Share extension were installed on the
 physical iPhone successfully. Local framing/preflight, durable-journal and legacy
 identity/status/upload regression tests passed. Physical preflight testing is
 pending the user's report; installation alone is not protocol validation.
+
+Build 10 physical result: the user's explicit clock-sync action was acknowledged,
+the time-invalid flag cleared (1 → 0), and the complete read-only preflight passed
+on the Select. See [the evidence record](PrintCore/README.md). This validates
+connection/setup/readiness queries, not iOS print submission. No paper was used.

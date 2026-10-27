@@ -216,3 +216,36 @@ system_flags and requires zero in idle(); it does not ignore time_invalid. No
 clock write currently occurs in the portable job engine. A normal setup sync is
 recommended after this explicit physical test, separate from read-only probes;
 it has not been added to desktop adapters in this change.
+
+### Physical Build 10 success: clock sync and complete iOS preflight
+
+User-supplied report: 2026-10-27 05:14:19–05:14:20 UTC (October 26,
+22:14:19–22:14:20 America/Los_Angeles). The Select was already visible.
+The explicit clock action received its acknowledgement and verified flags
+changing from 1 to 0. Sent epoch: 1793078059; UTC offset: -25200 seconds.
+The subsequent read-only preflight completed successfully on HPISPSLE,
+firmware G1L1FA2105AR, hardware 4138, lifestyle protocol:
+
+| Observation | Result |
+| --- | --- |
+| Battery | 72% |
+| Printer/queue | Idle, empty; no current job |
+| Flags / pause | Zero flags; not paused |
+| Negotiated maximum | 1000 payload bytes |
+| Setup raw byte | 33 (0x21), now observed on iOS too |
+| Job-name limit | 16 UTF-8 bytes |
+| Page / calibration counters | 13 / 2 |
+| Combined application TX / RX | 121 / 506 bytes |
+
+This physically validates explicit clock synchronization, flag clearance and
+the complete bounded preflight through our independent iOS accessory connection.
+The counter values are a snapshot, not proof of unchanged counters across this
+run (no pre-sync counter baseline was taken). Timestamp resolution is one second;
+the log is not a precise latency benchmark. Raw frames were omitted, so this is
+application-validated summary evidence, not a new raw-frame fixture.
+
+No print was sent. A discovered identity is not yet bound to a durable job; this
+was the first successful preflight in that app process. Clock accuracy/drift,
+power-cycle retention, actual iOS uploads/printing, and Share-extension transport
+lifecycle remain unverified. No further device action was performed while
+recording the user's result.
