@@ -1,28 +1,30 @@
-# Read-only iOS accessory feasibility probe
+# iOS Select probe and Share preparation experiment
 
-A small native SwiftUI app, separate from the Python engine. It asks whether an
-independently signed app can discover the Select through ExternalAccessory and
-open a session using a protocol actually advertised by that accessory. It is not
-a Share extension or a print implementation.
+A native SwiftUI app and embedded Share extension, separate from the Python
+engine. The main app supports passive connection tests, fixed firmware/status
+reads, a bounded read-only preflight and an explicitly selected clock-sync action.
+The extension prepares a shared photo and now tests its own accessory connection.
+Neither target exposes print submission. Historical build notes below retain the
+evidence and boundaries for each milestone.
 
 ## Safety and scope
 
-- No print engine, image payload, settings commands, network service or BLE writes.
-  Build 2 adds exactly one fixed firmware-identity request; see
-  [the transport trace](TRANSPORT_TRACE.md). Passive tests still send nothing.
-- Session opening necessarily involves iOS-managed accessory negotiation and may
-  wake/connect the printer. "Zero application bytes transmitted" does not mean
-  zero Bluetooth traffic or zero transport-level state changes.
-- Explicit per-accessory/per-protocol test buttons; no automatic session attempts.
-- Only the intersection of the app's four declared HP protocols and the live
-  accessory's advertised protocols can be opened. No arbitrary protocol entry.
-- Both streams are scheduled and opened. Only **Read firmware once** writes the
-  fixed seven-byte request; no arbitrary command input or automatic retry exists.
-- A session closes after 10 seconds, 4096 received bytes, stream error/end,
-  disconnection, manual stop, or leaving the foreground. No background mode.
-- Apple accessory picker filters names containing “sprocket”; use iOS Settings
-  for a renamed printer. The picker can establish pairing, not just scan.
-- This is connected-accessory enumeration, not a raw Bluetooth radio scan.
+- No print submission or arbitrary-command input. Photo preparation stays local.
+- Main-app clock synchronization is a separately labeled write action. All other
+  main-app diagnostics are read-only; the Share connection test only permits
+  passive streams or a single fixed firmware request.
+- Opening a session involves iOS-managed accessory negotiation and may wake the
+  printer. Zero application bytes does not mean zero Bluetooth traffic.
+- All session tests require an explicit tap. Sharing a photo does not connect.
+- The main app declares four HP protocols; active Select queries require
+  HPISPSLE/lifestyle. The extension declares lifestyle only.
+- Sessions are bounded and close on cancellation or lifecycle departure. Simple
+  reads/passive sessions have a ten-second limit; full preflight/clock-and-preflight
+  has a sixty-second overall bound with ten-second exchange deadlines.
+- The main app's picker filters names containing “sprocket.” The extension only
+  enumerates connected accessories; connect in the main app/Settings if necessary.
+- Enumeration is not a raw Bluetooth radio scan. Pairing does not ensure a current
+  accessory connection. No background execution mode is requested.
 
 ## Build and run
 
@@ -268,3 +270,46 @@ Build 10 physical result: the user's explicit clock-sync action was acknowledged
 the time-invalid flag cleared (1 → 0), and the complete read-only preflight passed
 on the Select. See [the evidence record](PrintCore/README.md). This validates
 connection/setup/readiness queries, not iOS print submission. No paper was used.
+
+## Build 11: test the connection inside the Share extension
+
+The Share extension now includes a manual **Connection test** screen. From Photos,
+share one image → **Prepare for Select** (under More if needed) → **Connection test**
+in the preparation screen's toolbar. Sharing a photo does not open an accessory
+session automatically. The extension runs in its own process, not in Select Probe;
+main-app success does not establish extension access.
+
+1. Keep the Select awake. Close any active connection test in Select Probe.
+2. In the extension's Connection test, tap **Refresh connected accessories**.
+3. If the Select is visible, tap **Open streams without writing**. Wait for its
+   ten-second close, or close it manually. Both streams opening establishes session
+   access; application TX must remain zero.
+4. Tap **Read firmware once**. It sends the same fixed seven-byte firmware request
+   validated in the main app, with a ten-second/4096-byte bound and no retry.
+5. Copy the report or use **Share connection report**. The report labels itself as
+   originating inside the Share extension. It omits serial number and device ID.
+
+If no Select is visible, connect through the main app/Settings, close the main-app
+session and return to Share. The extension does not provide another pairing picker.
+A missing accessory or nil session is inconclusive about cause: OS connection state,
+app access and another session may matter. The test does not guess which one.
+
+Sessions close on explicit stop, screen departure, extension-host inactivity and
+controller dismissal. This must still be physically checked; an extension can be
+terminated by iOS, and a ten-second test says nothing about long print transfers
+or background reliability. No App Group/handoff or attempt to launch the main app
+is used. The photo preparation/export workflow remains available.
+
+The extension declares lifestyle protocol support and a Bluetooth usage description
+in its own Info.plist. It builds with APPLICATION_EXTENSION_API_ONLY=YES. The SDK
+headers do not mark the enumeration/session APIs used as extension-unavailable;
+successful compilation is not a promise of runtime access or App Store approval.
+Apple's extension lifecycle restrictions and EASession behavior are documented at:
+- https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/ExtensionOverview.html
+- https://developer.apple.com/documentation/externalaccessory/easession
+
+Validation: signed iPhone app/extension build passed, existing IdentityWire framing
+and partial-write tests passed, embedded-bundle metadata inspected. Binary symbol
+inspection confirms that upload, journal, clock-sync and preflight cores are absent
+from the extension. It has no print or settings action. Physical extension visibility,
+stream opening and firmware response remain pending the user's test report.

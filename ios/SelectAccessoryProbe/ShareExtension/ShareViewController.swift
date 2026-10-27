@@ -4,6 +4,7 @@ import UniformTypeIdentifiers
 
 final class ShareViewController: UIViewController {
     private var loaded = false
+    private let connection = ShareConnectionProbe()
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         guard !loaded else { return }; loaded = true
@@ -19,16 +20,25 @@ final class ShareViewController: UIViewController {
                 guard let data, data.count <= 50_000_000 else {
                     self.showError(error?.localizedDescription ?? "Image unavailable or larger than 50 MB."); return
                 }
-                self.presentContent(PhotoView(initialData: data))
+                let connection = self.connection
+                self.presentContent(PhotoView(initialData: data).toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        NavigationLink("Connection test") { ShareConnectionView(probe: connection) }
+                    }
+                })
             }
         }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        connection.stop("Share extension dismissed")
     }
     private func showError(_ text: String) { presentContent(Text(text).padding()) }
     private func presentContent<V: View>(_ content: V) {
         let host = UIHostingController(rootView: NavigationStack {
             content.toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Done") { [weak self] in self?.extensionContext?.completeRequest(returningItems: nil) }
+                    Button("Done") { [weak self] in self?.connection.stop("Share extension completed"); self?.extensionContext?.completeRequest(returningItems: nil) }
                 }
             }
         })
