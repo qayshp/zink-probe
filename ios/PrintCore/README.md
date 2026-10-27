@@ -135,3 +135,20 @@ busy/low-battery/error states, missing capabilities, multi-page replies and loop
 The core is compiled into the signed iPhone app. Installation and user-observed
 physical preflight results are separate evidence; no physical preflight result
 is assumed from offline tests or successful installation.
+
+### Build 8 setup validation correction
+
+The user's Build 7 report at 2026-10-27 04:39:36 UTC (October 26 locally)
+passed firmware, model and device-ID reads, then stopped on a 9-byte framed
+setup reply. Total RX was 61 bytes and TX was 29. Because Build 7 omitted raw
+setup bytes, the iOS setup value itself is not established by this report.
+
+The zero-only final-byte check was an implementation mistake: previously saved
+successful FA desktop sessions report maximum 1000 and final byte 33 (0x21).
+Build 8 accepts this observed value as well as the synthetic zero fixture,
+preserves it as `setupSecurityRaw`, and includes it in successful summaries.
+Its semantics remain opaque; this is not an authentication bypass or a claim
+that iOS necessarily returned 0x21. Other values still stop, now with the
+non-identifying setup payload in the error. A regression test uses the observed
+payload `25 e8 03 21` and continues the simulated preflight to completion.
+No printer commands beyond the existing read-only sequence were added.

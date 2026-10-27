@@ -108,3 +108,12 @@ var captured: [UInt8] = []
 try large.write(now:0) { captured = $0; return $0.count }
 assert(captured == frame(Array(repeating:4,count:300),2))
 print("Pagination, missing capabilities and two-byte output frame checks passed")
+
+// Regression: physical desktop FA setup payload, no identity data.
+var physicalSetup = try ReadOnlyPreflight()
+for r in replies.prefix(3) { _ = try physicalSetup.next(); try physicalSetup.accept(r) }
+_ = try physicalSetup.next(); try physicalSetup.accept([37,232,3,33])
+assert(physicalSetup.maximum == 1000 && physicalSetup.setupSecurityRaw == 33)
+for r in replies.dropFirst(4) { _ = try physicalSetup.next(); try physicalSetup.accept(r) }
+assert(physicalSetup.complete)
+print("Observed FA setup 0x21 regression passed")

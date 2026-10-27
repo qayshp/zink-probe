@@ -53,6 +53,7 @@ struct ReadOnlyPreflight {
     private(set) var firmware = ""
     private(set) var deviceID = ""
     private(set) var maximum = 0
+    private(set) var setupSecurityRaw: UInt8 = 0
     private(set) var nameLimit = 0
     private(set) var battery = 0
     private(set) var pages = 0
@@ -69,7 +70,7 @@ struct ReadOnlyPreflight {
     }
     var identityBound: Bool { expectedID != nil }
     var summary: String {
-        "Read-only checks passed: firmware \(firmware), battery \(battery)%, idle/empty queue, no flags, not paused; maximum \(maximum), name limit \(nameLimit), pages \(pages), calibration cycles \(calibrations). " + (identityBound ? "Expected device identity matched." : "Identity discovered; not yet bound to a saved job.") + " No print authorized or sent."
+        "Read-only checks passed: firmware \(firmware), battery \(battery)%, idle/empty queue, no flags, not paused; maximum \(maximum), setup byte \(setupSecurityRaw), name limit \(nameLimit), pages \(pages), calibration cycles \(calibrations). " + (identityBound ? "Expected device identity matched." : "Identity discovered; not yet bound to a saved job.") + " No print authorized or sent."
     }
     mutating func stop() { failed = true }
     private func require(_ condition: Bool, _ reason: String) throws { if !condition { throw Failure.invalid(reason) } }
@@ -113,7 +114,11 @@ struct ReadOnlyPreflight {
             deviceID = r.dropFirst(2).map { String(format:"%02x",$0) }.joined()
             try require(expectedID == nil || expectedID == deviceID, "Wrong physical printer"); stage = .setup
         case .setup:
-            try require(r.count == 4 && r[0] == 37 && r[3] == 0, "Unsupported connection setup/security")
+            try require(r.count == 4 && r[0] == 37, "Malformed connection setup: \(r.map { String(format: "%02x", $0) }.joined())")
+            setupSecurityRaw = r[3]
+            // 0x21 is observed on the same FA printer over desktop transports.
+            // Preserve the byte as opaque; do not infer authentication semantics.
+            try require([0,33].contains(setupSecurityRaw), "Unrecognized setup byte: \(setupSecurityRaw); reply \(r.map { String(format: "%02x", $0) }.joined())")
             maximum = number(r[1...2]); try require((16...4096).contains(maximum), "Unsafe message maximum"); stage = .feature
         case .feature:
             try require(r.count == 3 && r[0] == 43 && [1,2].contains(r[2]), "Capability discovery")
