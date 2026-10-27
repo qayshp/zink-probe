@@ -167,3 +167,25 @@ all six non-identifying status values in readiness and battery refusal messages.
 A regression test checks the reported fields and terminal refusal. No attempt is
 made to clear flags, modify state or weaken the guard. Physical iOS full-preflight
 success remains unverified pending a complete run.
+
+### Physical Build 9 result: clock-validity flag
+
+User report, 2026-10-27 04:44:41 UTC (October 26 Pacific): accessory remained
+visible and the user ran preflight directly without the picker. Identity, setup,
+capabilities and pause checks passed. The status snapshot was:
+
+- flags `0x00000001`: bit 0, named Time invalid by the inspected HP library;
+- printer state 1: idle; current job 0; queue state 1: empty;
+- battery 61%; power state 1: in use.
+
+The only failing readiness condition was the zero-flags requirement. This is not
+evidence of paper trouble, print activity or a Bluetooth failure. It also does not
+establish that the printer would reject a print with this flag set: that has not
+been tested. List-jobs and metrics were not reached (RX 337, TX 62 bytes).
+The same time-invalid flag was previously observed in desktop read-only probes;
+see INVESTIGATION.md and VALIDATION.md. SETTINGS_RESEARCH.md records that the
+inspected Android setup path sends a clock-setting request, but this iOS probe
+has not done so. No automatic clock setting or readiness-rule relaxation was made.
+The next useful read-only improvement is to separate diagnostic collection from
+submission eligibility, allowing queue/counter reads to finish while reporting
+this flag as a readiness blocker. That is proposed, not implemented here.
