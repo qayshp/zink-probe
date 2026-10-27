@@ -248,3 +248,18 @@ Python/Swift golden-trace tests. This component is not linked into the app or
 Share extension yet. Durable job journaling is now implemented and tested offline. Its integration,
 full preflight, framed stream I/O and completion observation remain required
 before enabling real submission.
+
+## Build 7: bounded read-only preflight
+
+The main app now has **Run read-only preflight** under the Select's lifestyle
+protocol. Keep the printer awake, connect with Apple's picker if needed, then tap
+it and inspect the local report. It checks identity, capabilities and readiness,
+including an empty queue and page counters. Each exchange is limited to 10 seconds;
+the whole run is limited to 60 seconds. It does not print or change persistent
+settings. A failed check stops without retry. See [PrintCore](PrintCore/README.md)
+for the exact checks, connection-local negotiation and test coverage.
+
+Build 7's signed app and embedded offline Share extension were installed on the
+physical iPhone successfully. Local framing/preflight, durable-journal and legacy
+identity/status/upload regression tests passed. Physical preflight testing is
+pending the user's report; installation alone is not protocol validation.

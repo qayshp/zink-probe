@@ -27,12 +27,12 @@ Local Swift tests passed; this suite is included in iOS CI.
 
 1. Validate the prepared baseline JPEG completely before constructing a plan.
    This core only checks size and envelope; it is not a JPEG validator.
-2. Port the desktop read-only preflight: Select identity, firmware, capabilities,
-   negotiated limits, queue, battery, error state and pause configuration.
+2. Physically validate the read-only preflight below over iOS, then bind a fresh
+   preflight result to the saved job identity before any submission.
 3. Integrate the durable TrackedUpload wrapper below with one persistent store.
    Do not bypass it by using a fresh bare UploadPlan after a crash.
-4. Add HP+ framing, bounded incremental parsing and partial stream writes, with
-   timeout/cancellation tests. Connect to ExternalAccessory only after these gates.
+4. The framed exchange below is connected only to read-only preflight. Integrate
+   it with tracked upload only after the remaining submission gates are met.
 5. Observe completion conservatively and reconcile ambiguous jobs read-only.
 6. Decide lifecycle ownership: extensions can be terminated; do not assume they
    can finish a Bluetooth transfer in the background. Start with an explicit
@@ -92,3 +92,46 @@ passed. These tests cover process interruption, not physical power-loss testing.
 swiftc ios/PrintCore/*.swift ios/journal-tests/main.swift -o build/ios-journal-tests
 build/ios-journal-tests
 ```
+
+## Build 7: read-only preflight and framed accessory exchange
+
+`ReadOnlyPreflight` checks firmware, Select model 0x48d3, 16-byte protocol identity,
+connection-local message limit/security, required requests/MIME/job properties,
+job-name limit, pause configuration, battery/power, idle/error-free status, empty
+queue and page/calibration counters. Capability JSON and binary TLV encodings,
+paged capability downloads and paged metrics have explicit limits. Unknown,
+missing, malformed, incompatible or busy states fail closed. Only pause config
+is needed for eligibility; unrelated LED and sleep settings are not queried.
+
+The fixed request sequence is 04/01, 04/09, 04/06, 24/0010, 2a, discovered-handle
+28 reads, 1a/04, selected 08 status fields, 2c and dataset-1 3a pages. There is no
+PrintStart, FileWrite, job-property write, settings write or interface-selection
+command. Connection setup 0x24 negotiates a session-local limit; it is not a
+persistent printer-setting change. The desktop RFCOMM 0x0a/02 interface selector
+is deliberately not copied onto iAP, whose interface-selection semantics remain
+unverified. A setup rejection stops the experiment instead of trying alternatives.
+
+`AccessoryExchange` encodes HP+ requests with 1/2-byte lengths, accepts bounded
+1/2/4-byte reply lengths, handles partial/zero writes and fragmented replies,
+and refuses oversized, concatenated, unsolicited or malformed frames. It has a
+10-second monotonic deadline and terminal cancellation/error state, with no retry
+or resynchronization. The main app's StreamDelegate owns actual InputStream and
+OutputStream calls, closes both streams on all exit paths, and bounds the whole
+preflight to 60 seconds/256 KiB received. Lifecycle closure remains enforced by
+the app. RX logs omit raw preflight frames containing identity information.
+
+The main app adds **Run read-only preflight** for HPISPSLE/lifestyle. The first
+successful diagnostic discovers the device ID; subsequent runs in the same app
+process compare it. This in-memory pin is not durable job identity. A future job
+must supply its saved expectedDeviceID and perform fresh checks; a diagnostic
+success is not a print authorization. Firmware must also match accessory metadata.
+The upload/journal code remains unlinked from both app targets. The Share extension
+continues to prepare/export offline and cannot submit a print.
+
+Local tests cover JSON/TLV success, every response split and length encoding,
+partial/zero/failed writes, premature input, deadlines, cancellation at every
+request-byte offset, malformed/rejected replies at each stage, wrong identity,
+busy/low-battery/error states, missing capabilities, multi-page replies and loops.
+The core is compiled into the signed iPhone app. Installation and user-observed
+physical preflight results are separate evidence; no physical preflight result
+is assumed from offline tests or successful installation.
