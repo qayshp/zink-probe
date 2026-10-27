@@ -152,3 +152,18 @@ that iOS necessarily returned 0x21. Other values still stop, now with the
 non-identifying setup payload in the error. A regression test uses the observed
 payload `25 e8 03 21` and continues the simulated preflight to completion.
 No printer commands beyond the existing read-only sequence were added.
+
+### Build 9 status refusal diagnostics
+
+The user's Build 8 run at 2026-10-27 04:43:04 UTC passed identity, setup,
+capability discovery/download and pause checks, then refused the status snapshot
+with `Printer not idle/empty/error-free`. RX=337 bytes, TX=62 bytes. The snapshot
+values were omitted, so the report does not establish whether flags, printer
+state, current job or queue caused refusal. It does not prove a paper fault or a
+busy printer. No job-list or counter queries were reached on this run.
+
+Build 9 preserves the same eligibility rules and request sequence, but includes
+all six non-identifying status values in readiness and battery refusal messages.
+A regression test checks the reported fields and terminal refusal. No attempt is
+made to clear flags, modify state or weaken the guard. Physical iOS full-preflight
+success remains unverified pending a complete run.

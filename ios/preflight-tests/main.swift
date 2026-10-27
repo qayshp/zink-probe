@@ -117,3 +117,15 @@ assert(physicalSetup.maximum == 1000 && physicalSetup.setupSecurityRaw == 33)
 for r in replies.dropFirst(4) { _ = try physicalSetup.next(); try physicalSetup.accept(r) }
 assert(physicalSetup.complete)
 print("Observed FA setup 0x21 regression passed")
+// Status refusals must expose the non-identifying snapshot for diagnosis.
+var diagnostic = try ReadOnlyPreflight()
+for r in replies.prefix(7) { _ = try diagnostic.next(); try diagnostic.accept(r) }
+_ = try diagnostic.next()
+var flagged = replies[7]; flagged[2] = 1
+ do {
+    try diagnostic.accept(flagged); fatalError("Expected flagged status refusal")
+} catch ReadOnlyPreflight.Failure.invalid(let message) {
+    assert(message.contains("flags=0x00000001"))
+    for value in ["state=1", "currentJob=0", "queue=1", "battery=65", "power=1"] { assert(message.contains(value)) }
+}
+assert(diagnostic.failed)

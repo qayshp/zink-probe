@@ -143,9 +143,10 @@ struct ReadOnlyPreflight {
                 guard let width = widths[tag], fields[tag] == nil, p + width <= r.count else { throw Failure.invalid("Unknown/duplicate/truncated status") }
                 fields[tag] = number(r[p..<p+width]); p += width
             }
-            try require(fields.count == widths.count && fields[1] == 0 && fields[2] == 1 && fields[5] == 0 && fields[7] == 1, "Printer not idle/empty/error-free")
+            let details = "flags=\(fields[1].map { String(format: "0x%08X", $0) } ?? "missing"), state=\(fields[2].map(String.init) ?? "missing"), currentJob=\(fields[5].map(String.init) ?? "missing"), queue=\(fields[7].map(String.init) ?? "missing"), battery=\(fields[3].map(String.init) ?? "missing"), power=\(fields[6].map(String.init) ?? "missing")"
+            try require(fields.count == widths.count && fields[1] == 0 && fields[2] == 1 && fields[5] == 0 && fields[7] == 1, "Printer not idle/empty/error-free: \(details)")
             battery = fields[3] ?? 0
-            try require((30...100).contains(battery) && [1,2].contains(fields[6] ?? 0), "Battery/power unsuitable"); stage = .jobs
+            try require((30...100).contains(battery) && [1,2].contains(fields[6] ?? 0), "Battery/power unsuitable: \(details)"); stage = .jobs
         case .jobs:
             try require(r == [45], "Queue not empty or malformed"); stage = .metrics
         case .metrics:
