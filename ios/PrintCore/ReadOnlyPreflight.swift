@@ -201,3 +201,53 @@ struct ReadOnlyPreflight {
         try require(Set([12,14,48,44,58]).isSubset(of: Set(values[3] ?? [])) && Set([1,3]).isSubset(of: Set(values[8] ?? [])) && (values[7] ?? []).contains(1) && (1...65535).contains(nameLimit), "Required printing capabilities absent")
     }
 }
+
+/// Explicit user action only. One clock write, bracketed by flags reads.
+struct ClockSync {
+    private var step = 0
+    private var pending = false
+    private(set) var failed = false
+    private(set) var complete = false
+    private(set) var before: UInt32 = 0
+    private(set) var after: UInt32 = 0
+    private(set) var timestamp: UInt32 = 0
+    private(set) var offset: Int32 = 0
+    mutating func stop() { failed = true }
+    mutating func next(now: Date = Date(), zone: TimeZone = .current) throws -> [UInt8] {
+        guard !failed, !complete, !pending else { throw ReadOnlyPreflight.Failure.invalid("Clock action stopped or pending") }
+        pending = true
+        switch step {
+        case 0: return [4,9]
+        case 1,3: return [8,1]
+        case 2:
+            let seconds = now.timeIntervalSince1970
+            guard seconds.isFinite, seconds >= 0, seconds < Double(UInt32.max) + 1 else { failed = true; throw ReadOnlyPreflight.Failure.invalid("Clock timestamp out of range") }
+            timestamp = UInt32(seconds.rounded(.down)); offset = Int32(zone.secondsFromGMT(for: now))
+            let bits = UInt32(bitPattern: offset)
+            return [24] + (0..<4).map { UInt8((timestamp >> ($0*8)) & 255) } + (0..<4).map { UInt8((bits >> ($0*8)) & 255) }
+        default: failed = true; throw ReadOnlyPreflight.Failure.invalid("Clock action finished")
+        }
+    }
+    mutating func accept(_ reply: [UInt8]) throws {
+        do {
+            guard pending, !failed else { throw ReadOnlyPreflight.Failure.invalid("No clock request pending") }
+            if step == 0 {
+                guard reply == [5,9,211,72] else { throw ReadOnlyPreflight.Failure.invalid("Clock sync requires Select model") }
+            } else if step == 2 {
+                guard reply == [25] else { throw ReadOnlyPreflight.Failure.invalid("Clock acknowledgement missing/rejected; do not retry automatically") }
+            } else {
+                guard reply.count == 6, reply.prefix(2) == [9,1] else { throw ReadOnlyPreflight.Failure.invalid("Malformed clock status snapshot") }
+                let flags = (0..<4).reduce(UInt32(0)) { $0 | (UInt32(reply[2+$1]) << ($1*8)) }
+                if step == 1 {
+                    before = flags
+                    guard flags & ~UInt32(1) == 0 else { throw ReadOnlyPreflight.Failure.invalid("Other printer flags present: \(flags); clock write not sent") }
+                } else {
+                    after = flags
+                    guard flags == before & ~UInt32(1) else { throw ReadOnlyPreflight.Failure.invalid("Clock acknowledged but flags not cleared as expected: before=\(before), after=\(after)") }
+                    complete = true
+                }
+            }
+            step += 1; pending = false
+        } catch { failed = true; throw error }
+    }
+}

@@ -12,6 +12,8 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
     @Published var status: PrinterStatus?
     @Published var statusMessage = "Not refreshed yet"
     @Published var statusTime: Date?
+    private var clockMode = false
+    private var clock: ClockSync?
     private var preflightMode = false
     private var preflight: ReadOnlyPreflight?
     private var exchange: AccessoryExchange?
@@ -75,23 +77,25 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
         }
     }
 
-    func start(_ accessory: EAAccessory, protocolName: String, readIdentity: Bool = false, readStatus: Bool = false, readPreflight: Bool = false) {
+    func start(_ accessory: EAAccessory, protocolName: String, readIdentity: Bool = false, readStatus: Bool = false, readPreflight: Bool = false, syncClock: Bool = false) {
         guard !active else { return }
         guard accessory.isConnected, Self.protocols.contains(protocolName),
               accessory.protocolStrings.contains(protocolName) else {
             log("Refused: protocol must be declared here and currently advertised by the accessory.")
             return
         }
-        if (readIdentity || readStatus || readPreflight) && (accessory.modelNumber != "HPISPSLE" || protocolName != "com.hp.protocol.lifestyle") {
+        if (readIdentity || readStatus || readPreflight || syncClock) && (accessory.modelNumber != "HPISPSLE" || protocolName != "com.hp.protocol.lifestyle") {
             log("Refused: identity request is restricted to HPISPSLE / lifestyle.")
             return
         }
-        preflightMode = readPreflight
+        clockMode = syncClock
+        clock = syncClock ? ClockSync() : nil
+        preflightMode = readPreflight || syncClock
         preflightTX = 0
-        limit = readPreflight ? 262144 : 4096
+        limit = preflightMode ? 262144 : 4096
         do {
             preflight = readPreflight ? try ReadOnlyPreflight(expectedDeviceID: pinnedDeviceID) : nil
-            exchange = readPreflight ? try AccessoryExchange(payload: preflight!.next(), now: ProcessInfo.processInfo.systemUptime) : nil
+            exchange = syncClock ? try AccessoryExchange(payload: clock!.next(), now: ProcessInfo.processInfo.systemUptime) : readPreflight ? try AccessoryExchange(payload: preflight!.next(), now: ProcessInfo.processInfo.systemUptime) : nil
         } catch { log("Preflight initialization failed: \(error)"); return }
         identityMode = readIdentity || readStatus
         statusMode = readStatus
@@ -113,15 +117,15 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
         }
         session = candidate
         active = true
-        log(preflightMode ? "Session created; bounded read-only preflight will start after streams open." : identityMode ? "Session created; will send one fixed read-only request once both streams open." : "Session created; passive observation only, no application writes.")
+        log(clockMode ? "Session created; explicit clock sync and verification will start after streams open." : preflightMode ? "Session created; bounded read-only preflight will start after streams open." : identityMode ? "Session created; will send one fixed read-only request once both streams open." : "Session created; passive observation only, no application writes.")
         for stream: Stream in [input, output] {
             stream.delegate = self
             stream.schedule(in: .main, forMode: .common)
             stream.open()
         }
-        if readPreflight {
+        if preflightMode {
             preflightDeadline = ProcessInfo.processInfo.systemUptime + 60
-            log("Read-only preflight: bounded queries and connection-local message limit negotiation; no print/settings writes.")
+            log(clockMode ? "Explicit clock sync: one time/time-zone write, status before/after, then read-only preflight. No printing." : "Read-only preflight: bounded queries and connection-local message limit negotiation; no print/settings writes.")
             timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { [weak self] _ in
                 guard let self else { return }
                 do {
@@ -156,6 +160,17 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
                 if preflightMode {
                     do {
                         if let reply = try exchange?.receive(Array(buffer.prefix(count)), now: ProcessInfo.processInfo.systemUptime) {
+                            if clockMode {
+                                try clock?.accept(reply)
+                                if clock?.complete == true {
+                                    log("Clock sync acknowledged and verified: flags before=\(clock!.before), after=\(clock!.after); sent epoch=\(clock!.timestamp), UTC offset seconds=\(clock!.offset). Starting read-only preflight.")
+                                    clockMode = false
+                                    preflight = try ReadOnlyPreflight(expectedDeviceID: pinnedDeviceID)
+                                    exchange = try AccessoryExchange(payload: preflight!.next(), now: ProcessInfo.processInfo.systemUptime)
+                                } else {
+                                    exchange = try AccessoryExchange(payload: clock!.next(), now: ProcessInfo.processInfo.systemUptime)
+                                }
+                            } else {
                             try preflight?.accept(reply)
                             if preflight?.complete == true {
                                 guard preflight?.firmware == current.accessory?.firmwareRevision else { stop("Preflight firmware disagrees with accessory metadata"); return }
@@ -164,6 +179,7 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
                                 stop("Read-only preflight complete"); return
                             }
                             exchange = try AccessoryExchange(payload: preflight!.next(), now: ProcessInfo.processInfo.systemUptime)
+                            }
                         }
                     } catch { stop("Preflight stopped: \(error); no retry"); return }
                 }
@@ -222,7 +238,7 @@ final class Probe: NSObject, ObservableObject, StreamDelegate {
             stream.remove(from: .main, forMode: .common)
         }
         active = false
-        exchange?.stop(); preflight?.stop()
+        exchange?.stop(); preflight?.stop(); clock?.stop()
         if statusMode && !statusCompleted { statusMessage = "Refresh failed: " + reason }
         log("\(reason). Opened streams=\(opened.sorted()); RX=\(received); application TX=\(preflightMode ? preflightTX : wire.sent).")
     }
@@ -244,7 +260,7 @@ struct SelectAccessoryProbeApp: App {
                         Text("Power-cycling the printer or toggling iPhone Bluetooth has sometimes helped, but no reliable reset sequence is established. Picker cancellation is not proof that the printer is unsupported.").font(.caption)
                     }
                     Section {
-                        Text("No printing or settings changes. Passive tests send nothing; Firmware and status buttons each send one fixed read-only request. Individual reads last at most 10 seconds; preflight lasts at most 60 seconds. Opening a connection may wake the printer.")
+                        Text("No printing. The separate clock-sync action changes time and time zone; other actions are read-only. Passive tests send nothing; Firmware and status buttons each send one fixed read-only request. Individual reads last at most 10 seconds; preflight lasts at most 60 seconds. Opening a connection may wake the printer.")
                         Button("Refresh connected accessories") { probe.refresh() }
                         Button("Find Sprocket with Apple picker") { probe.picker() }.disabled(probe.active)
                         if probe.active { Button("Close session now") { probe.stop() } }
@@ -281,6 +297,9 @@ struct SelectAccessoryProbeApp: App {
                                             Button("Refresh printer status") { probe.start(accessory, protocolName: name, readStatus: true) }
                                                 .buttonStyle(.borderedProminent)
                                                 .accessibilityIdentifier("read-status")
+                                                .disabled(probe.active)
+                                            Button("Sync clock, verify, then preflight") { probe.start(accessory, protocolName: name, syncClock: true) }
+                                                .buttonStyle(.bordered)
                                                 .disabled(probe.active)
                                             Button("Run read-only preflight") { probe.start(accessory, protocolName: name, readPreflight: true) }
                                                 .buttonStyle(.bordered)

@@ -129,3 +129,33 @@ var flagged = replies[7]; flagged[2] = 1
     for value in ["state=1", "currentJob=0", "queue=1", "battery=65", "power=1"] { assert(message.contains(value)) }
 }
 assert(diagnostic.failed)
+// Clock write: Unix seconds and signed UTC offset, one write only.
+func checkedNext(_ clock: inout ClockSync, _ expected: [UInt8]) throws {
+    let request = try clock.next(now: Date(timeIntervalSince1970: 1700000000), zone: TimeZone(secondsFromGMT: -25200)!)
+    assert(request == expected)
+    refused { _ = try clock.next() }
+}
+var clock = ClockSync()
+try checkedNext(&clock,[4,9]); try clock.accept([5,9,211,72])
+try checkedNext(&clock,[8,1]); try clock.accept([9,1,1,0,0,0])
+try checkedNext(&clock,[24,0,241,83,101,144,157,255,255]); try clock.accept([25])
+try checkedNext(&clock,[8,1]); try clock.accept([9,1,0,0,0,0])
+assert(clock.complete && clock.before == 1 && clock.after == 0)
+refused { _ = try clock.next() }
+let clockReplies: [[UInt8]] = [[5,9,211,72],[9,1,1,0,0,0],[25],[9,1,0,0,0,0]]
+for stage in 0...3 {
+    for bad in [[], [1,24,7]] as [[UInt8]] {
+        var broken = ClockSync()
+        for reply in clockReplies.prefix(stage) { _ = try broken.next(); try broken.accept(reply) }
+        _ = try broken.next(); refused { try broken.accept(bad) }; refused { _ = try broken.next() }
+    }
+    var cancelled = ClockSync()
+    for reply in clockReplies.prefix(stage) { _ = try cancelled.next(); try cancelled.accept(reply) }
+    _ = try cancelled.next(); cancelled.stop(); refused { _ = try cancelled.next() }
+}
+var uncleared = ClockSync()
+for reply in clockReplies.prefix(3) { _ = try uncleared.next(); try uncleared.accept(reply) }
+_ = try uncleared.next(); refused { try uncleared.accept([9,1,1,0,0,0]) }
+var unsafe = ClockSync(); _ = try unsafe.next(); try unsafe.accept(clockReplies[0]); _ = try unsafe.next()
+refused { try unsafe.accept([9,1,3,0,0,0]) }
+print("Clock sync: exact timestamp/negative offset, before/after flag, refusal and interruption tests passed")

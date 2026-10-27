@@ -189,3 +189,30 @@ has not done so. No automatic clock setting or readiness-rule relaxation was mad
 The next useful read-only improvement is to separate diagnostic collection from
 submission eligibility, allowing queue/counter reads to finish while reporting
 this flag as a readiness blocker. That is proposed, not implemented here.
+
+### Build 10 explicit clock synchronization
+
+A separate **Sync clock, verify, then preflight** action validates the Select model,
+reads system flags, sends exactly one SET_TIME request (0x18), requires its 0x19
+acknowledgement, and reads flags again. The time payload matches the inspected
+Android setup path: unsigned 32-bit Unix seconds plus signed 32-bit current UTC
+offset in seconds, both little-endian. Timestamp/offset are sampled when preparing
+the write, not when opening the session. Other flags block the write. Verification
+requires the time-invalid bit to clear and other flag bits to remain unchanged.
+If verification succeeds, the existing read-only preflight runs automatically.
+There is no print, automatic clock retry or clock write in the read-only button.
+The shared 60-second run bound and 10-second exchange deadlines still apply.
+A lost acknowledgement is reported as failure; the write may have taken effect.
+There is no identified current-clock readback command; status verification cannot
+measure clock drift, exact accuracy or retention across power loss.
+
+Offline tests pin the exact seconds/negative-timezone bytes, validate the before
+and after flags, reject uncleared/other flags and malformed/rejected responses,
+and stop after interruptions at each stage. Signed build passed. Physical flag
+clearance and the subsequent preflight remain pending the user's report.
+
+Desktop audit: macOS/Linux/Windows use the same Python JobEngine. It reads
+system_flags and requires zero in idle(); it does not ignore time_invalid. No
+clock write currently occurs in the portable job engine. A normal setup sync is
+recommended after this explicit physical test, separate from read-only probes;
+it has not been added to desktop adapters in this change.
