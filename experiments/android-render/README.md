@@ -122,3 +122,15 @@ The [calibration package](../calibration/README.md) describes `--ez calibration 
 older message-inspection routine. The second returns before device/service
 creation and only exercises message serialization and synthetic transfer state.
 Neither mode creates a printer client or transmits a protocol message.
+
+### Intentional debuggable research build
+
+CodeQL's `java/android/debuggable-attribute-enabled` finding is accurate: this
+manifest intentionally enables debugging for the isolated render experiment.
+The documented `adb run-as dev.zink.renderprobe` extraction workflow depends on
+that flag. The manifest requests no Bluetooth, network, camera or shared-storage
+permissions. This is a local research harness, not a production printer app.
+Accepting this specific finding for the experiment is reasonable; do not carry
+the flag into a distributed release or use the harness for sensitive user data.
+Do not disable repository-wide code scanning to suppress this finding. The GitHub
+alert was inspected but not dismissed by this documentation change.

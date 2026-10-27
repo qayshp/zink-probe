@@ -31,6 +31,10 @@ jobs:
           PYTHONPATH=src python3 ios/print-tests/generate.py build/ios-upload-fixtures.json
           swiftc ios/PrintCore/UploadPlan.swift ios/print-tests/main.swift -o build/ios-upload-tests
           build/ios-upload-tests build/ios-upload-fixtures.json
+      - name: Test durable iOS jobs with abrupt process exits
+        run: |
+          swiftc ios/PrintCore/*.swift ios/journal-tests/main.swift -o build/ios-journal-tests
+          build/ios-journal-tests
       - name: Compile for iPhone (no signing or device access)
         run: >-
           xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj

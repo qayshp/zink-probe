@@ -245,5 +245,6 @@ App Store distribution or review claim. No printer commands were sent.
 
 See [PrintCore](PrintCore/README.md) for the native upload state machine and
 Python/Swift golden-trace tests. This component is not linked into the app or
-Share extension yet. Durable job journaling, full preflight, framed stream I/O
-and completion observation remain required before enabling real submission.
+Share extension yet. Durable job journaling is now implemented and tested offline. Its integration,
+full preflight, framed stream I/O and completion observation remain required
+before enabling real submission.
