@@ -273,6 +273,10 @@ connection/setup/readiness queries, not iOS print submission. No paper was used.
 
 ## Build 11: test the connection inside the Share extension
 
+**Display-name correction:** the simulator Share sheet labels this entry **Select
+Probe**, using the containing app name. Look for that label in the horizontal app
+row/More menu; “Prepare for Select” below is the extension bundle display name.
+
 The Share extension now includes a manual **Connection test** screen. From Photos,
 share one image → **Prepare for Select** (under More if needed) → **Connection test**
 in the preparation screen's toolbar. Sharing a photo does not open an accessory
@@ -313,3 +317,27 @@ and partial-write tests passed, embedded-bundle metadata inspected. Binary symbo
 inspection confirms that upload, journal, clock-sync and preflight cores are absent
 from the extension. It has no print or settings action. Physical extension visibility,
 stream opening and firmware response remain pending the user's test report.
+
+### Share-sheet display name correction (Build 11 investigation)
+
+The user could not find “Prepare for Select” in Apple Photos or Google Photos.
+Simulator iOS 27.0 installation logs confirm the Share plugin registered. A
+standard UIActivityViewController sharing a generated UIImage displayed the
+extension in its horizontal application row as **Select Probe**, with a generic
+app icon, despite the extension bundle's CFBundleDisplayName being “Prepare for
+Select.” Look for **Select Probe** in the app row or its **More** menu. Opening the
+main app does not require another setup step. The earlier instructions used the
+extension's bundle display name rather than the label observed in the Share UI.
+
+The existing image-only activation rule was not changed: the extension is offered
+for the known UIImage payload. This does not establish visibility for every host
+representation, Live Photo or multi-selection. Physical Photos/Google Photos
+visibility and extension launch remain pending the user's report. If neither
+label appears, investigate that separately instead of assuming the name explains
+all cases. The simulator Share-sheet hierarchy was not exposed by the available
+runtime UI snapshot, so selection/launch was not automated successfully.
+
+An in-app sample-image sharing helper was used temporarily to reproduce the menu,
+then removed from the source. No app update is required for the naming correction.
+Private screenshot evidence: logs/share-extension/simulator-share-sheet.png.
+No accessory session, printer write or print was performed in this investigation.
