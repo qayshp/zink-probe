@@ -25,6 +25,7 @@ final class JobJournal {
         var attributionBlocked: Bool?
         var lastPages: Int?
         var lastCalibrations: Int?
+        var failureReason: String?
     }
     private var db: OpaquePointer?
     init(url: URL) throws {
@@ -113,7 +114,7 @@ final class JobJournal {
             record.baselinePages = pages; record.baselineCalibrations = calibrations; record.baselineFirmware = firmware
         }
     }
-    func markUncertain(_ id: UUID) { try? update(id) { $0.state = "uncertain" } }
+    func markUncertain(_ id: UUID, reason: String) { try? update(id) { $0.state = "uncertain"; $0.failureReason = reason } }
     /// Only validated read snapshots can release an active claim; generic updates
     /// stay private to this file. Persist contradictory attribution before throwing.
     func observe(_ id: UUID, snapshot: ReadOnlyPreflight, idleSamples: inout Int) throws -> Bool {

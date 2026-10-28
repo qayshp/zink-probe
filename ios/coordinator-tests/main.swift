@@ -84,6 +84,7 @@ for opcode: UInt8 in [12,48,14] {
     let id = UUID(), c = try fresh(journal,peer,id)
     _ = drive(c,peer,steps:20000)
     assert(c.state == .uncertain && peer.startCount == 1)
+    let uncertainRecord = try journal.record(id)!; assert(uncertainRecord.failureReason != nil)
     assert(peer.requests.filter { $0[0] == opcode }.count == 1)
     refused { _ = try fresh(journal,peer,UUID()) }
     let mutations = peer.mutationCount

@@ -52,7 +52,7 @@ final class SubmissionCoordinator {
         guard !terminal else { return }
         exchange?.stop(); upload?.stop(); error = reason
         state = claimed ? .uncertain : .notSubmitted
-        if claimed { journal.markUncertain(localID) }
+        if claimed { journal.markUncertain(localID,reason:reason) }
     }
     func tick(now: TimeInterval) {
         guard !terminal else { return }
