@@ -17,6 +17,14 @@ final class JobJournal {
         var acknowledgedBytes: Int
         var printerJobID: UInt16?
         var handle: UInt8?
+        var baselinePages: Int?
+        var baselineCalibrations: Int?
+        var baselineFirmware: String?
+        var seenPrinting: Bool?
+        var uploadAcknowledged: Bool?
+        var attributionBlocked: Bool?
+        var lastPages: Int?
+        var lastCalibrations: Int?
     }
     private var db: OpaquePointer?
     init(url: URL) throws {
@@ -28,8 +36,22 @@ final class JobJournal {
             try sql("PRAGMA synchronous=FULL")
             try sql("PRAGMA journal_mode=DELETE")
             try sql("PRAGMA busy_timeout=2000")
-            // No release path yet: every existing device claim remains blocked.
-            try sql("CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, device TEXT NOT NULL UNIQUE, record TEXT NOT NULL)")
+            try transaction {
+                try sql("CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, device TEXT NOT NULL, record TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1)")
+                // Preserve Build 10 journals and all their unresolved claims.
+                var statement: OpaquePointer?
+                guard sqlite3_prepare_v2(db, "SELECT active FROM jobs LIMIT 0", -1, &statement, nil) == SQLITE_OK else {
+                    sqlite3_finalize(statement)
+                    try sql("CREATE TABLE jobs_migrated(id TEXT PRIMARY KEY, device TEXT NOT NULL, record TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1)")
+                    try sql("INSERT INTO jobs_migrated(id,device,record) SELECT id,device,record FROM jobs")
+                    try sql("DROP TABLE jobs")
+                    try sql("ALTER TABLE jobs_migrated RENAME TO jobs")
+                    try sql("CREATE UNIQUE INDEX one_active_device ON jobs(device) WHERE active=1")
+                    return
+                }
+                sqlite3_finalize(statement)
+                try sql("CREATE UNIQUE INDEX IF NOT EXISTS one_active_device ON jobs(device) WHERE active=1")
+            }
         } catch { sqlite3_close(db); db = nil; throw error }
     }
     deinit { sqlite3_close(db) }
@@ -62,19 +84,19 @@ final class JobJournal {
         try transaction {
             let record = Record(id: id, device: device, digest: Self.digest(jpeg), byteCount: jpeg.count,
                                 state: "claimed", acknowledgedBytes: 0)
-            try sql("INSERT INTO jobs VALUES(\(quote(id.uuidString)),\(quote(device)),\(quote(try encoded(record))))")
+            try sql("INSERT INTO jobs(id,device,record) VALUES(\(quote(id.uuidString)),\(quote(device)),\(quote(try encoded(record))))")
         }
     }
     fileprivate func update(_ id: UUID, _ change: (inout Record) throws -> Void) throws {
         try transaction {
             guard var record = try record(id) else { throw Failure.invalidRecord }
             try change(&record)
-            try sql("UPDATE jobs SET record=\(quote(try encoded(record))) WHERE id=\(quote(id.uuidString))")
+            try sql("UPDATE jobs SET record=\(quote(try encoded(record))), active=\(record.state == "completed" ? 0 : 1) WHERE id=\(quote(id.uuidString))")
         }
     }
     func unresolvedJobs() throws -> [Record] {
         var statement: OpaquePointer?
-        guard sqlite3_prepare_v2(db, "SELECT id FROM jobs ORDER BY id", -1, &statement, nil) == SQLITE_OK else { throw Failure.storage("Cannot list journal") }
+        guard sqlite3_prepare_v2(db, "SELECT id FROM jobs WHERE active=1 ORDER BY id", -1, &statement, nil) == SQLITE_OK else { throw Failure.storage("Cannot list journal") }
         defer { sqlite3_finalize(statement) }
         var results: [Record] = []
         while true {
@@ -85,9 +107,43 @@ final class JobJournal {
             results.append(item)
         }
     }
+    func saveBaseline(_ id: UUID, pages: Int, calibrations: Int, firmware: String) throws {
+        try update(id) { record in
+            guard record.state == "claimed", record.baselinePages == nil, pages >= 0, calibrations >= 0, !firmware.isEmpty else { throw Failure.blocked }
+            record.baselinePages = pages; record.baselineCalibrations = calibrations; record.baselineFirmware = firmware
+        }
+    }
+    func markUncertain(_ id: UUID) { try? update(id) { $0.state = "uncertain" } }
+    /// Only validated read snapshots can release an active claim; generic updates
+    /// stay private to this file. Persist contradictory attribution before throwing.
+    func observe(_ id: UUID, snapshot: ReadOnlyPreflight, idleSamples: inout Int) throws -> Bool {
+        var completed = false, contradicted = false
+        try update(id) { record in
+            guard snapshot.complete, let job = record.printerJobID,
+                  let pages = record.baselinePages, let calibrations = record.baselineCalibrations,
+                  record.attributionBlocked != true else { throw Failure.blocked }
+            let delta = snapshot.pages - pages
+            let normal = calibrations == snapshot.calibrations && (0...1).contains(delta)
+                && snapshot.jobs.allSatisfy { $0 == Int(job) } && [0,Int(job)].contains(snapshot.currentJob)
+                && [1,2,7,16].contains(snapshot.printerState) && [0,4].contains(snapshot.flags) && [1,4].contains(snapshot.queueState)
+            record.lastPages = snapshot.pages; record.lastCalibrations = snapshot.calibrations
+            guard normal else { record.attributionBlocked = true; contradicted = true; return }
+            let seen = record.seenPrinting == true || (snapshot.currentJob == Int(job) && snapshot.printerState == 7)
+            let idle = snapshot.printerState == 1 && snapshot.flags == 0 && snapshot.currentJob == 0 && snapshot.queueState == 1 && snapshot.jobs.isEmpty
+            idleSamples = idle ? idleSamples+1 : 0
+            completed = seen && record.uploadAcknowledged == true && delta == 1 && idleSamples >= 2
+            record.seenPrinting = seen; record.state = completed ? "completed" : "observing"
+        }
+        if contradicted { throw ReadOnlyPreflight.Failure.invalid("Foreign activity, counter change or blocking status prevents attribution") }
+        return completed
+    }
+    func assertAvailable(id: UUID, device: String) throws {
+        guard try record(id) == nil, !(try unresolvedJobs()).contains(where: { $0.device == device }) else { throw Failure.blocked }
+    }
     /// Observation only: reopening never constructs an upload plan or grants a send permit.
     func recovery(_ id: UUID) throws -> String {
         guard let record = try record(id) else { throw Failure.invalidRecord }
+        if record.state == "completed" { return "Protocol completion observed; this job ID cannot be reused." }
         return record.state == "uploaded" ? "Upload acknowledged; physical outcome unconfirmed. Do not resubmit."
             : "Unresolved job (\(record.state)); do not resubmit. Read-only reconciliation required."
     }
@@ -100,6 +156,7 @@ final class TrackedUpload {
     private let journal: JobJournal
     private var plan: UploadPlan
     private var stopped = false
+    var uploaded: Bool { plan.phase == .uploaded }
     init(journal: JobJournal, id: UUID, device: String, jpeg: Data, maximum: Int, name: String, nameLimit: Int) throws {
         let plan = try UploadPlan(preparedJPEG: jpeg, maximum: maximum, name: name, nameLimit: nameLimit)
         try journal.claim(id: id, device: device, jpeg: jpeg)
@@ -125,6 +182,7 @@ final class TrackedUpload {
                 guard record.pendingDigest != nil else { throw JobJournal.Failure.blocked }
                 record.state = plan.phase == .uploaded ? "uploaded" : "acknowledged"
                 record.pendingDigest = nil; record.pendingOpcode = nil
+                record.uploadAcknowledged = plan.phase == .uploaded
                 record.acknowledgedBytes = plan.offset; record.printerJobID = plan.jobID; record.handle = plan.handle
             }
         } catch { stop(); throw error }

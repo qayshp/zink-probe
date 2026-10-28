@@ -23,25 +23,15 @@ UTF-8, invalid inputs, zero job ID, bad opcode/handle/status/offset/total, trunc
 replies, remote rejection, interruption, duplicate send and repeated empty final.
 Local Swift tests passed; this suite is included in iOS CI.
 
-## Remaining gates before any live submission
+## Current submission status
 
-1. Validate the prepared baseline JPEG completely before constructing a plan.
-   This core only checks size and envelope; it is not a JPEG validator.
-2. Physically validate the read-only preflight below over iOS, then bind a fresh
-   preflight result to the saved job identity before any submission.
-3. Integrate the durable TrackedUpload wrapper below with one persistent store.
-   Do not bypass it by using a fresh bare UploadPlan after a crash.
-4. The framed exchange below is connected only to read-only preflight. Integrate
-   it with tracked upload only after the remaining submission gates are met.
-5. Observe completion conservatively and reconcile ambiguous jobs read-only.
-6. Decide lifecycle ownership: extensions can be terminated; do not assume they
-   can finish a Bluetooth transfer in the background. Start with an explicit
-   foreground confirmation flow, and test interruption before enabling printing.
-
-A successful offline transcript does not prove iOS print commands are accepted,
-Share-extension accessory access, background execution or App Store approval.
-No physical printer was accessed for this milestone. No additional print is
-currently authorized.
+The complete offline coordinator is implemented below. Its prepared-image validator,
+preflight, journal, framed upload and completion/recovery paths run together against
+an in-memory printer. The native app and Share extension **do not link the coordinator,
+upload or journal**. Their physical connection/read tests are documented separately.
+A future live integration must choose durable storage/lifecycle ownership, explicitly
+confirm the job, drive the coordinator serially, and close streams on terminal state.
+No iOS print submission is enabled or authorized by this milestone.
 
 Run from the repository root with Python 3.12 or newer (or the project venv):
 
@@ -66,7 +56,8 @@ the live wrapper. A lost acknowledgement remains pending or uncertain. Opening t
 journal never reconstructs an upload plan or grants permission to send. Recovery
 lists unresolved records and reports the recorded state; it sends nothing.
 
-This milestone intentionally has **no claim-release API**. Even an acknowledged
+The initial journal milestone intentionally had **no claim-release API** (superseded
+by verified completion in the coordinator below). Even an acknowledged
 upload remains blocked because physical completion is not established. A rejected
 or interrupted job also remains blocked until a future read-only reconciliation
 implementation and explicit resolution policy exist. Never delete a record to
@@ -249,3 +240,91 @@ was the first successful preflight in that app process. Clock accuracy/drift,
 power-cycle retention, actual iOS uploads/printing, and Share-extension transport
 lifecycle remain unverified. No further device action was performed while
 recording the user's result.
+
+
+## Complete offline submission coordinator
+
+`PreparedJobImage` accepts an immutable encoded JPEG after bounded header checks,
+ImageIO decoding, complete source status, baseline/8-bit/three-component checks,
+768×1152 dimensions, supported chroma sampling, sRGB and upright-orientation checks.
+It accepts quality-100 4:4:4 output and does not resize or recompress it. ImageIO
+acceptance is not a proof of arbitrary JPEG entropy correctness or printer support
+for every possible encoder output. Existing PhotoPreparation supplies the normal
+prepared image; the coordinator receives its JPEG through this validator.
+
+`SubmissionCoordinator` is a serial, event-driven state machine: call `write`,
+`receive`, `tick`, `cancel` or `disconnected` with monotonic time. It has no native
+transport dependency or automatic retry. `write` invokes a supplied byte-writer;
+partial/zero writes stay within one exchange. `terminal` tells the future owner
+when to close both native streams. No raw upload-plan restoration exists.
+
+The normal path:
+1. Reject a previously used local job ID or an unresolved device claim.
+2. Run fresh full read-only preflight against the explicitly expected protocol ID.
+3. Construct one-copy tracked upload with negotiated message/name limits.
+4. Commit a device claim and baseline page/calibration/firmware evidence before
+   generating the first mutating request. Every pending mutation is committed before
+   any corresponding frame bytes reach the writer.
+5. Validate acknowledgements through upload completion, preserving JPEG bytes exactly.
+6. Observe status, queue and paginated counters. Completion requires the matching
+   printer job to have been seen printing, a durable final upload acknowledgement,
+   exactly one added page, unchanged calibration count and two consecutive idle/empty
+   snapshots with zero flags. `physicalEjectionConfirmed` remains false.
+
+Page-counter reset/extra pages, calibration changes, foreign job IDs, errors or
+unknown states prevent attribution. Contradictory observations set a durable block.
+Disappearance alone never completes a job. Exchange deadlines are ten seconds;
+the default overall coordinator bound is 300 seconds, with two-second observation
+spacing. Tests use virtual time and zero spacing to run without real sleeps.
+
+The recovery initializer takes a saved local ID and its journal, not image bytes.
+It rechecks identity/firmware and observes read-only. It cannot create an UploadPlan
+or send PrintStart/properties/FileWrite. Missing remote IDs/baselines or a recorded
+attribution block refuse recovery. Lost final acknowledgement remains uncertain,
+even if later snapshots suggest a page printed. There is no blind retry or manual
+"clear and resend" action. Explicit clock sync remains a separate action; a clock-
+invalid preflight fails before claiming or sending a print job.
+
+### Journal evolution and duplicate boundaries
+
+The journal retains all local IDs. Only coordinator-verified `completed` records
+release the active device constraint so another distinct job can run. Upload,
+rejection, timeout and uncertain states remain blocking. Migration from the older
+three-column table preserves every record and keeps legacy claims active. SQLite
+FULL transactions and an active-device unique index arbitrate multiple processes.
+Two coordinators may preflight simultaneously; only one can claim/send a job.
+
+The store holds fingerprints, counters and state, not the user's image. Recovery
+therefore cannot resend even by accident. Use one stable journal path and canonical
+protocol device ID. Another host/database, deleting app data, or bypassing this core
+still defeats local duplicate prevention. This is not a printer-side exactly-once
+contract. App Group access, file protection, confirmation UI and native transport
+ownership remain live-integration work. Existing deployed Build 11 is unchanged.
+
+### Offline verification
+
+The framed simulated peer supplies identity, setup, binary capabilities, configuration,
+status, queue, counters and upload acknowledgements. It collects and compares the
+full JPEG, exercises fragmented reads/writes and backpressure, and simulates printing
+then counter advancement. It is a deterministic peer, not firmware emulation.
+
+Tests cover real sRGB JPEG input, malformed/truncated input, complete one-copy jobs,
+one-byte transport fragments, optional empty final, permanent local-ID rejection,
+release only after verified completion, concurrent coordinator claims, wrong printer,
+paused/clock-invalid preflight, lost start/properties/chunk/final acknowledgements,
+missing processing evidence, foreign jobs, extra pages, calibration changes, bad
+offsets, cancellation at request boundaries and every first-mutation frame byte
+offset. Child processes exit abruptly while start is pending, after upload and after
+printing is observed; reopened recovery sends only reads and never resubmits.
+Injected database failures prevent mutation, and legacy migration preserves claims.
+The earlier journal process-death and framing regression suites remain enabled.
+
+```sh
+swiftc ios/PrintCore/*.swift ios/coordinator-tests/SimulatedPrinter.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
+build/ios-coordinator-tests
+```
+
+Local suites passed; CI now runs the integrated suite and typechecks all core sources
+against the iOS SDK. No physical printer connection or paper was used for these tests.
+
+Integrated test source and run instructions: [coordinator tests](../coordinator-tests/README.md).

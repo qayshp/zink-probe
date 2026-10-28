@@ -59,18 +59,32 @@ struct ReadOnlyPreflight {
     private(set) var pages = 0
     private(set) var calibrations = 0
     private let expectedID: String?
+    private let requireReady: Bool
+    private(set) var flags = 0
+    private(set) var printerState = 0
+    private(set) var currentJob = 0
+    private(set) var queueState = 0
+    private(set) var jobs: [Int] = []
     private var handle: UInt8 = 0, encoding: UInt8 = 0
     private var table: [UInt8] = [], chunks = 0, previousRemaining: Int?
     private var iterator = 0, iterators = Set<Int>(), counters: [Int:Int] = [:]
-    init(expectedDeviceID: String? = nil) throws {
+    init(expectedDeviceID: String? = nil, requireReady: Bool = true) throws {
         if let id = expectedDeviceID {
             guard id.count == 32, id.allSatisfy({ "0123456789abcdef".contains($0) }) else { throw Failure.invalid("Invalid expected device identity") }
         }
         expectedID = expectedDeviceID
+        self.requireReady = requireReady
+    }
+    /// Same-connection status/counter observation after identity has been verified.
+    static func observation() throws -> ReadOnlyPreflight {
+        var reader = try ReadOnlyPreflight(requireReady: false)
+        reader.stage = .status
+        return reader
     }
     var identityBound: Bool { expectedID != nil }
     var summary: String {
-        "Read-only checks passed: firmware \(firmware), battery \(battery)%, idle/empty queue, no flags, not paused; maximum \(maximum), setup byte \(setupSecurityRaw), name limit \(nameLimit), pages \(pages), calibration cycles \(calibrations). " + (identityBound ? "Expected device identity matched." : "Identity discovered; not yet bound to a saved job.") + " No print authorized or sent."
+        if !requireReady { return "Read-only observation collected: flags=\(flags), state=\(printerState), queue=\(queueState), pages=\(pages). Submission readiness was not evaluated." }
+        return "Read-only checks passed: firmware \(firmware), battery \(battery)%, idle/empty queue, no flags, not paused; maximum \(maximum), setup byte \(setupSecurityRaw), name limit \(nameLimit), pages \(pages), calibration cycles \(calibrations). " + (identityBound ? "Expected device identity matched." : "Identity discovered; not yet bound to a saved job.") + " No print authorized or sent."
     }
     mutating func stop() { failed = true }
     private func require(_ condition: Bool, _ reason: String) throws { if !condition { throw Failure.invalid(reason) } }
@@ -144,11 +158,19 @@ struct ReadOnlyPreflight {
                 fields[tag] = number(r[p..<p+width]); p += width
             }
             let details = "flags=\(fields[1].map { String(format: "0x%08X", $0) } ?? "missing"), state=\(fields[2].map(String.init) ?? "missing"), currentJob=\(fields[5].map(String.init) ?? "missing"), queue=\(fields[7].map(String.init) ?? "missing"), battery=\(fields[3].map(String.init) ?? "missing"), power=\(fields[6].map(String.init) ?? "missing")"
-            try require(fields.count == widths.count && fields[1] == 0 && fields[2] == 1 && fields[5] == 0 && fields[7] == 1, "Printer not idle/empty/error-free: \(details)")
+            try require(fields.count == widths.count, "Incomplete status: \(details)")
+            flags = fields[1]!; printerState = fields[2]!; currentJob = fields[5]!; queueState = fields[7]!
+            if requireReady { try require(flags == 0 && printerState == 1 && currentJob == 0 && queueState == 1, "Printer not idle/empty/error-free: \(details)") }
             battery = fields[3] ?? 0
-            try require((30...100).contains(battery) && [1,2].contains(fields[6] ?? 0), "Battery/power unsuitable: \(details)"); stage = .jobs
+            try require((0...100).contains(battery), "Invalid battery percentage")
+            if requireReady { try require(battery >= 30 && [1,2].contains(fields[6] ?? 0), "Battery/power unsuitable: \(details)") }
+            stage = .jobs
         case .jobs:
-            try require(r == [45], "Queue not empty or malformed"); stage = .metrics
+            try require(r.first == 45 && (r.count - 1) % 2 == 0, "Malformed queue")
+            jobs = stride(from: 1, to: r.count, by: 2).map { number(r[$0..<$0+2]) }
+            try require(!jobs.contains(0) && Set(jobs).count == jobs.count, "Invalid queue IDs")
+            if requireReady { try require(jobs.isEmpty, "Queue not empty") }
+            stage = .metrics
         case .metrics:
             try require(r.count >= 4 && r[0] == 59 && r[1] == 1 && (r.count - 4) % 6 == 0, "Metrics response")
             try require(iterators.insert(iterator).inserted && iterators.count <= 16, "Metrics loop/bound")

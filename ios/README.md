@@ -376,3 +376,36 @@ clock/preflight result remains separate evidence. This success means a foregroun
 extension submission path is worth implementing and testing offline; it does not
 by itself establish that a complete print transaction survives extension lifetime
 limits. No new print is authorized by this diagnostic report.
+
+
+## Offline submission coordinator milestone
+
+The complete image-validation/preflight/tracked-upload/completion coordinator now
+runs against a framed simulated printer, including process death, uncertain outcomes,
+read-only recovery and duplicate prevention. See [PrintCore](PrintCore/README.md).
+It is not linked into the app or Share extension; Build 11 remains the installed
+read-only extension experiment. No physical print was attempted or authorized here.
+
+## Apps and Actions in the Share sheet
+
+The user's screenshot shows **Select Probe** in the horizontal destination-app row
+and **Print to sprocket** in the action area. Ours is a Share extension registered
+as `com.apple.share-services`. Its interface runs in an extension process hosted
+by the sharing UI; selecting the app icon does not imply launching the full app.
+Apple also supports Action extensions (`com.apple.ui-services`) for named tasks
+on selected content. The action area can include those, built-in system activities
+and host-supplied custom activities; position alone does not prove the exact
+implementation behind the official Sprocket entry. Both categories can have UI.
+Neither category grants a special Bluetooth privilege or implies AirPrint support.
+The system **Print** action shown separately is the usual iOS printing route.
+
+An eventual **Print with Select** Action extension could reuse our preparation and
+coordinator to present a task-oriented label in the action area. That would add a
+second extension target and its lifecycle/packaging tests; it is not needed to make
+the existing Share extension communicate, which is already physically verified.
+No Action extension was added in this milestone.
+
+Sources:
+- https://developer.apple.com/design/human-interface-guidelines/activity-views
+- https://developer.apple.com/documentation/uikit/uiactivity/category
+- https://developer.apple.com/library/archive/documentation/General/Conceptual/ExtensibilityPG/Action.html

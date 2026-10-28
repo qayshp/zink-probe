@@ -39,6 +39,14 @@ jobs:
         run: |
           swiftc ios/PrintCore/ReadOnlyPreflight.swift ios/preflight-tests/main.swift -o build/ios-preflight-tests
           build/ios-preflight-tests
+      - name: Test full offline iOS submission and recovery
+        run: |
+          swiftc ios/PrintCore/*.swift ios/coordinator-tests/SimulatedPrinter.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
+          build/ios-coordinator-tests
+      - name: Typecheck complete core for iOS
+        run: >-
+          xcrun swiftc -typecheck -target arm64-apple-ios16.0
+          -sdk "$(xcrun --sdk iphoneos --show-sdk-path)" ios/PrintCore/*.swift
       - name: Compile for iPhone (no signing or device access)
         run: >-
           xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj
