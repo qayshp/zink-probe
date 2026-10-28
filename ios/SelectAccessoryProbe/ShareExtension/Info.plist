@@ -15,9 +15,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>13</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Test the Select connection from Share using a passive stream test or a single read-only firmware request.</string>
+	<string>Read Select identity, status and capabilities from Share. Printing and persistent settings changes are disabled here.</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

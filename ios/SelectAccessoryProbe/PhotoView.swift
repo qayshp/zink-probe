@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct PhotoView: View {
     var initialData: Data? = nil
     var onReview: ((PreparedPhoto, PhotoLayout, Int) -> Void)? = nil
+    var onBind: ((PreparedPhoto, PhotoLayout, Int) -> Void)? = nil
     @State private var selection: PhotosPickerItem?
     @State private var source: Data?
     @State private var result: PreparedPhoto?
@@ -50,6 +51,10 @@ struct PhotoView: View {
                         Button("Review simulated job") { onReview(result,layout,quality) }
                             .buttonStyle(.borderedProminent)
                             .accessibilityIdentifier("review-simulated-job")
+                    }
+                    if let onBind {
+                        Button("Bind a printer draft — no printing") { onBind(result,layout,quality) }
+                            .buttonStyle(.bordered).accessibilityIdentifier("review-bound-draft")
                     }
                     Button("Save prepared JPEG to Files") { exporting = true }.buttonStyle(.bordered)
                     VStack(alignment: .leading) {

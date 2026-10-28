@@ -1,5 +1,8 @@
 # Confirmed Share-flow simulation — Build 12
 
+This records the Build 12 milestone. See [Build 13 native adapter and durable
+binding](../accessory-tests/README.md) for the subsequent read-only integration.
+
 The Share extension now wires the complete submission coordinator to an immutable
 review and explicit confirmation screen. **Real printing remains disabled.** The
 simulation actor owns its memory peer privately and accepts no transport callback,

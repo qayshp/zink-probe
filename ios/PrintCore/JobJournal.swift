@@ -38,6 +38,8 @@ final class JobJournal {
             try sql("PRAGMA journal_mode=DELETE")
             try sql("PRAGMA busy_timeout=2000")
             try transaction {
+                try sql("CREATE TABLE IF NOT EXISTS prepared_bindings(id TEXT PRIMARY KEY, device TEXT NOT NULL, metadata TEXT NOT NULL, jpeg BLOB, active INTEGER NOT NULL DEFAULT 1)")
+                try sql("CREATE UNIQUE INDEX IF NOT EXISTS one_bound_device ON prepared_bindings(device) WHERE active=1")
                 try sql("CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, device TEXT NOT NULL, record TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1)")
                 // Preserve Build 10 journals and all their unresolved claims.
                 var statement: OpaquePointer?
@@ -83,6 +85,11 @@ final class JobJournal {
     fileprivate func claim(id: UUID, device: String, jpeg: Data) throws {
         guard !device.isEmpty, !device.contains("\0") else { throw Failure.invalidRecord }
         try transaction {
+            try assertAvailable(id:id,device:device)
+            if let binding = try binding(id) {
+                guard binding.digest == Self.digest(jpeg), binding.byteCount == jpeg.count else { throw Failure.blocked }
+                _ = try boundImage(id) // verify the durable bytes before creating a claim
+            }
             let record = Record(id: id, device: device, digest: Self.digest(jpeg), byteCount: jpeg.count,
                                 state: "claimed", acknowledgedBytes: 0)
             try sql("INSERT INTO jobs(id,device,record) VALUES(\(quote(id.uuidString)),\(quote(device)),\(quote(try encoded(record))))")
@@ -93,6 +100,7 @@ final class JobJournal {
             guard var record = try record(id) else { throw Failure.invalidRecord }
             try change(&record)
             try sql("UPDATE jobs SET record=\(quote(try encoded(record))), active=\(record.state == "completed" ? 0 : 1) WHERE id=\(quote(id.uuidString))")
+            if record.state == "completed" { try sql("UPDATE prepared_bindings SET active=0 WHERE id=\(quote(id.uuidString))") }
         }
     }
     func unresolvedJobs() throws -> [Record] {
@@ -109,6 +117,7 @@ final class JobJournal {
         }
     }
     func saveBaseline(_ id: UUID, pages: Int, calibrations: Int, firmware: String) throws {
+        if let binding = try binding(id) { guard binding.firmware == firmware else { throw Failure.blocked } }
         try update(id) { record in
             guard record.state == "claimed", record.baselinePages == nil, pages >= 0, calibrations >= 0, !firmware.isEmpty else { throw Failure.blocked }
             record.baselinePages = pages; record.baselineCalibrations = calibrations; record.baselineFirmware = firmware
@@ -140,6 +149,89 @@ final class JobJournal {
     }
     func assertAvailable(id: UUID, device: String) throws {
         guard try record(id) == nil, !(try unresolvedJobs()).contains(where: { $0.device == device }) else { throw Failure.blocked }
+        if let binding = try binding(id) {
+            guard binding.device == device, try bindingActive(id) else { throw Failure.blocked }
+        }
+        guard !(try activeBindings()).contains(where: { $0.device == device && $0.id != id }) else { throw Failure.blocked }
+    }
+    func binding(_ id: UUID) throws -> JobBinding? {
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db,"SELECT metadata,device FROM prepared_bindings WHERE id=\(quote(id.uuidString))",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot read binding") }
+        defer { sqlite3_finalize(statement) }
+        let code = sqlite3_step(statement)
+        if code == SQLITE_DONE { return nil }
+        guard code == SQLITE_ROW, let raw = sqlite3_column_text(statement,0), let device = sqlite3_column_text(statement,1) else { throw Failure.invalidRecord }
+        let item = try JSONDecoder().decode(JobBinding.self,from:Data(String(cString:raw).utf8))
+        guard item.valid, item.id == id, item.device == String(cString:device) else { throw Failure.invalidRecord }
+        return item
+    }
+    private func bindingActive(_ id: UUID) throws -> Bool {
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db,"SELECT active FROM prepared_bindings WHERE id=\(quote(id.uuidString))",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot read binding state") }
+        defer { sqlite3_finalize(statement) }
+        guard sqlite3_step(statement) == SQLITE_ROW else { throw Failure.invalidRecord }
+        let value = sqlite3_column_int(statement,0)
+        guard [0,1].contains(value) else { throw Failure.invalidRecord }
+        return value == 1
+    }
+    func activeBindings() throws -> [JobBinding] {
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db,"SELECT id FROM prepared_bindings WHERE active=1 ORDER BY id",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot list bindings") }
+        defer { sqlite3_finalize(statement) }
+        var items: [JobBinding] = []
+        while true {
+            let code = sqlite3_step(statement)
+            if code == SQLITE_DONE { return items }
+            guard code == SQLITE_ROW, let raw = sqlite3_column_text(statement,0), let id = UUID(uuidString:String(cString:raw)), let item = try binding(id) else { throw Failure.invalidRecord }
+            items.append(item)
+        }
+    }
+    /// JPEG and metadata commit atomically in the same FULL-synchronous SQLite
+    /// transaction as the device reservation. No orphan sidecar file or new ID on reopen.
+    func bind(id: UUID, image: PreparedJobImage, settings: JobBinding.Settings, printer: VerifiedPrinter, now: TimeInterval) throws -> JobBinding {
+        guard now.isFinite, now >= printer.uptime, now-printer.uptime <= 60, settings.valid else { throw Failure.invalidRecord }
+        let item = JobBinding(id:id,device:printer.deviceID,firmware:printer.firmware,digest:Self.digest(image.jpeg),byteCount:image.jpeg.count,sampling:image.sampling,settings:settings,checkedAt:printer.checkedAt,schema:1)
+        guard item.valid else { throw Failure.invalidRecord }
+        return try transaction {
+            try assertAvailable(id:id,device:item.device)
+            if let old = try binding(id) {
+                guard old.device == item.device, old.firmware == item.firmware, old.digest == item.digest,
+                      old.byteCount == item.byteCount, old.sampling == item.sampling, old.settings == item.settings else { throw Failure.blocked }
+                _ = try boundImage(id); return old
+            }
+            let metadata = String(decoding:try JSONEncoder().encode(item),as:UTF8.self)
+            var statement: OpaquePointer?
+            guard sqlite3_prepare_v2(db,"INSERT INTO prepared_bindings(id,device,metadata,jpeg) VALUES(?,?,?,?)",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot prepare binding") }
+            defer { sqlite3_finalize(statement) }
+            let transient = unsafeBitCast(-1,to:sqlite3_destructor_type.self)
+            guard sqlite3_bind_text(statement,1,id.uuidString,-1,transient) == SQLITE_OK,
+                  sqlite3_bind_text(statement,2,item.device,-1,transient) == SQLITE_OK,
+                  sqlite3_bind_text(statement,3,metadata,-1,transient) == SQLITE_OK else { throw Failure.storage("Cannot bind metadata") }
+            let code = image.jpeg.withUnsafeBytes { sqlite3_bind_blob(statement,4,$0.baseAddress,Int32($0.count),transient) }
+            guard code == SQLITE_OK, sqlite3_step(statement) == SQLITE_DONE else { throw Failure.storage("Cannot save bound JPEG") }
+            return item
+        }
+    }
+    func boundImage(_ id: UUID) throws -> PreparedJobImage {
+        guard let item = try binding(id), try bindingActive(id) else { throw Failure.blocked }
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db,"SELECT jpeg FROM prepared_bindings WHERE id=\(quote(id.uuidString))",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot read bound JPEG") }
+        defer { sqlite3_finalize(statement) }
+        guard sqlite3_step(statement) == SQLITE_ROW, sqlite3_column_bytes(statement,0) == item.byteCount,
+              let bytes = sqlite3_column_blob(statement,0) else { throw Failure.invalidRecord }
+        let data = Data(bytes:bytes,count:item.byteCount)
+        guard Self.digest(data) == item.digest else { throw Failure.invalidRecord }
+        let image = try PreparedJobImage(jpeg:data)
+        guard image.sampling == item.sampling else { throw Failure.invalidRecord }
+        return image
+    }
+    /// An unsubmitted draft can be discarded, but its ID remains a tombstone.
+    /// A possible submitted job can never be cleared or resent through this API.
+    func discardDraft(_ id: UUID) throws {
+        try transaction {
+            guard try record(id) == nil, try binding(id) != nil, try bindingActive(id) else { throw Failure.blocked }
+            try sql("UPDATE prepared_bindings SET active=0,jpeg=NULL WHERE id=\(quote(id.uuidString))")
+        }
     }
     /// Observation only: reopening never constructs an upload plan or grants a send permit.
     func recovery(_ id: UUID) throws -> String {

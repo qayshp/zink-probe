@@ -82,6 +82,7 @@ struct ReadOnlyPreflight {
         return reader
     }
     var identityBound: Bool { expectedID != nil }
+    var readinessEvaluated: Bool { requireReady }
     var summary: String {
         if !requireReady { return "Read-only observation collected: flags=\(flags), state=\(printerState), queue=\(queueState), pages=\(pages). Submission readiness was not evaluated." }
         return "Read-only checks passed: firmware \(firmware), battery \(battery)%, idle/empty queue, no flags, not paused; maximum \(maximum), setup byte \(setupSecurityRaw), name limit \(nameLimit), pages \(pages), calibration cycles \(calibrations). " + (identityBound ? "Expected device identity matched." : "Identity discovered; not yet bound to a saved job.") + " No print authorized or sent."

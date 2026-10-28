@@ -256,6 +256,7 @@ struct SelectAccessoryProbeApp: App {
                         NavigationLink("Prepare a photo offline") { PhotoView() }
                         #if targetEnvironment(simulator)
                         NavigationLink("Share simulation test") { SimulationPhotoFlow(initialData:SimulationUIFixture.png) }
+                        NavigationLink("Share adapter test") { ShareAdapterTest() }
                         #endif
                     }
                     Section("Connection help") {

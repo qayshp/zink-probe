@@ -4,7 +4,9 @@ A native SwiftUI app and embedded Share extension, separate from the Python
 engine. The main app supports passive connection tests, fixed firmware/status
 reads, a bounded read-only preflight and an explicitly selected clock-sync action.
 The extension prepares a shared photo, tests its own accessory connection and
-offers an explicitly confirmed submission simulation. Real printing is disabled.
+offers an explicitly confirmed submission simulation. Build 13 adds a native
+read-only stream adapter, full Share preflight and durable printer-bound drafts.
+Real printing is disabled by a frame-level output policy.
 Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope
@@ -12,8 +14,8 @@ Historical build notes below retain the evidence and boundaries for each milesto
 - No real print submission or arbitrary-command input. Photo preparation and the
   confirmed in-memory submission simulation stay local.
 - Main-app clock synchronization is a separately labeled write action. All other
-  main-app diagnostics are read-only; the Share connection test only permits
-  passive streams or a single fixed firmware request.
+  main-app diagnostics are read-only. Share permits passive/firmware tests, full
+  preflight and read-only recovery, with connection-local message-limit negotiation.
 - Opening a session involves iOS-managed accessory negotiation and may wake the
   printer. Zero application bytes does not mean zero Bluetooth traffic.
 - All session tests require an explicit tap. Sharing a photo does not connect.
@@ -21,7 +23,8 @@ Historical build notes below retain the evidence and boundaries for each milesto
   HPISPSLE/lifestyle. The extension declares lifestyle only.
 - Sessions are bounded and close on cancellation or lifecycle departure. Simple
   reads/passive sessions have a ten-second limit; full preflight/clock-and-preflight
-  has a sixty-second overall bound with ten-second exchange deadlines.
+  has a sixty-second overall bound with ten-second exchange deadlines. Native Share
+  streams must both open within ten seconds; saved-job recovery is bounded to 180 seconds.
 - The main app's picker filters names containing “sprocket.” The extension only
   enumerates connected accessories; connect in the main app/Settings if necessary.
 - Enumeration is not a raw Bluetooth radio scan. Pairing does not ensure a current
@@ -415,6 +418,25 @@ See [Share-flow validation and remaining gates](share-flow-tests/README.md) for
 automated tests, simulator UI evidence, durable-storage limits and the next steps
 before a deliberate iOS print. Build 12 has not been installed or tested on the
 physical iPhone in this milestone. No real printer connection or print was needed.
+
+## Build 13: native read-only adapter and bound drafts
+
+**Connection test → Run full read-only preflight** now uses the native EASession
+adapter for all preflight stages. Printing and persistent settings writes are
+blocked at the frame boundary. Session-local maximum negotiation is allowed;
+clock synchronization remains a separate main-app action.
+
+The preparation screen adds **Bind a printer draft — no printing**. It freezes
+the image/settings, checks the selected printer, and explicitly saves the exact
+JPEG with a stable job UUID and that printer's canonical identity. **Saved printer
+drafts** can verify the bytes and perform bound read-only checks/recovery after
+reopening Share. An unresolved reservation cannot be bypassed with a new review;
+only an unsubmitted, unclaimed draft can be discarded. The protected live store
+belongs solely to the extension and is separate from the simulation database.
+
+See [native adapter tests and storage policy](accessory-tests/README.md) for the
+complete command allowlist, interruption tests, ownership choice and physical
+verification still required. Native submission remains unavailable.
 
 ## Apps and Actions in the Share sheet
 

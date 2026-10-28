@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 /// Immutable review: subsequent editor changes cannot alter this job's bytes.
-struct SimulationReview: Identifiable {
+struct PreparedPhotoReview: Identifiable {
     let id = UUID()
     let jpeg: Data
     let preview: CGImage
@@ -15,10 +15,10 @@ struct SimulationReview: Identifiable {
 
 struct SimulationPhotoFlow: View {
     let initialData: Data
-    @State private var review: SimulationReview?
+    @State private var review: PreparedPhotoReview?
     var body: some View {
         PhotoView(initialData:initialData,onReview:{ photo,layout,quality in
-            review = SimulationReview(photo:photo,layout:layout,quality:quality)
+            review = PreparedPhotoReview(photo:photo,layout:layout,quality:quality)
         })
         .sheet(item:$review) { item in SimulationConfirmationView(review:item) }
     }
@@ -30,7 +30,7 @@ final class SimulationViewModel: ObservableObject {
     private let driver: SimulatedSubmission
     private var task: Task<Void,Never>?
     private var observer: NSObjectProtocol?
-    init(review: SimulationReview) {
+    init(review: PreparedPhotoReview) {
         snapshot = SimulationSnapshot(totalBytes:review.jpeg.count)
         let root = FileManager.default.urls(for:.applicationSupportDirectory,in:.userDomainMask)[0]
         let store = root.appendingPathComponent("SelectSimulation/SIMULATION-ONLY.sqlite")
@@ -74,11 +74,11 @@ final class SimulationViewModel: ObservableObject {
 }
 
 struct SimulationConfirmationView: View {
-    let review: SimulationReview
+    let review: PreparedPhotoReview
     @StateObject private var model: SimulationViewModel
     @State private var scenario: SimulationScenario = .success
     @Environment(\.dismiss) private var dismiss
-    init(review: SimulationReview) {
+    init(review: PreparedPhotoReview) {
         self.review = review; _model = StateObject(wrappedValue:SimulationViewModel(review:review))
     }
     var body: some View {

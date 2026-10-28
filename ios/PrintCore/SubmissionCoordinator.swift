@@ -25,6 +25,13 @@ final class SubmissionCoordinator {
     private var claimed = false
     private var idleSamples = 0
 
+    /// Loads the exact saved bytes and identity; never invents a new job ID.
+    /// Only used offline until a separately authorized live submission milestone.
+    convenience init(boundJob id: UUID, journal: JobJournal, now: TimeInterval, pollInterval: TimeInterval = 2) throws {
+        guard let binding = try journal.binding(id) else { throw JobJournal.Failure.invalidRecord }
+        try self.init(image:journal.boundImage(id),id:id,expectedDeviceID:binding.device,journal:journal,now:now,pollInterval:pollInterval)
+    }
+
     init(image: PreparedJobImage, name: String = "Select photo", id: UUID, expectedDeviceID: String,
          journal: JobJournal, now: TimeInterval, timeout: TimeInterval = 300, pollInterval: TimeInterval = 2) throws {
         guard now.isFinite, timeout.isFinite, timeout > 0, (now+timeout).isFinite,
@@ -89,6 +96,9 @@ final class SubmissionCoordinator {
             guard reader.complete else { return }
             if state == .preflight && !recovery {
                 guard let image else { throw JobJournal.Failure.invalidRecord }
+                if let binding = try journal.binding(localID) {
+                    guard binding.firmware == reader.firmware else { throw ReadOnlyPreflight.Failure.invalid("Bound firmware changed; saved draft requires review") }
+                }
                 upload = try TrackedUpload(journal:journal,id:localID,device:expectedID,jpeg:image.jpeg,
                                            maximum:reader.maximum,name:name,nameLimit:reader.nameLimit)
                 claimed = true

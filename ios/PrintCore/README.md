@@ -4,8 +4,9 @@ This is the first native Swift print-transaction component for eventual iOS
 Share-sheet printing. It ports the payload sequencing in
 `src/zink_probe/jobs/model.py::UploadPlan`. The core has no ExternalAccessory,
 network or Bluetooth dependency. Build 12 includes it in the app and Share targets
-for an explicitly confirmed **simulation-only** flow; no native submission writer
-is connected. The extension's separate firmware-read experiment is unchanged.
+for an explicitly confirmed **simulation-only** flow. Build 13 adds a native
+EASession owner outside the core, with a mandatory read-only frame policy and
+durable printer-bound drafts. No live print submission is enabled.
 
 Implemented:
 - One-copy PrintStart (0x0c), job properties (0x30), FileWrite (0x0e).
@@ -32,9 +33,11 @@ an in-memory printer. Build 12 links the coordinator, upload and journal into th
 app and Share extension, with an immutable review and explicit confirmation screen.
 `SimulatedSubmission` owns a fixed in-memory peer: it accepts no transport or writer
 from the UI. Its writes cannot reach the independent read-only accessory probe.
-Their physical connection/read tests are documented separately. A future live
-integration still needs real-device binding, durable storage/lifecycle ownership
-and a native stream owner. No real iOS print submission is enabled.
+Their physical connection/read tests are documented separately. Build 13 now adds
+the native read-only stream owner and durable real-device binding, described in
+[accessory adapter validation](../accessory-tests/README.md). Full physical extension
+preflight and long-running lifecycle behavior remain to verify. No real iOS print
+submission is enabled.
 
 Run from the repository root with Python 3.12 or newer (or the project venv):
 
@@ -51,7 +54,8 @@ build/ios-upload-tests build/ios-upload-fixtures.json
 fresh upload plan. It commits the pending request's opcode and SHA-256 **before
 returning bytes to the future transport**. Accepted replies save the printer job
 ID, handle and acknowledged offset. Records also bind the local UUID, device
-identity, JPEG hash and length. The image itself is not stored in this journal.
+identity, JPEG hash and length. The original job rows do not store image bytes;
+Build 13's separate `prepared_bindings` table stores the frozen JPEG for bound drafts.
 
 SQLite `BEGIN IMMEDIATE`, FULL synchronous transactions and unique local-job and
 device keys serialize competing claims. Any journal/acknowledgement failure stops
@@ -71,9 +75,10 @@ an exactly-once guarantee from the printer. The eventual adapter must consume ea
 returned message once and must not retry writes after an ambiguous failure.
 
 Instances are synchronous and serial-use; the future UI/transport owner must
-serialize calls. Cross-process claims are guarded by SQLite. App Group storage,
-iOS file-protection configuration and real app/extension lifecycle ownership remain
-integration work. Build 12's simulation journal is not the future live job store.
+serialize calls. Cross-process claims are guarded by SQLite. Build 13 chooses one
+extension-owned, protected live store. The main app cannot submit, so no App Group
+is used. A future main-app job owner would require a shared store and coordinated
+migration, not a second database. Build 12's simulation journal remains separate.
 
 Validation: nine child-process abrupt exits (`_exit`, without cleanup) cover
 claim, pending requests, acknowledgements and upload completion. Reopening blocks
@@ -298,13 +303,15 @@ three-column table preserves every record and keeps legacy claims active. SQLite
 FULL transactions and an active-device unique index arbitrate multiple processes.
 Two coordinators may preflight simultaneously; only one can claim/send a job.
 
-The store holds fingerprints, counters and state, not the user's image. Recovery
-therefore cannot resend even by accident. Use one stable journal path and canonical
+Job rows hold fingerprints, counters and state. Bound drafts additionally store
+their immutable JPEG in `prepared_bindings`; the recovery initializer never loads
+that blob or constructs an upload plan. Use one stable journal path and canonical
 protocol device ID. Another host/database, deleting app data, or bypassing this core
 still defeats local duplicate prevention. This is not a printer-side exactly-once
-contract. Build 12 adds confirmation UI for simulation. App Group access, file
-protection, real-device confirmation and native transport ownership remain
-live-integration work. Build 11's physical connection evidence remains separate.
+contract. Build 12 adds confirmation UI for simulation; Build 13 adds a protected
+extension-owned store, binding review and native read-only transport. Physical
+preflight/lifecycle verification and a separately authorized real-print milestone
+remain. Build 11's physical connection evidence remains separate.
 
 ### Offline verification
 
@@ -370,3 +377,18 @@ it never drives its writer.
 
 Validation and remaining physical boundaries are recorded in
 [Share simulation tests](../share-flow-tests/README.md).
+
+## Build 13: native read-only IO and durable binding
+
+`AccessoryStreamDriver` and `AccessoryStreamPump` serialize native stream events,
+framing, deadlines and terminal closure. `ReadOnlyFrameGate` authorizes complete
+frames and exact partial-write continuations, with no live print-enable switch.
+`VerifiedPrinter` requires a successful full readiness preflight and matching
+accessory firmware. `prepared_bindings` atomically reserves the real printer and
+stores the frozen JPEG/settings/UUID; `SubmissionCoordinator(boundJob:)` loads
+that exact binding and rechecks it before claiming. Existing unbound simulation
+tests continue to use their own journal and never access the live extension store.
+
+See [adapter/binding documentation and offline tests](../accessory-tests/README.md).
+The native facade exposes only preflight and read-only recovery. Real printing
+remains disabled; full physical Share preflight is a separate verification step.
