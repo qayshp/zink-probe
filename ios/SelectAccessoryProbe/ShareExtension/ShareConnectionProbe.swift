@@ -1,8 +1,8 @@
 import SwiftUI
 import ExternalAccessory
 
-/// Extension-only experiment. Only IdentityWire's fixed seven-byte firmware read
-/// is linked here; neither the upload core nor clock/setup commands are available.
+/// Native stream owner for passive tests and IdentityWire's fixed firmware read.
+/// It never drives the separate upload simulation or emits clock/setup requests.
 final class ShareConnectionProbe: NSObject, ObservableObject, StreamDelegate {
     @Published var accessories: [EAAccessory] = []
     @Published var active = false
