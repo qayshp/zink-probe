@@ -6,13 +6,16 @@ reads, a bounded read-only preflight and an explicitly selected clock-sync actio
 The extension prepares a shared photo, tests its own accessory connection and
 offers an explicitly confirmed submission simulation. Build 13 adds a native
 read-only stream adapter, full Share preflight and durable printer-bound drafts.
-Real printing is disabled by a frame-level output policy.
+Build 14 adds explicitly confirmed one-copy submission from a saved draft, with
+a durable single-use authorization. Physical iOS printing remains unverified.
 Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope
 
-- No real print submission or arbitrary-command input. Photo preparation and the
-  confirmed in-memory submission simulation stay local.
+- Photo preparation, binding and simulation stay local. Real submission is offered
+  only by **Saved printer drafts → Review one-photo print → Print this photo once**.
+  It grants one attempt for the exact saved JPEG, UUID and printer. There is no raw
+  command input, automatic submission/retry, or global print-enable switch.
 - Main-app clock synchronization is a separately labeled write action. All other
   main-app diagnostics are read-only. Share permits passive/firmware tests, full
   preflight and read-only recovery, with connection-local message-limit negotiation.
@@ -25,6 +28,9 @@ Historical build notes below retain the evidence and boundaries for each milesto
   reads/passive sessions have a ten-second limit; full preflight/clock-and-preflight
   has a sixty-second overall bound with ten-second exchange deadlines. Native Share
   streams must both open within ten seconds; saved-job recovery is bounded to 180 seconds.
+- An explicitly confirmed print attempt has a 300-second bound and the same
+  ten-second exchange deadlines. Closing or locking may interrupt it; the printer
+  may still finish after accepting data. Uncertainty blocks another submission.
 - The main app's picker filters names containing “sprocket.” The extension only
   enumerates connected accessories; connect in the main app/Settings if necessary.
 - Enumeration is not a raw Bluetooth radio scan. Pairing does not ensure a current
@@ -443,6 +449,26 @@ calibration cycles 2. TX=86 and RX=469 application bytes. No print was sent.
 The user also confirmed saving the bound draft and verifying its JPEG in Saved
 printer drafts on the phone. Physical lifecycle fault checks and reopening after
 extension termination remain separate. Native submission remains unavailable.
+
+## Build 14: explicitly confirmed one-photo submission
+
+Build 14 is installed on the iPhone. From **Saved printer drafts**, open **Review
+one-photo print**, inspect the exact stored JPEG and settings, then choose **Print
+this photo once to Sprocket Select**. This is the first action that can send image
+data or consume paper. A durable, non-restorable authorization permits only this
+job's journaled one-copy upload; diagnostics and recovery remain read-only.
+
+Local authorization, coordinator, journal, accessory and Share-flow suites passed,
+and the simulator exercised the actual review/result UI with an in-memory printer.
+The confirmation was consumed once, the exact JPEG was acknowledged, and protocol
+completion stayed visible after the draft was archived. Signed iPhone and simulator
+builds passed. No physical print was sent by this development/test work.
+
+Use the [first-attempt instructions, safety boundaries and offline tests](authorization-tests/README.md).
+Keep Share visible and the phone unlocked for the first print. Read-only cancellation,
+locked-phone/Share-host termination and physical image-transfer/completion behavior
+remain to verify on the phone. The user initiates the first physical attempt; no
+automatic test print is scheduled or triggered by installation.
 
 ## Apps and Actions in the Share sheet
 

@@ -1,6 +1,6 @@
 import Foundation
 
-/// The live output policy has no enable-printing switch. Validate a whole frame
+/// Diagnostic/recovery output policy, with no enable-printing switch. Validate a whole frame
 /// before its first byte, then allow only exact continuations of that frame.
 struct ReadOnlyFrameGate {
     enum Failure: Error { case forbidden, changedContinuation, invalidWrite }
@@ -46,7 +46,8 @@ struct VerifiedPrinter: Sendable {
 
 /// Serial event pump shared by native streams and offline fault tests. The
 /// coordinator initializer also permits tests of attempted upload behind the
-/// mandatory read-only output gate. The native owner exposes only reads/recovery.
+/// default read-only output gate. The separate print initializer consumes a
+/// durable one-job permit; there is no global print-enable flag.
 final class AccessoryStreamPump {
     enum Side: Hashable { case input, output }
     private var reader: ReadOnlyPreflight?
@@ -58,12 +59,16 @@ final class AccessoryStreamPump {
     private var lastTime: TimeInterval
     private var opened = Set<Side>()
     private var gate = ReadOnlyFrameGate()
+    private var printGate: SingleJobFrameGate?
     private(set) var terminal = false
     private(set) var succeeded = false
     private(set) var result = "Waiting for both accessory streams. Real printing is disabled."
     private(set) var receivedBytes = 0
     private(set) var verified: VerifiedPrinter?
-    var acceptedBytes: Int { gate.acceptedBytes }
+    var acceptedBytes: Int { printGate?.acceptedBytes ?? gate.acceptedBytes }
+    var acknowledgedImageBytes: Int { printGate?.acknowledgedBytes ?? 0 }
+    var totalImageBytes: Int { printGate?.totalBytes ?? 0 }
+    var jobState: String? { coordinator?.state.rawValue }
     var streamsOpened: Int { opened.count }
     init(expectedDeviceID: String? = nil, expectedFirmware: String, now: TimeInterval) throws {
         guard now.isFinite, !expectedFirmware.isEmpty else { throw JobJournal.Failure.invalidRecord }
@@ -74,6 +79,13 @@ final class AccessoryStreamPump {
     init(coordinator: SubmissionCoordinator, now: TimeInterval) {
         self.coordinator = coordinator; expectedFirmware = ""
         lastTime = now; deadline = now+180; openDeadline = now+10
+    }
+    init(coordinator: SubmissionCoordinator, permit: PrintPermit, journal: JobJournal, now: TimeInterval) throws {
+        guard coordinator.localID == permit.binding.id else { throw JobJournal.Failure.blocked }
+        printGate = try SingleJobFrameGate(permit:permit,journal:journal)
+        self.coordinator = coordinator; expectedFirmware = ""
+        lastTime = now; deadline = now+300; openDeadline = now+10
+        result = "One-photo attempt authorized. Opening accessory streams."
     }
     func opened(_ side: Side, now: TimeInterval) { tick(now:now); if !terminal { opened.insert(side) } }
     func tick(now: TimeInterval) {
@@ -88,7 +100,10 @@ final class AccessoryStreamPump {
         tick(now:now); guard !terminal, opened.count == 2 else { return }
         var policyFailure = false
         func output(_ bytes: [UInt8]) -> Int {
-            do { return try gate.write(bytes,writer:writer) }
+            do {
+                if printGate != nil { return try printGate!.write(bytes,writer:writer) }
+                return try gate.write(bytes,writer:writer)
+            }
             catch { policyFailure = true; return -1 }
         }
         do {
@@ -103,7 +118,7 @@ final class AccessoryStreamPump {
     }
     func receive(_ bytes: [UInt8], now: TimeInterval) {
         tick(now:now); guard !terminal else { return }
-        guard opened.count == 2, !bytes.isEmpty, receivedBytes + bytes.count <= 262144 else { stop("Premature input or receive bound reached"); return }
+        guard opened.count == 2, !bytes.isEmpty, receivedBytes + bytes.count <= (printGate == nil ? 262144 : 32*1024*1024) else { stop("Premature input or receive bound reached"); return }
         receivedBytes += bytes.count
         if let coordinator { coordinator.receive(bytes,now:now); finishCoordinator(); return }
         do {
@@ -122,10 +137,18 @@ final class AccessoryStreamPump {
         guard !terminal else { return }
         exchange?.stop(); reader?.stop(); coordinator?.disconnected()
         verified = nil; terminal = true; result = reason
+        finishAttempt()
     }
     private func finishCoordinator() {
         guard let coordinator, coordinator.terminal, !terminal else { return }
         terminal = true; succeeded = coordinator.state == .completed
-        result = "Read-only recovery: \(coordinator.state.rawValue). \(coordinator.error ?? "No image resent.")"
+        result = printGate == nil
+            ? "Read-only recovery: \(coordinator.state.rawValue). \(coordinator.error ?? "No image resent.")"
+            : "Print attempt: \(coordinator.state.rawValue). \(coordinator.error ?? "Protocol completion observed; check the physical photo.") No automatic resubmission."
+        finishAttempt()
+    }
+    private func finishAttempt() {
+        do { try printGate?.finish() }
+        catch { succeeded = false; result += " Outcome storage failed; do not resubmit." }
     }
 }

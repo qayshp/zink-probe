@@ -1,6 +1,6 @@
 import Foundation
 
-/// Transport-independent upload sequencing. Not linked into either iOS target yet.
+/// Transport-independent one-copy upload sequencing.
 /// Input must come from validated image preparation; this layer does not decode JPEG.
 /// No retry, reconnect, resume, settings change or assertion of physical completion.
 struct UploadPlan {

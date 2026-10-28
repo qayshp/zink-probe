@@ -257,6 +257,7 @@ struct SelectAccessoryProbeApp: App {
                         #if targetEnvironment(simulator)
                         NavigationLink("Share simulation test") { SimulationPhotoFlow(initialData:SimulationUIFixture.png) }
                         NavigationLink("Share adapter test") { ShareAdapterTest() }
+                        NavigationLink("Saved print test") { ShareSavedPrintTest() }
                         #endif
                     }
                     Section("Connection help") {

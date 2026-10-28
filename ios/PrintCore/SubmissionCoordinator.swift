@@ -26,9 +26,12 @@ final class SubmissionCoordinator {
     private var idleSamples = 0
 
     /// Loads the exact saved bytes and identity; never invents a new job ID.
-    /// Only used offline until a separately authorized live submission milestone.
-    convenience init(boundJob id: UUID, journal: JobJournal, now: TimeInterval, pollInterval: TimeInterval = 2) throws {
+    /// Native submission additionally requires an explicit single-use PrintPermit.
+    convenience init(boundJob id: UUID, journal: JobJournal, now: TimeInterval, pollInterval: TimeInterval = 2, authorization: PrintPermit? = nil) throws {
         guard let binding = try journal.binding(id) else { throw JobJournal.Failure.invalidRecord }
+        if try journal.attemptState(id) != nil {
+            guard authorization?.binding == binding, try journal.attemptState(id) == "reserved" else { throw JobJournal.Failure.blocked }
+        }
         try self.init(image:journal.boundImage(id),id:id,expectedDeviceID:binding.device,journal:journal,now:now,pollInterval:pollInterval)
     }
 

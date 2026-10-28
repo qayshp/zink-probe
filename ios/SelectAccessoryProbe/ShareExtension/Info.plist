@@ -15,9 +15,9 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>14</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Read Select identity, status and capabilities from Share. Printing and persistent settings changes are disabled here.</string>
+	<string>Read Select identity and status, and print one saved photo only after your explicit confirmation.</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>

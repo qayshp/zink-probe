@@ -366,8 +366,10 @@ See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS packa
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,
 offline photo preparation and Share extension. Bounded read-only connection/status
-queries have physical evidence; confirmed submission runs only against an in-memory
-printer. Real iOS printing remains disabled.
+queries and saved-draft integrity have physical evidence. The Share extension now
+offers an explicitly confirmed one-copy attempt with durable duplicate protection;
+the first physical iOS image transfer/print remains unverified. See the
+[first-attempt instructions and authorization tests](ios/authorization-tests/README.md).
 
 See [NAMING_AND_DEVICE_FAMILIES.md](NAMING_AND_DEVICE_FAMILIES.md) for confirmed,
 probable, and unknown acronym meanings, resolved app profiles, and future device

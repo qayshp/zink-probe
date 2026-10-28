@@ -15,11 +15,11 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>13</string>
+	<string>14</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Read Sprocket identity and status, with a separately selected clock-sync action. Printing remains disabled.</string>
+	<string>Read Sprocket identity and status, with a separately selected clock-sync action. The Share extension offers explicitly confirmed photo printing.</string>
 	<key>UILaunchScreen</key>
 	<dict/>
 	<key>UISupportedExternalAccessoryProtocols</key>

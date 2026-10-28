@@ -55,8 +55,8 @@ private final class EADuplex: NSObject, AccessoryDuplex, StreamDelegate {
     deinit { if !closed { close() } }
 }
 
-/// Production facade deliberately exposes only full preflight and read-only
-/// recovery. Every write also passes the immutable ReadOnlyFrameGate.
+/// Diagnostics/recovery stay read-only. Submission requires an explicit immutable
+/// saved binding and a freshly committed, single-use PrintPermit.
 final class NativeAccessoryAdapter {
     private var driver: AccessoryStreamDriver?
     private var timer: Timer?
@@ -71,6 +71,24 @@ final class NativeAccessoryAdapter {
                  update: @escaping (AccessoryStreamPump) -> Void) throws {
         let coordinator = try SubmissionCoordinator(recover:id,journal:journal,now:clock())
         try start(accessory,pump:AccessoryStreamPump(coordinator:coordinator,now:clock()),update:update)
+    }
+    /// Called only by the saved-photo confirmation screen, never from lifecycle,
+    /// reconnection, diagnostics, preparation or restoration of saved jobs.
+    func submitOnce(_ accessory: EAAccessory, reviewed: JobBinding, journal: JobJournal,
+                    update: @escaping (AccessoryStreamPump) -> Void) throws {
+        precondition(Thread.isMainThread)
+        guard !active, accessory.isConnected, accessory.modelNumber == "HPISPSLE",
+              accessory.firmwareRevision == reviewed.firmware,
+              accessory.protocolStrings.contains("com.hp.protocol.lifestyle") else { throw JobJournal.Failure.blocked }
+        let permit = try journal.authorizePrintOnce(reviewed)
+        do {
+            let coordinator = try SubmissionCoordinator(boundJob:reviewed.id,journal:journal,now:clock(),authorization:permit)
+            let pump = try AccessoryStreamPump(coordinator:coordinator,permit:permit,journal:journal,now:clock())
+            try start(accessory,pump:pump,update:update)
+        } catch {
+            try? journal.finishPrintAttempt(reviewed.id)
+            throw error
+        }
     }
     private func start(_ accessory: EAAccessory, pump: AccessoryStreamPump,
                        update: @escaping (AccessoryStreamPump) -> Void) throws {

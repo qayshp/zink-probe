@@ -68,7 +68,7 @@ struct PhotoView: View {
                 Text(message).font(.callout)
                 Text("The preview shows the decoded JPEG. The purple guide is never included in the image. Preserve edges keeps the whole photo inside a conservative inset; it cannot guarantee exact paper trimming.").font(.caption)
                 Text("Apple JPEG quality controls compression strength. Color sampling is read from the finished JPEG. 4:4:4 retains full color detail; 4:2:0 reduces color detail in both directions. Apple chooses this independently of our UI; quality 100 is not a universal promise of 4:4:4. No PhotoFix is applied.").font(.caption)
-                Text(onReview == nil ? "Offline preparation only — no Print or Send action." : "Simulation available; real printing is disabled.").font(.headline)
+                Text(onBind != nil ? "Preparation is offline. Printing requires a saved draft and separate confirmation." : onReview == nil ? "Offline preparation only — no Print or Send action." : "Simulation available; real printing is disabled.").font(.headline)
             }.padding()
         }
         .navigationTitle("Prepare photo")

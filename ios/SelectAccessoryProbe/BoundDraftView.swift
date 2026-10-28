@@ -27,12 +27,18 @@ actor LiveDraftStorage {
     }
     func saved() throws -> [Saved] {
         let store = try journal()
-        return try store.activeBindings().map { Saved(binding:$0,state:try store.record($0.id)?.state ?? "unsubmitted") }
+        return try store.activeBindings().map { Saved(binding:$0,state:try store.record($0.id)?.state ?? store.attemptState($0.id) ?? "unsubmitted") }
     }
     func discard(_ id: UUID) throws { try journal().discardDraft(id) }
     func validate(_ id: UUID) throws -> JobBinding {
         let store = try journal(); _ = try store.boundImage(id)
         guard let binding = try store.binding(id) else { throw JobJournal.Failure.invalidRecord }; return binding
+    }
+    struct Review: Sendable { let binding: JobBinding; let jpeg: Data; let attempt: String? }
+    func review(_ id: UUID) throws -> Review {
+        let store = try journal(), image = try store.boundImage(id)
+        guard let binding = try store.binding(id) else { throw JobJournal.Failure.invalidRecord }
+        return Review(binding:binding,jpeg:image.jpeg,attempt:try store.attemptState(id))
     }
 }
 
@@ -71,7 +77,7 @@ struct BoundDraftView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment:.leading,spacing:16) {
-                    Text("Real printing disabled").font(.headline)
+                    Text("Saving a draft uses no paper").font(.headline)
                     Image(uiImage:UIImage(cgImage:review.preview)).resizable().scaledToFit().frame(maxHeight:180).frame(maxWidth:.infinity)
                     Text("One copy · \(review.layout) · JPEG \(review.quality)\n768 × 1152 · \(review.jpeg.count.formatted()) bytes\n\(JPEGDetails.sampling(review.jpeg))")
                     Text("The exact JPEG and settings will be saved privately on this iPhone and bound to the printer's verified identity.").font(.caption)
@@ -110,20 +116,26 @@ struct BoundDraftView: View {
 }
 
 struct SavedDraftsView: View {
+    private struct PrintReview: Identifiable { let id: UUID }
     @ObservedObject var connection: ShareConnectionProbe
     @State private var drafts: [LiveDraftStorage.Saved] = []
     @State private var message = ""
     @State private var discard: UUID?
+    @State private var printReview: PrintReview?
     private let storage = LiveDraftStorage()
     var body: some View {
         List {
-            Text("Saved privately by this extension. Real printing is disabled. An unresolved submitted job cannot be discarded or resent here.")
+            Text("Saved privately by this extension. Printing requires a separate photo review and explicit one-copy confirmation. An unresolved job cannot be resent here.")
             Button("Refresh connected accessories") { connection.refresh() }.disabled(connection.active)
             if connection.active { ProgressView(); Button("Stop read-only check") { connection.stop() } }
             ForEach(drafts) { saved in
                 VStack(alignment:.leading,spacing:8) {
                     Text("Job \(saved.id.uuidString.prefix(8)) · \(saved.state)").font(.headline)
                     Text("\(saved.binding.settings.layout) · JPEG \(saved.binding.settings.quality) · \(saved.binding.sampling) · \(saved.binding.byteCount.formatted()) bytes")
+                    if saved.state == "unsubmitted" {
+                        Button("Review one-photo print") { printReview = PrintReview(id:saved.id) }.disabled(connection.active)
+                            .accessibilityIdentifier("review-one-print")
+                    }
                     Button("Verify saved JPEG") {
                         Task {
                             do { _ = try await storage.validate(saved.id); message = "Saved JPEG integrity verified for job \(saved.id.uuidString.prefix(8)). No new job ID created." }
@@ -132,11 +144,11 @@ struct SavedDraftsView: View {
                     }
                     ForEach(connection.accessories,id:\.connectionID) { accessory in
                         Button("Check bound printer read-only") { connection.preflight(accessory,expectedDeviceID:saved.binding.device) }.disabled(connection.active)
-                        if saved.state != "unsubmitted" {
+                        if !["unsubmitted","notSubmitted"].contains(saved.state) {
                             Button("Recover saved job read-only") { connection.recover(accessory,id:saved.id) }.disabled(connection.active)
                         }
                     }
-                    if saved.state == "unsubmitted" { Button("Discard unsubmitted draft",role:.destructive) { discard = saved.id }.disabled(connection.active) }
+                    if ["unsubmitted","notSubmitted"].contains(saved.state) { Button("Discard unsubmitted draft",role:.destructive) { discard = saved.id }.disabled(connection.active) }
                 }
             }
             Button("Refresh saved drafts") { reload() }
@@ -147,6 +159,7 @@ struct SavedDraftsView: View {
         .navigationTitle("Saved printer drafts")
         .task { reload() }
         .onChange(of:connection.active) { if !$0 { reload() } }
+        .sheet(item:$printReview) { item in PrintSavedJobSheet(id:item.id,connection:connection) }
         .confirmationDialog("Discard this unsubmitted draft?",isPresented:Binding(get:{ discard != nil },set:{ if !$0 { discard = nil } })) {
             Button("Discard draft",role:.destructive) {
                 guard let id = discard else { return }; discard = nil

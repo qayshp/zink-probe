@@ -1,5 +1,9 @@
 # Native iOS accessory adapter and durable binding — Build 13
 
+This is the Build 13 read-only milestone. [Build 14](../authorization-tests/README.md)
+adds a separate, explicitly confirmed one-job print path; the diagnostic/recovery
+entry points and their read-only policy described here remain restricted.
+
 **Implemented: native read-only EASession IO, full Share preflight, and saved
 printer-bound drafts. Real printing is disabled.** Native adapter entry points
 are full preflight and read-only saved-job recovery. There is no submit entry

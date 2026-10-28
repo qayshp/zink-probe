@@ -1,12 +1,17 @@
 import SwiftUI
 import ExternalAccessory
 
-/// Manual passive/firmware diagnostics plus full preflight and read-only recovery.
-/// The native adapter permits connection-local setup, never print/clock/settings writes.
+/// Diagnostics/recovery use the read-only adapter. Only saved-photo confirmation
+/// calls submitOnce; it cannot be triggered by discovery, refresh or lifecycle.
 final class ShareConnectionProbe: NSObject, ObservableObject, StreamDelegate {
     @Published var accessories: [EAAccessory] = []
     @Published var active = false
     @Published var verifiedPrinter: VerifiedPrinter?
+    @Published var printResult = "No print attempt started."
+    @Published var printState = "review"
+    @Published var printAcknowledged = 0
+    @Published var printTotal = 0
+    @Published var printingJob: UUID?
     @Published var report = "Share extension connection probe. No automatic session or writes.\n"
     private var session: EASession?
     private var timer: Timer?
@@ -37,6 +42,20 @@ final class ShareConnectionProbe: NSObject, ObservableObject, StreamDelegate {
             let timer = Timer(timeInterval:0.01,repeats:true) { [weak self] _ in self?.simulation?.tick() }
             simulationTimer = timer; RunLoop.main.add(timer,forMode:.common); simulation?.start()
         } catch { active = false; log("Simulation refused: \(error)") }
+    }
+    func simulatePrintOnce(_ reviewed: JobBinding) {
+        guard !active else { return }; active = true; printingJob = reviewed.id
+        do {
+            let store = try JobJournal(url:LiveDraftStorage.storeURL()), permit = try store.authorizePrintOnce(reviewed)
+            let coordinator = try SubmissionCoordinator(boundJob:reviewed.id,journal:store,now:ProcessInfo.processInfo.systemUptime,authorization:permit)
+            let pump = try AccessoryStreamPump(coordinator:coordinator,permit:permit,journal:store,now:ProcessInfo.processInfo.systemUptime)
+            simulation = AccessoryStreamDriver(pump:pump,io:ShareMemoryDuplex(),clock:{ ProcessInfo.processInfo.systemUptime }) { [weak self] result in
+                self?.updatePrint(result)
+                if result.terminal { self?.simulationTimer?.invalidate(); self?.simulationTimer = nil }
+            }
+            let timer = Timer(timeInterval:0.01,repeats:true) { [weak self] _ in self?.simulation?.tick() }
+            simulationTimer = timer; RunLoop.main.add(timer,forMode:.common); simulation?.start()
+        } catch { active = false; printState = "blocked"; printResult = "Simulation refused: \(error)" }
     }
     #endif
 
@@ -115,6 +134,29 @@ final class ShareConnectionProbe: NSObject, ObservableObject, StreamDelegate {
                 if result.terminal { self.log("\(result.result) RX=\(result.receivedBytes); application TX=\(result.acceptedBytes). No image resent.") }
             }
         } catch { active = false; log("Saved-job recovery refused: \(error)") }
+    }
+    func submitOnce(_ accessory: EAAccessory, reviewed: JobBinding) {
+        guard !active else { return }
+        active = true; verifiedPrinter = nil; printingJob = reviewed.id
+        printState = "preflight"; printResult = "Checking the saved printer before this one-photo attempt."
+        nativeConnectionID = accessory.connectionID
+        do {
+            let store = try JobJournal(url:LiveDraftStorage.storeURL())
+            try native.submitOnce(accessory,reviewed:reviewed,journal:store) { [weak self] result in self?.updatePrint(result) }
+        } catch {
+            active = false; printState = "blocked"
+            printResult = "Print attempt could not start: \(error). Review the saved job; no automatic retry."
+            log(printResult)
+        }
+    }
+    private func updatePrint(_ result: AccessoryStreamPump) {
+        if active != !result.terminal { active = !result.terminal }
+        let state = result.jobState ?? "stopped"
+        if printState != state { printState = state }
+        if printResult != result.result { printResult = result.result }
+        if printAcknowledged != result.acknowledgedImageBytes { printAcknowledged = result.acknowledgedImageBytes }
+        if printTotal != result.totalImageBytes { printTotal = result.totalImageBytes }
+        if result.terminal { log("\(result.result) RX=\(result.receivedBytes); application TX=\(result.acceptedBytes); image ACK=\(printAcknowledged)/\(printTotal). Raw image/identity frames omitted.") }
     }
     func stream(_ stream: Stream, handle event: Stream.Event) {
         guard let current = session else { return }
@@ -209,7 +251,7 @@ private final class ShareMemoryDuplex: AccessoryDuplex {
         let count = min(maximum,37,peer.output.count), bytes = Array(peer.output.prefix(count))
         peer.output.removeFirst(count); return .bytes(bytes)
     }
-    func write(_ bytes: [UInt8]) -> Int { peer.write(bytes,limit:13) }
+    func write(_ bytes: [UInt8]) -> Int { peer.write(bytes,limit:127) }
     func close() { closed = true }
 }
 
@@ -221,5 +263,9 @@ struct ShareAdapterTest: View {
                 NavigationLink("Connection test") { ShareConnectionView(probe:connection) }
             } }
     }
+}
+struct ShareSavedPrintTest: View {
+    @StateObject private var connection = ShareConnectionProbe()
+    var body: some View { SavedDraftsView(connection:connection) }
 }
 #endif

@@ -6,7 +6,9 @@ Share-sheet printing. It ports the payload sequencing in
 network or Bluetooth dependency. Build 12 includes it in the app and Share targets
 for an explicitly confirmed **simulation-only** flow. Build 13 adds a native
 EASession owner outside the core, with a mandatory read-only frame policy and
-durable printer-bound drafts. No live print submission is enabled.
+durable printer-bound drafts. Build 14 adds a separate one-job native submission
+path; diagnostics and recovery retain the read-only policy. See
+[single-job authorization](../authorization-tests/README.md).
 
 Implemented:
 - One-copy PrintStart (0x0c), job properties (0x30), FileWrite (0x0e).
@@ -37,7 +39,8 @@ Their physical connection/read tests are documented separately. Build 13 now add
 the native read-only stream owner and durable real-device binding, described in
 [accessory adapter validation](../accessory-tests/README.md). Full physical extension
 preflight subsequently passed in the user's Build 13 report; long-running lifecycle
-behavior remains to verify. No real iOS print submission is enabled.
+behavior remains to verify. Build 14 now offers a separate explicitly confirmed
+one-copy attempt; physical iOS image transfer/printing remains unverified.
 
 Run from the repository root with Python 3.12 or newer (or the project venv):
 
@@ -396,3 +399,18 @@ both streams opened, all checks passed, TX=86/RX=469, with page/calibration coun
 13/2. The user also confirmed saving and integrity-verifying a bound draft on the
 phone. See the evidence table in the adapter documentation. Physical fault/lifecycle
 checks and reopening after extension termination remain separate verification steps.
+
+## Build 14: one-job authorization
+
+An explicit saved-photo confirmation now issues a durable, single-use `PrintPermit`.
+`SingleJobFrameGate` verifies each mutating frame against that binding, the exact
+saved JPEG slice and the pending committed journal record. It permits only one-copy
+PrintStart/properties/FileWrite; no clock/settings/factory commands are added.
+The native print initializer is separate from read-only preflight/recovery.
+
+Reopening or an interrupted outcome cannot reconstruct a permit. Only a clean
+no-claim terminal outcome can make the unsubmitted draft discardable; the same
+job ID remains spent. A possibly accepted mutation remains blocking. See
+[authorization tests and first physical attempt](../authorization-tests/README.md).
+This prepares the software for user-initiated printing; physical iOS printing is
+not established by simulated completion or the signed app's installation.
