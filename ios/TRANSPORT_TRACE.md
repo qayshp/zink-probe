@@ -147,3 +147,16 @@ fix commits both passed the dedicated iOS CI workflow. Next potential milestone:
 a similarly bounded read-only status request, followed by an iOS transport
 abstraction; neither requires printing. No additional request was run in this
 result-recording step.
+
+
+## Physical Share extension firmware exchange succeeded — Build 11
+
+The user supplied a successful extension report on October 27 Pacific time
+(2026-10-28 06:26:14 UTC). After a passive session opened both streams and closed
+at its ten-second bound with zero TX/RX, a separate fixed identity request sent
+`48502b01020401` (7 bytes). The extension received
+`48502b010f05010c47314c314641323130354152` (20 bytes), decoded
+`G1L1FA2105AR`, confirmed the accessory metadata match and closed the session.
+This establishes HP+ firmware framing within the Share extension itself, beyond
+the earlier main-app validation. See [the physical result](README.md) for scope
+and remaining lifecycle/printing questions. No image or print command was sent.

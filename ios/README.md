@@ -316,7 +316,7 @@ Validation: signed iPhone app/extension build passed, existing IdentityWire fram
 and partial-write tests passed, embedded-bundle metadata inspected. Binary symbol
 inspection confirms that upload, journal, clock-sync and preflight cores are absent
 from the extension. It has no print or settings action. Physical extension visibility,
-stream opening and firmware response remain pending the user's test report.
+stream opening and firmware response subsequently passed; see the physical result below.
 
 ### Share-sheet display name correction (Build 11 investigation)
 
@@ -331,8 +331,9 @@ extension's bundle display name rather than the label observed in the Share UI.
 
 The existing image-only activation rule was not changed: the extension is offered
 for the known UIImage payload. This does not establish visibility for every host
-representation, Live Photo or multi-selection. Physical Photos/Google Photos
-visibility and extension launch remain pending the user's report. If neither
+representation, Live Photo or multi-selection. The user subsequently confirmed
+Select Probe was visible, and the physical connection test below passed. The source
+host app for that successful test was not specified. If neither
 label appears, investigate that separately instead of assuming the name explains
 all cases. The simulator Share-sheet hierarchy was not exposed by the available
 runtime UI snapshot, so selection/launch was not automated successfully.
@@ -341,3 +342,37 @@ An in-app sample-image sharing helper was used temporarily to reproduce the menu
 then removed from the source. No app update is required for the naming correction.
 Private screenshot evidence: logs/share-extension/simulator-share-sheet.png.
 No accessory session, printer write or print was performed in this investigation.
+
+
+### Physical Share extension connection success — Build 11
+
+User-supplied report: 2026-10-28 06:25:49–06:26:14 UTC, corresponding to
+October 27, 23:25:49–23:26:14 America/Los_Angeles. This is the installed
+Build 11 extension introduced in 85cef52, not the main app or simulator.
+The user had confirmed the Share-sheet entry was visible as **Select Probe**.
+The host app used for the successful session was not specified.
+
+| Test | Observed result |
+| --- | --- |
+| Connected-accessory enumeration | One Select visible at initial refresh and manual refresh |
+| Passive session | Input and output both opened at 06:26:02 UTC |
+| Passive deadline | Closed at 06:26:12; RX=0, application TX=0 |
+| Firmware session | Both streams opened at 06:26:14 UTC |
+| Firmware TX | 7 bytes: `48502b01020401` |
+| Firmware RX | 20 bytes: `48502b010f05010c47314c314641323130354152` |
+| Decoded firmware | `G1L1FA2105AR`, matching accessory metadata |
+| Firmware completion | Session automatically closed on validated response; RX=20, TX=7 |
+
+This physically validates enumeration, session opening, HP+ firmware request/reply
+and normal bounded closure from inside our independent Share extension on the
+tested iPhone/Select. The response matches the already pinned IdentityWire fixture.
+No new implementation or duplicate fixture test was needed to record the result.
+No printing, clock update or configuration change was performed by these tests.
+
+Not established: full preflight from the extension, image transfer, print completion,
+long-running/background behavior, termination during an exchange, host-specific
+coverage across both Photos apps, or App Store approval. The earlier main-app
+clock/preflight result remains separate evidence. This success means a foreground
+extension submission path is worth implementing and testing offline; it does not
+by itself establish that a complete print transaction survives extension lifetime
+limits. No new print is authorized by this diagnostic report.
