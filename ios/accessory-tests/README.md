@@ -132,11 +132,33 @@ iPhone app/extension build. App and embedded extension versions are both 13.
 launch the app or run an accessory request. The user was asked to run the full
 read-only preflight manually from Share and provide its report.
 
-The previous physical main-app full preflight and Build 11 Share firmware read
-remain separate evidence. This milestone's full native Share preflight, locked-phone
-behavior, actual accessory disconnection and Share-host termination still need phone
-verification. Successful builds, simulated stream events and SQLite process exits
-do not establish those physical results. No new physical print is authorized here.
+### Physical full Share preflight passed
+
+User-supplied Build 13 report, 2026-10-28 08:12:22–08:12:23 UTC
+(October 28, 01:12:22–01:12:23 America/Los_Angeles):
+
+| Observation | Reported result |
+| --- | --- |
+| Select accessories visible | One, at initial and manual refresh |
+| Native streams opened | Both (`Opened=2`) |
+| Firmware | `G1L1FA2105AR`, validated against accessory metadata |
+| Battery | 100% |
+| Readiness | Idle, empty queue, no flags, not paused |
+| Negotiated maximum / setup byte | 1000 / 33 (`0x21`) |
+| Name limit | 16 UTF-8 bytes |
+| Counters | 13 pages, 2 calibration cycles |
+| Application bytes | TX=86, RX=469; identity bytes omitted from report |
+
+The real Select completed the entire native Share preflight, including readiness,
+capabilities, queue and counter queries. The output policy remained read-only and
+the report explicitly says no print was authorized or sent. This is physical
+extension evidence, separate from the earlier main-app preflight and Build 11
+firmware-only check. No raw identity-bearing frames were provided or published.
+
+Still unverified physically: saving/reopening a bound draft, locked-phone behavior,
+actual accessory disconnection and Share-host termination during an exchange.
+Successful simulated stream events and SQLite process exits do not establish those
+physical results. No new physical print is authorized here.
 
 Before printing, verify these read-only paths on the phone, then separately review
 how to replace the immutable live read-only policy with an explicit one-job print

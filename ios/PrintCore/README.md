@@ -36,8 +36,8 @@ from the UI. Its writes cannot reach the independent read-only accessory probe.
 Their physical connection/read tests are documented separately. Build 13 now adds
 the native read-only stream owner and durable real-device binding, described in
 [accessory adapter validation](../accessory-tests/README.md). Full physical extension
-preflight and long-running lifecycle behavior remain to verify. No real iOS print
-submission is enabled.
+preflight subsequently passed in the user's Build 13 report; long-running lifecycle
+behavior remains to verify. No real iOS print submission is enabled.
 
 Run from the repository root with Python 3.12 or newer (or the project venv):
 
@@ -391,4 +391,7 @@ tests continue to use their own journal and never access the live extension stor
 
 See [adapter/binding documentation and offline tests](../accessory-tests/README.md).
 The native facade exposes only preflight and read-only recovery. Real printing
-remains disabled; full physical Share preflight is a separate verification step.
+remains disabled. The user subsequently verified full physical Share preflight:
+both streams opened, all checks passed, TX=86/RX=469, with page/calibration counters
+13/2. See the evidence table in the adapter documentation. Physical fault/lifecycle
+checks and saving/reopening a bound draft remain separate verification steps.
