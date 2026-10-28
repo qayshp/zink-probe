@@ -3,13 +3,14 @@
 A native SwiftUI app and embedded Share extension, separate from the Python
 engine. The main app supports passive connection tests, fixed firmware/status
 reads, a bounded read-only preflight and an explicitly selected clock-sync action.
-The extension prepares a shared photo and now tests its own accessory connection.
-Neither target exposes print submission. Historical build notes below retain the
-evidence and boundaries for each milestone.
+The extension prepares a shared photo, tests its own accessory connection and
+offers an explicitly confirmed submission simulation. Real printing is disabled.
+Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope
 
-- No print submission or arbitrary-command input. Photo preparation stays local.
+- No real print submission or arbitrary-command input. Photo preparation and the
+  confirmed in-memory submission simulation stay local.
 - Main-app clock synchronization is a separately labeled write action. All other
   main-app diagnostics are read-only; the Share connection test only permits
   passive streams or a single fixed firmware request.
@@ -246,9 +247,9 @@ App Store distribution or review claim. No printer commands were sent.
 ## Next printing milestone: offline Swift upload sequencing
 
 See [PrintCore](PrintCore/README.md) for the native upload state machine and
-Python/Swift golden-trace tests. This component is not linked into the app or
-Share extension yet. Durable job journaling is now implemented and tested offline. Its integration,
-full preflight, framed stream I/O and completion observation remain required
+Python/Swift golden-trace tests. At this milestone it was not linked into the app
+or Share extension. Build 12 below links the complete coordinator for simulation
+only. Native submission I/O and live lifecycle/storage ownership remain required
 before enabling real submission.
 
 ## Build 7: bounded read-only preflight
@@ -383,8 +384,37 @@ limits. No new print is authorized by this diagnostic report.
 The complete image-validation/preflight/tracked-upload/completion coordinator now
 runs against a framed simulated printer, including process death, uncertain outcomes,
 read-only recovery and duplicate prevention. See [PrintCore](PrintCore/README.md).
-It is not linked into the app or Share extension; Build 11 remains the installed
-read-only extension experiment. No physical print was attempted or authorized here.
+At that milestone it was not linked into the app or Share extension; Build 11
+remained the installed read-only extension experiment. Build 12 below adds the
+simulation UI integration. No physical print was attempted or authorized here.
+
+## Build 12: explicit confirmation and simulated submission
+
+Share one image → **Select Probe** in the Share sheet's app row → prepare the photo
+→ **Review simulated job**. The confirmation sheet freezes the decoded JPEG
+preview, layout, quality, sampling and bytes. It shows **Simulated Select**, one
+copy, and that real printing is disabled. Opening review does not create a job,
+open an accessory session or send a request. **Confirm simulated job** is a separate
+explicit action.
+
+The full coordinator then runs preflight, tracked upload and completion observation
+against a fixed in-memory peer. Try **Successful job**, **Lose final reply**, or
+**Interrupt upload**. The latter two preserve an uncertain saved job. Duplicate
+checks and bounded read-only recovery cannot resend the image. Closing/stopping
+the simulation or extension-host inactivity cancels the runner. No real submission
+transport is supplied, and there is no switch to enable one. Connection test in
+the toolbar remains an independent, manually invoked read-only experiment.
+
+The same views are available through **Share simulation test** in simulator builds
+of the main app, using a generated fixture. This tests the shared SwiftUI flow
+without relying on the system Share sheet's remote accessibility hierarchy.
+It does not establish the extension host's memory/lifetime behavior on a phone.
+The test harness entry is omitted from physical-device builds.
+
+See [Share-flow validation and remaining gates](share-flow-tests/README.md) for
+automated tests, simulator UI evidence, durable-storage limits and the next steps
+before a deliberate iOS print. Build 12 has not been installed or tested on the
+physical iPhone in this milestone. No real printer connection or print was needed.
 
 ## Apps and Actions in the Share sheet
 

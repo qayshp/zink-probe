@@ -21,7 +21,7 @@ final class ShareViewController: UIViewController {
                     self.showError(error?.localizedDescription ?? "Image unavailable or larger than 50 MB."); return
                 }
                 let connection = self.connection
-                self.presentContent(PhotoView(initialData: data).toolbar {
+                self.presentContent(SimulationPhotoFlow(initialData:data).toolbar {
                     ToolbarItem(placement: .primaryAction) {
                         NavigationLink("Connection test") { ShareConnectionView(probe: connection) }
                     }

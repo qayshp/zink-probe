@@ -1,8 +1,10 @@
 import Foundation
 
-/// Tests only: framed in-memory peer, not firmware emulation or a native transport.
+/// Framed in-memory peer for tests and the explicitly simulated Share flow.
+/// No Bluetooth, sockets, native streams or real printer adapters.
 final class SimulatedPrinter {
-    let device = String(repeating:"07",count:16)
+    let device: String
+    init(deviceID: String = String(repeating:"07",count:16)) { device = deviceID }
     var input: [UInt8] = []
     var output: [UInt8] = []
     var requests: [[UInt8]] = []
@@ -48,7 +50,12 @@ final class SimulatedPrinter {
             switch r[1] {
             case 1: return [5,1,UInt8(firmware.utf8.count)] + Array(firmware.utf8)
             case 9: return [5,9,211,72]
-            case 6: return [5,6] + Array(repeating: mismatchIdentity ? 8 : 7,count:16)
+            case 6:
+                let id = mismatchIdentity ? String(repeating:"08",count:16) : device
+                return [5,6] + stride(from:0,to:32,by:2).map { offset in
+                    let start = id.index(id.startIndex,offsetBy:offset)
+                    return UInt8(id[start..<id.index(start,offsetBy:2)],radix:16)!
+                }
             default: fatalError("Unexpected attribute")
             }
         case 36: return [37] + Self.le(maximum,2) + [33]

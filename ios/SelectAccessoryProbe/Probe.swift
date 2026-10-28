@@ -254,6 +254,9 @@ struct SelectAccessoryProbeApp: App {
                 List {
                     Section("Photos") {
                         NavigationLink("Prepare a photo offline") { PhotoView() }
+                        #if targetEnvironment(simulator)
+                        NavigationLink("Share simulation test") { SimulationPhotoFlow(initialData:SimulationUIFixture.png) }
+                        #endif
                     }
                     Section("Connection help") {
                         Text("Paired does not always mean connected. Keep the printer awake nearby, check its connection in iPhone Bluetooth Settings, then refresh here. If another phone or computer is connected, disconnect it there before trying the picker.")

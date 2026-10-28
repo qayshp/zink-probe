@@ -4,7 +4,7 @@ Run from the repository root on macOS with Xcode's Swift toolchain:
 
 ```sh
 mkdir -p build
-swiftc ios/PrintCore/*.swift ios/coordinator-tests/SimulatedPrinter.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
+swiftc ios/PrintCore/*.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
 build/ios-coordinator-tests
 ```
 

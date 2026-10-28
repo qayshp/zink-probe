@@ -2,9 +2,10 @@
 
 This is the first native Swift print-transaction component for eventual iOS
 Share-sheet printing. It ports the payload sequencing in
-`src/zink_probe/jobs/model.py::UploadPlan`. It is deliberately **not included in
-either app target** and has no ExternalAccessory, network or Bluetooth dependency.
-The installed/deployable Share extension remains offline preparation only.
+`src/zink_probe/jobs/model.py::UploadPlan`. The core has no ExternalAccessory,
+network or Bluetooth dependency. Build 12 includes it in the app and Share targets
+for an explicitly confirmed **simulation-only** flow; no native submission writer
+is connected. The extension's separate firmware-read experiment is unchanged.
 
 Implemented:
 - One-copy PrintStart (0x0c), job properties (0x30), FileWrite (0x0e).
@@ -27,11 +28,13 @@ Local Swift tests passed; this suite is included in iOS CI.
 
 The complete offline coordinator is implemented below. Its prepared-image validator,
 preflight, journal, framed upload and completion/recovery paths run together against
-an in-memory printer. The native app and Share extension **do not link the coordinator,
-upload or journal**. Their physical connection/read tests are documented separately.
-A future live integration must choose durable storage/lifecycle ownership, explicitly
-confirm the job, drive the coordinator serially, and close streams on terminal state.
-No iOS print submission is enabled or authorized by this milestone.
+an in-memory printer. Build 12 links the coordinator, upload and journal into the
+app and Share extension, with an immutable review and explicit confirmation screen.
+`SimulatedSubmission` owns a fixed in-memory peer: it accepts no transport or writer
+from the UI. Its writes cannot reach the independent read-only accessory probe.
+Their physical connection/read tests are documented separately. A future live
+integration still needs real-device binding, durable storage/lifecycle ownership
+and a native stream owner. No real iOS print submission is enabled.
 
 Run from the repository root with Python 3.12 or newer (or the project venv):
 
@@ -69,8 +72,8 @@ returned message once and must not retry writes after an ambiguous failure.
 
 Instances are synchronous and serial-use; the future UI/transport owner must
 serialize calls. Cross-process claims are guarded by SQLite. App Group storage,
-iOS file-protection configuration and app/extension lifecycle ownership remain
-integration work. No app target links the print core yet.
+iOS file-protection configuration and real app/extension lifecycle ownership remain
+integration work. Build 12's simulation journal is not the future live job store.
 
 Validation: nine child-process abrupt exits (`_exit`, without cleanup) cover
 claim, pending requests, acknowledgements and upload completion. Reopening blocks
@@ -116,8 +119,9 @@ successful diagnostic discovers the device ID; subsequent runs in the same app
 process compare it. This in-memory pin is not durable job identity. A future job
 must supply its saved expectedDeviceID and perform fresh checks; a diagnostic
 success is not a print authorization. Firmware must also match accessory metadata.
-The upload/journal code remains unlinked from both app targets. The Share extension
-continues to prepare/export offline and cannot submit a print.
+At Build 7 the upload/journal code was unlinked from both app targets. Build 12
+links it only to the memory simulation described below. Real submission remains
+disabled in the Share extension.
 
 Local tests cover JSON/TLV success, every response split and length encoding,
 partial/zero/failed writes, premature input, deadlines, cancellation at every
@@ -298,8 +302,9 @@ The store holds fingerprints, counters and state, not the user's image. Recovery
 therefore cannot resend even by accident. Use one stable journal path and canonical
 protocol device ID. Another host/database, deleting app data, or bypassing this core
 still defeats local duplicate prevention. This is not a printer-side exactly-once
-contract. App Group access, file protection, confirmation UI and native transport
-ownership remain live-integration work. Existing deployed Build 11 is unchanged.
+contract. Build 12 adds confirmation UI for simulation. App Group access, file
+protection, real-device confirmation and native transport ownership remain
+live-integration work. Build 11's physical connection evidence remains separate.
 
 ### Offline verification
 
@@ -320,7 +325,7 @@ Injected database failures prevent mutation, and legacy migration preserves clai
 The earlier journal process-death and framing regression suites remain enabled.
 
 ```sh
-swiftc ios/PrintCore/*.swift ios/coordinator-tests/SimulatedPrinter.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
+swiftc ios/PrintCore/*.swift ios/coordinator-tests/main.swift -o build/ios-coordinator-tests
 build/ios-coordinator-tests
 ```
 
@@ -328,3 +333,40 @@ Local suites passed; CI now runs the integrated suite and typechecks all core so
 against the iOS SDK. No physical printer connection or paper was used for these tests.
 
 Integrated test source and run instructions: [coordinator tests](../coordinator-tests/README.md).
+
+## Build 12: confirmed Share-flow simulation
+
+The Share extension now reuses `SimulationPhotoFlow`: prepare one image, tap
+**Review simulated job**, inspect the frozen image/settings, then explicitly tap
+**Confirm simulated job**. There is no automatic submission when sharing, preparing
+or opening review. The review includes destination, one-copy count, layout, quality,
+768 × 1152 dimensions, exact JPEG bytes and sampling. The JPEG is copied by value
+into the review, then validated without recompression before submission.
+
+`SimulatedSubmission` is an actor that serializes the full coordinator, SQLite
+journal, virtual monotonic clock and framed in-memory peer. It has no backend
+selector, native stream, writer callback or ExternalAccessory dependency. Its
+simulated success, lost-final-reply and interrupted-upload scenarios cannot send
+application bytes to a real printer. The existing manual connection screen remains
+separate and can still perform only its bounded passive/firmware tests.
+
+Each review has a stable local UUID and a distinct virtual printer ID. The simulation
+store is `Application Support/SelectSimulation/SIMULATION-ONLY.sqlite` in the current
+app/extension container. A repeated confirmation or reopening that saved ID cannot
+replay it. A new review intentionally represents a new virtual target, so it does
+not test contention between multiple reviews of the same physical printer. The
+coordinator suites separately exercise same-device and cross-process contention.
+There is no shared App Group, durable prepared-image handoff, saved-job browser,
+automatic restart/resubmission or live queue in this UI.
+
+Closing the confirmation, stopping the simulation or extension-host inactivity
+cancels the current runner. Cancelling after a possible mutation preserves an
+uncertain record and blocks another submission of that ID. Abrupt process death
+leaves the coordinator's durable pending record; no automatic resume is implemented.
+The optional **Check saved job read-only** action invokes the recovery initializer,
+which receives no JPEG and cannot create another upload. The duplicate-check action
+constructs another coordinator only to verify that the saved claim rejects it;
+it never drives its writer.
+
+Validation and remaining physical boundaries are recorded in
+[Share simulation tests](../share-flow-tests/README.md).
