@@ -393,5 +393,6 @@ See [adapter/binding documentation and offline tests](../accessory-tests/README.
 The native facade exposes only preflight and read-only recovery. Real printing
 remains disabled. The user subsequently verified full physical Share preflight:
 both streams opened, all checks passed, TX=86/RX=469, with page/calibration counters
-13/2. See the evidence table in the adapter documentation. Physical fault/lifecycle
-checks and saving/reopening a bound draft remain separate verification steps.
+13/2. The user also confirmed saving and integrity-verifying a bound draft on the
+phone. See the evidence table in the adapter documentation. Physical fault/lifecycle
+checks and reopening after extension termination remain separate verification steps.

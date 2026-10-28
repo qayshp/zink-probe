@@ -155,8 +155,15 @@ the report explicitly says no print was authorized or sent. This is physical
 extension evidence, separate from the earlier main-app preflight and Build 11
 firmware-only check. No raw identity-bearing frames were provided or published.
 
-Still unverified physically: saving/reopening a bound draft, locked-phone behavior,
-actual accessory disconnection and Share-host termination during an exchange.
+The user then confirmed **Saved and verified** after following the physical Share
+flow: frozen-photo draft review, explicit bound preflight, save, open Saved printer
+drafts, and Verify saved JPEG. This establishes that the protected extension store
+saved and loaded the bound draft and its JPEG passed the integrity check on the
+phone. The user did not provide its job ID, image/hash, layout or byte count; none
+are inferred or published. It does not establish reopening after process termination.
+
+Still unverified physically: locked-phone behavior, actual accessory disconnection,
+Share-host termination during an exchange, and reopening after extension termination.
 Successful simulated stream events and SQLite process exits do not establish those
 physical results. No new physical print is authorized here.
 

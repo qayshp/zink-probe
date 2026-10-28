@@ -440,8 +440,9 @@ verification boundaries. Build 13 is installed, and the user physically verified
 full Share preflight: both streams opened; firmware G1L1FA2105AR, battery 100%,
 idle/empty/error-free, maximum 1000, setup byte 33, name limit 16, pages 13 and
 calibration cycles 2. TX=86 and RX=469 application bytes. No print was sent.
-Bound-draft persistence and lifecycle fault checks on the phone remain separate.
-Native submission remains unavailable.
+The user also confirmed saving the bound draft and verifying its JPEG in Saved
+printer drafts on the phone. Physical lifecycle fault checks and reopening after
+extension termination remain separate. Native submission remains unavailable.
 
 ## Apps and Actions in the Share sheet
 
