@@ -1,0 +1,48 @@
+[
+  {
+    "trace_sha256": "3561e84596f52bd04e2d100441b80208df46568ec9c504d2c58fce7926fb3a53",
+    "request_counts_decimal_opcode": {
+      "4": 2,
+      "10": 1,
+      "36": 1
+    },
+    "tx_wire_packets": 4,
+    "rx_wire_packets": 4,
+    "tx_wire_bytes": 14,
+    "rx_wire_bytes": 32,
+    "max_rx_wire_packet": 16,
+    "responses": 4,
+    "configuration": {
+      "reported_protocol_mtu": 514,
+      "ack_period": 0
+    },
+    "connected_seconds": 0.241,
+    "all_requests_within_read_only_allowlist": true,
+    "scope": "Recorded application traffic only; no HCI capture"
+  },
+  {
+    "trace_sha256": "7b7535591f00e3aa68657517cca70587efcaac8c51995be08dbe7ce491615f5d",
+    "request_counts_decimal_opcode": {
+      "4": 2,
+      "8": 2,
+      "10": 1,
+      "36": 1,
+      "40": 1,
+      "42": 1,
+      "58": 4
+    },
+    "tx_wire_packets": 12,
+    "rx_wire_packets": 12,
+    "tx_wire_bytes": 60,
+    "rx_wire_bytes": 550,
+    "max_rx_wire_packet": 234,
+    "responses": 12,
+    "configuration": {
+      "reported_protocol_mtu": 514,
+      "ack_period": 0
+    },
+    "connected_seconds": 1.201,
+    "all_requests_within_read_only_allowlist": true,
+    "scope": "Recorded application traffic only; no HCI capture"
+  }
+]

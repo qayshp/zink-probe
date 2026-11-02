@@ -1,0 +1,138 @@
+{
+  "main_sha256": "4cc83261d16ab8078db3a38ae694017c26e6c681e1eca1e9bb41a437704c24ce",
+  "hcd_end": "0x1418de",
+  "reconstructed_memory_sha256": "6c637fd1c7b404df4dd37651b77008592f277c6f6bccce2aa982fd1c2113bf6a",
+  "configurations": {
+    "BLE": {
+      "address": "0x224308",
+      "framing_table": "0x221134",
+      "message_callbacks": "0x221150",
+      "printer_handlers": "0x2245e4"
+    },
+    "SPP": {
+      "address": "0x224354",
+      "framing_table": "0x221118",
+      "message_callbacks": "0x221150",
+      "printer_handlers": "0x2245e4"
+    },
+    "iAP": {
+      "address": "0x224384",
+      "framing_table": "0x221118",
+      "message_callbacks": "0x221150",
+      "printer_handlers": "0x2245e4"
+    }
+  },
+  "dispatch_cases_decimal_opcode": {
+    "12": "0x21d2ce",
+    "14": "0x21d304",
+    "36": "0x21d358"
+  },
+  "instruction_checks": [
+    {
+      "address": "0x217ce0",
+      "mnemonic": "bl",
+      "operands": "#0x21b7f0"
+    },
+    {
+      "address": "0x217d94",
+      "mnemonic": "cmp",
+      "operands": "r1, #0x62"
+    },
+    {
+      "address": "0x217dba",
+      "mnemonic": "bl",
+      "operands": "#0x217d60"
+    },
+    {
+      "address": "0x217d74",
+      "mnemonic": "bl",
+      "operands": "#0x21de98"
+    },
+    {
+      "address": "0x21de98",
+      "mnemonic": "ldr",
+      "operands": "r3, [r0, #0x6c]"
+    },
+    {
+      "address": "0x21de9a",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #4]"
+    },
+    {
+      "address": "0x21de9c",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #0xc]"
+    },
+    {
+      "address": "0x21ce44",
+      "mnemonic": "ldr",
+      "operands": "r3, [r6, #0x6c]"
+    },
+    {
+      "address": "0x21ce48",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3]"
+    },
+    {
+      "address": "0x21ce4a",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #8]"
+    },
+    {
+      "address": "0x21de64",
+      "mnemonic": "bl",
+      "operands": "#0x21cfe4"
+    },
+    {
+      "address": "0x21d034",
+      "mnemonic": "ldrb.w",
+      "operands": "r8, [r5, #0x18]"
+    },
+    {
+      "address": "0x21d038",
+      "mnemonic": "bl",
+      "operands": "#0x21eac0"
+    },
+    {
+      "address": "0x21d03c",
+      "mnemonic": "cmp",
+      "operands": "r8, r0"
+    },
+    {
+      "address": "0x21d03e",
+      "mnemonic": "blo.w",
+      "operands": "#0x21ddea"
+    },
+    {
+      "address": "0x21d052",
+      "mnemonic": "tbh",
+      "operands": "[pc, r4, lsl #1]"
+    },
+    {
+      "address": "0x21d2dc",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #0xc]"
+    },
+    {
+      "address": "0x21d2e0",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #0x14]"
+    },
+    {
+      "address": "0x21d31e",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #0xc]"
+    },
+    {
+      "address": "0x21d322",
+      "mnemonic": "ldr",
+      "operands": "r3, [r3, #0x1c]"
+    }
+  ],
+  "security_functions": [
+    "0x21ea60",
+    "0x21eab0",
+    "0x21eac0"
+  ],
+  "limitation": "Static FS image only; no execution or physical FA print acceptance test"
+}

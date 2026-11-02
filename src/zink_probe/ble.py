@@ -150,9 +150,11 @@ class BleConnection:
             if isinstance(response, Exception):
                 raise response
             if message == b"\x0a\x01\x00" and response[:1] == b"\x0b":
-                if len(response) < 4:
-                    raise ProtocolError("Truncated BLE IF_CONFIG reply")
-                self.ack_period = response[3]
+                # Opcode, interface ID, little-endian uint16 MTU, ACK period.
+                # Byte 3 is the high byte of the MTU, not the ACK period.
+                if len(response) != 5 or response[1] != 1:
+                    raise ProtocolError("Invalid BLE IF_CONFIG reply")
+                self.ack_period = response[4]
             return response
 
     async def close(self):
