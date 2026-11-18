@@ -15,7 +15,10 @@ the app and Share extension. It can only read identity/status/capabilities and
 perform connection-local negotiation; it has no BLE job-submission path.
 The separately installed [Select BLE Check control](BLEOnlyProbe/README.md)
 reuses that diagnostic without any External Accessory linkage/declarations or
-print code. The user deferred its physical app/Share tests until later.
+print code. On 2026-11-18 both main apps and both Share extensions physically
+passed the fixed read-only sequence, including the isolated product's two
+processes. See the [physical BLE record](ble-tests/PHYSICAL_VALIDATION.md).
+No BLE job, image or print was sent; existing phone pairing history was retained.
 Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope

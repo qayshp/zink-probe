@@ -15,9 +15,11 @@ starts no scan, connection or application write.
 
 The control is useful because a BLE connection in the existing Select Probe
 product could coexist with an already-declared External Accessory route.
-Success in this separate product would show that the fixed BLE check works
-without linking or declaring External Accessory. It still would not establish
-fresh-pairing behavior, BLE job acceptance/upload/printing, or App Store approval.
+The [physical main-app and Share results](../ble-tests/PHYSICAL_VALIDATION.md)
+show that the fixed BLE check works without linking or declaring External
+Accessory in those processes and the tested phone's existing pairing environment.
+It does not establish fresh-pairing behavior, BLE job acceptance/upload/printing,
+or App Store approval.
 The same native owner is reused so differences in framing do not confound the
 comparison. The products retain separate system Bluetooth permissions.
 
@@ -47,6 +49,17 @@ neither `UISupportedExternalAccessoryProtocols` nor `UIBackgroundModes`.
 ExternalAccessory. Both targets subsequently built with development signing,
 and `devicectl` confirmed installation of Select BLE Check Build 1 on the paired
 iPhone beside Select Probe. No app data or pairing was reset. Those build,
-installation and package checks do not establish a physical connection. The
-user deferred the phone tests until later; no radio session or printer command
-was started by this control during development.
+installation and package checks alone do not establish a physical connection.
+
+On 2026-11-18 the separate main app and its Share extension each physically
+completed the fixed read-only sequence. The main app received its own Bluetooth
+permission prompt; the extension was subsequently authorized without another
+prompt. Both reported firmware `G1L1FA2105AR`, model `0x48d3`, 227 capability
+bytes and unchanged before/after
+status (99% battery in the main app, 98% in Share, idle/empty, clock-invalid flag
+left set). Each run used 40 TX bytes acknowledged in eight write callbacks and
+314 RX bytes. See the [sanitized physical evidence and
+limitations](../ble-tests/PHYSICAL_VALIDATION.md). No job, image, print or
+persistent printer-setting write was attempted. Existing phone pairing history
+was retained; this result does not establish first-time onboarding or App Store
+eligibility.

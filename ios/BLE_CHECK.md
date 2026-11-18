@@ -15,8 +15,10 @@ using CoreBluetooth instead of External Accessory?
 
 The [Android/firmware investigation](../experiments/ble-printing/README.md)
 establishes a credible BLE printing route in source plus successful Mac BLE
-reads. It does not establish iPhone access or actual BLE print acceptance.
-This check addresses the iPhone-access question without creating a job.
+reads. The subsequent [physical iPhone checks](ble-tests/PHYSICAL_VALIDATION.md)
+establish read-only access in the tested processes and pairing environment;
+actual BLE print acceptance remains untested. This check addresses the
+iPhone-access question without creating a job.
 
 A successful report establishes access and parser/transport compatibility for
 that signed process, phone, printer and connection environment. It does not
@@ -152,11 +154,20 @@ Report a failed stage rather than trying an unbounded reset sequence.
   confirmed installation of **Select BLE Check Build 1**, beside the working app.
 - A generic simulator compile of Select Probe also passed; no simulator was
   booted or launched and no Bluetooth result is inferred from that compile.
-- **The user deferred the physical phone tests until later.** Both main-app and
-  Share-extension BLE results remain pending. No further phone interaction or
-  printer test is needed to complete the offline milestone.
-  Installation did not launch a scan/session or send a printer command. No
-  simulator or physical BLE/printing success is inferred from a build/install.
+- **Physical tests on 2026-11-18 passed in both main apps and both Share
+  extensions.** Each independently completed the fixed sequence: firmware
+  `G1L1FA2105AR`, model `0x48d3`, 227-byte capability table, 40 GATT TX bytes
+  acknowledged through eight callbacks, and 314 RX bytes. Before/after status
+  matched within each run: power 1, idle/empty, current job 0, clock-invalid flag 1.
+  Battery was 99% in the first three runs and 98% in the final isolated Share run.
+  The clock flag was reported and left unchanged. The isolated app and its Share
+  extension passed without External Accessory linkage/declarations. See the
+  [physical result record and evidence limits](ble-tests/PHYSICAL_VALIDATION.md);
+  these are observations from
+  iPhone Mirroring, not an exported application log or HCI capture.
+  No job allocation, image upload, print, clock sync or persistent printer-setting
+  change was performed. Existing pairing history was retained, so never-paired
+  onboarding and BLE printing remain separate validation gates.
 
 The new headless tests and iOS typecheck are included in
 [iOS CI](../.github/workflows/ios-probe.yml). CI can compile the native owner with

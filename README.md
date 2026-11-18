@@ -370,11 +370,15 @@ for the Android stay-on-BLE print path, shared firmware command handlers and
 audited BLE-only reads. These establish a credible BLE printing route in source;
 physical BLE job allocation, image transfer and printing remain untested.
 The [native iPhone BLE check](ios/BLE_CHECK.md) is now implemented and installed
-in Build 15, with offline framing/interruption tests; physical app and Share
-CoreBluetooth results remain pending. It cannot allocate or submit a BLE print job.
+in Build 15, with offline framing/interruption tests. Both main apps and both
+Share extensions passed physical CoreBluetooth reads on 2026-11-18; see
+the [physical result record](ios/ble-tests/PHYSICAL_VALIDATION.md). The diagnostic
+cannot allocate or submit a BLE print job.
 A separate [Select BLE Check app/Share control](ios/BLEOnlyProbe/README.md), also
 installed, removes External Accessory linkage and declarations from that test.
-The user has deferred the physical phone tests until later.
+Its main app and Share extension both passed. Existing phone pairing history
+was retained, and BLE job allocation/upload/printing and first-time phone
+onboarding remain untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,
