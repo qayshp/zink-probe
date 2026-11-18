@@ -23,6 +23,9 @@ final class ShareViewController: UIViewController {
                 let connection = self.connection
                 self.presentContent(SharePhotoFlow(initialData:data,connection:connection).toolbar {
                     ToolbarItem(placement: .primaryAction) {
+                        NavigationLink("BLE check") { BLEProbeView(context: "Share extension") }.disabled(connection.active)
+                    }
+                    ToolbarItem(placement: .primaryAction) {
                         NavigationLink("Connection test") { ShareConnectionView(probe: connection) }
                     }
                 })

@@ -24,6 +24,9 @@ offline capture/cancellation tests. A [Linux capture queue](LINUX_PRINT_QUEUE.md
 is installed on ColorBerry and validated through CUPS; a failure-reporting
 mismatch remains to resolve before live Linux printing. macOS OS-queue
 installation is still future work.
+The [macOS integration proposal](MACOS_INTEGRATION_PLAN.md) defines capture-first
+system-queue validation, quiet user-service operation, stable Bluetooth permission
+identity, packaging and later separately authorized physical acceptance.
 
 The [offline image-preparation API and CLI](IMAGE_PREPARATION.md) handle EXIF
 orientation, ICC-to-sRGB conversion, centered layout previews and JPEG quality /
@@ -366,13 +369,20 @@ See the [bounded BLE printing investigation](experiments/ble-printing/README.md)
 for the Android stay-on-BLE print path, shared firmware command handlers and
 audited BLE-only reads. These establish a credible BLE printing route in source;
 physical BLE job allocation, image transfer and printing remain untested.
+The [native iPhone BLE check](ios/BLE_CHECK.md) is now implemented and installed
+in Build 15, with offline framing/interruption tests; physical app and Share
+CoreBluetooth results remain pending. It cannot allocate or submit a BLE print job.
+A separate [Select BLE Check app/Share control](ios/BLEOnlyProbe/README.md), also
+installed, removes External Accessory linkage and declarations from that test.
+The user has deferred the physical phone tests until later.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,
 offline photo preparation and Share extension. Bounded read-only connection/status
 queries and saved-draft integrity have physical evidence. The Share extension now
 offers an explicitly confirmed one-copy attempt with durable duplicate protection;
-the first physical iOS image transfer/print remains unverified. See the
+the user has reported a successful physical iPhone print. Broader interruption
+and connection behavior still needs device validation. See the
 [first-attempt instructions and authorization tests](ios/authorization-tests/README.md).
 
 See [NAMING_AND_DEVICE_FAMILIES.md](NAMING_AND_DEVICE_FAMILIES.md) for confirmed,

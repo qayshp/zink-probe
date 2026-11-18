@@ -261,6 +261,7 @@ struct SelectAccessoryProbeApp: App {
                         #endif
                     }
                     Section("Connection help") {
+                        NavigationLink("Read-only BLE check") { BLEProbeView(context: "main app") }.disabled(probe.active)
                         Text("Paired does not always mean connected. Keep the printer awake nearby, check its connection in iPhone Bluetooth Settings, then refresh here. If another phone or computer is connected, disconnect it there before trying the picker.")
                         Text("Power-cycling the printer or toggling iPhone Bluetooth has sometimes helped, but no reliable reset sequence is established. Picker cancellation is not proof that the printer is unsupported.").font(.caption)
                     }

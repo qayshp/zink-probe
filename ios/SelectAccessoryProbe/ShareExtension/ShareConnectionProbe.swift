@@ -213,6 +213,7 @@ struct ShareConnectionView: View {
     @ObservedObject var probe: ShareConnectionProbe
     var body: some View {
         List {
+            NavigationLink("Read-only BLE check") { BLEProbeView(context: "Share extension") }.disabled(probe.active)
             Section("Test connection from Share") {
                 Text("Keep the Select awake nearby. Passive and firmware tests close within 10 seconds. Full preflight has a 60-second bound, checks identity, capabilities, status, queue and counters, and negotiates only a connection-local message limit. No printing or persistent settings changes.")
                 Button("Refresh connected accessories") { probe.refresh() }.disabled(probe.active)

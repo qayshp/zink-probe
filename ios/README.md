@@ -7,7 +7,15 @@ The extension prepares a shared photo, tests its own accessory connection and
 offers an explicitly confirmed submission simulation. Build 13 adds a native
 read-only stream adapter, full Share preflight and durable printer-bound drafts.
 Build 14 adds explicitly confirmed one-copy submission from a saved draft, with
-a durable single-use authorization. Physical iOS printing remains unverified.
+a durable single-use authorization. The user subsequently reported one successful
+iPhone print; the historical build notes retain the evidence available at each
+milestone and are not a new device trace.
+Build 15 adds an independent [bounded CoreBluetooth check](BLE_CHECK.md) in both
+the app and Share extension. It can only read identity/status/capabilities and
+perform connection-local negotiation; it has no BLE job-submission path.
+The separately installed [Select BLE Check control](BLEOnlyProbe/README.md)
+reuses that diagnostic without any External Accessory linkage/declarations or
+print code. The user deferred its physical app/Share tests until later.
 Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope

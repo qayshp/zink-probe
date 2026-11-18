@@ -20,6 +20,15 @@ jobs:
           mkdir -p build
           swiftc ios/SelectAccessoryProbe/IdentityWire.swift ios/tests/main.swift -o build/ios-wire-tests
           build/ios-wire-tests
+      - name: Test read-only BLE framing, flow control and interruptions offline
+        run: |
+          mkdir -p build
+          swiftc ios/BLECore/*.swift ios/ble-tests/main.swift -o build/ios-ble-tests
+          build/ios-ble-tests
+      - name: Typecheck read-only BLE core for iOS
+        run: >-
+          xcrun swiftc -typecheck -target arm64-apple-ios16.0
+          -sdk "$(xcrun --sdk iphoneos --show-sdk-path)" ios/BLECore/*.swift
       - name: Check offline image preparation on Apple frameworks
         run: |
           python3 -m venv build/photo-venv
@@ -64,3 +73,24 @@ jobs:
           xcodebuild -project ios/SelectAccessoryProbe/SelectAccessoryProbe.xcodeproj
           -scheme SelectAccessoryProbe -destination 'generic/platform=iOS'
           -derivedDataPath build/ios-probe CODE_SIGNING_ALLOWED=NO build
+      - name: Compile isolated BLE-only app and Share extension
+        run: >-
+          xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj
+          -scheme BLEOnlyProbe -destination 'generic/platform=iOS'
+          -derivedDataPath build/ios-ble-only CODE_SIGNING_ALLOWED=NO build
+      - name: Verify isolated targets have no accessory protocols or ExternalAccessory linkage
+        run: |
+          python3 - <<'PY'
+          import plistlib
+          import subprocess
+          from pathlib import Path
+          app = Path('build/ios-ble-only/Build/Products/Debug-iphoneos/BLEOnlyProbe.app')
+          for bundle, executable in [(app, 'BLEOnlyProbe'), (app / 'PlugIns/BLEOnlyShare.appex', 'BLEOnlyShare')]:
+              info = plistlib.loads((bundle / 'Info.plist').read_bytes())
+              assert 'UISupportedExternalAccessoryProtocols' not in info
+              assert 'UIBackgroundModes' not in info
+              libraries = subprocess.check_output(['otool', '-L', str(bundle / executable)], text=True)
+              assert 'CoreBluetooth.framework' in libraries
+              assert 'ExternalAccessory.framework' not in libraries
+          print('Both isolated bundles use CoreBluetooth and declare no External Accessory protocols/background modes.')
+          PY

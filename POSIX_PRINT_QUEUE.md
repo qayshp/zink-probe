@@ -99,6 +99,11 @@ preparation, simulated job lifecycles, regression fixtures and wheel builds.
 
 ## Next integration work
 
+The [macOS integration proposal](MACOS_INTEGRATION_PLAN.md) now breaks the Mac
+work into capture-only queue/service validation, stable app/helper permissions,
+packaging and separately authorized live acceptance. It includes explicit checks
+for the Linux failure-state mismatch at the macOS system-spooler boundary.
+
 1. Complete the Linux capture integration by resolving its documented CUPS
    failure-reporting mismatch. Add a capture-first macOS launchd/print-system
    installer. Preserve separate layout profiles and share one durable journal
