@@ -73,3 +73,15 @@ installation uses an update with no uninstall or data reset. Installation alone
 is not protocol validation. See the [physical Build 16 report](ble-preflight-tests/PHYSICAL_VALIDATION.md)
 and structured transcription for observed main-app, Share and cancellation outcomes.
 Private phone screenshots, library images and device identifiers are not published.
+
+The subsequent [bounded clock-sync and full-preflight session](ble-preflight-tests/CLOCK_SYNC_VALIDATION.md)
+on 2026-11-18 used the installed Build 16 on firmware `G1L1FA2105AR` and passed
+full strict native BLE preflights in both the main app and Share extension,
+including the previously unreached job-list and counter queries. A fresh Share
+presentation passed again after dismissal/relaunch. The clock action was a
+separately authorized time/time-zone write; it was acknowledged, but flags were
+already zero before that write and remained zero afterward. This does not prove
+that it cleared the earlier time-invalid flag, whose refusal remains recorded
+as historical evidence. Actual clock/main/Share report exports were retrieved
+and privacy-reviewed. BLE printing remains disabled, and physical BLE image
+upload and printing remain untested.

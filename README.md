@@ -385,9 +385,14 @@ interruption/recovery and duplicate-prevention tests. It compiles into the app
 and Share extension, but real BLE submission is unconditionally disabled before
 permit reservation or Bluetooth creation. No new BLE print UI is connected.
 Build 16 exposes [read-only native BLE preflight](ios/BLE_PREFLIGHT.md) in the
-main app and Share extension. Physical checks reached status in both contexts
-and correctly refused readiness for the unchanged time-invalid flag. Scan and
-active-session background cancellation were also checked; no BLE print was sent.
+main app and Share extension. Initial physical checks correctly refused readiness
+for the time-invalid flag. A subsequent [bounded clock-sync and full-preflight
+session](ios/ble-preflight-tests/CLOCK_SYNC_VALIDATION.md) on 2026-11-18 passed
+full native BLE checks in both contexts on firmware `G1L1FA2105AR`, including a
+fresh Share presentation after dismissal/relaunch. The clock write was acknowledged,
+but flags were already zero before it and remained zero; no clearance of the
+earlier flag is inferred. Actual exported reports were retrieved and reviewed.
+BLE printing remains disabled; physical BLE image upload and printing are untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

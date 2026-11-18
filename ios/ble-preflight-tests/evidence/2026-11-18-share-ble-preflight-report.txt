@@ -1,0 +1,6 @@
+Native BLE adapter read-only preflight · Share extension. No automatic connection, printing or settings writes.
+2026-11-18T17:58:24Z Explicit native BLE preflight requested; expected firmware G1L1FA2105AR. No print permit, image, clock or persistent-setting write.
+2026-11-18T17:58:24Z BLE negotiation complete; virtual streams opened=1. Identity-bearing frames omitted.
+2026-11-18T17:58:24Z BLE negotiation complete; virtual streams opened=2. Identity-bearing frames omitted.
+2026-11-18T17:58:25Z Read-only checks passed: firmware G1L1FA2105AR, battery 100%, idle/empty queue, no flags, not paused; maximum 1000, setup byte 33, name limit 16, pages 13, calibration cycles 2. Identity discovered; not yet bound to a saved job. No print authorized or sent. Virtual stream TX=86, RX=469; opened=2. These counts include internal framing, not raw GATT traffic. No printing or settings change.
+2026-11-18T17:58:25Z GATT packets: TX queued=46, acknowledged=46, write callbacks=12, RX=431; protocol MTU=514, ACK period=0.

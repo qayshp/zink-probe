@@ -1,0 +1,27 @@
+Sanitized excerpt from the app-exported Documents/probe.txt.
+Discovery/accessory-name metadata and earlier lines are omitted. Remaining log lines are unchanged.
+This is an application report, not a raw Bluetooth capture.
+
+2026-11-18T17:53:44Z Session created; explicit clock sync and verification will start after streams open.
+2026-11-18T17:53:44Z Explicit clock sync: one time/time-zone write, status before/after, then read-only preflight. No printing.
+2026-11-18T17:53:44Z input openCompleted
+2026-11-18T17:53:44Z output openCompleted
+2026-11-18T17:53:44Z Both streams opened. This proves session access, not printer protocol compatibility or print support.
+2026-11-18T17:53:46Z Preflight RX 9 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:47Z Preflight RX 11 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:47Z Preflight RX 6 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 11 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Clock sync acknowledged and verified: flags before=0, after=0; sent epoch=1795024427, UTC offset seconds=-28800. Starting read-only preflight.
+2026-11-18T17:53:48Z Preflight RX 20 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 9 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 23 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 9 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 8 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:48Z Preflight RX 238 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Preflight RX 8 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Preflight RX 22 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Preflight RX 6 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Preflight RX 105 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Preflight RX 21 bytes (identity-bearing frames omitted from report)
+2026-11-18T17:53:49Z Read-only checks passed: firmware G1L1FA2105AR, battery 100%, idle/empty queue, no flags, not paused; maximum 1000, setup byte 33, name limit 16, pages 13, calibration cycles 2. Identity discovered; not yet bound to a saved job. No print authorized or sent.
+2026-11-18T17:53:49Z Read-only preflight complete. Opened streams=["input", "output"]; RX=506; application TX=121.
