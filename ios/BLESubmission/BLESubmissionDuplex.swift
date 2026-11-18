@@ -24,6 +24,10 @@ final class BLESubmissionDuplex: AccessoryDuplex {
     /// This is a coarse opcode policy, not print authorization. A single-job
     /// composition still requires the upstream durable permit/frame gate.
     enum Policy { case readOnly, singleJobSubmission }
+    /// Describes the failed operation, not a framework error or physical cause.
+    /// Connection includes native Bluetooth/service/subscription readiness;
+    /// setup is the printer's IF_CONFIG exchange; exchange follows negotiation.
+    enum FailureStage: Equatable { case connection, setup, exchange }
     private enum State { case unopened, waitingReady, configuring, idle, exchanging, replyReady, closed }
     private enum WriteKind { case request, acknowledgement }
     private struct PendingWrite { let kind: WriteKind; let count: Int }
@@ -56,6 +60,7 @@ final class BLESubmissionDuplex: AccessoryDuplex {
     private(set) var rxBytes = 0
     private(set) var writeCallbacks = 0
     private(set) var failureReason: String?
+    private(set) var failureStage: FailureStage?
     /// Sequence space is a transport bound separate from the peer's SETUP
     /// message maximum. The coordinator samples this after IF_CONFIG and before
     /// claiming a job, so large JPEG chunks can be sized safely at small ATT MTUs.
@@ -274,6 +279,11 @@ final class BLESubmissionDuplex: AccessoryDuplex {
 
     private func fail(_ reason: String, ended: Bool = false) {
         guard !closed else { return }
+        switch state {
+        case .unopened, .waitingReady: failureStage = .connection
+        case .configuring: failureStage = .setup
+        default: failureStage = .exchange
+        }
         failureReason = reason
         let callback = handler
         close()

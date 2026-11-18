@@ -65,6 +65,7 @@ final class AccessoryStreamPump {
     private(set) var result = "Waiting for both accessory streams. Real printing is disabled."
     private(set) var receivedBytes = 0
     private(set) var verified: VerifiedPrinter?
+    private(set) var readinessRefusal: ReadOnlyPreflight.ReadinessRefusal?
     var acceptedBytes: Int { printGate?.acceptedBytes ?? gate.acceptedBytes }
     var acknowledgedImageBytes: Int { printGate?.acknowledgedBytes ?? 0 }
     var totalImageBytes: Int { printGate?.totalBytes ?? 0 }
@@ -134,7 +135,10 @@ final class AccessoryStreamPump {
                     result = reader!.summary; succeeded = true; terminal = true
                 }
             }
-        } catch { stop("Read-only preflight stopped: \(error); no retry") }
+        } catch {
+            readinessRefusal = reader?.readinessRefusal
+            stop("Read-only preflight stopped: \(error); no retry")
+        }
     }
     func stop(_ reason: String) {
         guard !terminal else { return }

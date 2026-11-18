@@ -129,6 +129,7 @@ final class NativeBLEAdapter {
     private var timer: Timer?
     private let clock = { ProcessInfo.processInfo.systemUptime }
     var active: Bool { session.map { !$0.closed } ?? false }
+    var failureStage: BLESubmissionDuplex.FailureStage? { session?.duplex.failureStage }
     /// Packet-format counters, not an over-the-air capture. Never includes
     /// peripheral UUIDs, protocol identity, names or raw response bytes.
     var transportSummary: String {

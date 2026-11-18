@@ -45,6 +45,12 @@ struct AccessoryExchange {
 /// Fixed read-only allowlist plus connection-local maximum negotiation. No print opcodes.
 struct ReadOnlyPreflight {
     enum Failure: Error { case invalid(String) }
+    /// Valid printer replies that refuse strict readiness, distinct from malformed
+    /// responses or transport errors. Presentation must not parse diagnostic text.
+    enum ReadinessRefusal: Equatable {
+        case printerStatus(flags: Int, state: Int, currentJob: Int, queue: Int, battery: Int, power: Int)
+        case paused, batteryOrPower, queuedJobs
+    }
     private enum Stage { case firmware, model, device, setup, feature, download, pause, status, jobs, metrics, done }
     private var stage: Stage = .firmware
     private var pending = false
@@ -64,6 +70,7 @@ struct ReadOnlyPreflight {
     private(set) var printerState = 0
     private(set) var currentJob = 0
     private(set) var queueState = 0
+    private(set) var readinessRefusal: ReadinessRefusal?
     private(set) var jobs: [Int] = []
     private var handle: UInt8 = 0, encoding: UInt8 = 0
     private var table: [UInt8] = [], chunks = 0, previousRemaining: Int?
@@ -148,6 +155,7 @@ struct ReadOnlyPreflight {
             previousRemaining = remaining; table += r.dropFirst(6)
             if remaining == 0 { try validateTable(); stage = .pause }
         case .pause:
+            if r == [27,4,1] { readinessRefusal = .paused }
             try require(r == [27,4,0], "Paused or unknown pause state"); stage = .status
         case .status:
             try require(r.first == 9, "Status response")
@@ -161,16 +169,28 @@ struct ReadOnlyPreflight {
             let details = "flags=\(fields[1].map { String(format: "0x%08X", $0) } ?? "missing"), state=\(fields[2].map(String.init) ?? "missing"), currentJob=\(fields[5].map(String.init) ?? "missing"), queue=\(fields[7].map(String.init) ?? "missing"), battery=\(fields[3].map(String.init) ?? "missing"), power=\(fields[6].map(String.init) ?? "missing")"
             try require(fields.count == widths.count, "Incomplete status: \(details)")
             flags = fields[1]!; printerState = fields[2]!; currentJob = fields[5]!; queueState = fields[7]!
-            if requireReady { try require(flags == 0 && printerState == 1 && currentJob == 0 && queueState == 1, "Printer not idle/empty/error-free: \(details)") }
             battery = fields[3] ?? 0
             try require((0...100).contains(battery), "Invalid battery percentage")
-            if requireReady { try require(battery >= 30 && [1,2].contains(fields[6] ?? 0), "Battery/power unsuitable: \(details)") }
+            if requireReady {
+                if !(flags == 0 && printerState == 1 && currentJob == 0 && queueState == 1) {
+                    readinessRefusal = .printerStatus(flags: flags, state: printerState,
+                        currentJob: currentJob, queue: queueState, battery: battery, power: fields[6]!)
+                    throw Failure.invalid("Printer not idle/empty/error-free: \(details)")
+                }
+                if !(battery >= 30 && [1,2].contains(fields[6] ?? 0)) {
+                    readinessRefusal = .batteryOrPower
+                    throw Failure.invalid("Battery/power unsuitable: \(details)")
+                }
+            }
             stage = .jobs
         case .jobs:
             try require(r.first == 45 && (r.count - 1) % 2 == 0, "Malformed queue")
             jobs = stride(from: 1, to: r.count, by: 2).map { number(r[$0..<$0+2]) }
             try require(!jobs.contains(0) && Set(jobs).count == jobs.count, "Invalid queue IDs")
-            if requireReady { try require(jobs.isEmpty, "Queue not empty") }
+            if requireReady && !jobs.isEmpty {
+                readinessRefusal = .queuedJobs
+                throw Failure.invalid("Queue not empty")
+            }
             stage = .metrics
         case .metrics:
             try require(r.count >= 4 && r[0] == 59 && r[1] == 1 && (r.count - 4) % 6 == 0, "Metrics response")

@@ -59,14 +59,55 @@ Internal virtual HP+ stream counts and GATT packet counts are labeled separately
 GATT counts include sequence/ACK bytes and represent application callback statistics,
 not an over-the-air capture or a sustained-throughput benchmark.
 
+## Clearer BLE outcomes after Build 16
+
+The main app and Share extension use the same result presentation. The source
+update distinguishes these outcomes without matching words in a diagnostic error:
+
+| Visible result | Meaning and guidance |
+|---|---|
+| **BLE connection unavailable.** | A usable native BLE connection could not be established. Check that the printer is on, awake and nearby, and Bluetooth access is enabled, then retry manually. This does not identify a specific physical cause: native Bluetooth, service discovery and notification setup all precede readiness. |
+| **BLE setup did not complete.** | Native BLE opened, but the printer's protocol setup exchange failed or timed out. Printer readiness has not been established. |
+| **BLE communication did not complete.** | An exchange failed after protocol negotiation, including malformed packets, a missing response or an interrupted connection. This does not by itself identify a physical disconnect. |
+| **Printer connected; clock sync needed.** | A complete, validated status reply reported flag `0x00000001`. Use the separate clock-sync action in Select Probe, then rerun the check. The read-only check leaves the clock unchanged. |
+| **Printer connected; clock sync and other checks need attention.** | The same clock flag accompanies other flags, a busy/job/queue condition, low battery or an unsuitable power state. Syncing the clock alone is not promised to restore readiness. |
+| **Printer connected; not ready.** | Valid replies report paused status, battery/power conditions, queued jobs or other status flags. The detail text identifies the category. |
+| **BLE printer check did not complete.** | Readiness could not be verified, for example because a reply is malformed or identity validation fails. The bounded diagnostic report retains the original reason. |
+
+`ReadOnlyPreflight` records a typed readiness refusal only after the relevant
+reply has been validated. The stream pump retains that metadata; the BLE bridge
+separately records the failed operation stage before closing. Neither metadata
+value changes the request sequence, strict rejection conditions, deadlines or
+output policies. A truncated clock-bearing reply, an invalid battery percentage
+or an unknown pause value cannot produce clock-sync guidance. Known additional
+conditions are retained even when the clock flag is present.
+
+The screen and exported report include the plain-language outcome, while the
+report preserves existing protocol diagnostics and counters. Unknown framework
+error descriptions remain excluded. Failure re-enables manual controls without
+automatic retry, clock repair, fallback transport or print authorization.
+
+This wording update was tested offline and compiled for generic iPhone targets.
+It was not installed or physically tested on the phone in this follow-up. The
+earlier physical reports below remain unchanged and contain the old wording.
+
 ## Validation and installation
 
-The [offline suite](ble-preflight-tests/README.md) passed 3,010 checks through
+The [offline suite](ble-preflight-tests/README.md) passed 4,035 checks through
 the production session/controller with simulated packet/adapter seams: strict
 success/refusal, identity, packet/ACK/callback combinations, per-packet interruption,
 deadlines, duplicate taps, cancellation, stale generations, startup failure,
 sanitized reports and the unconditional print guard. It constructs no Bluetooth
 manager. CI also compiles both app targets and checks the isolated BLE-only product.
+
+The wording follow-up additionally passed the shared preflight/framing/clock-sync
+tests, accessory interruption/binding tests and **362,226** BLE submission checks.
+The complete native BLE core/controller typechecked for iOS 16 with application
+extension restrictions. Unsigned generic iPhone builds compiled the main app and
+its Share extension, plus the isolated BLE-only app and Share extension; the
+isolated bundles retained CoreBluetooth linkage without ExternalAccessory
+linkage or accessory protocol declarations. No simulator, phone or Bluetooth
+manager was launched for this update.
 
 The signed update retains the existing bundle identifiers and development team;
 installation uses an update with no uninstall or data reset. Installation alone

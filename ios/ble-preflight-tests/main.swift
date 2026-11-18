@@ -17,6 +17,7 @@ final class PreflightPeer: BLEPacketIO {
     var dropOpcode: UInt8?
     var corruptOpcode: UInt8?
     var duplicateOpcode: UInt8?
+    var responseOverrides: [UInt8:[UInt8]] = [:]
     var disconnectAt: Int?
     private(set) var packets: [[UInt8]] = []
     private(set) var requests: [[UInt8]] = []
@@ -49,7 +50,7 @@ final class PreflightPeer: BLEPacketIO {
                     var response: [UInt8]
                     if request == [10,1,0] { response = [11,1,UInt8(mtu & 255),UInt8(mtu >> 8),UInt8(ack)] }
                     else {
-                        response = printer.respond(request)
+                        response = responseOverrides[request[0]] ?? printer.respond(request)
                         if request.first == 40 { response += [99,200,0] + [UInt8](repeating:0,count:200) }
                     }
                     replyPackets = stride(from:0,to:response.count,by:mtu-1).enumerated().map { index, start in
@@ -202,6 +203,7 @@ final class FakePreflightAdapter: BLEPreflightAdapter {
     var startError: Error?
     var activateBeforeThrow = false
     var whenStopping: (() -> Void)?
+    var failureStage: BLESubmissionDuplex.FailureStage?
     var transportSummary: String { "BLE GATT packets: queued=40, acknowledged=40, callbacks=8, RX=314." }
     func preflight(peripheralID: UUID, expectedDeviceID: String?, expectedFirmware: String,
                    update: @escaping (AccessoryStreamPump) -> Void) throws {
@@ -215,6 +217,113 @@ final class FakePreflightAdapter: BLEPreflightAdapter {
     func emit(_ pump: AccessoryStreamPump, at index: Int? = nil) {
         if pump.terminal { active = false }
         callbacks[index ?? callbacks.count-1](pump)
+    }
+}
+
+// Assemble status replies independently of the production parser. A clock bit
+// in an incomplete/malformed reply must never become a clock-sync instruction.
+func statusReply(flags: UInt32 = 0, state: UInt8 = 1, currentJob: UInt16 = 0,
+                 queue: UInt8 = 1, battery: UInt8 = 72, power: UInt8 = 1) -> [UInt8] {
+    [9,1,UInt8(truncatingIfNeeded:flags),UInt8(truncatingIfNeeded:flags >> 8),
+     UInt8(truncatingIfNeeded:flags >> 16),UInt8(truncatingIfNeeded:flags >> 24),
+     2,state,3,battery,5,UInt8(truncatingIfNeeded:currentJob),UInt8(truncatingIfNeeded:currentJob >> 8),
+     6,power,7,queue]
+}
+
+for fault in ["clock-only","clock-other-flags","clock-busy","clock-low-battery","clock-unknown-power","other-flags","paused","low-battery","queued-jobs","malformed-clock-status","clock-invalid-battery","unknown-pause"] {
+    let peer = PreflightPeer()
+    switch fault {
+    case "clock-only": peer.responseOverrides[8] = statusReply(flags:1)
+    case "clock-other-flags": peer.responseOverrides[8] = statusReply(flags:0x80000001)
+    case "clock-busy": peer.responseOverrides[8] = statusReply(flags:1,state:7,currentJob:16,queue:4)
+    case "clock-low-battery": peer.responseOverrides[8] = statusReply(flags:1,battery:12)
+    case "clock-unknown-power": peer.responseOverrides[8] = statusReply(flags:1,power:3)
+    case "other-flags": peer.responseOverrides[8] = statusReply(flags:4)
+    case "paused": peer.printer.paused = true
+    case "low-battery": peer.responseOverrides[8] = statusReply(battery:12)
+    case "queued-jobs": peer.responseOverrides[44] = [45,16,0]
+    case "clock-invalid-battery": peer.responseOverrides[8] = statusReply(flags:1,battery:101)
+    case "unknown-pause": peer.responseOverrides[26] = [27,4,2]
+    default: peer.responseOverrides[8] = [9,1,1,0,0,0]
+    }
+    let run = try Run(peer:peer); run.finish(); run.assertReadOnly()
+    let pump = run.session.pump
+    check(!pump.succeeded && pump.verified == nil && pump.streamsOpened == 2)
+    check(run.session.duplex.failureStage == nil,"A valid transport with refused readiness is not a BLE transport failure")
+    switch fault {
+    case "clock-only": check(pump.readinessRefusal == .printerStatus(flags:1,state:1,currentJob:0,queue:1,battery:72,power:1))
+    case "clock-other-flags": check(pump.readinessRefusal == .printerStatus(flags:0x80000001,state:1,currentJob:0,queue:1,battery:72,power:1))
+    case "clock-busy": check(pump.readinessRefusal == .printerStatus(flags:1,state:7,currentJob:16,queue:4,battery:72,power:1))
+    case "clock-low-battery": check(pump.readinessRefusal == .printerStatus(flags:1,state:1,currentJob:0,queue:1,battery:12,power:1))
+    case "clock-unknown-power": check(pump.readinessRefusal == .printerStatus(flags:1,state:1,currentJob:0,queue:1,battery:72,power:3))
+    case "other-flags": check(pump.readinessRefusal == .printerStatus(flags:4,state:1,currentJob:0,queue:1,battery:72,power:1))
+    case "paused": check(pump.readinessRefusal == .paused)
+    case "low-battery": check(pump.readinessRefusal == .batteryOrPower)
+    case "queued-jobs": check(pump.readinessRefusal == .queuedJobs)
+    default: check(pump.readinessRefusal == nil,"An incomplete clock-bearing reply is a protocol error, not readiness evidence")
+    }
+    let fake = FakePreflightAdapter()
+    let controller = BLEPreflightController(context:"offline readiness \(fault)",adapter:fake)
+    controller.run(peripheralID:UUID(),firmware:peer.printer.firmware)
+    fake.emit(pump)
+    check(!controller.active && !fake.active && fake.starts.count == 1)
+    switch fault {
+    case "clock-only":
+        check(controller.status == "Printer connected; clock sync needed.")
+        check(controller.lastResult.contains("Use the separate clock-sync action") && controller.lastResult.contains("then run this check again"))
+    case "clock-other-flags","clock-busy","clock-low-battery","clock-unknown-power":
+        check(controller.status == "Printer connected; clock sync and other checks need attention.")
+        check(controller.lastResult.contains("Other status, queue, or battery/power conditions also prevent readiness."))
+    case "malformed-clock-status","clock-invalid-battery","unknown-pause":
+        check(controller.status == "BLE printer check did not complete.")
+        check(!controller.lastResult.contains("Use the separate clock-sync action"),"Incomplete status must not recommend a clock fix")
+    default:
+        check(controller.status == "Printer connected; not ready.")
+        check(!controller.lastResult.contains("Use the separate clock-sync action"))
+    }
+    check(!controller.report.contains(peer.printer.device))
+    check(!peer.requests.contains { [UInt8(12),14,48,24,22,16].contains($0.first ?? 0) })
+}
+
+for fault in ["connection-failed","connection-deadline","setup-failed","exchange-disconnected","exchange-sequence"] {
+    let peer = PreflightPeer()
+    if fault.hasPrefix("connection") { peer.noReady = true }
+    if fault == "setup-failed" { peer.corruptOpcode = 10 }
+    if fault == "exchange-disconnected" { peer.disconnectAt = 1 }
+    if fault == "exchange-sequence" { peer.corruptOpcode = 4 }
+    let run = try Run(peer:peer)
+    if fault.hasPrefix("connection") {
+        run.session.start()
+        if fault == "connection-failed" { peer.inject(.failed) }
+        else { run.clock.now = 90; run.session.tick() }
+    }
+    run.finish(); run.assertReadOnly()
+    let expected: BLESubmissionDuplex.FailureStage = fault.hasPrefix("connection") ? .connection : fault == "setup-failed" ? .setup : .exchange
+    check(run.session.duplex.failureStage == expected)
+    check(!run.session.pump.succeeded && run.session.pump.verified == nil && run.session.pump.readinessRefusal == nil)
+    let fake = FakePreflightAdapter(); fake.failureStage = run.session.duplex.failureStage
+    let routing = UUID(), controller = BLEPreflightController(context:"offline transport \(fault)",adapter:fake)
+    controller.run(peripheralID:routing,firmware:peer.printer.firmware)
+    fake.emit(run.session.pump)
+    check(!controller.active && !fake.active && fake.starts.count == 1,"Failure must return control without automatic retry")
+    switch expected {
+    case .connection:
+        check(controller.status == "BLE connection unavailable.")
+        check(controller.lastResult.contains("A usable BLE connection to the selected printer could not be established."))
+    case .setup: check(controller.status == "BLE setup did not complete.")
+    case .exchange: check(controller.status == "BLE communication did not complete.")
+    }
+    check(!controller.lastResult.contains("Use the separate clock-sync action"))
+    check(!controller.report.contains(routing.uuidString) && !controller.report.contains(peer.printer.device))
+    if expected == .connection {
+        check(run.session.pump.acceptedBytes == 0 && run.session.pump.receivedBytes == 0)
+        check(peer.packets.isEmpty && run.session.pump.streamsOpened == 0)
+        let successful = try Run(); successful.finish()
+        fake.failureStage = nil
+        controller.run(peripheralID:routing,firmware:peer.printer.firmware)
+        check(controller.active && fake.starts.count == 2,"An explicit rerun is possible after unavailable failure")
+        fake.emit(successful.session.pump)
+        check(!controller.active && controller.status.contains("passed"))
     }
 }
 
@@ -249,8 +358,9 @@ do {
     fake.callbacks[0](refused.session.pump)
     check(controller.active && controller.report == activeReport,"A stale generation cannot terminate the new operation")
     fake.emit(refused.session.pump)
-    check(!controller.active && controller.status.contains("did not pass"))
-    check(controller.report.contains("time-invalid") && controller.report.contains("separate from a BLE connection failure"))
+    check(!controller.active && controller.status == "Printer connected; clock sync needed.")
+    check(controller.report.contains(refused.session.pump.result) && controller.report.contains(controller.status))
+    check(controller.report.contains("This check left the clock unchanged."))
     check(!controller.report.contains(routingID.uuidString) && !controller.report.contains(otherID.uuidString))
     check(!controller.report.contains(badPeer.printer.device),"Reports must not expose routing or protocol identities")
 
@@ -297,5 +407,5 @@ do {
     check(weakController.value == nil && !fake.active && fake.stops.count == 1,"Releasing an owner closes the operation without a retain cycle")
 }
 
-print("BLE preflight offline: \(checks) checks passed; 12 packet/ACK/callback combinations, strict readiness refusal, \(normalPacketCount) packet boundaries × 3 lifecycle interruptions, UI explicit actions/cancellation/generation/privacy, deadlines, late callbacks and disabled native submission")
+print("BLE preflight offline: \(checks) checks passed; 12 packet/ACK/callback combinations, typed readiness/connection/setup/exchange messages, \(normalPacketCount) packet boundaries × 3 lifecycle interruptions, UI explicit actions/cancellation/generation/privacy, deadlines, late callbacks and disabled native submission")
 print("No Bluetooth manager, physical printer, image upload, settings/clock write or print was used.")

@@ -397,7 +397,10 @@ passed full readiness without opening the main app first, returned a bounded
 ten-second error while the printer was off, and reconnected after power-on.
 The recovered connection then refused readiness for the printer's time-invalid
 flag; that check left the clock unchanged. Existing pairing/cache history was
-retained, and the generic connection-error wording remains a cleanup item.
+retained. That check identified generic connection-error wording for cleanup.
+The subsequent [offline wording update](ios/BLE_PREFLIGHT.md#clearer-ble-outcomes-after-build-16)
+distinguishes unavailable connections from connected printers needing clock sync
+or other readiness checks, with manual retry guidance and unchanged read-only rules.
 BLE printing remains disabled; physical BLE image upload and printing are untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.

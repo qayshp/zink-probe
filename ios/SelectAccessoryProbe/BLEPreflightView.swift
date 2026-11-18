@@ -63,7 +63,7 @@ struct BLEPreflightView: View {
                     Text(preflight.lastResult).font(.caption)
                         .accessibilityIdentifier("ble-adapter-preflight-result")
                 }
-                Text("A clock-invalid, paused, low-battery or busy result can stop readiness checks even when BLE communication works. This screen does not clear flags or set the clock.").font(.caption)
+                Text("A connected printer can still need clock sync, charging or another readiness check. Follow the result above, then retry manually when ready. This screen leaves the clock and printer settings unchanged.").font(.caption)
             }
             Section("Adapter report") {
                 ShareLink("Share BLE preflight report", item: preflight.report)

@@ -34,6 +34,20 @@ stopping, sanitized unknown errors, and owner release. These tests require no
 SwiftUI view or CoreBluetooth manager. The fake interface has no print, recovery,
 clock or settings operation.
 
+Terminal-message checks use the production packet bridge and parsed readiness
+metadata, then present the resulting terminal pump through the controller's fake
+adapter seam. They distinguish an unavailable connection, BLE setup failure,
+interrupted BLE communication, and a connected printer refusing readiness.
+Clock-only status has its own message; a clock flag combined with other flags,
+a busy/current-job/queue state, low battery, or unknown power also reports the additional
+blockers. Paused, low-battery and nonempty-job-list replies remain connected
+readiness refusals. An incomplete reply containing a clock bit, an invalid
+battery percentage, or an unknown pause value must not recommend a clock fix.
+Tests also verify that failure returns control without
+automatic retry, a later explicit rerun can succeed, diagnostic identities stay
+private, and no clock or print request is added. Simulated connection deadlines
+exercise the shared setup deadline, not CoreBluetooth's native ten-second stage.
+
 A clock-invalid refusal is expected readiness behavior. It is not treated as a
 transport failure or permission to set the printer's clock. Such a refusal does
 not produce `VerifiedPrinter` evidence and does not continue to queue/metric
