@@ -149,15 +149,18 @@ iOS 16 with extension API restrictions, and the unsigned generic iPhone build
 compiled both app and Share targets successfully. No simulator or phone was
 launched for these checks.
 
-The previous four physical tests prove short read-only exchanges only. They do
-not validate this new native owner's lifecycle, fragmented physical transfers,
+The initial four physical tests proved short read-only exchanges only. Later
+Build 16 [full-preflight checks](ble-preflight-tests/CLOCK_SYNC_VALIDATION.md)
+validated this native owner's strict readiness path in both the main app and
+Share extension, including queue/counter reads and fresh Share presentation.
+Those observations do not validate fragmented physical image transfers,
 throughput, BLE allocation/upload/printing, first-time pairing, or App Store
-eligibility. The simulated printer is not firmware emulation. No physical success
-is inferred from these tests or from a generic iPhone build.
+eligibility. The simulated printer is not firmware emulation. Physical results
+are recorded separately from simulation and generic iPhone builds.
 
 Build 16 adds [read-only UI/lifecycle integration and physical checks](BLE_PREFLIGHT.md)
-with submission still blocked. Successful strict readiness and a separately
-authorized one-job BLE print remain later gates. Printing would require a source
-change to the unconditional
+with submission still blocked. Strict readiness has now passed on the physical
+Select; a separately authorized one-job BLE print remains a later gate. Printing
+would require a source change to the unconditional
 availability guard as well as an explicit saved-photo confirmation; it cannot be
 enabled by selecting an existing UI option.

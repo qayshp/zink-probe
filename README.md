@@ -392,6 +392,12 @@ full native BLE checks in both contexts on firmware `G1L1FA2105AR`, including a
 fresh Share presentation after dismissal/relaunch. The clock write was acknowledged,
 but flags were already zero before it and remained zero; no clearance of the
 earlier flag is inferred. Actual exported reports were retrieved and reviewed.
+A [Share-first cold-start and power-cycle follow-up](ios/ble-preflight-tests/COLD_START_UNAVAILABLE_VALIDATION.md)
+passed full readiness without opening the main app first, returned a bounded
+ten-second error while the printer was off, and reconnected after power-on.
+The recovered connection then refused readiness for the printer's time-invalid
+flag; that check left the clock unchanged. Existing pairing/cache history was
+retained, and the generic connection-error wording remains a cleanup item.
 BLE printing remains disabled; physical BLE image upload and printing are untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.

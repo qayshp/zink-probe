@@ -85,3 +85,16 @@ that it cleared the earlier time-invalid flag, whose refusal remains recorded
 as historical evidence. Actual clock/main/Share report exports were retrieved
 and privacy-reviewed. BLE printing remains disabled, and physical BLE image
 upload and printing remain untested.
+
+A [Share-first cold-start and unavailable-printer follow-up](ble-preflight-tests/COLD_START_UNAVAILABLE_VALIDATION.md)
+on the same date passed full readiness without first opening the main app;
+scoped process snapshots found the Share executable and no main-app executable.
+With the selected printer switched off by the user, an explicit rerun stopped
+after ten seconds, with zero application/GATT bytes and controls enabled again.
+After the user switched it on, one explicit rerun re-established BLE communication
+and read status in four seconds. Strict readiness correctly refused the reported
+time-invalid flag (`0x00000001`). The clock was left unchanged. Exact cumulative
+reports were exported, retrieved and privacy-reviewed. These observations retain
+existing phone pairing/cache history and do not establish fresh-device onboarding
+or BLE print support. The generic "Accessory stream error" wording on the
+unavailable result remains a UI cleanup item.
