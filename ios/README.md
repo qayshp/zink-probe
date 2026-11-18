@@ -23,6 +23,10 @@ The subsequent [native BLE coordinator adapter](BLE_SUBMISSION.md) reuses the
 durable single-job path and is tested against a simulated packet peer. Both app
 targets compile it, but real BLE submission is unconditionally disabled before
 permit reservation or Bluetooth creation; no new submission UI is connected.
+Build 16 adds [read-only native BLE preflight](BLE_PREFLIGHT.md) in the main app
+and Share extension. Discovery/identity and the adapter check require separate
+explicit taps. Strict readiness rules, including the time-invalid flag, remain
+unchanged; this screen has no printing or settings action.
 Historical build notes below retain the evidence and boundaries for each milestone.
 
 ## Safety and scope

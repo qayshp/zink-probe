@@ -7,7 +7,9 @@ CoreBluetooth owner is compiled into the main app and Share extension, but
 **real BLE submission is unconditionally disabled**. This milestone did not
 connect to a printer, allocate a physical job, upload an image, install an app,
 or print. The existing External Accessory print UI and the isolated Select BLE
-Check product are unchanged.
+Check product are unchanged at that milestone. The subsequent
+[Build 16 read-only UI](BLE_PREFLIGHT.md) exposes this owner's preflight in both
+contexts; physical results and readiness refusals are recorded separately.
 
 ## Composition and authorization
 
@@ -57,7 +59,9 @@ The main-run-loop `NativeBLEAdapter` exposes:
   effect, as described above.
 - `stop(_:)` — terminal cancellation without reconnect/retry.
 
-No new UI calls these methods yet. A future UI must supply a deliberately chosen
+The initial offline milestone exposed no UI. Build 16's [read-only UI](BLE_PREFLIGHT.md)
+now calls preflight; submission and recovery still have no new UI. A caller must
+supply a deliberately chosen
 peripheral from discovery and the expected firmware/binding; opening a view must
 not start a session. The owner retrieves that exact peripheral UUID, connects,
 discovers only the known service and TX/RX characteristics, subscribes to RX, and
@@ -67,9 +71,9 @@ Constructing the adapter does not create a central manager.
 
 Each operation creates a fresh native owner. Callbacks must match its current
 central, peripheral, service and characteristic identities. Terminal paths clear
-delegates, cancel the connection, release timers and close once. The host UI must
-call `stop` on cancellation, dismissal or backgrounding when this API is wired in;
-the current milestone has no background execution or restoration behavior.
+delegates, cancel the connection, release timers and close once. Build 16's UI
+calls `stop` on cancellation, dismissal and backgrounding. There is no background
+execution or restoration behavior.
 
 ## Packet pacing and limits
 
@@ -151,8 +155,9 @@ throughput, BLE allocation/upload/printing, first-time pairing, or App Store
 eligibility. The simulated printer is not firmware emulation. No physical success
 is inferred from these tests or from a generic iPhone build.
 
-Next gates are deliberate UI/lifecycle integration with submission still blocked,
-physical read-only validation of this owner, and a separately authorized one-job
-BLE print after review. Printing would require a source change to the unconditional
+Build 16 adds [read-only UI/lifecycle integration and physical checks](BLE_PREFLIGHT.md)
+with submission still blocked. Successful strict readiness and a separately
+authorized one-job BLE print remain later gates. Printing would require a source
+change to the unconditional
 availability guard as well as an explicit saved-photo confirmation; it cannot be
 enabled by selecting an existing UI option.

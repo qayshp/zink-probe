@@ -1,0 +1,205 @@
+{
+  "schema_version": 1,
+  "date_utc": "2026-11-18",
+  "product": "Select Probe",
+  "build": "16",
+  "source_base_commit": "83271d69c5623db69d610225af70bf48f3f8d334",
+  "contexts_phase": "initial_signed_build16_artifact",
+  "final_source_confirmation": "final_artifact_main_and_share_status_readiness_refusal_confirmed",
+  "final_artifact": {
+    "signed_build": "passed",
+    "signature_verification": "passed",
+    "installation_and_launch": "confirmed",
+    "source_frozen_before_rebuild": true,
+    "sha256_origin": "local signed executable artifacts in the app bundle supplied to installation, not device filesystem readback",
+    "app_executable_sha256": "2e617867348cdf93a9ab879560e4a06546dc24be48d6f3c04947981dde6a778e",
+    "embedded_share_executable_sha256": "0e5b2b6d91c168eef9664ad240945c32f92b392cc726167f688d7a3d4785eb81"
+  },
+  "initial_artifact_difference_from_final_source": "Controller partial-start failure cleanup refinement and native-owner comment landed after initial artifact compilation; normal readiness and background-stop paths unchanged",
+  "evidence_kind": "manual_transcription_from_iphone_mirroring_display",
+  "signed_app_and_extension_build": "passed",
+  "offline_checks_passed": 3010,
+  "installation": "confirmed_by_devicectl_existing_bundle_no_uninstall_or_reset",
+  "final_artifact_contexts": {
+    "main_app": {
+      "diagnostic_identity_check": "passed_before_explicit_preflight",
+      "firmware": "G1L1FA2105AR",
+      "native_ble_preflight": "status_reached_readiness_refused_time_invalid",
+      "full_readiness_preflight_passed": false,
+      "verified_printer_created": false,
+      "queue_list_and_metrics_reached": false,
+      "timeline_utc": {
+        "explicit_preflight_requested": "2026-11-18T17:24:42Z",
+        "both_virtual_streams_opened": "2026-11-18T17:24:43Z",
+        "strict_readiness_refusal": "2026-11-18T17:24:44Z"
+      },
+      "status": {
+        "flags_raw": 1,
+        "printer_state_raw": 1,
+        "current_job": 0,
+        "queue_raw": 1,
+        "battery_percent": 99,
+        "power_raw": 2
+      },
+      "virtual_streams_opened": 2,
+      "virtual_tx_bytes": 62,
+      "virtual_rx_bytes": 337,
+      "gatt_tx_queued_bytes": 34,
+      "gatt_tx_acknowledged_bytes": 34,
+      "successful_write_callbacks": 9,
+      "gatt_rx_bytes": 311,
+      "protocol_mtu": 514,
+      "acknowledgement_period": 0,
+      "matches_initial_reported_status_and_counts": true,
+      "clock_flag_corrected": false
+    },
+    "share_extension": {
+      "diagnostic_identity_check": "passed_before_explicit_preflight",
+      "firmware": "G1L1FA2105AR",
+      "candidate_rssi_dbm": -35,
+      "launch_context": "Photos image Share sheet application row, Select Probe, BLE preflight toolbar",
+      "native_ble_preflight": "status_reached_readiness_refused_time_invalid",
+      "full_readiness_preflight_passed": false,
+      "verified_printer_created": false,
+      "queue_list_and_metrics_reached": false,
+      "timeline_utc": {
+        "explicit_preflight_requested": "2026-11-18T17:27:24Z",
+        "both_virtual_streams_opened": "2026-11-18T17:27:25Z",
+        "strict_readiness_refusal": "2026-11-18T17:27:25Z"
+      },
+      "status": {
+        "flags_raw": 1,
+        "printer_state_raw": 1,
+        "current_job": 0,
+        "queue_raw": 1,
+        "battery_percent": 99,
+        "power_raw": 2
+      },
+      "virtual_streams_opened": 2,
+      "virtual_tx_bytes": 62,
+      "virtual_rx_bytes": 337,
+      "gatt_tx_queued_bytes": 34,
+      "gatt_tx_acknowledged_bytes": 34,
+      "successful_write_callbacks": 9,
+      "gatt_rx_bytes": 311,
+      "protocol_mtu": 514,
+      "acknowledgement_period": 0,
+      "matches_initial_reported_status_and_counts": true,
+      "clock_flag_corrected": false,
+      "final_back_and_done_returned_to_photos": true
+    }
+  },
+  "contexts": {
+    "main_app": {
+      "diagnostic_identity_check": "passed",
+      "firmware": "G1L1FA2105AR",
+      "native_ble_preflight": "status_reached_readiness_refused_time_invalid",
+      "full_readiness_preflight_passed": false,
+      "verified_printer_created": false,
+      "queue_list_and_metrics_reached": false,
+      "timeline_utc": {
+        "explicit_preflight_requested": "2026-11-18T17:16:01Z",
+        "both_virtual_streams_opened": "2026-11-18T17:16:02Z",
+        "strict_readiness_refusal": "2026-11-18T17:16:03Z"
+      },
+      "status": {
+        "flags_raw": 1,
+        "printer_state_raw": 1,
+        "current_job": 0,
+        "queue_raw": 1,
+        "battery_percent": 99,
+        "power_raw": 2
+      },
+      "virtual_streams_opened": 2,
+      "virtual_tx_bytes": 62,
+      "virtual_rx_bytes": 337,
+      "gatt_tx_queued_bytes": 34,
+      "gatt_tx_acknowledged_bytes": 34,
+      "successful_write_callbacks": 9,
+      "gatt_rx_bytes": 311,
+      "protocol_mtu": 514,
+      "acknowledgement_period": 0,
+      "clock_flag_corrected": false,
+      "discovery_cancellation": {
+        "result": "observed_stopped_by_user_candidates_removed_no_preflight_action",
+        "timestamp_transcribed": false,
+        "packet_counts_transcribed": false,
+        "new_explicit_scan_and_identity_check_required": true,
+        "automatic_preflight_after_identity": false
+      },
+      "native_preflight_cancellation": {
+        "result": "background_stop_observed_no_automatic_foreground_restart",
+        "explicit_request_utc": "2026-11-18T17:17:05Z",
+        "background_stop_utc": "2026-11-18T17:17:06Z",
+        "stop_reason": "BLE adapter preflight entered the background",
+        "foreground_screen_retained": true,
+        "run_button_enabled_after_foreground": true,
+        "automatic_restart_observed": false,
+        "new_opened_stream_line_visible_before_stop": false,
+        "gatt_packet_counts_transcribed": false,
+        "zero_packets_sent_claimed": false
+      }
+    },
+    "share_extension": {
+      "diagnostic_identity_check": "passed",
+      "firmware": "G1L1FA2105AR",
+      "candidate_rssi_dbm": -36,
+      "launch_context": "Photos image Share sheet application row, Select Probe, BLE preflight toolbar",
+      "native_ble_preflight": "status_reached_readiness_refused_time_invalid",
+      "full_readiness_preflight_passed": false,
+      "verified_printer_created": false,
+      "queue_list_and_metrics_reached": false,
+      "timeline_utc": {
+        "explicit_preflight_requested": "2026-11-18T17:20:21Z",
+        "both_virtual_streams_opened": "2026-11-18T17:20:22Z",
+        "strict_readiness_refusal": "2026-11-18T17:20:22Z"
+      },
+      "status": {
+        "flags_raw": 1,
+        "printer_state_raw": 1,
+        "current_job": 0,
+        "queue_raw": 1,
+        "battery_percent": 99,
+        "power_raw": 2
+      },
+      "virtual_streams_opened": 2,
+      "virtual_tx_bytes": 62,
+      "virtual_rx_bytes": 337,
+      "gatt_tx_queued_bytes": 34,
+      "gatt_tx_acknowledged_bytes": 34,
+      "successful_write_callbacks": 9,
+      "gatt_rx_bytes": 311,
+      "protocol_mtu": 514,
+      "acknowledgement_period": 0,
+      "clock_flag_corrected": false,
+      "native_preflight_cancellation": {
+        "result": "share_host_background_stop_observed_no_automatic_foreground_restart",
+        "explicit_request_utc": "2026-11-18T17:20:56Z",
+        "background_stop_utc": "2026-11-18T17:20:57Z",
+        "stop_reason": "Share host entered the background",
+        "foreground_screen_retained": true,
+        "run_button_enabled_after_foreground": true,
+        "automatic_restart_observed": false,
+        "gatt_packet_counts_transcribed": false,
+        "zero_packets_sent_claimed": false
+      },
+      "final_back_and_done_returned_to_photos": true
+    }
+  },
+  "scope": {
+    "read_only": true,
+    "live_ble_submission_disabled": true,
+    "physical_print_authorized": false,
+    "job_allocation_authorized": false,
+    "image_upload_authorized": false,
+    "clock_or_persistent_settings_write_authorized": false
+  },
+  "limitations": [
+    "Initial installed artifact preceded a controller startup-failure cleanup refinement; both final-source normal preflight paths were repeated, while physical background-cancellation observations retain the initial-artifact label",
+    "All recorded physical readiness runs refused clock-invalid status; queue-list and metrics were not reached",
+    "Cancellation packet counts were not transcribed; no zero-transmission claim",
+    "No exported application log or raw GATT/HCI capture",
+    "Existing phone pairing history retained",
+    "No BLE print, sustained transfer or App Store eligibility claim"
+  ]
+}

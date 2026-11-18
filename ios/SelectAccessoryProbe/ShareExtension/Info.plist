@@ -15,7 +15,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.1</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>16</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Read Select identity and status, and print one saved photo only after your explicit confirmation.</string>
 	<key>NSExtension</key>

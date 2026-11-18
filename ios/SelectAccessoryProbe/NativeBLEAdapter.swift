@@ -120,8 +120,8 @@ private final class NativeBLEPacketIO: NSObject, BLEPacketIO, CBCentralManagerDe
     deinit { if stage != .closed { close() } }
 }
 
-/// Main-run-loop native BLE owner, compiled into the app and Share extension but
-/// not wired to their UI. Live operations can only compose a read-only duplex.
+/// Main-run-loop native BLE owner used by the app and Share read-only preflight.
+/// Live operations can only compose a read-only duplex.
 /// The existing accessory submission route is unchanged.
 final class NativeBLEAdapter {
     private var session: BLECoordinatorSession?
@@ -129,6 +129,12 @@ final class NativeBLEAdapter {
     private var timer: Timer?
     private let clock = { ProcessInfo.processInfo.systemUptime }
     var active: Bool { session.map { !$0.closed } ?? false }
+    /// Packet-format counters, not an over-the-air capture. Never includes
+    /// peripheral UUIDs, protocol identity, names or raw response bytes.
+    var transportSummary: String {
+        guard let ble = session?.duplex else { return "No BLE adapter session started." }
+        return "GATT packets: TX queued=\(ble.txQueuedBytes), acknowledged=\(ble.txAcknowledgedBytes), write callbacks=\(ble.writeCallbacks), RX=\(ble.rxBytes); protocol MTU=\(ble.protocolMTU), ACK period=\(ble.acknowledgementPeriod)."
+    }
 
     func preflight(peripheralID: UUID, expectedDeviceID: String? = nil, expectedFirmware: String,
                    update: @escaping (AccessoryStreamPump) -> Void) throws {

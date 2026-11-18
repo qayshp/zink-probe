@@ -384,6 +384,10 @@ durable coordinator through a packet bridge, with complete simulated transfers,
 interruption/recovery and duplicate-prevention tests. It compiles into the app
 and Share extension, but real BLE submission is unconditionally disabled before
 permit reservation or Bluetooth creation. No new BLE print UI is connected.
+Build 16 exposes [read-only native BLE preflight](ios/BLE_PREFLIGHT.md) in the
+main app and Share extension. Physical checks reached status in both contexts
+and correctly refused readiness for the unchanged time-invalid flag. Scan and
+active-session background cancellation were also checked; no BLE print was sent.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

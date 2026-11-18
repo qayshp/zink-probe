@@ -11,6 +11,12 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
         let rssi: Int?
         let alreadyConnected: Bool
     }
+    /// Routing metadata from a completed diagnostic. This does not bind a saved
+    /// job or authorize a new connection; the adapter still reads protocol ID.
+    struct CheckedSelection: Equatable {
+        let peripheralID: UUID
+        let firmware: String
+    }
     private enum Activity { case idle, waiting, scanning, connecting, services, characteristics, subscribing, checking }
     private static let service = CBUUID(string: "6822d239-7b61-4718-bdc1-189221946209")
     private static let tx = CBUUID(string: "6822d239-7b61-4718-bdc1-de55b3f9051e")
@@ -19,6 +25,7 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
     @Published private(set) var active = false
     @Published private(set) var status = "Ready for an explicit BLE scan."
     @Published private(set) var report: String
+    @Published private(set) var checkedSelection: CheckedSelection? = nil
     private let context: String
     private var activity: Activity = .idle
     private var central: CBCentralManager?
@@ -47,6 +54,7 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
 
     func scan() {
         guard !active else { return }
+        checkedSelection = nil
         releaseConnection()
         central?.delegate = nil
         central = nil
@@ -64,6 +72,7 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
         guard !active, let central, central.state == .poweredOn,
               let peripheral = peripherals[candidate.id],
               peripheral.state == .disconnected || peripheral.state == .connected else { return }
+        checkedSelection = nil
         selected = peripheral; peripheral.delegate = self
         core = nil; tx = nil; rx = nil; phase = ""
         queuedTX = 0; acknowledgedTX = 0; receivedRX = 0; completedWrites = 0
@@ -237,7 +246,10 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
                 status = "Checking: \(phase)"; log(status)
             }
             if core?.complete == true, !writeInFlight {
-                finish(core!.summary); return
+                let selection = core?.result.map { CheckedSelection(peripheralID: peripheral.identifier, firmware: $0.firmware) }
+                finish(core!.summary)
+                checkedSelection = selection
+                return
             }
             guard !writeInFlight, let packet = try core?.nextWrite(now: now) else { return }
             guard !packet.isEmpty, packet.count <= peripheral.maximumWriteValueLength(for: .withResponse) else {
