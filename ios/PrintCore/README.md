@@ -1,5 +1,12 @@
 # Swift upload core — offline milestone
 
+The later [BLE coordinator adapter](../BLE_SUBMISSION.md) reuses this core and
+its durable permits/journal with an injected packet transport. Native BLE printing
+is unconditionally disabled. The coordinator's optional transport-message bound
+is resolved after negotiation and before any job claim; accessory callers retain
+the previous default. BLE sessions also supply a bounded opening allowance while
+existing accessory opening deadlines remain unchanged.
+
 This is the first native Swift print-transaction component for eventual iOS
 Share-sheet printing. It ports the payload sequencing in
 `src/zink_probe/jobs/model.py::UploadPlan`. The core has no ExternalAccessory,

@@ -379,6 +379,11 @@ installed, removes External Accessory linkage and declarations from that test.
 Its main app and Share extension both passed. Existing phone pairing history
 was retained, and BLE job allocation/upload/printing and first-time phone
 onboarding remain untested.
+The [native iOS BLE submission adapter](ios/BLE_SUBMISSION.md) now reuses the
+durable coordinator through a packet bridge, with complete simulated transfers,
+interruption/recovery and duplicate-prevention tests. It compiles into the app
+and Share extension, but real BLE submission is unconditionally disabled before
+permit reservation or Bluetooth creation. No new BLE print UI is connected.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

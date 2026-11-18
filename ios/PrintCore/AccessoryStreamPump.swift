@@ -70,21 +70,24 @@ final class AccessoryStreamPump {
     var totalImageBytes: Int { printGate?.totalBytes ?? 0 }
     var jobState: String? { coordinator?.state.rawValue }
     var streamsOpened: Int { opened.count }
-    init(expectedDeviceID: String? = nil, expectedFirmware: String, now: TimeInterval) throws {
-        guard now.isFinite, !expectedFirmware.isEmpty else { throw JobJournal.Failure.invalidRecord }
+    init(expectedDeviceID: String? = nil, expectedFirmware: String, now: TimeInterval, openingTimeout: TimeInterval = 10) throws {
+        guard now.isFinite, !expectedFirmware.isEmpty, openingTimeout.isFinite, (0...90).contains(openingTimeout), openingTimeout > 0 else { throw JobJournal.Failure.invalidRecord }
         reader = try ReadOnlyPreflight(expectedDeviceID:expectedDeviceID)
         coordinator = nil; self.expectedFirmware = expectedFirmware
-        lastTime = now; deadline = now+60; openDeadline = now+10
+        lastTime = now; deadline = now+60+max(0,openingTimeout-10); openDeadline = now+openingTimeout
     }
-    init(coordinator: SubmissionCoordinator, now: TimeInterval) {
+    init(coordinator: SubmissionCoordinator, now: TimeInterval, openingTimeout: TimeInterval = 10) {
         self.coordinator = coordinator; expectedFirmware = ""
-        lastTime = now; deadline = now+180; openDeadline = now+10
+        let valid = openingTimeout.isFinite && openingTimeout > 0 && openingTimeout <= 90
+        let budget = valid ? openingTimeout : 0
+        lastTime = now; deadline = now+180+max(0,budget-10); openDeadline = now+budget
+        if !valid { stop("Invalid opening deadline") }
     }
-    init(coordinator: SubmissionCoordinator, permit: PrintPermit, journal: JobJournal, now: TimeInterval) throws {
-        guard coordinator.localID == permit.binding.id else { throw JobJournal.Failure.blocked }
+    init(coordinator: SubmissionCoordinator, permit: PrintPermit, journal: JobJournal, now: TimeInterval, openingTimeout: TimeInterval = 10) throws {
+        guard coordinator.localID == permit.binding.id, openingTimeout.isFinite, openingTimeout > 0, openingTimeout <= 90 else { throw JobJournal.Failure.blocked }
         printGate = try SingleJobFrameGate(permit:permit,journal:journal)
         self.coordinator = coordinator; expectedFirmware = ""
-        lastTime = now; deadline = now+300; openDeadline = now+10
+        lastTime = now; deadline = now+300+max(0,openingTimeout-10); openDeadline = now+openingTimeout
         result = "One-photo attempt authorized. Opening accessory streams."
     }
     func opened(_ side: Side, now: TimeInterval) { tick(now:now); if !terminal { opened.insert(side) } }

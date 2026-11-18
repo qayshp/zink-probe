@@ -16,6 +16,7 @@ final class SubmissionCoordinator {
     private let name: String
     private let recovery: Bool
     private let pollInterval: TimeInterval
+    private let transportMaximum: () -> Int
     private let deadline: TimeInterval
     private var lastTime: TimeInterval
     private var nextPoll: TimeInterval = 0
@@ -27,22 +28,26 @@ final class SubmissionCoordinator {
 
     /// Loads the exact saved bytes and identity; never invents a new job ID.
     /// Native submission additionally requires an explicit single-use PrintPermit.
-    convenience init(boundJob id: UUID, journal: JobJournal, now: TimeInterval, pollInterval: TimeInterval = 2, authorization: PrintPermit? = nil) throws {
+    convenience init(boundJob id: UUID, journal: JobJournal, now: TimeInterval, pollInterval: TimeInterval = 2, authorization: PrintPermit? = nil,
+                     transportMaximum: @escaping () -> Int = { 4096 }) throws {
         guard let binding = try journal.binding(id) else { throw JobJournal.Failure.invalidRecord }
         if try journal.attemptState(id) != nil {
             guard authorization?.binding == binding, try journal.attemptState(id) == "reserved" else { throw JobJournal.Failure.blocked }
         }
-        try self.init(image:journal.boundImage(id),id:id,expectedDeviceID:binding.device,journal:journal,now:now,pollInterval:pollInterval)
+        try self.init(image:journal.boundImage(id),id:id,expectedDeviceID:binding.device,journal:journal,now:now,pollInterval:pollInterval,
+                      transportMaximum:transportMaximum)
     }
 
     init(image: PreparedJobImage, name: String = "Select photo", id: UUID, expectedDeviceID: String,
-         journal: JobJournal, now: TimeInterval, timeout: TimeInterval = 300, pollInterval: TimeInterval = 2) throws {
+         journal: JobJournal, now: TimeInterval, timeout: TimeInterval = 300, pollInterval: TimeInterval = 2,
+         transportMaximum: @escaping () -> Int = { 4096 }) throws {
         guard now.isFinite, timeout.isFinite, timeout > 0, (now+timeout).isFinite,
               pollInterval.isFinite, pollInterval >= 0 else { throw ReadOnlyPreflight.Failure.invalid("Invalid coordinator timing") }
         reader = try ReadOnlyPreflight(expectedDeviceID: expectedDeviceID)
         try journal.assertAvailable(id:id,device:expectedDeviceID)
         self.image = image; self.name = name; localID = id; expectedID = expectedDeviceID
         self.journal = journal; lastTime = now; deadline = now + timeout; self.pollInterval = pollInterval; recovery = false
+        self.transportMaximum = transportMaximum
     }
     /// Read-only recovery: no UploadPlan can be reconstructed from this initializer.
     init(recover id: UUID, journal: JobJournal, now: TimeInterval, timeout: TimeInterval = 180, pollInterval: TimeInterval = 2) throws {
@@ -54,6 +59,7 @@ final class SubmissionCoordinator {
         reader = try ReadOnlyPreflight(expectedDeviceID: record.device,requireReady:false)
         image = nil; name = ""; localID = id; expectedID = record.device; self.journal = journal
         lastTime = now; deadline = now + timeout; self.pollInterval = pollInterval; recovery = true; claimed = true
+        transportMaximum = { 4096 }
         if record.state == "completed" { state = .completed }
     }
     func cancel() { fail("Cancelled; any accepted printer job may still run") }
@@ -102,8 +108,13 @@ final class SubmissionCoordinator {
                 if let binding = try journal.binding(localID) {
                     guard binding.firmware == reader.firmware else { throw ReadOnlyPreflight.Failure.invalid("Bound firmware changed; saved draft requires review") }
                 }
+                // The platform envelope may fit fewer bytes than the peer's
+                // message maximum. Resolve it after negotiation but before the
+                // durable claim or PrintStart, without rewriting the peer reply.
+                let transportLimit = transportMaximum()
+                guard (16...4096).contains(transportLimit) else { throw ReadOnlyPreflight.Failure.invalid("Invalid transport message maximum") }
                 upload = try TrackedUpload(journal:journal,id:localID,device:expectedID,jpeg:image.jpeg,
-                                           maximum:reader.maximum,name:name,nameLimit:reader.nameLimit)
+                                           maximum:min(reader.maximum,transportLimit),name:name,nameLimit:reader.nameLimit)
                 claimed = true
                 try journal.saveBaseline(localID,pages:reader.pages,calibrations:reader.calibrations,firmware:reader.firmware)
                 state = .uploading
