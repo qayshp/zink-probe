@@ -87,9 +87,10 @@ report preserves existing protocol diagnostics and counters. Unknown framework
 error descriptions remain excluded. Failure re-enables manual controls without
 automatic retry, clock repair, fallback transport or print authorization.
 
-This wording update was tested offline and compiled for generic iPhone targets.
-It was not installed or physically tested on the phone in this follow-up. The
-earlier physical reports below remain unchanged and contain the old wording.
+The wording update was tested offline, then installed from `ad954fd` as signed
+version `0.1`, build `16`. The physical iPhone displayed **Printer connected;
+clock sync needed.** and **BLE connection unavailable.** in both the main app
+and Photos Share extension. See the [iPhone Mirroring verification](ble-preflight-tests/BLE_MESSAGE_MIRRORING_VALIDATION.md).
 
 ## Validation and installation
 
@@ -106,8 +107,8 @@ The complete native BLE core/controller typechecked for iOS 16 with application
 extension restrictions. Unsigned generic iPhone builds compiled the main app and
 its Share extension, plus the isolated BLE-only app and Share extension; the
 isolated bundles retained CoreBluetooth linkage without ExternalAccessory
-linkage or accessory protocol declarations. No simulator, phone or Bluetooth
-manager was launched for this update.
+linkage or accessory protocol declarations. These build and simulation checks
+ran separately from the iPhone Mirroring verification.
 
 The signed update retains the existing bundle identifiers and development team;
 installation uses an update with no uninstall or data reset. Installation alone
@@ -124,7 +125,7 @@ separately authorized time/time-zone write; it was acknowledged, but flags were
 already zero before that write and remained zero afterward. This does not prove
 that it cleared the earlier time-invalid flag, whose refusal remains recorded
 as historical evidence. Actual clock/main/Share report exports were retrieved
-and privacy-reviewed. BLE printing remains disabled, and physical BLE image
+and privacy-reviewed. The preflight screen only reads printer state. Physical BLE image
 upload and printing remain untested.
 
 A [Share-first cold-start and unavailable-printer follow-up](ble-preflight-tests/COLD_START_UNAVAILABLE_VALIDATION.md)
@@ -137,5 +138,5 @@ and read status in four seconds. Strict readiness correctly refused the reported
 time-invalid flag (`0x00000001`). The clock was left unchanged. Exact cumulative
 reports were exported, retrieved and privacy-reviewed. These observations retain
 existing phone pairing/cache history and do not establish fresh-device onboarding
-or BLE print support. The generic "Accessory stream error" wording on the
-unavailable result remains a UI cleanup item.
+or BLE print support. This earlier session recorded the original generic
+"Accessory stream error" wording for the unavailable result.
