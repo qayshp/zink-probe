@@ -248,6 +248,8 @@ for fault in ["clock-only","clock-other-flags","clock-busy","clock-low-battery",
     }
     let run = try Run(peer:peer); run.finish(); run.assertReadOnly()
     let pump = run.session.pump
+    check(pump.clockSyncDeviceID == (fault == "clock-only" ? peer.printer.device : nil),
+          "Only an otherwise-ready printer with validated identity may offer clock sync")
     check(!pump.succeeded && pump.verified == nil && pump.streamsOpened == 2)
     check(run.session.duplex.failureStage == nil,"A valid transport with refused readiness is not a BLE transport failure")
     switch fault {

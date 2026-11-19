@@ -66,6 +66,14 @@ final class AccessoryStreamPump {
     private(set) var receivedBytes = 0
     private(set) var verified: VerifiedPrinter?
     private(set) var readinessRefusal: ReadOnlyPreflight.ReadinessRefusal?
+    /// Only a validated, otherwise-ready clock refusal can select a target for
+    /// a separate clock action. This evidence never authorizes printing.
+    var clockSyncDeviceID: String? {
+        guard case let .printerStatus(flags, state, currentJob, queue, battery, power)? = readinessRefusal,
+              flags == 1, state == 1, currentJob == 0, queue == 1, battery >= 30,
+              [1, 2].contains(power), let reader, !reader.deviceID.isEmpty else { return nil }
+        return reader.deviceID
+    }
     var acceptedBytes: Int { printGate?.acceptedBytes ?? gate.acceptedBytes }
     var acknowledgedImageBytes: Int { printGate?.acknowledgedBytes ?? 0 }
     var totalImageBytes: Int { printGate?.totalBytes ?? 0 }

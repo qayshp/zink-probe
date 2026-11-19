@@ -39,6 +39,7 @@ final class JobJournal {
             try sql("PRAGMA busy_timeout=2000")
             try transaction {
                 try sql("CREATE TABLE IF NOT EXISTS print_attempts(id TEXT PRIMARY KEY, state TEXT NOT NULL)")
+                try sql("CREATE TABLE IF NOT EXISTS print_attempt_reports(id TEXT NOT NULL, operation TEXT NOT NULL, report TEXT NOT NULL, PRIMARY KEY(id,operation))")
                 try sql("CREATE TABLE IF NOT EXISTS prepared_bindings(id TEXT PRIMARY KEY, device TEXT NOT NULL, metadata TEXT NOT NULL, jpeg BLOB, active INTEGER NOT NULL DEFAULT 1)")
                 try sql("CREATE UNIQUE INDEX IF NOT EXISTS one_bound_device ON prepared_bindings(device) WHERE active=1")
                 try sql("CREATE TABLE IF NOT EXISTS jobs(id TEXT PRIMARY KEY, device TEXT NOT NULL, record TEXT NOT NULL, active INTEGER NOT NULL DEFAULT 1)")
@@ -283,6 +284,160 @@ final class JobJournal {
         if record.state == "completed" { return "Protocol completion observed; this job ID cannot be reused." }
         return record.state == "uploaded" ? "Upload acknowledged; physical outcome unconfirmed. Do not resubmit."
             : "Unresolved job (\(record.state)); do not resubmit. Read-only reconciliation required."
+    }
+}
+
+extension JobJournal {
+    /// Counters and stages only. This record cannot store printer identifiers,
+    /// JPEGs, arbitrary error text, or raw frames.
+    struct PrintAttemptDiagnostics: Codable {
+        enum Operation: String, Codable {
+            case submission, recovery
+
+            var label: String { self == .submission ? "One-sheet submission" : "Read-only recovery" }
+        }
+        enum FailureStage: String, Codable { case connection, setup, exchange }
+        struct GATT: Codable {
+            let txQueuedBytes: Int
+            let txAcknowledgedBytes: Int
+            let writeCallbacks: Int
+            let rxBytes: Int
+            let protocolMTU: Int
+            let acknowledgementPeriod: Int
+
+            fileprivate var valid: Bool {
+                txQueuedBytes >= 0 && txAcknowledgedBytes >= 0 && txAcknowledgedBytes <= txQueuedBytes
+                    && writeCallbacks >= 0 && rxBytes >= 0 && (20...4097).contains(protocolMTU)
+                    && (0...127).contains(acknowledgementPeriod)
+            }
+        }
+
+        let operation: Operation
+        let startedAt: Date
+        let endedAt: Date
+        let acknowledgedImageBytes: Int
+        let totalImageBytes: Int
+        var gatt: GATT? = nil
+        var failureStage: FailureStage? = nil
+
+        fileprivate func valid(for binding: JobBinding) -> Bool {
+            [startedAt, endedAt].allSatisfy { $0.timeIntervalSince1970.isFinite }
+                && [0, binding.byteCount].contains(totalImageBytes)
+                && (0...totalImageBytes).contains(acknowledgedImageBytes)
+                && gatt?.valid != false
+        }
+
+        fileprivate var reportLines: [String] {
+            let formatter = ISO8601DateFormatter()
+            var lines = [
+                "Saved BLE session · \(operation.label)",
+                "Started \(formatter.string(from: startedAt)); ended \(formatter.string(from: endedAt))",
+                "JPEG bytes acknowledged during that session · \(acknowledgedImageBytes) / \(totalImageBytes)"
+            ]
+            if let gatt {
+                lines.append("GATT · TX queued \(gatt.txQueuedBytes), acknowledged \(gatt.txAcknowledgedBytes), write callbacks \(gatt.writeCallbacks), RX \(gatt.rxBytes), protocol MTU \(gatt.protocolMTU), ACK period \(gatt.acknowledgementPeriod)")
+            }
+            if let failureStage { lines.append("BLE failure stage · \(failureStage.rawValue)") }
+            return lines
+        }
+    }
+
+    struct PrintAttemptSummary {
+        enum Status {
+            case completed, notSubmitted, uncertain
+
+            var title: String {
+                switch self {
+                case .completed: "Protocol completion observed"
+                case .notSubmitted: "Stopped before submission"
+                case .uncertain: "Print outcome uncertain"
+                }
+            }
+
+            var detail: String {
+                switch self {
+                case .completed: "Check that the sheet came out."
+                case .notSubmitted: "This attempt stopped before sending a print command."
+                case .uncertain: "Check the paper and use read-only recovery if available. This attempt stays blocked against resubmission."
+                }
+            }
+        }
+        let id: UUID
+        let status: Status
+        let report: String
+        var title: String { status.title }
+        var detail: String { status.detail }
+    }
+
+    /// Ancillary telemetry. The permit and job records remain authoritative if
+    /// the process exits before the report callback or this write fails.
+    func savePrintAttemptDiagnostics(_ diagnostics: PrintAttemptDiagnostics, for id: UUID) throws {
+        try transaction {
+            guard try attemptState(id) != nil, let binding = try binding(id), diagnostics.valid(for: binding)
+            else { throw Failure.invalidRecord }
+            let json = String(decoding: try JSONEncoder().encode(diagnostics), as: UTF8.self)
+            try sql("INSERT OR REPLACE INTO print_attempt_reports(id,operation,report) VALUES(\(quote(id.uuidString)),\(quote(diagnostics.operation.rawValue)),\(quote(json)))")
+        }
+    }
+
+    /// Row insertion order is the confirmation order, including journals
+    /// created before diagnostics existed. Attempt state updates keep rowids.
+    func latestPrintAttempt() throws -> PrintAttemptSummary? {
+        try printAttempt(matching: nil)
+    }
+
+    func printAttempt(_ id: UUID) throws -> PrintAttemptSummary? {
+        try printAttempt(matching: id)
+    }
+
+    private func printAttempt(matching id: UUID?) throws -> PrintAttemptSummary? {
+        var statement: OpaquePointer?
+        let predicate = id.map { "WHERE attempt.id=\(quote($0.uuidString))" } ?? ""
+        let query = """
+            SELECT attempt.id, submission.report, recovery.report FROM print_attempts AS attempt
+            LEFT JOIN print_attempt_reports AS submission ON submission.id=attempt.id AND submission.operation='submission'
+            LEFT JOIN print_attempt_reports AS recovery ON recovery.id=attempt.id AND recovery.operation='recovery'
+            \(predicate)
+            ORDER BY attempt.rowid DESC LIMIT 1
+            """
+        guard sqlite3_prepare_v2(db, query, -1, &statement, nil) == SQLITE_OK else {
+            throw Failure.storage("Cannot read print history")
+        }
+        defer { sqlite3_finalize(statement) }
+        let code = sqlite3_step(statement)
+        if code == SQLITE_DONE { return nil }
+        guard code == SQLITE_ROW, let text = sqlite3_column_text(statement, 0),
+              let id = UUID(uuidString: String(cString: text)), let attempt = try attemptState(id),
+              let binding = try binding(id) else { throw Failure.invalidRecord }
+        var diagnostics: [PrintAttemptDiagnostics] = []
+        for (column, expectedOperation) in [(Int32(1), PrintAttemptDiagnostics.Operation.submission), (2, .recovery)] {
+            if let raw = sqlite3_column_text(statement, column),
+               let report = try? JSONDecoder().decode(PrintAttemptDiagnostics.self, from: Data(String(cString: raw).utf8)),
+               report.operation == expectedOperation, report.valid(for: binding) {
+                diagnostics.append(report)
+            }
+        }
+        let job = try record(id)
+        var status: PrintAttemptSummary.Status = .uncertain
+        // Read-only recovery can prove completion without changing the original
+        // attempt's uncertain state. A record also covers a crash after observe().
+        if job?.state == "completed" { status = .completed }
+        if job == nil && attempt == "notSubmitted" { status = .notSubmitted }
+        var lines = [
+            "Select BLE pilot · Last print attempt",
+            status.title, status.detail,
+            "Saved JPEG · \(binding.byteCount) bytes, \(binding.settings.layout), quality \(binding.settings.quality), sampling \(binding.sampling)"
+        ]
+        if let job {
+            lines.append("Durable JPEG acknowledgement · \(job.acknowledgedBytes) / \(binding.byteCount) bytes")
+            if let before = job.baselinePages, let after = job.lastPages { lines.append("Printed-page counter · \(before) → \(after)") }
+            if let before = job.baselineCalibrations, let after = job.lastCalibrations {
+                lines.append("Calibration counter · \(before) → \(after)")
+            }
+        }
+        if !diagnostics.isEmpty { lines += diagnostics.flatMap(\.reportLines) }
+        else { lines.append("BLE session diagnostics were unavailable. The journal retained the outcome.") }
+        return PrintAttemptSummary(id: id, status: status, report: lines.joined(separator: "\n"))
     }
 }
 

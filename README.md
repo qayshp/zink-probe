@@ -404,7 +404,9 @@ while the Select replied with the time-invalid flag, and **BLE connection
 unavailable.** with the printer switched off.
 The [opt-in standalone BLE pilot](ios/BLEOnlyProbe/README.md#one-sheet-ble-pilot)
 adds a confirmed, journaled one-sheet attempt without External Accessory.
-Physical BLE image upload and printing remain untested.
+Build 3 adds a separately confirmed BLE clock sync and retains the last print
+outcome and shareable report across app restarts. The new paths are tested
+offline. Physical BLE clock sync, image upload and printing remain untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

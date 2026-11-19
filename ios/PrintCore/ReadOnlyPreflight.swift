@@ -62,6 +62,7 @@ struct ReadOnlyPreflight {
     private(set) var setupSecurityRaw: UInt8 = 0
     private(set) var nameLimit = 0
     private(set) var battery = 0
+    private(set) var power = 0
     private(set) var pages = 0
     private(set) var calibrations = 0
     private let expectedID: String?
@@ -170,6 +171,7 @@ struct ReadOnlyPreflight {
             try require(fields.count == widths.count, "Incomplete status: \(details)")
             flags = fields[1]!; printerState = fields[2]!; currentJob = fields[5]!; queueState = fields[7]!
             battery = fields[3] ?? 0
+            power = fields[6]!
             try require((0...100).contains(battery), "Invalid battery percentage")
             if requireReady {
                 if !(flags == 0 && printerState == 1 && currentJob == 0 && queueState == 1) {
@@ -251,10 +253,24 @@ struct ClockSync {
     private var pending = false
     private(set) var failed = false
     private(set) var complete = false
+    private(set) var acknowledged = false
     private(set) var before: UInt32 = 0
     private(set) var after: UInt32 = 0
     private(set) var timestamp: UInt32 = 0
     private(set) var offset: Int32 = 0
+
+    init() {}
+
+    /// Used when a separate, same-connection exchange has already verified
+    /// the Select model and collected the full status with only the clock flag.
+    init(verifiedFlags: UInt32) throws {
+        guard verifiedFlags == 1 else {
+            throw ReadOnlyPreflight.Failure.invalid("Clock invalid must be the only status flag")
+        }
+        before = verifiedFlags
+        step = 2
+    }
+
     mutating func stop() { failed = true }
     mutating func next(now: Date = Date(), zone: TimeZone = .current) throws -> [UInt8] {
         guard !failed, !complete, !pending else { throw ReadOnlyPreflight.Failure.invalid("Clock action stopped or pending") }
@@ -278,6 +294,7 @@ struct ClockSync {
                 guard reply == [5,9,211,72] else { throw ReadOnlyPreflight.Failure.invalid("Clock sync requires Select model") }
             } else if step == 2 {
                 guard reply == [25] else { throw ReadOnlyPreflight.Failure.invalid("Clock acknowledgement missing/rejected; do not retry automatically") }
+                acknowledged = true
             } else {
                 guard reply.count == 6, reply.prefix(2) == [9,1] else { throw ReadOnlyPreflight.Failure.invalid("Malformed clock status snapshot") }
                 let flags = (0..<4).reduce(UInt32(0)) { $0 | (UInt32(reply[2+$1]) << ($1*8)) }

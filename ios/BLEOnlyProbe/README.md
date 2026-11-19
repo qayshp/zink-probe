@@ -32,7 +32,7 @@ xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
 
 For installation, open the project in Xcode, select your own development team and
 physical phone, and use ordinary development signing. No team or provisioning
-profile is committed. The current build number is 2 and deployment target is iOS 16. Installation
+profile is committed. The current build number is 3 and deployment target is iOS 16. Installation
 and opening a UI do not authorize automatic device tests.
 
 For a deliberate physical test, open **Select BLE Check**, tap **Scan for Select
@@ -92,26 +92,23 @@ Select Probe's app and Share extension.
 
 For the first authorized physical trial:
 
-1. Use a small, known image and one awake Select with paper loaded. If the
-   Select reports that it needs clock sync, use the separate clock-sync action
-   in Select Probe and close that session before returning to the pilot. This
-   pilot only reads printer readiness. BLE clock sync and first-time onboarding
-   are separate validation items.
+1. Use a small, known image and one awake Select with paper loaded.
 2. Open **Prepare one BLE print**, prepare one photo, scan and tap the intended
    printer, then tap **Check printer and save draft**. Draft binding uses the
    canonical printer identity plus the selected JPEG's exact bytes and settings.
-   This step sends only preflight traffic.
+   This step sends only preflight traffic. If the printer reports only an
+   invalid clock, Build 3 offers **Sync printer clock over BLE**. Confirm
+   **Sync clock only** to send this iPhone’s time and time zone, then repeat
+   **Check printer and save draft**.
 3. Review the saved photo and the one-sheet confirmation. The final **Print one
    sheet** tap spends the persisted authorization before the session begins.
    The coordinator verifies the binding and full readiness again before it
    sends any print command. Keep the confirmation screen open during transfer.
 4. Check the acknowledged image byte count, the final protocol outcome and
-   whether the expected photo physically emerges. **Share BLE pilot report**
-   exports the byte counts and protocol outcome without the JPEG, raw frames,
-   or printer identifiers. An interrupted or uncertain
-   attempt stays blocked. Where a printer job ID and baseline were saved,
-   **Check job outcome read-only** can observe it after relaunch. If the outcome
-   remains uncertain, check the actual paper before taking any further action.
+   whether the expected photo physically emerges. **Last print attempt** and
+   **Share last print report** remain available after reopening the pilot.
+   An uncertain attempt stays blocked. Where a printer job ID and baseline were
+   saved, **Check job outcome read-only** can observe it after relaunch.
 
 The normal and opt-in Build 2 packages compiled for generic iPhone. Inspection
 confirmed that the print UI is only in the opt-in main app. The signed pilot
@@ -119,7 +116,25 @@ app and embedded extension also passed signature and entitlement inspection.
 Both link CoreBluetooth and omit ExternalAccessory and accessory protocol
 declarations. Simulations completed exact 30,374-byte and 554,670-byte
 transfers and exercised interruption, process death and duplicate prevention.
-The pilot has been built and signed for development. Physical evidence still
-covers BLE identity, status, capabilities and strict readiness. The one-sheet
-trial is the remaining check for physical BLE job allocation, image upload
-and ejection.
+Build 3 adds the standalone clock action and durable report. Clock sync opens
+a fresh BLE connection, matches firmware, model and the canonical printer ID,
+and checks that the Select is idle and its queue is empty. If the clock is
+already valid or another condition blocks sync, the action ends before a write.
+Success requires both the printer acknowledgement and a status reply with the
+invalid-clock flag clear. If the connection ends during the update, the pilot
+reports whether the write may have reached the printer or was acknowledged,
+and leaves any next action to the user.
+
+The protected journal keeps the outcome separately from the optional BLE
+diagnostics. An interrupted session can reopen with a conservative outcome
+even if the app closed before diagnostics were saved. Reports use byte counts
+and printer counters and omit the JPEG, raw frames and printer identifiers.
+Read-only recovery records its own diagnostics alongside the original transfer.
+
+The [clock simulator tests](../ble-clock-tests/main.swift) exercise the exact
+session setup and update, mismatched printers, and interruptions on either
+side of the acknowledgement. The [authorization and history tests](../authorization-tests/main.swift)
+verify the journal after abrupt exits, including completion before the report
+can be saved. Physical evidence still covers BLE identity, status,
+capabilities and strict readiness. BLE clock writes, first-time onboarding
+and the one-sheet BLE print still need physical verification.

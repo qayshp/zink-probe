@@ -2,7 +2,7 @@ import Foundation
 import CoreBluetooth
 
 /// The radio boundary. Constructing this object does not create a central
-/// manager; only an explicit read-only operation opens it. Each instance owns
+/// manager; only an explicit operation opens it. Each instance owns
 /// one selected peripheral and is permanently closed after any terminal event.
 private final class NativeBLEPacketIO: NSObject, BLEPacketIO, CBCentralManagerDelegate, CBPeripheralDelegate {
     private enum Stage { case idle, waiting, connecting, services, characteristics, subscribing, ready, closed }
@@ -120,11 +120,23 @@ private final class NativeBLEPacketIO: NSObject, BLEPacketIO, CBCentralManagerDe
     deinit { if stage != .closed { close() } }
 }
 
-/// Main-run-loop native BLE owner used by the app and Share read-only preflight.
-/// Live operations can only compose a read-only duplex.
-/// The existing accessory submission route is unchanged.
+private protocol NativeBLEOperation: AnyObject {
+    var closed: Bool { get }
+    var duplex: BLESubmissionDuplex { get }
+    func start()
+    func tick()
+    func cancel(_ reason: String)
+}
+
+extension BLECoordinatorSession: NativeBLEOperation {}
+
+#if ZINK_EXPERIMENTAL_BLE_PRINT
+extension BLEClockSession: NativeBLEOperation {}
+#endif
+
+/// Main-run-loop native owner. Each operation exclusively owns the radio.
 final class NativeBLEAdapter {
-    private var session: BLECoordinatorSession?
+    private var session: NativeBLEOperation?
     private var packetIO: NativeBLEPacketIO?
     private var timer: Timer?
     private let clock = { ProcessInfo.processInfo.systemUptime }
@@ -132,8 +144,14 @@ final class NativeBLEAdapter {
     var failureStage: BLESubmissionDuplex.FailureStage? { session?.duplex.failureStage }
     /// Packet-format counters, not an over-the-air capture. Never includes
     /// peripheral UUIDs, protocol identity, names or raw response bytes.
+    var transportCounters: JobJournal.PrintAttemptDiagnostics.GATT? {
+        guard let ble = session?.duplex else { return nil }
+        return .init(txQueuedBytes: ble.txQueuedBytes, txAcknowledgedBytes: ble.txAcknowledgedBytes,
+                     writeCallbacks: ble.writeCallbacks, rxBytes: ble.rxBytes, protocolMTU: ble.protocolMTU,
+                     acknowledgementPeriod: ble.acknowledgementPeriod)
+    }
     var transportSummary: String {
-        guard let ble = session?.duplex else { return "No BLE adapter session started." }
+        guard let ble = transportCounters else { return "No BLE adapter session started." }
         return "GATT packets: TX queued=\(ble.txQueuedBytes), acknowledged=\(ble.txAcknowledgedBytes), write callbacks=\(ble.writeCallbacks), RX=\(ble.rxBytes); protocol MTU=\(ble.protocolMTU), ACK period=\(ble.acknowledgementPeriod)."
     }
 
@@ -169,13 +187,30 @@ final class NativeBLEAdapter {
             journal: journal, clock: clock, update: observer(update))
         start(io: io, session: candidate)
     }
+
+    #if ZINK_EXPERIMENTAL_BLE_PRINT
+    func syncClock(peripheralID: UUID, expectedDeviceID: String, expectedFirmware: String,
+                   update: @escaping (BLEClockSession.Outcome) -> Void) throws {
+        precondition(Thread.isMainThread)
+        guard !active else { throw JobJournal.Failure.blocked }
+        let io = NativeBLEPacketIO(peripheralID: peripheralID)
+        let candidate = try BLEClockSession(io: io, expectedDeviceID: expectedDeviceID,
+            expectedFirmware: expectedFirmware, clock: clock, wallClock: { Date() },
+            timeZone: { .current }) { [weak self] outcome in
+                self?.stopTimer()
+                update(outcome)
+            }
+        start(io: io, session: candidate)
+    }
+    #endif
+
     private func observer(_ update: @escaping (AccessoryStreamPump) -> Void) -> (AccessoryStreamPump) -> Void {
         { [weak self] result in
-            if result.terminal { self?.timer?.invalidate(); self?.timer = nil }
+            if result.terminal { self?.stopTimer() }
             update(result)
         }
     }
-    private func start(io: NativeBLEPacketIO, session: BLECoordinatorSession) {
+    private func start(io: NativeBLEPacketIO, session: NativeBLEOperation) {
         precondition(Thread.isMainThread)
         packetIO = io; self.session = session
         let tick = Timer(timeInterval: 0.1, repeats: true) { [weak self] _ in
@@ -186,7 +221,9 @@ final class NativeBLEAdapter {
     }
     func stop(_ reason: String) {
         precondition(Thread.isMainThread)
-        timer?.invalidate(); timer = nil; session?.cancel(reason)
+        stopTimer()
+        session?.cancel(reason)
     }
+    private func stopTimer() { timer?.invalidate(); timer = nil }
     deinit { timer?.invalidate(); session?.cancel("BLE owner released; no retry") }
 }

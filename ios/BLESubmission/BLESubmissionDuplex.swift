@@ -23,7 +23,9 @@ protocol BLEPacketIO: AnyObject {
 final class BLESubmissionDuplex: AccessoryDuplex {
     /// This is a coarse opcode policy, not print authorization. A single-job
     /// composition still requires the upstream durable permit/frame gate.
-    enum Policy { case readOnly, singleJobSubmission }
+    enum Policy {
+        case readOnly, singleJobSubmission, clockSync(BLEClockWriteAuthorization)
+    }
     /// Describes the failed operation, not a framework error or physical cause.
     /// Connection includes native Bluetooth/service/subscription readiness;
     /// setup is the printer's IF_CONFIG exchange; exchange follows negotiation.
@@ -114,8 +116,7 @@ final class BLESubmissionDuplex: AccessoryDuplex {
         // first BLE fragment; never truncate or silently re-chunk its payload.
         do {
             let payload = try Self.payload(bytes)
-            guard ReadOnlyFrameGate.allows(payload) ||
-                    (policy == .singleJobSubmission && [12,14,48].contains(payload.first ?? 0)) else {
+            guard allows(payload) else {
                 throw BLEPacketCodec.Failure.invalid("BLE output policy refused a mutating or unknown request")
             }
             try prepare(payload, configuring: false)
@@ -125,6 +126,15 @@ final class BLESubmissionDuplex: AccessoryDuplex {
             return closed ? -1 : bytes.count
         } catch {
             fail("BLE virtual frame rejected: \(error)"); return -1
+        }
+    }
+
+    private func allows(_ payload: [UInt8]) -> Bool {
+        switch policy {
+        case .readOnly: return ReadOnlyFrameGate.allows(payload)
+        case .singleJobSubmission:
+            return ReadOnlyFrameGate.allows(payload) || [12,14,48].contains(payload.first ?? 0)
+        case .clockSync(let authorization): return authorization.allows(payload)
         }
     }
 

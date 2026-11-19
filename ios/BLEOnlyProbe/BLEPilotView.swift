@@ -10,6 +10,7 @@ struct BLEPilotView: View {
     @State private var photo: BLEPilotPhoto?
     @State private var review: BLEPilotReview?
     @State private var discard: BLEPilotJob?
+    @State private var confirmingClockSync = false
 
     var body: some View {
         List {
@@ -42,6 +43,18 @@ struct BLEPilotView: View {
                         pilot.check(selection, photo: photo)
                     }
                     .disabled(scanner.active || pilot.active)
+                    if pilot.canSyncClock {
+                        Button("Sync printer clock over BLE") { confirmingClockSync = true }
+                            .disabled(scanner.active)
+                            .accessibilityIdentifier("ble-pilot-clock")
+                            .confirmationDialog("Sync the printer clock?", isPresented: $confirmingClockSync,
+                                                titleVisibility: .visible) {
+                                Button("Sync clock only") { pilot.syncClock() }
+                                Button("Cancel", role: .cancel) {}
+                            } message: {
+                                Text("Send this iPhone’s current time and time zone to the selected printer. No photo is sent.")
+                            }
+                    }
                 }
             }
             Section("Saved jobs") {
@@ -50,6 +63,13 @@ struct BLEPilotView: View {
                 }
                 ForEach(pilot.jobs) { job in
                     jobRow(job)
+                }
+            }
+            if let attempt = pilot.latestAttempt {
+                Section("Last print attempt") {
+                    Text(attempt.title).font(.headline)
+                    Text(attempt.detail).font(.caption)
+                    ShareLink("Share last print report", item: attempt.report)
                 }
             }
             Section("Result") {
@@ -134,6 +154,7 @@ struct BLEPilotView: View {
     }
 
     private func stop(_ reason: String) {
+        confirmingClockSync = false
         scanner.stop(reason)
         pilot.stop(reason)
         pilot.clearPrinterCheck()
@@ -234,6 +255,7 @@ private struct BLEPilotConfirmation: View {
 
 private final class BLEPilotController: ObservableObject {
     @Published private(set) var jobs: [BLEPilotJob] = []
+    @Published private(set) var latestAttempt: JobJournal.PrintAttemptSummary?
     @Published private(set) var active = false
     @Published private(set) var status = "Ready for an explicit printer check."
     @Published private(set) var diagnostic = ""
@@ -242,6 +264,7 @@ private final class BLEPilotController: ObservableObject {
     @Published private(set) var acknowledgedBytes = 0
     @Published private(set) var totalBytes = 0
     @Published private var checked: CheckedPrinter?
+    @Published private var clockTarget: ClockTarget?
     private var submittedReviewIDs = Set<UUID>()
     private var startedAt = Date()
     private let adapter = NativeBLEAdapter()
@@ -250,9 +273,17 @@ private final class BLEPilotController: ObservableObject {
         let route: UUID
         let printer: VerifiedPrinter
     }
+    private struct ClockTarget {
+        let selection: SelectBLEProbe.CheckedSelection
+        let deviceID: String
+    }
 
     func show(_ message: String) { status = message }
-    func clearPrinterCheck() { checked = nil }
+    func clearPrinterCheck() {
+        checked = nil
+        clockTarget = nil
+    }
+    var canSyncClock: Bool { !active && clockTarget != nil }
 
     func reload() {
         guard !active else { return }
@@ -261,8 +292,10 @@ private final class BLEPilotController: ObservableObject {
             jobs = try store.activeBindings().map { binding in
                 try BLEPilotJob(binding: binding, attempt: store.attemptState(binding.id), record: store.record(binding.id))
             }
+            latestAttempt = try? store.latestPrintAttempt()
         } catch {
             jobs = []
+            latestAttempt = nil
             show("The private job store is unavailable. Unlock the device and reopen this screen.")
         }
     }
@@ -277,6 +310,9 @@ private final class BLEPilotController: ObservableObject {
                 self.active = false
                 self.makeReport(pump, operation: "Read-only preflight")
                 guard let printer = pump.verified else {
+                    if let deviceID = pump.clockSyncDeviceID {
+                        self.clockTarget = ClockTarget(selection: selection, deviceID: deviceID)
+                    }
                     self.show(self.checkFailure(pump))
                     return
                 }
@@ -297,6 +333,30 @@ private final class BLEPilotController: ObservableObject {
             }
         } catch {
             failStart("The BLE printer check could not start.")
+        }
+    }
+
+    func syncClock() {
+        guard canSyncClock, let target = clockTarget else { return }
+        clearPrinterCheck()
+        begin("Checking the printer before clock sync…")
+        do {
+            try adapter.syncClock(peripheralID: target.selection.peripheralID, expectedDeviceID: target.deviceID,
+                                  expectedFirmware: target.selection.firmware) { [weak self] outcome in
+                guard let self else { return }
+                self.active = false
+                self.diagnostic = self.adapter.transportSummary
+                let formatter = ISO8601DateFormatter()
+                self.report = [
+                    "Select BLE pilot · Clock sync",
+                    "Started \(formatter.string(from: self.startedAt)); ended \(formatter.string(from: Date()))",
+                    outcome.summary,
+                    self.diagnostic
+                ].joined(separator: "\n")
+                self.show(outcome.summary + " Run the printer check again before printing.")
+            }
+        } catch {
+            failStart("Clock sync could not start. Run the printer check again.")
         }
     }
 
@@ -329,7 +389,7 @@ private final class BLEPilotController: ObservableObject {
         begin("Checking the bound printer before sending the photo…")
         do {
             try adapter.submitOnce(peripheralID: route, reviewed: review.binding, journal: try journal(),
-                                   update: jobUpdate(operation: "One-sheet submission", binding: review.binding))
+                                   update: jobUpdate(operation: .submission, binding: review.binding))
         } catch {
             failStart("The one-sheet attempt could not start. Check the saved job state before taking any further action.")
         }
@@ -343,7 +403,7 @@ private final class BLEPilotController: ObservableObject {
         begin("Checking the previous attempt over BLE without sending the photo…")
         do {
             try adapter.recover(peripheralID: selection.peripheralID, id: job.id, journal: try journal(),
-                                update: jobUpdate(operation: "Read-only recovery", binding: job.binding))
+                                update: jobUpdate(operation: .recovery, binding: job.binding))
         } catch {
             failStart("Read-only recovery could not start. The job stays blocked to avoid a duplicate.")
         }
@@ -388,7 +448,8 @@ private final class BLEPilotController: ObservableObject {
         show(message)
     }
 
-    private func jobUpdate(operation: String, binding: JobBinding) -> (AccessoryStreamPump) -> Void {
+    private func jobUpdate(operation: JobJournal.PrintAttemptDiagnostics.Operation,
+                           binding: JobBinding) -> (AccessoryStreamPump) -> Void {
         { [weak self] pump in
             guard let self else { return }
             self.acknowledgedBytes = pump.acknowledgedImageBytes
@@ -398,29 +459,56 @@ private final class BLEPilotController: ObservableObject {
                 if pump.jobState == "observing" { self.show("Checking the printer’s job status…") }
                 return
             }
-            self.active = false
-            self.reload()
-            self.makeReport(pump, operation: operation, binding: binding)
-            switch (pump.jobState, pump.succeeded) {
-            case ("completed", true):
-                self.show("The protocol checks indicate completion. Check that the photo came out.")
-            case ("notSubmitted", false):
-                self.show("The attempt stopped before the photo was submitted. The app will leave it stopped.")
-            default:
-                self.show("The outcome is uncertain. The printer may still finish. Check the paper before taking any further action. The app will never resend this job.")
-            }
+            self.finishJob(pump, operation: operation, binding: binding)
         }
     }
 
+    private func finishJob(_ pump: AccessoryStreamPump, operation: JobJournal.PrintAttemptDiagnostics.Operation,
+                           binding: JobBinding) {
+        let failureStage: JobJournal.PrintAttemptDiagnostics.FailureStage?
+        switch adapter.failureStage {
+        case .connection: failureStage = .connection
+        case .setup: failureStage = .setup
+        case .exchange: failureStage = .exchange
+        case nil: failureStage = nil
+        }
+        let diagnostics = JobJournal.PrintAttemptDiagnostics(
+            operation: operation, startedAt: startedAt, endedAt: Date(),
+            acknowledgedImageBytes: pump.acknowledgedImageBytes, totalImageBytes: pump.totalImageBytes,
+            gatt: adapter.transportCounters, failureStage: failureStage
+        )
+        let saved: Bool
+        let attempt: JobJournal.PrintAttemptSummary?
+        if let store = try? journal() {
+            saved = (try? store.savePrintAttemptDiagnostics(diagnostics, for: binding.id)) != nil
+            attempt = try? store.printAttempt(binding.id)
+        } else {
+            saved = false
+            attempt = nil
+        }
+        active = false
+        reload()
+        diagnostic = adapter.transportSummary
+        if let attempt {
+            show(attempt.title + ". " + attempt.detail)
+            if saved {
+                report = attempt.report
+                return
+            }
+        } else {
+            show("The saved outcome could not be verified. Check the paper before taking any further action.")
+        }
+        makeReport(pump, operation: operation.label)
+        if !saved { report = report.map { $0 + "\nThis session’s diagnostic details could not be saved." } }
+    }
+
     private func checkFailure(_ pump: AccessoryStreamPump) -> String {
-        if case let .printerStatus(flags, state, currentJob, queue, battery, power)? = pump.readinessRefusal,
+        if case let .printerStatus(flags, _, _, _, _, _)? = pump.readinessRefusal,
            flags & 1 != 0 {
-            let otherBlockers = flags & ~1 != 0 || state != 1 || currentJob != 0 || queue != 1
-                || battery < 30 || ![1, 2].contains(power)
-            let reason = otherBlockers
-                ? "Printer connected. Clock sync and other readiness checks need attention."
-                : "Printer connected. Clock sync needed."
-            return reason + " Use the separate clock-sync action in Select Probe, then check readiness again."
+            if pump.clockSyncDeviceID != nil {
+                return "Printer connected. Clock sync needed. Choose Sync printer clock over BLE, then check readiness again."
+            }
+            return "Printer connected. Resolve the other readiness issues before syncing the clock, then run the printer check again."
         }
         if adapter.failureStage == .connection {
             return "BLE connection unavailable. Check that the Select is on, awake, and nearby, then retry manually."
@@ -428,7 +516,7 @@ private final class BLEPilotController: ObservableObject {
         return pump.result
     }
 
-    private func makeReport(_ pump: AccessoryStreamPump, operation: String, binding: JobBinding? = nil) {
+    private func makeReport(_ pump: AccessoryStreamPump, operation: String) {
         let formatter = ISO8601DateFormatter()
         diagnostic = adapter.transportSummary
         let state = pump.jobState ?? (pump.succeeded ? "passed" : "stopped")
@@ -439,17 +527,6 @@ private final class BLEPilotController: ObservableObject {
             "Image bytes acknowledged by the printer in this session: \(pump.acknowledgedImageBytes) / \(pump.totalImageBytes)",
             diagnostic,
         ]
-        if let binding {
-            lines.append("Saved JPEG: \(binding.byteCount) bytes, \(binding.settings.layout), quality \(binding.settings.quality), sampling \(binding.sampling)")
-            if let record = try? journal().record(binding.id) {
-                if let before = record.baselinePages, let after = record.lastPages {
-                    lines.append("Printed-page counter: \(before) → \(after)")
-                }
-                if let before = record.baselineCalibrations, let after = record.lastCalibrations {
-                    lines.append("Calibration counter: \(before) → \(after)")
-                }
-            }
-        }
         if let failureStage = adapter.failureStage {
             lines.append("BLE failure stage: \(failureStage)")
         }

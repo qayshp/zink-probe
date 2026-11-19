@@ -67,6 +67,7 @@ if CommandLine.arguments.count == 3 {
         let record = try store.record(b.id)
         if mode == "pending" && record?.pendingOpcode == 12 { _exit(0) }
         if mode == "uploaded" && record?.uploadAcknowledged == true { _exit(0) }
+        if mode == "completed" && pump.succeeded { _exit(0) }
         if driver.closed { break }
     }
     fatalError("Crash boundary not reached")
@@ -146,14 +147,108 @@ for op: UInt8 in [12,14,48,24,28,10] {
 func child(_ mode: String, _ url: URL) throws -> Process {
     let p = Process(); p.executableURL = URL(fileURLWithPath:CommandLine.arguments[0]); p.arguments = [mode,url.path]; try p.run(); return p
 }
-for boundary in ["authorized","started","pending","uploaded"] {
+for boundary in ["authorized","started","pending","uploaded","completed"] {
     let url = root.appendingPathComponent("crash-\(boundary).sqlite"), p = try child(boundary,url); p.waitUntilExit(); check(p.terminationStatus == 0)
     let reopened = try JobJournal(url:url), binding = try reopened.binding(fixedID)!
     refuses { _ = try reopened.authorizePrintOnce(binding) }; refuses { _ = try SubmissionCoordinator(boundJob:fixedID,journal:reopened,now:0) }
     refuses { try reopened.discardDraft(fixedID) }
+    let summary = try reopened.latestPrintAttempt()!
+    check(summary.id == fixedID && summary.status == (boundary == "completed" ? .completed : .uncertain))
+    check(summary.report.contains("BLE session diagnostics were unavailable"))
+    if boundary == "completed" { check(try reopened.activeBindings().isEmpty) }
 }
 let raceURL = root.appendingPathComponent("race.sqlite"), race = try JobJournal(url:raceURL); _ = try save(race,id:fixedID)
 let a = try child("race",raceURL), b = try child("race",raceURL); a.waitUntilExit(); b.waitUntilExit()
 check([a.terminationStatus,b.terminationStatus].sorted() == [0,2])
+
+// Retain a deliberately stopped print attempt after its photo was discarded.
+// New drafts do not hide the last attempt. Confirmation order is not UUID order.
+let historyURL = root.appendingPathComponent("history.sqlite")
+let history = try JobJournal(url:historyURL)
+let oldest = try save(history,id:UUID(uuidString:"ffffffff-ffff-4fff-8fff-ffffffffffff")!)
+check(try history.latestPrintAttempt() == nil)
+let diagnostics = JobJournal.PrintAttemptDiagnostics(operation:.submission,
+    startedAt:Date(timeIntervalSince1970:0),endedAt:Date(timeIntervalSince1970:1),
+    acknowledgedImageBytes:0,totalImageBytes:oldest.byteCount)
+refuses { try history.savePrintAttemptDiagnostics(diagnostics,for:oldest.id) }
+let stoppedPeer = SimulatedPrinter()
+stoppedPeer.paused = true
+let stoppedClock = Time(), (stoppedPump,_) = try authorized(oldest,history,stoppedClock)
+let stoppedDriver = AccessoryStreamDriver(pump:stoppedPump,io:IO(stoppedPeer),clock:{ stoppedClock.now },update:{ _ in })
+drive(stoppedDriver,stoppedClock)
+check(stoppedPeer.mutationCount == 0)
+try history.savePrintAttemptDiagnostics(diagnostics,for:oldest.id)
+try history.discardDraft(oldest.id)
+let next = try save(history,id:UUID(uuidString:"00000000-0000-4000-8000-000000000001")!)
+let recent = try JobJournal(url:historyURL).latestPrintAttempt()!
+check(recent.id == oldest.id && recent.status == .notSubmitted)
+check(recent.report.contains("1970-01-01T00:00:01Z"))
+_ = try history.authorizePrintOnce(next)
+check(try history.latestPrintAttempt()?.id == next.id && history.latestPrintAttempt()?.status == .uncertain)
+check(try history.printAttempt(oldest.id)?.report == recent.report)
+check(try history.printAttempt(UUID()) == nil)
+
+// Simulate an existing Build 2 database that predates the diagnostics table.
+check(sqlite3_open(historyURL.path,&db) == SQLITE_OK)
+check(sqlite3_exec(db,"DROP TABLE print_attempt_reports",nil,nil,nil) == SQLITE_OK)
+sqlite3_close(db)
+let migrated = try JobJournal(url:historyURL)
+check(try migrated.latestPrintAttempt()?.id == next.id && migrated.latestPrintAttempt()?.status == .uncertain)
+refuses { _ = try migrated.authorizePrintOnce(next) }
+
+// Read-only recovery can prove completion while the original permit remains
+// uncertain. Its optional diagnostics leave the original transfer intact.
+let recoveryURL = root.appendingPathComponent("reconciled-history.sqlite")
+let recoveryStore = try JobJournal(url:recoveryURL), recoveryBinding = try save(recoveryStore)
+let recoveryClock = Time(), recoveryPeer = SimulatedPrinter()
+let (originalPump,_) = try authorized(recoveryBinding,recoveryStore,recoveryClock)
+let originalDriver = AccessoryStreamDriver(pump:originalPump,io:IO(recoveryPeer),clock:{ recoveryClock.now },update:{ _ in })
+originalDriver.start()
+for _ in 0..<10000 {
+    recoveryClock.now += 0.001; originalDriver.tick()
+    if try recoveryStore.record(recoveryBinding.id)?.seenPrinting == true {
+        originalDriver.cancel("Test interruption after printer observed in progress")
+        break
+    }
+}
+check(try recoveryStore.attemptState(recoveryBinding.id) == "uncertain")
+let transfer = JobJournal.PrintAttemptDiagnostics(operation:.submission,
+    startedAt:Date(timeIntervalSince1970:2),endedAt:Date(timeIntervalSince1970:3),
+    acknowledgedImageBytes:originalPump.acknowledgedImageBytes,totalImageBytes:originalPump.totalImageBytes,
+    gatt:.init(txQueuedBytes:65000,txAcknowledgedBytes:64999,writeCallbacks:51,rxBytes:381,protocolMTU:514,acknowledgementPeriod:0),
+    failureStage:.exchange)
+try recoveryStore.savePrintAttemptDiagnostics(transfer,for:recoveryBinding.id)
+let reconcile = try SubmissionCoordinator(recover:recoveryBinding.id,journal:recoveryStore,now:recoveryClock.now,pollInterval:0.01)
+let recoveryPump = AccessoryStreamPump(coordinator:reconcile,now:recoveryClock.now)
+let recoveryDriver = AccessoryStreamDriver(pump:recoveryPump,io:IO(recoveryPeer),clock:{ recoveryClock.now },update:{ _ in })
+let mutations = recoveryPeer.mutationCount
+drive(recoveryDriver,recoveryClock)
+check(recoveryPeer.mutationCount == mutations && recoveryPump.succeeded)
+check(try recoveryStore.attemptState(recoveryBinding.id) == "uncertain")
+let beforeReport = try JobJournal(url:recoveryURL).latestPrintAttempt()!
+check(beforeReport.status == .completed && beforeReport.report.contains("TX queued 65000"))
+check(beforeReport.report.contains("Printed-page counter · 13 → 14"))
+check(beforeReport.report.contains("Calibration counter · 2 → 2"))
+let readback = JobJournal.PrintAttemptDiagnostics(operation:.recovery,
+    startedAt:Date(timeIntervalSince1970:4),endedAt:Date(timeIntervalSince1970:5),
+    acknowledgedImageBytes:0,totalImageBytes:0)
+try recoveryStore.savePrintAttemptDiagnostics(readback,for:recoveryBinding.id)
+let completed = try JobJournal(url:recoveryURL).latestPrintAttempt()!
+check(completed.status == .completed && completed.report.contains("TX queued 65000") && completed.report.contains("Read-only recovery"))
+for sensitive in [recoveryBinding.id.uuidString,recoveryBinding.device,recoveryBinding.digest,recoveryBinding.firmware] {
+    check(!completed.report.contains(sensitive))
+}
+refuses { _ = try recoveryStore.authorizePrintOnce(recoveryBinding) }
+
+// Diagnostics are optional. Malformed stored telemetry cannot override the
+// verified job state or become arbitrary exported text.
+check(sqlite3_open(recoveryURL.path,&db) == SQLITE_OK)
+check(sqlite3_exec(db,"UPDATE print_attempt_reports SET report='malformed telemetry' WHERE operation='recovery'",nil,nil,nil) == SQLITE_OK)
+sqlite3_close(db)
+let withoutRecoveryReport = try JobJournal(url:recoveryURL).latestPrintAttempt()!
+check(withoutRecoveryReport.status == .completed)
+check(withoutRecoveryReport.report.contains("TX queued 65000") && !withoutRecoveryReport.report.contains("malformed telemetry"))
+
 print("Single-job authorization passed: complete framed streams, exact JPEG/one copy, empty final, lost replies, every first-mutation prefix, cancellation, read-only recovery and no replay")
-print("Durable permission passed: review matching, storage failure, one-use tokens, 4 abrupt process exits, restart refusal and competing confirmations")
+print("Durable permission passed: review matching, storage failure, one-use tokens, 5 abrupt process exits, restart refusal and competing confirmations")
+print("Print history passed: completed and uncertain process exits, discarded drafts, legacy database, report privacy and read-only reconciliation")

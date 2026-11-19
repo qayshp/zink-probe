@@ -60,7 +60,7 @@ jobs:
         run: |
           swiftc ios/PrintCore/*.swift ios/accessory-tests/main.swift -o build/ios-accessory-tests
           build/ios-accessory-tests
-      - name: Test explicit single-job print authorization and interruption safety
+      - name: Test one-job authorization, interruptions and persistent outcomes
         run: |
           swiftc ios/PrintCore/*.swift ios/authorization-tests/main.swift -o build/ios-authorization-tests
           build/ios-authorization-tests
@@ -80,6 +80,10 @@ jobs:
         run: |
           swiftc ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift ios/SelectAccessoryProbe/NativeBLEAdapter.swift ios/SelectAccessoryProbe/BLEPreflightController.swift ios/ble-preflight-tests/main.swift -o build/ios-ble-preflight-tests
           build/ios-ble-preflight-tests
+      - name: Test the separate verified BLE clock action offline
+        run: |
+          swiftc ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift ios/ble-clock-tests/main.swift -o build/ios-ble-clock-tests
+          build/ios-ble-clock-tests
       - name: Typecheck complete core for iOS
         run: >-
           xcrun swiftc -typecheck -target arm64-apple-ios16.0
@@ -117,7 +121,9 @@ jobs:
                   libraries = subprocess.check_output(['otool', '-L', str(binary)], text=True)
                   assert 'CoreBluetooth.framework' in libraries
                   assert 'ExternalAccessory.framework' not in libraries
-                  has_print_ui = b'Prepare one BLE print' in binary.read_bytes()
-                  assert has_print_ui == (variant == 'ble-pilot' and bundle == app), (variant, bundle)
+                  app_pilot = variant == 'ble-pilot' and bundle == app
+                  compiled = binary.read_bytes()
+                  for label in (b'Prepare one BLE print', b'Sync printer clock over BLE', b'Share last print report'):
+                      assert (label in compiled) == app_pilot, (variant, bundle, label)
           print('Both variants use CoreBluetooth alone. Only the opted-in main app contains the print UI.')
           PY

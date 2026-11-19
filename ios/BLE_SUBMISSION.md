@@ -12,6 +12,9 @@ Check product are unchanged at that milestone. The subsequent
 contexts; physical results and readiness refusals are recorded separately.
 The [opt-in BLE-only pilot](BLEOnlyProbe/README.md#one-sheet-ble-pilot)
 now provides a native one-sheet submission path for the standalone app.
+Build 3 gives that pilot a separate clock-only session with firmware and
+printer identity checks and a one-use clock write authorization. It also
+surfaces the last attempt and its durable diagnostics when the app reopens.
 
 ## Composition and authorization
 
@@ -69,8 +72,9 @@ supply a deliberately chosen
 peripheral from discovery and the expected firmware/binding; opening a view must
 not start a session. The owner retrieves that exact peripheral UUID, connects,
 discovers only the known service and TX/RX characteristics, subscribes to RX, and
-uses write-with-response on TX. It never accesses the pairing-control
-characteristic, requests fast BLE, changes the clock or writes printer settings.
+uses write-with-response on TX. Submission, recovery and preflight never
+access the pairing-control characteristic, request fast BLE or write the clock
+or printer settings. The pilot's explicit clock action opens its own session.
 Constructing the adapter does not create a central manager.
 
 Each operation creates a fresh native owner. Callbacks must match its current
