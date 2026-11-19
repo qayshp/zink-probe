@@ -1,13 +1,21 @@
 import SwiftUI
 
-/// Control experiment: this product has no External Accessory declarations,
-/// submission core, saved drafts, image handling or printing code.
 @main
 struct BLEOnlyProbeApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack {
+                #if ZINK_EXPERIMENTAL_BLE_PRINT
+                List {
+                    NavigationLink("Prepare one BLE print") { BLEPilotView() }
+                    NavigationLink("Run read-only BLE check") {
+                        BLEProbeView(context: "BLE-only main app")
+                    }
+                }
+                .navigationTitle("Select BLE Pilot")
+                #else
                 BLEProbeView(context: "BLE-only main app")
+                #endif
             }
         }
     }

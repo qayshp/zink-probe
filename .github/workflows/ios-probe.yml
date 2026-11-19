@@ -68,6 +68,8 @@ jobs:
         run: |
           swiftc ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift ios/SelectAccessoryProbe/NativeBLEAdapter.swift ios/ble-submission-tests/main.swift -o build/ios-ble-submission-tests
           build/ios-ble-submission-tests
+          swiftc -D ZINK_EXPERIMENTAL_BLE_PRINT ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift ios/SelectAccessoryProbe/NativeBLEAdapter.swift ios/ble-submission-tests/main.swift -o build/ios-ble-pilot-tests
+          build/ios-ble-pilot-tests
       - name: Typecheck native BLE coordinator adapter for iOS and Share restrictions
         run: >-
           xcrun swiftc -typecheck -application-extension -target arm64-apple-ios16.0
@@ -92,19 +94,30 @@ jobs:
           xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj
           -scheme BLEOnlyProbe -destination 'generic/platform=iOS'
           -derivedDataPath build/ios-ble-only CODE_SIGNING_ALLOWED=NO build
-      - name: Verify isolated targets have no accessory protocols or ExternalAccessory linkage
+      - name: Compile explicitly enabled BLE-only pilot app
+        run: >-
+          xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj
+          -scheme BLEOnlyProbe -destination 'generic/platform=iOS'
+          -derivedDataPath build/ios-ble-pilot CODE_SIGNING_ALLOWED=NO
+          ZINK_BLE_PILOT_CONDITION=ZINK_EXPERIMENTAL_BLE_PRINT build
+      - name: Verify isolated linkage and app-only pilot
         run: |
           python3 - <<'PY'
           import plistlib
           import subprocess
           from pathlib import Path
-          app = Path('build/ios-ble-only/Build/Products/Debug-iphoneos/BLEOnlyProbe.app')
-          for bundle, executable in [(app, 'BLEOnlyProbe'), (app / 'PlugIns/BLEOnlyShare.appex', 'BLEOnlyShare')]:
-              info = plistlib.loads((bundle / 'Info.plist').read_bytes())
-              assert 'UISupportedExternalAccessoryProtocols' not in info
-              assert 'UIBackgroundModes' not in info
-              libraries = subprocess.check_output(['otool', '-L', str(bundle / executable)], text=True)
-              assert 'CoreBluetooth.framework' in libraries
-              assert 'ExternalAccessory.framework' not in libraries
-          print('Both isolated bundles use CoreBluetooth and declare no External Accessory protocols/background modes.')
+          for variant in ('ble-only', 'ble-pilot'):
+              app = Path(f'build/ios-{variant}/Build/Products/Debug-iphoneos/BLEOnlyProbe.app')
+              for bundle, executable in [(app, 'BLEOnlyProbe'), (app / 'PlugIns/BLEOnlyShare.appex', 'BLEOnlyShare')]:
+                  info = plistlib.loads((bundle / 'Info.plist').read_bytes())
+                  assert info['NSBluetoothAlwaysUsageDescription']
+                  assert 'UISupportedExternalAccessoryProtocols' not in info
+                  assert 'UIBackgroundModes' not in info
+                  binary = bundle / executable
+                  libraries = subprocess.check_output(['otool', '-L', str(binary)], text=True)
+                  assert 'CoreBluetooth.framework' in libraries
+                  assert 'ExternalAccessory.framework' not in libraries
+                  has_print_ui = b'Prepare one BLE print' in binary.read_bytes()
+                  assert has_print_ui == (variant == 'ble-pilot' and bundle == app), (variant, bundle)
+          print('Both variants use CoreBluetooth alone. Only the opted-in main app contains the print UI.')
           PY

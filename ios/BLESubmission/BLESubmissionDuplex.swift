@@ -17,9 +17,9 @@ protocol BLEPacketIO: AnyObject {
 
 /// Adapts the existing gated stream coordinator to the BLE packet envelope.
 /// HP+ frames exist only at the in-memory AccessoryDuplex seam: their payloads,
-/// not their stream headers, are fragmented for GATT. No native submission
-/// factory currently enables single-job submission. Native submission is blocked
-/// before composition; read-only native sessions use the independent read policy.
+/// not their stream headers, are fragmented for GATT. The opt-in pilot uses
+/// single-job submission. Native diagnostic and recovery sessions use the
+/// independent read-only policy.
 final class BLESubmissionDuplex: AccessoryDuplex {
     /// This is a coarse opcode policy, not print authorization. A single-job
     /// composition still requires the upstream durable permit/frame gate.

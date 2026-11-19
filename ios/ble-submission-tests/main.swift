@@ -415,9 +415,15 @@ do {
     refuses { _ = try SubmissionCoordinator(boundJob:binding.id,journal:b,now:0) }
 }
 
-// The production facade rejects submission before authorization, central-manager
-// creation or a connection. No phone or adapter is needed for this test.
+// The default native facade rejects submission before authorization or radio
+// access. For the pilot build, check the opt-in and run the same simulated
+// composition without invoking the native facade.
+#if ZINK_EXPERIMENTAL_BLE_PRINT
+check(BLESubmissionAvailability.isEnabled)
+try BLESubmissionAvailability.requireLiveSubmission()
+#else
 do {
+    check(!BLESubmissionAvailability.isEnabled)
     let journal = try store("production-disabled"), binding = try bind(journal)
     let adapter = NativeBLEAdapter()
     refuses { try adapter.submitOnce(peripheralID:UUID(),reviewed:binding,journal:journal,update:{ _ in }) }
@@ -425,6 +431,7 @@ do {
     check(try journal.record(binding.id) == nil)
     check(try journal.binding(binding.id) == binding)
 }
+#endif
 
 // A new process reopens only the journal after each abrupt exit. In the partial
 // packet case the host has a durable intent but the peer never assembled that
@@ -485,4 +492,4 @@ do {
 }
 
 print("BLE submission offline: \(checks) checks passed; \(image.jpeg.count) / \(paddedImage.jpeg.count) exact JPEG bytes, 16 MTU/ACK/callback combinations, \(baselineMutationPackets.count) mutation-packet boundaries × 5 interruptions, \(firstSmallMTUChunkPackets.count) MTU20 upload fragments and 3 abrupt process exits")
-print("No Bluetooth manager, device, print job or paper was used. Native BLE submission remains disabled; recovery never resubmits and durable permits cannot be replayed across transports.")
+print("No Bluetooth manager, physical printer or paper was used. Native BLE build gate: \(BLESubmissionAvailability.isEnabled ? "pilot opt-in" : "closed"). Recovery never resubmits and durable permits cannot be replayed across transports.")

@@ -381,9 +381,8 @@ was retained, and BLE job allocation/upload/printing and first-time phone
 onboarding remain untested.
 The [native iOS BLE submission adapter](ios/BLE_SUBMISSION.md) now reuses the
 durable coordinator through a packet bridge, with complete simulated transfers,
-interruption/recovery and duplicate-prevention tests. It compiles into the app
-and Share extension, but real BLE submission is unconditionally disabled before
-permit reservation or Bluetooth creation. No new BLE print UI is connected.
+interruption/recovery and duplicate-prevention tests. Native BLE submission is
+disabled in ordinary builds of the app and Share extension.
 Build 16 exposes [read-only native BLE preflight](ios/BLE_PREFLIGHT.md) in the
 main app and Share extension. Initial physical checks correctly refused readiness
 for the time-invalid flag. A subsequent [bounded clock-sync and full-preflight
@@ -398,10 +397,14 @@ ten-second error while the printer was off, and reconnected after power-on.
 The recovered connection then refused readiness for the printer's time-invalid
 flag; that check left the clock unchanged. Existing pairing/cache history was
 retained. That check identified generic connection-error wording for cleanup.
-The subsequent [offline wording update](ios/BLE_PREFLIGHT.md#clearer-ble-outcomes-after-build-16)
-distinguishes unavailable connections from connected printers needing clock sync
-or other readiness checks, with manual retry guidance and unchanged read-only rules.
-BLE printing remains disabled; physical BLE image upload and printing are untested.
+The signed Build 16 wording update was [verified through iPhone
+Mirroring](ios/ble-preflight-tests/BLE_MESSAGE_MIRRORING_VALIDATION.md).
+Both the main app and Share showed **Printer connected; clock sync needed.**
+while the Select replied with the time-invalid flag, and **BLE connection
+unavailable.** with the printer switched off.
+The [opt-in standalone BLE pilot](ios/BLEOnlyProbe/README.md#one-sheet-ble-pilot)
+adds a confirmed, journaled one-sheet attempt without External Accessory.
+Physical BLE image upload and printing remain untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

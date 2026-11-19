@@ -1,7 +1,7 @@
 # Offline BLE submission and interruption tests
 
 These tests exercise the same `BLECoordinatorSession.authorizedSubmission`
-composition used by the native adapter's currently disabled submission branch:
+composition used by the native adapter and the opt-in BLE pilot:
 the saved binding, single-use print permit, durable journal, submission
 coordinator, frame gate, stream driver and BLE packet bridge. Only `BLEPacketIO`
 is replaced with a deterministic memory peer. No CoreBluetooth manager is
@@ -16,6 +16,10 @@ swiftc ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift \
   ios/ble-submission-tests/main.swift -o build/ios-ble-submission-tests
 build/ios-ble-submission-tests
 ```
+
+CI repeats the same simulation with `-D ZINK_EXPERIMENTAL_BLE_PRINT` and verifies
+that the build gate accepts the pilot opt-in. It never calls the physical adapter
+with that condition enabled.
 
 The suite generates an upright, sRGB 768 × 1152 JPEG, saves it in a real SQLite
 journal, then compares every received JPEG byte with that exact saved image.
@@ -68,8 +72,8 @@ Additional scenarios cover:
 - Two processes racing for the same durable authorization; independent journal
   objects; one-use permit consumption; and refusal to replay a BLE attempt through
   the existing accessory coordinator.
-- Shared-session construction failure and the public native `submitOnce` action
-  rejecting before authorization or Bluetooth access. The latter leaves the
+- Shared-session construction failure and the default native `submitOnce` build
+  rejecting before authorization or Bluetooth access. The refusal leaves the
   unsubmitted binding and journal untouched.
 
 The number printed by the executable includes low-level packet-bound checks,
@@ -79,5 +83,6 @@ peer. It does not prove native callback timing, real BLE job acceptance, sustain
 radio throughput, physical print output, or first-time phone pairing.
 
 The earlier [read-only physical BLE results](../ble-tests/PHYSICAL_VALIDATION.md)
-remain a separate milestone. Real BLE submission is still disabled; existing
-External Accessory printing is a separate transport and authorization path.
+remain a separate milestone. The [standalone BLE pilot](../BLEOnlyProbe/README.md#one-sheet-ble-pilot)
+is the only build wired for real BLE submission. Existing External Accessory
+printing uses its own transport and job store.

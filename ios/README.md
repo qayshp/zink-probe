@@ -14,15 +14,15 @@ Build 15 adds an independent [bounded CoreBluetooth check](BLE_CHECK.md) in both
 the app and Share extension. It can only read identity/status/capabilities and
 perform connection-local negotiation; it has no BLE job-submission path.
 The separately installed [Select BLE Check control](BLEOnlyProbe/README.md)
-reuses that diagnostic without any External Accessory linkage/declarations or
-print code. On 2026-11-18 both main apps and both Share extensions physically
+reuses that diagnostic without External Accessory linkage or protocol
+declarations. On 2026-11-18 both main apps and both Share extensions physically
 passed the fixed read-only sequence, including the isolated product's two
 processes. See the [physical BLE record](ble-tests/PHYSICAL_VALIDATION.md).
 No BLE job, image or print was sent; existing phone pairing history was retained.
 The subsequent [native BLE coordinator adapter](BLE_SUBMISSION.md) reuses the
-durable single-job path and is tested against a simulated packet peer. Both app
-targets compile it, but real BLE submission is unconditionally disabled before
-permit reservation or Bluetooth creation; no new submission UI is connected.
+durable single-job path and is tested against a simulated packet peer. Ordinary
+builds disable BLE submission. The [standalone opt-in BLE pilot](BLEOnlyProbe/README.md#one-sheet-ble-pilot)
+provides a confirmed one-sheet submission path and is awaiting a physical trial.
 Build 16 adds [read-only native BLE preflight](BLE_PREFLIGHT.md) in the main app
 and Share extension. Discovery/identity and the adapter check require separate
 explicit taps. Strict readiness rules, including the time-invalid flag, remain

@@ -157,8 +157,8 @@ final class NativeBLEAdapter {
             clock: clock, update: observer(update))
         start(io: io, session: candidate)
     }
-    /// No runtime enable flag. Refuses before permit reservation, job claim,
-    /// central-manager creation or any GATT write, even for a valid saved draft.
+    /// No runtime enable flag. Default builds refuse before permit reservation,
+    /// job claim, central-manager creation or any GATT write.
     func submitOnce(peripheralID: UUID, reviewed: JobBinding, journal: JobJournal,
                     update: @escaping (AccessoryStreamPump) -> Void) throws {
         try BLESubmissionAvailability.requireLiveSubmission()

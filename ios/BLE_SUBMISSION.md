@@ -3,13 +3,15 @@
 Implemented 2026-11-18 after the [four successful physical read-only
 checks](ble-tests/PHYSICAL_VALIDATION.md). The complete single-job coordinator can
 now run over the Select's BLE packet transport against an in-memory peer. A
-CoreBluetooth owner is compiled into the main app and Share extension, but
-**real BLE submission is unconditionally disabled**. This milestone did not
+CoreBluetooth owner is compiled into the main app and Share extension.
+**Real BLE submission was disabled in the original milestone.** It did not
 connect to a printer, allocate a physical job, upload an image, install an app,
 or print. The existing External Accessory print UI and the isolated Select BLE
 Check product are unchanged at that milestone. The subsequent
 [Build 16 read-only UI](BLE_PREFLIGHT.md) exposes this owner's preflight in both
 contexts; physical results and readiness refusals are recorded separately.
+The [opt-in BLE-only pilot](BLEOnlyProbe/README.md#one-sheet-ble-pilot)
+now provides a native one-sheet submission path for the standalone app.
 
 ## Composition and authorization
 
@@ -33,19 +35,21 @@ request and committed pending journal record before any fragment can be queued.
 Native read-only preflight/recovery use the independent `.readOnly` policy.
 
 `NativeBLEAdapter.submitOnce` first calls
-`BLESubmissionAvailability.requireLiveSubmission()`, which always throws.
-There is no user setting or runtime switch that changes this. The complete native
-authorized-session composition is compiled behind that guard, but cannot reserve
-or consume a permit, construct a Bluetooth manager, connect or transmit. Tests
-verify this refusal with a valid bound draft and an unchanged journal.
+`BLESubmissionAvailability.requireLiveSubmission()`. Ordinary builds throw
+before reserving a permit or creating a Bluetooth manager. Only the explicit
+pilot build of the isolated main target sets the Swift compilation condition.
+Tests verify default refusal with a valid bound draft and an unchanged journal,
+and run the same simulated peer tests with the pilot condition enabled.
 
-Changing transports does not create a new identity or store. The canonical
+Changing transports within a journal preserves its identity and claims. The canonical
 16-byte **protocol device ID** and existing journal determine binding and device
 claims. A CoreBluetooth peripheral UUID routes a connection; it cannot bypass a
 pending/uncertain job. Saved IDs and spent attempts remain blocked across process
 restart and across accessory/BLE compositions. Recovery uses fresh identity and
 firmware checks plus read-only observation; it never reconstructs an upload plan.
-This remains local duplicate prevention, not a printer-side exactly-once promise.
+The standalone pilot app keeps a separate private journal. Local duplicate
+prevention applies within that store, so do not use a second app for the same
+job while its outcome is uncertain.
 
 ## Native API and lifecycle
 
@@ -55,12 +59,12 @@ The main-run-loop `NativeBLEAdapter` exposes:
   full readiness preflight, capable of producing the existing `VerifiedPrinter`.
 - `recover(peripheralID:id:journal:update:)` — read-only observation of a saved,
   possibly submitted job. It cannot resend its image.
-- `submitOnce(peripheralID:reviewed:journal:update:)` — disabled before any side
-  effect, as described above.
+- `submitOnce(peripheralID:reviewed:journal:update:)` — a one-attempt submission
+  for the opt-in pilot using explicit review and the durable permit.
 - `stop(_:)` — terminal cancellation without reconnect/retry.
 
-The initial offline milestone exposed no UI. Build 16's [read-only UI](BLE_PREFLIGHT.md)
-now calls preflight; submission and recovery still have no new UI. A caller must
+Build 16's [read-only UI](BLE_PREFLIGHT.md) calls preflight. The separate pilot
+exposes draft binding, confirmation, submission and read-only recovery. A caller must
 supply a deliberately chosen
 peripheral from discovery and the expected firmware/binding; opening a view must
 not start a session. The owner retrieves that exact peripheral UUID, connects,
@@ -158,9 +162,8 @@ throughput, BLE allocation/upload/printing, first-time pairing, or App Store
 eligibility. The simulated printer is not firmware emulation. Physical results
 are recorded separately from simulation and generic iPhone builds.
 
-Build 16 adds [read-only UI/lifecycle integration and physical checks](BLE_PREFLIGHT.md)
-with submission still blocked. Strict readiness has now passed on the physical
-Select; a separately authorized one-job BLE print remains a later gate. Printing
-would require a source change to the unconditional
-availability guard as well as an explicit saved-photo confirmation; it cannot be
-enabled by selecting an existing UI option.
+Build 16 adds [read-only UI/lifecycle integration and physical checks](BLE_PREFLIGHT.md).
+Strict readiness has passed on the physical Select. The opt-in pilot runs a fresh
+preflight and requires explicit confirmation of the saved photo. Its next
+physical gate is one authorized sheet to verify job allocation, acknowledged
+JPEG transfer, printer completion and actual ejection.

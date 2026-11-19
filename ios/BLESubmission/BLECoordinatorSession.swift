@@ -36,8 +36,8 @@ final class BLECoordinatorSession {
         return BLECoordinatorSession(pump:pump,duplex:duplex,clock:clock,update:update)
     }
 
-    /// Native callers must first pass BLESubmissionAvailability's unconditional
-    /// disabled guard. Tests call this exact factory with an in-memory peer.
+    /// Native callers must first pass the BLESubmissionAvailability build gate.
+    /// Tests call this exact factory with an in-memory peer.
     /// Creating a session reserves and consumes one permit, but sends no bytes
     /// until start(). A failed construction finalizes that spent attempt.
     static func authorizedSubmission(io: BLEPacketIO, reviewed: JobBinding,

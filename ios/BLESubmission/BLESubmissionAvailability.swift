@@ -4,6 +4,12 @@ import Foundation
 /// Simulations compose the existing permit-gated coordinator with an in-memory
 /// packet IO. Native submission must stop before reserving a permit or radio.
 enum BLESubmissionAvailability {
+    #if ZINK_EXPERIMENTAL_BLE_PRINT
+    static let isEnabled = true
+    #else
+    static let isEnabled = false
+    #endif
+
     enum Failure: Error, CustomStringConvertible {
         case liveSubmissionDisabled
         var description: String {
@@ -11,6 +17,6 @@ enum BLESubmissionAvailability {
         }
     }
     static func requireLiveSubmission() throws {
-        throw Failure.liveSubmissionDisabled
+        guard isEnabled else { throw Failure.liveSubmissionDisabled }
     }
 }
