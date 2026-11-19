@@ -61,6 +61,12 @@ let id = UUID(uuidString:"11111111-1111-4111-8111-111111111111")!
 
 if CommandLine.arguments.count > 2 {
     let mode = CommandLine.arguments[1], url = URL(fileURLWithPath:CommandLine.arguments[2])
+    if mode == "locked-open" {
+        try Data().write(to: url.appendingPathExtension("opening"), options: .atomic)
+        let store = try JobJournal(url:url)
+        check(try store.activeBindings().isEmpty)
+        _exit(0)
+    }
     let (pump,_,time) = try preflight(), store = try JobJournal(url:url)
     let chosen = mode == "race" ? UUID() : id
     do {
@@ -209,5 +215,24 @@ for mode in ["saved","pending"] {
 let raceURL = root.appendingPathComponent("race.sqlite"); _ = try JobJournal(url:raceURL)
 let p1 = try child("race",raceURL), p2 = try child("race",raceURL); p1.waitUntilExit(); p2.waitUntilExit()
 check([p1.terminationStatus,p2.terminationStatus].sorted() == [0,2]); check(try JobJournal(url:raceURL).activeBindings().count == 1)
+
+// A competing writer can briefly keep the schema locked during startup.
+let lockURL = root.appendingPathComponent("locked-open.sqlite"); _ = try JobJournal(url:lockURL)
+check(sqlite3_open(lockURL.path, &db) == SQLITE_OK)
+check(sqlite3_exec(db, "BEGIN EXCLUSIVE", nil, nil, nil) == SQLITE_OK)
+let opening = try child("locked-open", lockURL)
+let marker = lockURL.appendingPathExtension("opening").path
+let deadline = ProcessInfo.processInfo.systemUptime + 5
+while !FileManager.default.fileExists(atPath: marker) && opening.isRunning &&
+      ProcessInfo.processInfo.systemUptime < deadline {
+    Thread.sleep(forTimeInterval: 0.01)
+}
+check(FileManager.default.fileExists(atPath: marker))
+Thread.sleep(forTimeInterval: 0.2)
+check(opening.isRunning)
+check(sqlite3_exec(db, "COMMIT", nil, nil, nil) == SQLITE_OK)
+sqlite3_close(db)
+opening.waitUntilExit()
+check(opening.terminationStatus == 0)
 print("Accessory adapter passed: full preflight, \(tx) write and \(rx) read interruption offsets, fragmentation, backpressure, lifecycle/deadline failures, close-once and zero print bytes")
-print("Durable bindings passed: exact bytes/identity/settings, reopen, stale/mismatched refusal, output policy, corrupt image, discard tombstones, process death and competing reservations")
+print("Durable bindings passed: exact bytes/identity/settings, reopen, stale/mismatched refusal, output policy, corrupt image, discard tombstones, process death, competing reservations and locked startup")

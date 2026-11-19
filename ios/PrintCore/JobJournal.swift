@@ -34,9 +34,12 @@ final class JobJournal {
             throw Failure.storage("Cannot open job journal")
         }
         do {
+            // Startup PRAGMAs can need a schema lock before the first transaction.
+            guard sqlite3_busy_timeout(db, 2000) == SQLITE_OK else {
+                throw Failure.storage("Cannot configure journal lock timeout")
+            }
             try sql("PRAGMA synchronous=FULL")
             try sql("PRAGMA journal_mode=DELETE")
-            try sql("PRAGMA busy_timeout=2000")
             try transaction {
                 try sql("CREATE TABLE IF NOT EXISTS print_attempts(id TEXT PRIMARY KEY, state TEXT NOT NULL)")
                 try sql("CREATE TABLE IF NOT EXISTS print_attempt_reports(id TEXT NOT NULL, operation TEXT NOT NULL, report TEXT NOT NULL, PRIMARY KEY(id,operation))")
