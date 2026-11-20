@@ -93,9 +93,11 @@ Select Probe's app and Share extension.
 For the first authorized physical trial:
 
 1. Use a small, known image and one awake Select with paper loaded.
-2. Open **Prepare one BLE print**, choose a photo and tap **Save photo for
-   printing**. The exact prepared JPEG and its settings remain in a private
-   draft while the Select is unavailable, including across app relaunch.
+2. Open **Prepare one BLE print** and choose a photo. In Build 5 and later,
+   **Rotate left** and **Rotate right** turn the photo 90° at a time before
+   layout and show the resulting JPEG preview. Tap **Save photo for printing**.
+   The exact prepared JPEG and its settings remain in a private draft while
+   the Select is unavailable, including across app relaunch.
 3. Tap **Find a Select** and choose the intended printer. The pilot runs the
    identity and readiness checks in sequence and binds the draft only after
    they pass. If the clock is the only blocker, choose **Sync printer clock**,
@@ -183,8 +185,8 @@ xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
   CODE_SIGNING_ALLOWED=NO ZINK_BLE_PILOT_CONDITION=ZINK_EXPERIMENTAL_BLE_PRINT test
 ```
 
-All three screen tests passed on a dedicated iPhone 17 Pro simulator running
-iOS 27.2. The suite covers a saved draft reopening after a failed connection,
-clock sync, a canceled confirmation, a fresh review after a proved stop, and
-a blocked uncertain job after reopening. The Photos picker and native BLE
-discovery use iOS services outside this fixture.
+The screen tests cover a saved draft reopening after a failed connection,
+clock sync, a canceled confirmation, a fresh review after a proved stop,
+an uncertain job blocked after reopening, and a rotated draft reopened for
+review. The Photos picker and native BLE discovery use iOS services outside
+this fixture.

@@ -64,6 +64,32 @@ final class BLEPilotUITests: XCTestCase {
         XCTAssertFalse(app.buttons["ble-pilot-confirm"].exists)
     }
 
+    func testRotatedPhotoCanBeReviewedAfterRelaunch() {
+        launch("stoppedBeforeSend")
+        tap("ble-pilot-photo")
+        let fileSizeLabel = "File size: "
+        let fileSize = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", fileSizeLabel))
+        XCTAssertTrue(fileSize.firstMatch.waitForExistence(timeout: 5))
+        let originalSize = fileSize.firstMatch.label
+        XCTAssertTrue(app.buttons["select-photo-rotate-left"].exists)
+        tap("select-photo-rotate-right")
+        let rotatedSize = fileSize.matching(NSPredicate(format: "label != %@", originalSize)).firstMatch
+        XCTAssertTrue(rotatedSize.waitForExistence(timeout: 5))
+        let reviewSize = String(rotatedSize.label.dropFirst(fileSizeLabel.count))
+        tap("review-bound-draft")
+        XCTAssertTrue(app.images["ble-pilot-draft-preview"].waitForExistence(timeout: 5))
+        app.terminate()
+
+        launch("stoppedBeforeSend")
+        XCTAssertTrue(app.images["ble-pilot-draft-preview"].waitForExistence(timeout: 5))
+        checkPrinter()
+        tap("ble-pilot-review")
+        let review = app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", reviewSize)).firstMatch
+        XCTAssertTrue(review.waitForExistence(timeout: 5))
+        tap("Close")
+        XCTAssertFalse(app.staticTexts["Last print attempt"].exists)
+    }
+
     private func launch(_ scenario: String) {
         app.launchEnvironment = [
             "ZINK_PILOT_FIXTURE_STORE": workspace,

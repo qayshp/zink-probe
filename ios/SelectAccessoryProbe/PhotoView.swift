@@ -11,10 +11,12 @@ struct PhotoView: View {
     @State private var source: Data?
     @State private var result: PreparedPhoto?
     @State private var layout: PhotoLayout = .preserve
+    @State private var rotation: PhotoRotation = .none
     @State private var quality = 100
     @State private var guide = true
     @State private var message = "Choose a photo to prepare it offline."
     @State private var generation = UUID()
+    @State private var rendering: Task<Void, Never>?
     @State private var busy = false
     @State private var exporting = false
 
@@ -22,9 +24,25 @@ struct PhotoView: View {
         ScrollView {
             VStack(spacing: 16) {
                 if initialData == nil {
-                PhotosPicker("Choose photo", selection: $selection, matching: .images)
-                    .buttonStyle(.borderedProminent)
+                    PhotosPicker("Choose photo", selection: $selection, matching: .images)
+                        .buttonStyle(.borderedProminent)
                 }
+                HStack {
+                    Button {
+                        rotation = rotation.toLeft
+                        render()
+                    } label: {
+                        Label("Rotate left", systemImage: "rotate.left")
+                    }.accessibilityIdentifier("select-photo-rotate-left")
+                    Button {
+                        rotation = rotation.toRight
+                        render()
+                    } label: {
+                        Label("Rotate right", systemImage: "rotate.right")
+                    }.accessibilityIdentifier("select-photo-rotate-right")
+                }
+                .buttonStyle(.bordered)
+                .disabled(source == nil)
                 Picker("Layout", selection: $layout) {
                     ForEach(PhotoLayout.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }.pickerStyle(.segmented)
@@ -78,6 +96,8 @@ struct PhotoView: View {
             if case .failure(let error) = outcome { message = error.localizedDescription }
         }
         .onChange(of: selection) { item in
+            rendering?.cancel()
+            rotation = .none
             let token = UUID(); generation = token; result = nil; source = nil; busy = true
             Task {
                 do {
@@ -95,11 +115,13 @@ struct PhotoView: View {
     }
     private func render() {
         guard let source else { return }
+        rendering?.cancel()
         let token = UUID(); generation = token; busy = true; result = nil
-        let selectedLayout = layout, selectedQuality = quality
-        Task {
-            let output = await PhotoRenderer.shared.prepare(source, layout: selectedLayout, quality: selectedQuality)
-            guard generation == token else { return }
+        let selectedLayout = layout, selectedQuality = quality, selectedRotation = rotation
+        rendering = Task {
+            let output = await PhotoRenderer.shared.prepare(source, layout: selectedLayout,
+                                                            quality: selectedQuality, rotation: selectedRotation)
+            guard !Task.isCancelled, generation == token else { return }
             busy = false
             switch output {
             case .success(let prepared):

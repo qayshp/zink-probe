@@ -11,12 +11,30 @@ struct PreparedPhoto {
     let placement: CGRect
 }
 enum PhotoLayout: String, CaseIterable { case fill = "Borderless", fit = "Fit", preserve = "Preserve edges" }
+
+enum PhotoRotation: Int, CaseIterable {
+    case none, right, halfTurn, left
+
+    var toLeft: Self { Self.allCases[(rawValue + 3) % 4] }
+    var toRight: Self { Self.allCases[(rawValue + 1) % 4] }
+    var swapsAxes: Bool { self == .right || self == .left }
+    var quartzAngle: CGFloat {
+        switch self {
+        case .none: return 0
+        case .right: return -.pi / 2
+        case .halfTurn: return .pi
+        case .left: return .pi / 2
+        }
+    }
+}
+
 enum PhotoPreparation {
     enum Failure: LocalizedError {
         case invalid
         var errorDescription: String? { "Cannot prepare this image. Use a single SDR JPEG, PNG or HEIC image under 50 MB and 80 megapixels." }
     }
-    static func prepare(_ data: Data, layout: PhotoLayout, quality: Int) throws -> PreparedPhoto {
+    static func prepare(_ data: Data, layout: PhotoLayout, quality: Int,
+                        rotation: PhotoRotation = .none) throws -> PreparedPhoto {
         guard data.count <= 50_000_000, (1...100).contains(quality),
               let source = CGImageSourceCreateWithData(data as CFData, nil),
               let type = CGImageSourceGetType(source) as String?,
@@ -37,7 +55,8 @@ enum PhotoPreparation {
               let context = CGContext(data: nil, width: 768, height: 1152, bitsPerComponent: 8,
                   bytesPerRow: 768 * 4, space: space,
                   bitmapInfo: CGImageAlphaInfo.noneSkipLast.rawValue) else { throw Failure.invalid }
-        let width = Double(image.width), height = Double(image.height)
+        let width = Double(rotation.swapsAxes ? image.height : image.width)
+        let height = Double(rotation.swapsAxes ? image.width : image.height)
         let inset = layout == .preserve ? 48.0 : 0
         let sx = (768 - 2 * inset) / width, sy = (1152 - 2 * inset) / height
         let scale = layout == .fill ? max(sx, sy) : min(sx, sy)
@@ -47,7 +66,12 @@ enum PhotoPreparation {
         context.fill(CGRect(x: 0, y: 0, width: 768, height: 1152))
         context.interpolationQuality = .high
         context.setRenderingIntent(.relativeColorimetric)
-        context.draw(image, in: rect)
+        let drawWidth = rotation.swapsAxes ? rect.height : rect.width
+        let drawHeight = rotation.swapsAxes ? rect.width : rect.height
+        context.translateBy(x: rect.midX, y: rect.midY)
+        context.rotate(by: rotation.quartzAngle)
+        context.draw(image, in: CGRect(x: -drawWidth / 2, y: -drawHeight / 2,
+                                       width: drawWidth, height: drawHeight))
         guard let raster = context.makeImage() else { throw Failure.invalid }
         let output = NSMutableData()
         guard let destination = CGImageDestinationCreateWithData(output, UTType.jpeg.identifier as CFString, 1, nil) else { throw Failure.invalid }
@@ -65,8 +89,12 @@ enum PhotoPreparation {
 // Serialize native decoding/rendering so rapid option changes do not multiply peak memory.
 actor PhotoRenderer {
     static let shared = PhotoRenderer()
-    func prepare(_ data: Data, layout: PhotoLayout, quality: Int) -> Result<PreparedPhoto, Error> {
-        Result { try PhotoPreparation.prepare(data, layout: layout, quality: quality) }
+    func prepare(_ data: Data, layout: PhotoLayout, quality: Int,
+                 rotation: PhotoRotation) -> Result<PreparedPhoto, Error> {
+        Result {
+            try Task.checkCancellation()
+            return try PhotoPreparation.prepare(data, layout: layout, quality: quality, rotation: rotation)
+        }
     }
 }
 

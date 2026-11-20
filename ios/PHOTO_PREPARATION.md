@@ -1,8 +1,9 @@
-# Offline iOS photo preparation (build 5)
+# Offline iOS photo preparation
 
 Open **Prepare a photo offline** in Select Probe. Select a photo with the system
-Photos picker, choose Borderless / Fit / Preserve edges and JPEG quality 90, 95
-or 100. The preview is decoded from the actual prepared JPEG. Save prepared JPEG
+Photos picker. Use **Rotate left** or **Rotate right** if needed, then choose
+Borderless / Fit / Preserve edges and JPEG quality 90, 95 or 100.
+The preview is decoded from the actual prepared JPEG. Save prepared JPEG
 to Files exports it without sending anything to the printer. No Print or Send
 button exists; no transport/print engine is called by the preparation code.
 The system picker may need to retrieve an iCloud-only original; processing itself
@@ -11,6 +12,9 @@ is local. No broad photo-library permission or automatic photo upload is added.
 ## Image handling
 
 - ImageIO applies EXIF orientation, including mirrored variants, during decoding.
+  The optional 90° steps then rotate that image before cropping or placement.
+  The rotation is baked into the prepared JPEG, and the Photos original stays
+  as it was. Choosing a new photo resets the manual rotation.
 - JPEG, PNG and HEIC inputs; single-image JPEG/PNG, first HEIC image. GIF/animated
   PNG and unsupported types are rejected. HEIC auxiliary/HDR behavior has not
   been physically compared on iPhone; use SDR originals for controlled comparisons.
@@ -47,8 +51,12 @@ swiftc ios/SelectAccessoryProbe/PhotoPreparation.swift ios/photo-tests/main.swif
   --android logs/android-runtime/full-default/files/results-full-default
 ```
 
-All eight EXIF orientations passed corner-color checks; transparency became white;
-source author metadata was absent; output sRGB declaration and size were checked.
+All eight EXIF orientations passed corner-color checks. The rotation tests
+also check decoded JPEG pixels after clockwise, counterclockwise and 180° turns,
+including an EXIF-oriented photo with a manual turn. The unrotated synthetic
+outputs matched the previous renderer byte for byte. The tests verify white
+transparency compositing, removal of source author metadata, output sRGB
+declaration, and image size.
 A Display P3 midtone is compared against LittleCMS with a three-level tolerance.
 The numeric evidence is in [photo-tests/evidence/summary.json](photo-tests/evidence/summary.json).
 
