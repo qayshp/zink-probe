@@ -1,0 +1,115 @@
+import XCTest
+
+final class BLEPilotUITests: XCTestCase {
+    private let app = XCUIApplication()
+    private let workspace = UUID().uuidString
+
+    override func setUpWithError() throws {
+        continueAfterFailure = false
+    }
+
+    func testSavedPhotoSurvivesUnavailablePrinterThenClockSyncAndOneSheet() {
+        launch("unavailable")
+        savePhoto()
+        checkPrinter()
+        expectStatus("reach the printer", id: "ble-pilot-status")
+        app.terminate()
+
+        launch("clock")
+        XCTAssertTrue(app.images["ble-pilot-draft-preview"].exists)
+        checkPrinter()
+        tap("ble-pilot-clock")
+        let syncButton = app.buttons.matching(
+            NSPredicate(format: "identifier == %@ OR label == %@", "ble-pilot-sync-confirm", "Sync clock only")
+        ).firstMatch
+        XCTAssertTrue(syncButton.waitForExistence(timeout: 5))
+        syncButton.tap()
+        tap("ble-pilot-recheck")
+        tap("ble-pilot-review")
+        tap("ble-pilot-confirm")
+        tap("Cancel")
+        tap("Close")
+        XCTAssertFalse(app.staticTexts["Last print attempt"].exists)
+        tap("ble-pilot-review")
+        confirmPrint()
+        expectStatus("Protocol completion observed", id: "ble-pilot-print-status")
+    }
+
+    func testAProvenPreSubmissionStopOffersFreshReview() {
+        launch("stoppedBeforeSend")
+        savePhoto()
+        checkPrinter()
+        tap("ble-pilot-review")
+        confirmPrint()
+        expectStatus("Stopped before submission", id: "ble-pilot-print-status")
+        tap("Close")
+        tap("ble-pilot-prepare-retry")
+        tap("ble-pilot-review")
+        confirmPrint()
+        expectStatus("Protocol completion observed", id: "ble-pilot-print-status")
+    }
+
+    func testLostAllocationReplyStaysBlockedAfterRelaunch() {
+        launch("uncertain")
+        savePhoto()
+        checkPrinter()
+        tap("ble-pilot-review")
+        confirmPrint()
+        expectStatus("Print outcome uncertain", id: "ble-pilot-print-status")
+        app.terminate()
+
+        launch("uncertain")
+        XCTAssertTrue(app.staticTexts["Print outcome uncertain"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.buttons["ble-pilot-prepare-retry"].exists)
+        XCTAssertFalse(app.buttons["ble-pilot-confirm"].exists)
+    }
+
+    private func launch(_ scenario: String) {
+        app.launchEnvironment = [
+            "ZINK_PILOT_FIXTURE_STORE": workspace,
+            "ZINK_PILOT_FIXTURE_SCENARIO": scenario
+        ]
+        app.launch()
+        tap("Prepare one BLE print")
+    }
+
+    private func savePhoto() {
+        tap("ble-pilot-photo")
+        tap("review-bound-draft")
+        XCTAssertTrue(app.images["ble-pilot-draft-preview"].waitForExistence(timeout: 5))
+    }
+
+    private func checkPrinter() {
+        tap("ble-pilot-scan")
+        tap("ble-pilot-select-printer")
+    }
+
+    private func confirmPrint() {
+        tap("ble-pilot-confirm")
+        tap("Print one sheet")
+    }
+
+    private func expectStatus(_ text: String, id: String, file: StaticString = #filePath, line: UInt = #line) {
+        let status = app.staticTexts.matching(identifier: id)
+            .matching(NSPredicate(format: "label CONTAINS[c] %@", text)).firstMatch
+        XCTAssertTrue(status.waitForExistence(timeout: 8), "Expected \(text)", file: file, line: line)
+    }
+
+    private func tap(_ id: String, file: StaticString = #filePath, line: UInt = #line) {
+        let button = app.buttons[id].firstMatch
+        let screen = app.frame.insetBy(dx: 0, dy: 40)
+        for direction in [true, false] {
+            for _ in 0..<4 {
+                if button.exists && button.isHittable && button.isEnabled &&
+                    screen.contains(CGPoint(x: button.frame.midX, y: button.frame.midY)) {
+                    button.tap()
+                    return
+                }
+                if direction { app.swipeUp() } else { app.swipeDown() }
+            }
+        }
+        XCTAssertTrue(button.waitForExistence(timeout: 5) && button.isHittable && button.isEnabled,
+                      "Cannot tap \(id)", file: file, line: line)
+        if button.exists && button.isHittable && button.isEnabled { button.tap() }
+    }
+}

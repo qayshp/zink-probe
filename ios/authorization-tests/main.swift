@@ -14,11 +14,13 @@ func makeJPEG() -> Data {
     precondition(CGImageDestinationFinalize(out)); return d as Data
 }
 let image = try PreparedJobImage(jpeg:makeJPEG()), settings = JobBinding.Settings(layout:"Preserve edges",quality:100)
-func save(_ journal: JobJournal, id: UUID = UUID()) throws -> JobBinding {
-    let peer = SimulatedPrinter(); var reader = try ReadOnlyPreflight()
+func verify(_ peer: SimulatedPrinter = SimulatedPrinter(), now: TimeInterval = 0) throws -> VerifiedPrinter {
+    var reader = try ReadOnlyPreflight()
     while !reader.complete { try reader.accept(peer.respond(reader.next())) }
-    let proof = try VerifiedPrinter(preflight:reader,expectedFirmware:peer.firmware,now:0,date:Date(timeIntervalSince1970:0))
-    return try journal.bind(id:id,image:image,settings:settings,printer:proof,now:0)
+    return try VerifiedPrinter(preflight:reader,expectedFirmware:peer.firmware,now:now,date:Date(timeIntervalSince1970:now))
+}
+func save(_ journal: JobJournal, id: UUID = UUID()) throws -> JobBinding {
+    try journal.bind(id:id,image:image,settings:settings,printer:verify(),now:0)
 }
 final class Time { var now = 0.0 }
 final class IO: AccessoryDuplex {
@@ -49,12 +51,26 @@ func authorized(_ binding: JobBinding, _ store: JobJournal, _ clock: Time) throw
     let coordinator = try SubmissionCoordinator(boundJob:binding.id,journal:store,now:clock.now,pollInterval:0.01,authorization:permit)
     return (try AccessoryStreamPump(coordinator:coordinator,permit:permit,journal:store,now:clock.now),permit)
 }
+func stopBeforeSubmission(_ binding: JobBinding, _ journal: JobJournal) throws {
+    let peer = SimulatedPrinter()
+    peer.paused = true
+    let clock = Time(), (pump,_) = try authorized(binding,journal,clock)
+    let driver = AccessoryStreamDriver(pump:pump,io:IO(peer),clock:{ clock.now },update:{ _ in })
+    drive(driver,clock)
+    check(peer.mutationCount == 0 && !pump.succeeded)
+    check(try journal.attemptState(binding.id) == "notSubmitted" && journal.record(binding.id) == nil)
+}
 let fixedID = UUID(uuidString:"55555555-5555-4555-8555-555555555555")!
 if CommandLine.arguments.count == 3 {
     let mode = CommandLine.arguments[1], store = try JobJournal(url:URL(fileURLWithPath:CommandLine.arguments[2]))
     if mode == "prepare" { _ = try save(store,id:fixedID); print("Synthetic draft prepared; no authorization issued."); exit(0) }
     if mode == "race" {
         do { let binding = try store.binding(fixedID)!; _ = try store.authorizePrintOnce(binding); _exit(0) } catch { _exit(2) }
+    }
+    if mode == "race-new-draft" {
+        let printer = try verify()
+        do { _ = try store.prepareNewAttempt(from:fixedID,newID:UUID(),printer:printer,now:0); _exit(0) }
+        catch JobJournal.Failure.blocked { _exit(2) }
     }
     let b = try save(store,id:fixedID), token = try store.authorizePrintOnce(b)
     if mode == "authorized" { _exit(0) }
@@ -152,6 +168,7 @@ for boundary in ["authorized","started","pending","uploaded","completed"] {
     let reopened = try JobJournal(url:url), binding = try reopened.binding(fixedID)!
     refuses { _ = try reopened.authorizePrintOnce(binding) }; refuses { _ = try SubmissionCoordinator(boundJob:fixedID,journal:reopened,now:0) }
     refuses { try reopened.discardDraft(fixedID) }
+    refuses { _ = try reopened.prepareNewAttempt(from:fixedID,newID:UUID(),printer:verify(),now:0) }
     let summary = try reopened.latestPrintAttempt()!
     check(summary.id == fixedID && summary.status == (boundary == "completed" ? .completed : .uncertain))
     check(summary.report.contains("BLE session diagnostics were unavailable"))
@@ -171,12 +188,7 @@ let diagnostics = JobJournal.PrintAttemptDiagnostics(operation:.submission,
     startedAt:Date(timeIntervalSince1970:0),endedAt:Date(timeIntervalSince1970:1),
     acknowledgedImageBytes:0,totalImageBytes:oldest.byteCount)
 refuses { try history.savePrintAttemptDiagnostics(diagnostics,for:oldest.id) }
-let stoppedPeer = SimulatedPrinter()
-stoppedPeer.paused = true
-let stoppedClock = Time(), (stoppedPump,_) = try authorized(oldest,history,stoppedClock)
-let stoppedDriver = AccessoryStreamDriver(pump:stoppedPump,io:IO(stoppedPeer),clock:{ stoppedClock.now },update:{ _ in })
-drive(stoppedDriver,stoppedClock)
-check(stoppedPeer.mutationCount == 0)
+try stopBeforeSubmission(oldest,history)
 try history.savePrintAttemptDiagnostics(diagnostics,for:oldest.id)
 try history.discardDraft(oldest.id)
 let next = try save(history,id:UUID(uuidString:"00000000-0000-4000-8000-000000000001")!)
@@ -195,6 +207,72 @@ sqlite3_close(db)
 let migrated = try JobJournal(url:historyURL)
 check(try migrated.latestPrintAttempt()?.id == next.id && migrated.latestPrintAttempt()?.status == .uncertain)
 refuses { _ = try migrated.authorizePrintOnce(next) }
+
+// A proved pre-submission stop can move the exact photo into a fresh review
+// draft. Neither the old confirmation nor its report moves with the bytes.
+let newDraftURL = root.appendingPathComponent("new-draft.sqlite")
+let newDraftStore = try JobJournal(url:newDraftURL)
+let discarded = try save(newDraftStore)
+try newDraftStore.discardDraft(discarded.id)
+let source = try save(newDraftStore), newID = UUID()
+let freshPrinter = try verify(now:7)
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:freshPrinter,now:7) }
+try stopBeforeSubmission(source,newDraftStore)
+try newDraftStore.savePrintAttemptDiagnostics(diagnostics,for:source.id)
+let sourceReport = try newDraftStore.latestPrintAttempt()!.report
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:source.id,printer:freshPrinter,now:7) }
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:discarded.id,printer:freshPrinter,now:7) }
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:freshPrinter,now:68) }
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:freshPrinter,now:6) }
+let wrongDevice = try verify(SimulatedPrinter(deviceID:String(repeating:"08",count:16)))
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:wrongDevice,now:0) }
+let changedFirmware = SimulatedPrinter()
+changedFirmware.firmware = "TEST-FIRMWARE"
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:verify(changedFirmware),now:0) }
+
+// Fail the replacement insert after retirement. A reopened connection still
+// sees the old active bytes and report, with no partial replacement binding.
+check(sqlite3_open(newDraftURL.path,&db) == SQLITE_OK)
+check(sqlite3_exec(db,"CREATE TRIGGER fail_replacement BEFORE INSERT ON prepared_bindings BEGIN SELECT RAISE(IGNORE); END",nil,nil,nil) == SQLITE_OK)
+refuses { _ = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:freshPrinter,now:7) }
+let rolledBack = try JobJournal(url:newDraftURL)
+check(try rolledBack.activeBindings() == [source] && rolledBack.boundImage(source.id).jpeg == image.jpeg)
+check(try rolledBack.binding(newID) == nil && rolledBack.latestPrintAttempt()?.report == sourceReport)
+check(sqlite3_exec(db,"DROP TRIGGER fail_replacement",nil,nil,nil) == SQLITE_OK)
+sqlite3_close(db)
+
+let draft = try newDraftStore.prepareNewAttempt(from:source.id,newID:newID,printer:freshPrinter,now:7)
+let reopenedDraft = try JobJournal(url:newDraftURL)
+check(draft.id == newID && draft.checkedAt == freshPrinter.checkedAt && draft.id != source.id)
+check(draft.device == source.device && draft.firmware == source.firmware && draft.settings == source.settings && draft.digest == source.digest)
+check(try reopenedDraft.activeBindings() == [draft] && reopenedDraft.boundImage(draft.id).jpeg == image.jpeg)
+check(try reopenedDraft.attemptState(draft.id) == nil && reopenedDraft.record(draft.id) == nil && reopenedDraft.unresolvedJobs().isEmpty)
+check(try reopenedDraft.binding(source.id) == source && reopenedDraft.latestPrintAttempt()?.report == sourceReport)
+refuses { _ = try reopenedDraft.boundImage(source.id) }
+refuses { _ = try reopenedDraft.authorizePrintOnce(source) }
+refuses { _ = try reopenedDraft.prepareNewAttempt(from:source.id,newID:UUID(),printer:freshPrinter,now:7) }
+_ = try reopenedDraft.authorizePrintOnce(draft)
+check(try reopenedDraft.attemptState(draft.id) == "reserved" && reopenedDraft.printAttempt(source.id)?.report == sourceReport)
+
+let damagedURL = root.appendingPathComponent("damaged-source.sqlite"), damaged = try JobJournal(url:damagedURL)
+let damagedSource = try save(damaged)
+try stopBeforeSubmission(damagedSource,damaged)
+check(sqlite3_open(damagedURL.path,&db) == SQLITE_OK)
+check(sqlite3_exec(db,"UPDATE prepared_bindings SET jpeg=zeroblob(length(jpeg))",nil,nil,nil) == SQLITE_OK)
+sqlite3_close(db)
+let refusedID = UUID()
+refuses { _ = try damaged.prepareNewAttempt(from:damagedSource.id,newID:refusedID,printer:freshPrinter,now:7) }
+check(try damaged.activeBindings() == [damagedSource] && damaged.binding(refusedID) == nil)
+
+let draftRaceURL = root.appendingPathComponent("race-new-draft.sqlite"), draftRace = try JobJournal(url:draftRaceURL)
+let draftRaceSource = try save(draftRace,id:fixedID)
+try stopBeforeSubmission(draftRaceSource,draftRace)
+let left = try child("race-new-draft",draftRaceURL), right = try child("race-new-draft",draftRaceURL)
+left.waitUntilExit(); right.waitUntilExit()
+check([left.terminationStatus,right.terminationStatus].sorted() == [0,2])
+let winningDrafts = try draftRace.activeBindings()
+check(winningDrafts.count == 1 && winningDrafts.first?.id != draftRaceSource.id)
+check(try draftRace.latestPrintAttempt()?.id == draftRaceSource.id && draftRace.attemptState(winningDrafts[0].id) == nil)
 
 // Read-only recovery can prove completion while the original permit remains
 // uncertain. Its optional diagnostics leave the original transfer intact.
@@ -252,3 +330,4 @@ check(withoutRecoveryReport.report.contains("TX queued 65000") && !withoutRecove
 print("Single-job authorization passed: complete framed streams, exact JPEG/one copy, empty final, lost replies, every first-mutation prefix, cancellation, read-only recovery and no replay")
 print("Durable permission passed: review matching, storage failure, one-use tokens, 5 abrupt process exits, restart refusal and competing confirmations")
 print("Print history passed: completed and uncertain process exits, discarded drafts, legacy database, report privacy and read-only reconciliation")
+print("Fresh drafts passed: proved pre-submission stop, exact bytes/settings, rollback, restart, history and competing processes")

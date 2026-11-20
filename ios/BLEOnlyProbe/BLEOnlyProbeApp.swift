@@ -7,7 +7,7 @@ struct BLEOnlyProbeApp: App {
             NavigationStack {
                 #if ZINK_EXPERIMENTAL_BLE_PRINT
                 List {
-                    NavigationLink("Prepare one BLE print") { BLEPilotView() }
+                    NavigationLink("Prepare one BLE print") { pilotView }
                     NavigationLink("Run read-only BLE check") {
                         BLEProbeView(context: "BLE-only main app")
                     }
@@ -19,4 +19,19 @@ struct BLEOnlyProbeApp: App {
             }
         }
     }
+
+    #if ZINK_EXPERIMENTAL_BLE_PRINT
+    @ViewBuilder private var pilotView: some View {
+        #if DEBUG && targetEnvironment(simulator)
+        if let fixture = BLEPilotSimulatorFixture.fromEnvironment() {
+            BLEPilotView(adapter: fixture.adapter, fixturePhoto: fixture.photo,
+                         selection: fixture.selection, storageRoot: fixture.storageRoot)
+        } else {
+            BLEPilotView()
+        }
+        #else
+        BLEPilotView()
+        #endif
+    }
+    #endif
 }

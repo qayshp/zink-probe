@@ -194,9 +194,7 @@ final class JobJournal {
     /// JPEG and metadata commit atomically in the same FULL-synchronous SQLite
     /// transaction as the device reservation. No orphan sidecar file or new ID on reopen.
     func bind(id: UUID, image: PreparedJobImage, settings: JobBinding.Settings, printer: VerifiedPrinter, now: TimeInterval) throws -> JobBinding {
-        guard now.isFinite, now >= printer.uptime, now-printer.uptime <= 60, settings.valid else { throw Failure.invalidRecord }
-        let item = JobBinding(id:id,device:printer.deviceID,firmware:printer.firmware,digest:Self.digest(image.jpeg),byteCount:image.jpeg.count,sampling:image.sampling,settings:settings,checkedAt:printer.checkedAt,schema:1)
-        guard item.valid else { throw Failure.invalidRecord }
+        let item = try makeBinding(id:id,image:image,settings:settings,printer:printer,now:now)
         return try transaction {
             guard try attemptState(id) == nil else { throw Failure.blocked }
             try assertAvailable(id:id,device:item.device)
@@ -205,17 +203,46 @@ final class JobJournal {
                       old.byteCount == item.byteCount, old.sampling == item.sampling, old.settings == item.settings else { throw Failure.blocked }
                 _ = try boundImage(id); return old
             }
-            let metadata = String(decoding:try JSONEncoder().encode(item),as:UTF8.self)
-            var statement: OpaquePointer?
-            guard sqlite3_prepare_v2(db,"INSERT INTO prepared_bindings(id,device,metadata,jpeg) VALUES(?,?,?,?)",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot prepare binding") }
-            defer { sqlite3_finalize(statement) }
-            let transient = unsafeBitCast(-1,to:sqlite3_destructor_type.self)
-            guard sqlite3_bind_text(statement,1,id.uuidString,-1,transient) == SQLITE_OK,
-                  sqlite3_bind_text(statement,2,item.device,-1,transient) == SQLITE_OK,
-                  sqlite3_bind_text(statement,3,metadata,-1,transient) == SQLITE_OK else { throw Failure.storage("Cannot bind metadata") }
-            let code = image.jpeg.withUnsafeBytes { sqlite3_bind_blob(statement,4,$0.baseAddress,Int32($0.count),transient) }
-            guard code == SQLITE_OK, sqlite3_step(statement) == SQLITE_DONE else { throw Failure.storage("Cannot save bound JPEG") }
+            try insertBinding(item,jpeg:image.jpeg)
             return item
+        }
+    }
+    /// Move the verified photo into a new unsubmitted draft only after a proved
+    /// pre-submission stop. Keep the old binding metadata and outcome for history.
+    func prepareNewAttempt(from id: UUID, newID: UUID, printer: VerifiedPrinter, now: TimeInterval) throws -> JobBinding {
+        guard newID != id else { throw Failure.blocked }
+        return try transaction {
+            guard try attemptState(id) == "notSubmitted", try record(id) == nil,
+                  let source = try binding(id), source.device == printer.deviceID, source.firmware == printer.firmware,
+                  try attemptState(newID) == nil, try binding(newID) == nil else { throw Failure.blocked }
+            let image = try boundImage(id)
+            let draft = try makeBinding(id:newID,image:image,settings:source.settings,printer:printer,now:now)
+            try retireBinding(id)
+            try assertAvailable(id:newID,device:draft.device)
+            try insertBinding(draft,jpeg:image.jpeg)
+            return draft
+        }
+    }
+    private func makeBinding(id: UUID, image: PreparedJobImage, settings: JobBinding.Settings,
+                             printer: VerifiedPrinter, now: TimeInterval) throws -> JobBinding {
+        guard now.isFinite, now >= printer.uptime, now-printer.uptime <= 60, settings.valid else { throw Failure.invalidRecord }
+        let item = JobBinding(id:id,device:printer.deviceID,firmware:printer.firmware,digest:Self.digest(image.jpeg),
+                              byteCount:image.jpeg.count,sampling:image.sampling,settings:settings,checkedAt:printer.checkedAt,schema:1)
+        guard item.valid else { throw Failure.invalidRecord }
+        return item
+    }
+    private func insertBinding(_ item: JobBinding, jpeg: Data) throws {
+        let metadata = String(decoding:try JSONEncoder().encode(item),as:UTF8.self)
+        var statement: OpaquePointer?
+        guard sqlite3_prepare_v2(db,"INSERT INTO prepared_bindings(id,device,metadata,jpeg) VALUES(?,?,?,?)",-1,&statement,nil) == SQLITE_OK else { throw Failure.storage("Cannot prepare binding") }
+        defer { sqlite3_finalize(statement) }
+        let transient = unsafeBitCast(-1,to:sqlite3_destructor_type.self)
+        guard sqlite3_bind_text(statement,1,item.id.uuidString,-1,transient) == SQLITE_OK,
+              sqlite3_bind_text(statement,2,item.device,-1,transient) == SQLITE_OK,
+              sqlite3_bind_text(statement,3,metadata,-1,transient) == SQLITE_OK else { throw Failure.storage("Cannot bind metadata") }
+        let code = jpeg.withUnsafeBytes { sqlite3_bind_blob(statement,4,$0.baseAddress,Int32($0.count),transient) }
+        guard code == SQLITE_OK, sqlite3_step(statement) == SQLITE_DONE, sqlite3_changes(db) == 1 else {
+            throw Failure.storage("Cannot save bound JPEG")
         }
     }
     func boundImage(_ id: UUID) throws -> PreparedJobImage {
@@ -238,8 +265,12 @@ final class JobJournal {
             guard try record(id) == nil, try binding(id) != nil, try bindingActive(id) else { throw Failure.blocked }
             let attempt = try attemptState(id)
             guard attempt == nil || attempt == "notSubmitted" else { throw Failure.blocked }
-            try sql("UPDATE prepared_bindings SET active=0,jpeg=NULL WHERE id=\(quote(id.uuidString))")
+            try retireBinding(id)
         }
+    }
+    private func retireBinding(_ id: UUID) throws {
+        try sql("UPDATE prepared_bindings SET active=0,jpeg=NULL WHERE id=\(quote(id.uuidString))")
+        guard sqlite3_changes(db) == 1 else { throw Failure.storage("Cannot retire bound JPEG") }
     }
     func attemptState(_ id: UUID) throws -> String? {
         var statement: OpaquePointer?

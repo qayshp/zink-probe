@@ -64,6 +64,10 @@ jobs:
         run: |
           swiftc ios/PrintCore/*.swift ios/authorization-tests/main.swift -o build/ios-authorization-tests
           build/ios-authorization-tests
+      - name: Test private photo drafts and reopening offline
+        run: |
+          swiftc ios/PrintCore/*.swift ios/BLEOnlyProbe/BLEPilotDraftStore.swift ios/ble-pilot-draft-tests/main.swift -o build/ios-ble-pilot-draft-tests
+          build/ios-ble-pilot-draft-tests
       - name: Test BLE submission transfers, interruptions and duplicate prevention offline
         run: |
           swiftc ios/PrintCore/*.swift ios/BLECore/*.swift ios/BLESubmission/*.swift ios/SelectAccessoryProbe/NativeBLEAdapter.swift ios/ble-submission-tests/main.swift -o build/ios-ble-submission-tests
@@ -123,7 +127,31 @@ jobs:
                   assert 'ExternalAccessory.framework' not in libraries
                   app_pilot = variant == 'ble-pilot' and bundle == app
                   compiled = binary.read_bytes()
-                  for label in (b'Prepare one BLE print', b'Sync printer clock over BLE', b'Share last print report'):
+                  assert b'ZINK_PILOT_FIXTURE_SCENARIO' not in compiled, (variant, bundle)
+                  for label in (b'Prepare one BLE print', b'Sync printer clock', b'Share last print report'):
                       assert (label in compiled) == app_pilot, (variant, bundle, label)
           print('Both variants use CoreBluetooth alone. Only the opted-in main app contains the print UI.')
           PY
+  pilot-ui:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Exercise the guided BLE pilot on a simulator
+        run: |
+          simulator="$(xcrun simctl list -j devices available | python3 -c '
+          import json, sys
+          runtimes = json.load(sys.stdin)["devices"]
+          for runtime, devices in sorted(runtimes.items(), reverse=True):
+              if ".iOS-" in runtime:
+                  phone = next((device for device in devices if device["name"].startswith("iPhone") and device["isAvailable"]), None)
+                  if phone:
+                      print(phone["udid"])
+                      break
+          else:
+              sys.exit("No iPhone simulator is available")
+          ')"
+          xcrun simctl bootstatus "$simulator" -b
+          xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
+            -scheme BLEOnlyProbe -destination "platform=iOS Simulator,id=$simulator" \
+            -derivedDataPath build/ios-pilot-ui -parallel-testing-enabled NO \
+            CODE_SIGNING_ALLOWED=NO ZINK_BLE_PILOT_CONDITION=ZINK_EXPERIMENTAL_BLE_PRINT test

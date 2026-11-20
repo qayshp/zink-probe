@@ -32,7 +32,7 @@ xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
 
 For installation, open the project in Xcode, select your own development team and
 physical phone, and use ordinary development signing. No team or provisioning
-profile is committed. The current build number is 3 and deployment target is iOS 16. Installation
+profile is committed. The current build number is 4 and deployment target is iOS 16. Installation
 and opening a UI do not authorize automatic device tests.
 
 For a deliberate physical test, open **Select BLE Check**, tap **Scan for Select
@@ -93,22 +93,25 @@ Select Probe's app and Share extension.
 For the first authorized physical trial:
 
 1. Use a small, known image and one awake Select with paper loaded.
-2. Open **Prepare one BLE print**, prepare one photo, scan and tap the intended
-   printer, then tap **Check printer and save draft**. Draft binding uses the
-   canonical printer identity plus the selected JPEG's exact bytes and settings.
-   This step sends only preflight traffic. If the printer reports only an
-   invalid clock, Build 3 offers **Sync printer clock over BLE**. Confirm
-   **Sync clock only** to send this iPhone’s time and time zone, then repeat
-   **Check printer and save draft**.
-3. Review the saved photo and the one-sheet confirmation. The final **Print one
+2. Open **Prepare one BLE print**, choose a photo and tap **Save photo for
+   printing**. The exact prepared JPEG and its settings remain in a private
+   draft while the Select is unavailable, including across app relaunch.
+3. Tap **Find a Select** and choose the intended printer. The pilot runs the
+   identity and readiness checks in sequence and binds the draft only after
+   they pass. If the clock is the only blocker, choose **Sync printer clock**,
+   confirm **Sync clock only**, then tap **Check printer again**.
+4. Choose **Review one-sheet print** and inspect the saved preview. The final **Print one
    sheet** tap spends the persisted authorization before the session begins.
    The coordinator verifies the binding and full readiness again before it
    sends any print command. Keep the confirmation screen open during transfer.
-4. Check the acknowledged image byte count, the final protocol outcome and
+5. Check the final protocol outcome and
    whether the expected photo physically emerges. **Last print attempt** and
    **Share last print report** remain available after reopening the pilot.
    An uncertain attempt stays blocked. Where a printer job ID and baseline were
-   saved, **Check job outcome read-only** can observe it after relaunch.
+   saved, **Check outcome without printing** can observe it after relaunch.
+   **Prepare another attempt** is available only after a proved pre-submission
+   stop. It creates a new reviewable draft with the same verified JPEG and
+   keeps the earlier attempt's outcome. A new one-sheet confirmation is required.
 
 The normal and opt-in Build 2 packages compiled for generic iPhone. Inspection
 confirmed that the print UI is only in the opt-in main app. The signed pilot
@@ -135,6 +138,29 @@ The [clock simulator tests](../ble-clock-tests/main.swift) exercise the exact
 session setup and update, mismatched printers, and interruptions on either
 side of the acknowledgement. The [authorization and history tests](../authorization-tests/main.swift)
 verify the journal after abrupt exits, including completion before the report
-can be saved. Physical evidence still covers BLE identity, status,
-capabilities and strict readiness. BLE clock writes, first-time onboarding
-and the one-sheet BLE print still need physical verification.
+can be saved. The opt-in Build 4 main app adds the guided photo and printer
+flow, resumable preparation before connecting, and plain-language progress.
+Physical evidence still covers BLE identity, status, capabilities and strict
+readiness. BLE clock writes, first-time onboarding and one-sheet BLE printing
+still need physical verification.
+
+### Simulator validation
+
+The [screen tests](Tests/BLEPilotUITests.swift) exercise the regular pilot
+view and journal with a synthetic photo and an in-memory printer. The fixture
+supplies Bluetooth discovery and packet I/O so the clock and print coordinator
+still process the real protocol. It is compiled only into the opt-in debug
+simulator app. Run against an explicitly chosen, booted simulator:
+
+```sh
+xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
+  -scheme BLEOnlyProbe -destination "platform=iOS Simulator,id=$SIMULATOR_ID" \
+  -derivedDataPath build/ios-pilot-ui -parallel-testing-enabled NO \
+  CODE_SIGNING_ALLOWED=NO ZINK_BLE_PILOT_CONDITION=ZINK_EXPERIMENTAL_BLE_PRINT test
+```
+
+All three screen tests passed on a dedicated iPhone 17 Pro simulator running
+iOS 27.2. The suite covers a saved draft reopening after a failed connection,
+clock sync, a canceled confirmation, a fresh review after a proved stop, and
+a blocked uncertain job after reopening. The Photos picker and native BLE
+discovery use iOS services outside this fixture.
