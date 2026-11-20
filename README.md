@@ -409,7 +409,10 @@ outcome and shareable report across app restarts. The new paths are tested
 offline. Build 4 guides printer readiness from a persistent photo draft,
 shows print progress, and offers fresh review when the journal proves a job
 stopped before submission. Simulator tests use the real UI and an in-memory
-printer. Physical BLE clock sync, image upload and printing remain untested.
+printer. The [physical test without paper](ios/BLEOnlyProbe/README.md#physical-validation-without-paper)
+verified BLE clock repair, draft persistence across app relaunch, printer
+binding after a fresh check, and cancellation at the one-sheet prompt.
+Physical BLE image upload and printing remain untested.
 See [IOS_EXPLORATION.md](IOS_EXPLORATION.md) for the acquired official iOS package,
 readable declarations/resources, and the limits imposed by encrypted code.
 See [ios/README.md](ios/README.md) for the independent iPhone accessory probe,

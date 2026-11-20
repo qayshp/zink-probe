@@ -100,10 +100,12 @@ For the first authorized physical trial:
    identity and readiness checks in sequence and binds the draft only after
    they pass. If the clock is the only blocker, choose **Sync printer clock**,
    confirm **Sync clock only**, then tap **Check printer again**.
-4. Choose **Review one-sheet print** and inspect the saved preview. The final **Print one
-   sheet** tap spends the persisted authorization before the session begins.
-   The coordinator verifies the binding and full readiness again before it
-   sends any print command. Keep the confirmation screen open during transfer.
+4. Choose **Review one-sheet print** and inspect the saved preview. **Print
+   one sheet…** opens a separate confirmation with **Cancel**. The final
+   **Print one sheet** tap spends the persisted authorization before the
+   session begins. The coordinator verifies the binding and full readiness
+   again before it sends any print command. Keep the review open during
+   transfer.
 5. Check the final protocol outcome and
    whether the expected photo physically emerges. **Last print attempt** and
    **Share last print report** remain available after reopening the pilot.
@@ -140,9 +142,31 @@ side of the acknowledgement. The [authorization and history tests](../authorizat
 verify the journal after abrupt exits, including completion before the report
 can be saved. The opt-in Build 4 main app adds the guided photo and printer
 flow, resumable preparation before connecting, and plain-language progress.
-Physical evidence still covers BLE identity, status, capabilities and strict
-readiness. BLE clock writes, first-time onboarding and one-sheet BLE printing
-still need physical verification.
+
+### Physical validation without paper
+
+On 2026-11-20, signed pilot Build 4 on an iPhone was tested against an HP
+Sprocket Select running firmware `G1L1FA2105AR`. With the Select off, discovery
+ended with “No Select found during this scan” and made the scan button available
+again. After power-on, the pilot found a service candidate and identified the
+invalid clock as the only readiness blocker. The separately confirmed native
+BLE clock write was acknowledged and the subsequent status reply cleared the
+flag. A fresh read-only check reported the printer ready.
+
+The iPhone prepared a 768 × 1152 JPEG with **Preserve edges** and quality 100,
+saved it in the pilot, and reopened the same preview and settings after the
+app process was terminated and relaunched. One subsequent scan found no
+printer. Its power state during that scan was unconfirmed, and the photo
+remained available in the pilot. After the Select was woken, a new scan
+identified it as the last verified printer. Fresh read-only checks passed,
+and the app bound the saved JPEG to the verified unit. The review displayed
+one sheet, the saved layout, and 4:4:4 chroma sampling for that JPEG.
+Canceling the final confirmation returned to the review with the draft still
+available and the displayed BLE counters unchanged.
+
+The phone had previously discovered this Select. First-time onboarding, image
+upload, and one-sheet BLE printing still need a physical trial. This session
+sent no print command or JPEG to the printer.
 
 ### Simulator validation
 
