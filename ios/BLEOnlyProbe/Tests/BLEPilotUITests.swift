@@ -33,6 +33,7 @@ final class BLEPilotUITests: XCTestCase {
         tap("ble-pilot-review")
         confirmPrint()
         expectStatus("Protocol completion observed", id: "ble-pilot-print-status")
+        XCTAssertTrue(app.buttons["Share last print report"].waitForExistence(timeout: 5))
     }
 
     func testAProvenPreSubmissionStopOffersFreshReview() {
@@ -62,11 +63,43 @@ final class BLEPilotUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["Print outcome uncertain"].waitForExistence(timeout: 5))
         XCTAssertFalse(app.buttons["ble-pilot-prepare-retry"].exists)
         XCTAssertFalse(app.buttons["ble-pilot-confirm"].exists)
+        savePhoto()
+        checkPrinter()
+        expectStatus("Check the previous print outcome", id: "ble-pilot-status")
+        XCTAssertFalse(app.buttons["ble-pilot-discard-earlier"].exists)
+        XCTAssertFalse(app.buttons["ble-pilot-review"].exists)
+    }
+
+    func testNewPhotoWaitsForExplicitDiscardOfEarlierDraft() {
+        launch("stoppedBeforeSend")
+        savePhoto()
+        checkPrinter()
+        expectStatus("Review the saved photo", id: "ble-pilot-status")
+
+        tap("ble-pilot-photo")
+        tap("select-photo-rotate-right")
+        tap("review-bound-draft")
+        tap("ble-pilot-recheck")
+        expectStatus("Discard the earlier draft", id: "ble-pilot-status")
+        XCTAssertFalse(app.buttons["ble-pilot-review"].exists)
+        XCTAssertFalse(app.buttons["Review saved photo"].exists)
+        tap("ble-pilot-discard-earlier")
+        tap("Keep draft")
+        XCTAssertTrue(app.buttons["ble-pilot-discard-earlier"].exists)
+        tap("ble-pilot-discard-earlier")
+        tap("Discard draft")
+        XCTAssertTrue(app.images["ble-pilot-draft-preview"].exists)
+        tap("ble-pilot-recheck")
+        tap("ble-pilot-review")
+        XCTAssertTrue(app.buttons["ble-pilot-confirm"].exists)
+        tap("Close")
+        XCTAssertFalse(app.staticTexts["Last print attempt"].exists)
     }
 
     func testRotatedPhotoCanBeReviewedAfterRelaunch() {
         launch("stoppedBeforeSend")
         tap("ble-pilot-photo")
+        tap("select-photo-jpeg-settings")
         let fileSizeLabel = "File size: "
         let fileSize = app.staticTexts.matching(NSPredicate(format: "label BEGINSWITH %@", fileSizeLabel))
         XCTAssertTrue(fileSize.firstMatch.waitForExistence(timeout: 5))
@@ -84,6 +117,7 @@ final class BLEPilotUITests: XCTestCase {
         XCTAssertTrue(app.images["ble-pilot-draft-preview"].waitForExistence(timeout: 5))
         checkPrinter()
         tap("ble-pilot-review")
+        tap("ble-pilot-technical-details")
         let review = app.staticTexts.matching(NSPredicate(format: "label CONTAINS %@", reviewSize)).firstMatch
         XCTAssertTrue(review.waitForExistence(timeout: 5))
         tap("Close")

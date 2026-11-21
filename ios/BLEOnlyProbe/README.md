@@ -95,22 +95,27 @@ For the first authorized physical trial:
 1. Use a small, known image and one awake Select with paper loaded.
 2. Open **Prepare one BLE print** and choose a photo. In Build 5 and later,
    **Rotate left** and **Rotate right** turn the photo 90° at a time before
-   layout and show the resulting JPEG preview. Tap **Save photo for printing**.
-   The exact prepared JPEG and its settings remain in a private draft while
-   the Select is unavailable, including across app relaunch.
+   layout and show the resulting JPEG preview. In Build 6, **Save photo for
+   printing** stays visible below the preview, and optional compression
+   controls and file export are under **JPEG settings**. The saved photo stays
+   on the iPhone and reopens after an app relaunch.
 3. Tap **Find a Select** and choose the intended printer. The pilot runs the
    identity and readiness checks in sequence and binds the draft only after
    they pass. If the clock is the only blocker, choose **Sync printer clock**,
    confirm **Sync clock only**, then tap **Check printer again**.
+   If an earlier unsubmitted draft is already saved for that Select, use
+   **Discard earlier draft…** and confirm to remove the older draft. The new
+   photo stays saved. Tap **Check printer again** to review it. An uncertain
+   earlier print stays blocked and may offer a read-only outcome check.
 4. Choose **Review one-sheet print** and inspect the saved preview. **Print
    one sheet…** opens a separate confirmation with **Cancel**. The final
-   **Print one sheet** tap spends the persisted authorization before the
-   session begins. The coordinator verifies the binding and full readiness
-   again before it sends any print command. Keep the review open during
-   transfer.
-5. Check the final protocol outcome and
-   whether the expected photo physically emerges. **Last print attempt** and
-   **Share last print report** remain available after reopening the pilot.
+   **Print one sheet** tap authorizes one attempt. The app checks the selected
+   printer again before it sends the job. Keep the review open until the
+   result appears.
+5. Check the final protocol outcome and whether the expected photo physically
+   emerges. In Build 6, **Share last print report** is available from the
+   review for that attempt. It also stays under **Last print attempt** after
+   reopening the pilot.
    An uncertain attempt stays blocked. Where a printer job ID and baseline were
    saved, **Check outcome without printing** can observe it after relaunch.
    **Prepare another attempt** is available only after a proved pre-submission
@@ -170,6 +175,11 @@ The phone had previously discovered this Select. First-time onboarding, image
 upload, and one-sheet BLE printing still need a physical trial. This session
 sent no print command or JPEG to the printer.
 
+Build 6 polishes the existing main-app workflow ahead of that trial. A small
+outside-user pilot still depends on seeing one photo transfer over BLE, exactly
+one sheet emerge, and the app report an outcome consistent with that result.
+Discovery on a previously unused phone is a separate validation step.
+
 ### Simulator validation
 
 The [screen tests](Tests/BLEPilotUITests.swift) exercise the regular pilot
@@ -187,6 +197,6 @@ xcodebuild -project ios/BLEOnlyProbe/BLEOnlyProbe.xcodeproj \
 
 The screen tests cover a saved draft reopening after a failed connection,
 clock sync, a canceled confirmation, a fresh review after a proved stop,
-an uncertain job blocked after reopening, and a rotated draft reopened for
-review. The Photos picker and native BLE discovery use iOS services outside
-this fixture.
+an uncertain job blocking a replacement, a rotated draft reopened for review,
+and a new draft that replaces an unsubmitted one after explicit discard.
+The Photos picker and native BLE discovery use iOS services outside this fixture.

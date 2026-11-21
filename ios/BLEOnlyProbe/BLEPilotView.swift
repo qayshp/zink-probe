@@ -76,7 +76,8 @@ struct BLEPilotView: View {
         .onDisappear { stop("BLE pilot screen closed.") }
         .sheet(isPresented: $choosingPhoto) {
             NavigationStack {
-                PhotoView(initialData: fixturePhoto, draftActionTitle: "Save photo for printing", onBind: { prepared, layout, quality in
+                PhotoView(initialData: fixturePhoto, draftActionTitle: "Save photo for printing",
+                          keepsDraftActionVisible: true, onBind: { prepared, layout, quality in
                     if pilot.saveDraft(prepared: prepared, layout: layout, quality: quality) {
                         printerAction = .check
                         choosingPhoto = false
@@ -106,14 +107,20 @@ struct BLEPilotView: View {
         } message: {
             Text("Send this iPhone’s current time and time zone to the selected printer.")
         }
-        .alert("Discard this saved draft?", isPresented: Binding(
+        .alert(discardingEarlierDraft ? "Discard the earlier draft?" : "Discard this saved draft?", isPresented: Binding(
             get: { discard != nil }, set: { if !$0 { discard = nil } }
         ), presenting: discard) { job in
             Button("Discard draft", role: .destructive) { pilot.discard(job) }
             Button("Keep draft", role: .cancel) {}
         } message: { _ in
-            Text("This removes the saved photo for this draft.")
+            Text(discardingEarlierDraft ? "Your new photo will stay saved on this iPhone."
+                 : "This removes the saved photo for this draft.")
         }
+    }
+
+    private var discardingEarlierDraft: Bool {
+        guard let discard else { return false }
+        return discard.id == pilot.earlierDraft?.id
     }
 
     private var photoSection: some View {
@@ -156,6 +163,9 @@ struct BLEPilotView: View {
                 if pilot.canSyncClock {
                     Button("Sync printer clock") { confirmingClockSync = true }
                         .accessibilityIdentifier("ble-pilot-clock")
+                } else if let job = pilot.earlierDraft {
+                    Button("Discard earlier draft…", role: .destructive) { discard = job }
+                        .accessibilityIdentifier("ble-pilot-discard-earlier")
                 } else if let job = pilot.reviewJob, pilot.canReview(job) {
                     Button("Review one-sheet print") { review = pilot.review(job) }
                         .accessibilityIdentifier("ble-pilot-review")
@@ -164,7 +174,7 @@ struct BLEPilotView: View {
                     Button("Check printer again") { perform(printerAction, on: selection) }
                         .accessibilityIdentifier("ble-pilot-recheck")
                 }
-                Button(currentSelection != nil ? "Find another Select" : candidates.isEmpty ? "Find a Select" : "Scan again") {
+                Button(currentSelection != nil ? "Find another Select" : didScan ? "Scan again" : "Find a Select") {
                     scan(for: .check)
                 }
                     .accessibilityIdentifier("ble-pilot-scan")
@@ -194,9 +204,9 @@ struct BLEPilotView: View {
             if let evidence = job.lastConfirmedStep {
                 Text(evidence).font(.caption)
             }
-            if job.id != pilot.reviewJob?.id, pilot.canReview(job) {
+            if !pilot.hasPreparedDraft, job.id != pilot.reviewJob?.id, pilot.canReview(job) {
                 Button("Review saved photo") { review = pilot.review(job) }.disabled(isBusy)
-            } else if job.canPrepareRetry {
+            } else if job.canPrepareRetry, job.id != pilot.earlierDraft?.id {
                 Button("Prepare another attempt") { findOrPerform(.retry(job)) }
                     .disabled(isBusy)
                     .accessibilityIdentifier("ble-pilot-prepare-retry")
@@ -208,7 +218,7 @@ struct BLEPilotView: View {
                 Text("Check whether the sheet came out. This attempt stays blocked because its outcome cannot be verified.")
                     .font(.caption)
             }
-            if job.canDiscard {
+            if job.canDiscard, job.id != pilot.earlierDraft?.id {
                 Button("Discard saved draft", role: .destructive) { discard = job }
                     .disabled(isBusy)
             }
@@ -380,13 +390,15 @@ private struct BLEPilotConfirmation: View {
                         .resizable().scaledToFit().frame(maxHeight: 330)
                         .accessibilityLabel("Saved photo to print")
                     Text("One sheet on HP Sprocket Select").font(.headline)
-                    Text("\(review.binding.settings.layout) · JPEG \(review.binding.settings.quality) · \(review.binding.sampling)\n768 × 1152 · \(review.binding.byteCount.formatted()) bytes\nFirmware \(review.binding.firmware)")
-                        .font(.caption).multilineTextAlignment(.center)
-                    Text("Keep the app open while the printer receives the photo.")
-                    Button("Print one sheet…") { confirming = true }
-                        .buttonStyle(.borderedProminent)
-                        .disabled(!pilot.canSubmit(review))
-                        .accessibilityIdentifier("ble-pilot-confirm")
+                    Text(review.binding.settings.layout).font(.subheadline)
+                    if pilot.canSubmit(review) || pilot.active {
+                        Text("Keep this screen open until the result appears.")
+                    }
+                    if pilot.canSubmit(review) {
+                        Button("Print one sheet…") { confirming = true }
+                            .buttonStyle(.borderedProminent)
+                            .accessibilityIdentifier("ble-pilot-confirm")
+                    }
                     if pilot.active {
                         if pilot.totalBytes > 0 && pilot.acknowledgedBytes < pilot.totalBytes {
                             ProgressView(value: Double(pilot.acknowledgedBytes), total: Double(pilot.totalBytes))
@@ -396,12 +408,22 @@ private struct BLEPilotConfirmation: View {
                         Button("Stop the connection") { pilot.stop("Stopped by user.") }
                     }
                     Text(pilot.status).accessibilityIdentifier("ble-pilot-print-status")
-                    if !pilot.diagnostic.isEmpty {
-                        Text(pilot.diagnostic).font(.caption).textSelection(.enabled)
+                    if let attempt = pilot.latestAttempt, attempt.id == review.id {
+                        ShareLink("Share last print report", item: attempt.report)
                     }
-                    if let report = pilot.report {
-                        ShareLink("Share BLE pilot report", item: report)
+                    DisclosureGroup("Technical details") {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("JPEG \(review.binding.settings.quality) · \(review.binding.sampling)\n768 × 1152 · \(review.binding.byteCount.formatted()) bytes\nFirmware \(review.binding.firmware)")
+                                .accessibilityIdentifier("ble-pilot-image-details")
+                            if !pilot.diagnostic.isEmpty {
+                                Text(pilot.diagnostic).textSelection(.enabled)
+                            }
+                            if let report = pilot.report {
+                                ShareLink("Share session diagnostics", item: report)
+                            }
+                        }.font(.caption)
                     }
+                    .accessibilityIdentifier("ble-pilot-technical-details")
                 }.padding()
             }
             .navigationTitle("Review saved photo")
@@ -465,6 +487,14 @@ private final class BLEPilotController: ObservableObject {
     }
     var canSyncClock: Bool { !active && clockTarget != nil }
     var hasPreparedDraft: Bool { preparedDraft != nil }
+    private var previousJobForPreparedDraft: BLEPilotJob? {
+        guard hasPreparedDraft, let checked else { return nil }
+        return jobs.first { $0.binding.device == checked.printer.deviceID }
+    }
+    var earlierDraft: BLEPilotJob? {
+        guard let job = previousJobForPreparedDraft, job.canDiscard else { return nil }
+        return job
+    }
 
     func reload() {
         guard !active else { return }
@@ -511,7 +541,8 @@ private final class BLEPilotController: ObservableObject {
             preparedDraft = draft
             focusedJobID = nil
             updatePreview()
-            show("Photo saved. Check your Select to review the print.")
+            show(earlierDraft == nil ? "Photo saved. Check your Select to review the print."
+                 : "Your new photo is saved. Discard the earlier draft for this printer, then check again.")
             return true
         } catch {
             show("The photo couldn’t be saved. Check that the iPhone is unlocked and has storage available.")
@@ -569,6 +600,15 @@ private final class BLEPilotController: ObservableObject {
                         self.show("Printer ready. Check the saved job before starting another print.")
                     } else {
                         self.show("Printer ready. Choose a photo to prepare a print.")
+                    }
+                } catch JobJournal.Failure.blocked {
+                    self.reload()
+                    if self.earlierDraft != nil {
+                        self.show("Your new photo is saved. Discard the earlier draft for this printer, then check again.")
+                    } else if self.previousJobForPreparedDraft != nil {
+                        self.show("Your new photo is saved. Check the previous print outcome before starting another.")
+                    } else {
+                        self.show("Printer ready. Check your saved jobs before proceeding.")
                     }
                 } catch {
                     self.show("Printer ready. Review or resolve any existing saved job before preparing another print.")
@@ -666,10 +706,12 @@ private final class BLEPilotController: ObservableObject {
 
     func discard(_ job: BLEPilotJob) {
         guard !active, job.canDiscard else { return }
+        let replacing = earlierDraft?.id == job.id
         do {
             try journal().discardDraft(job.id)
             reload()
-            show("Saved draft discarded.")
+            show(replacing ? "Earlier draft discarded. Check the printer again to review your new photo."
+                 : "Saved draft discarded.")
         } catch {
             show("The draft was not discarded. A possible submitted job cannot be removed.")
             reload()

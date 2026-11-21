@@ -140,7 +140,9 @@ final class SelectBLEProbe: NSObject, ObservableObject, CBCentralManagerDelegate
     private func endScan() {
         central?.stopScan(); activity = .idle; active = false
         timer?.invalidate(); timer = nil
-        status = candidates.isEmpty ? "No Select found during this scan." : "Choose a printer for the read-only check."
+        status = candidates.isEmpty
+            ? "No Select found. Wake the printer, keep it near this iPhone, then scan again."
+            : "Choose a printer for the read-only check."
         log("Scan ended: \(candidates.count) candidate(s). Application TX=0. An empty scan does not establish incompatibility.")
     }
 

@@ -7,9 +7,15 @@ struct BLEOnlyProbeApp: App {
             NavigationStack {
                 #if ZINK_EXPERIMENTAL_BLE_PRINT
                 List {
-                    NavigationLink("Prepare one BLE print") { pilotView }
-                    NavigationLink("Run read-only BLE check") {
-                        BLEProbeView(context: "BLE-only main app")
+                    Section {
+                        NavigationLink("Prepare one BLE print") { pilotView }
+                    } footer: {
+                        Text("Choose and preview a photo, check your Select, then confirm one sheet.")
+                    }
+                    Section("Diagnostics") {
+                        NavigationLink("Run read-only BLE check") {
+                            BLEProbeView(context: "BLE-only main app")
+                        }
                     }
                 }
                 .navigationTitle("Select BLE Pilot")

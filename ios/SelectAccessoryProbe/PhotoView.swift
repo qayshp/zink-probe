@@ -5,6 +5,7 @@ import UniformTypeIdentifiers
 struct PhotoView: View {
     var initialData: Data? = nil
     var draftActionTitle = "Bind a printer draft — no printing"
+    var keepsDraftActionVisible = false
     var onReview: ((PreparedPhoto, PhotoLayout, Int) -> Void)? = nil
     var onBind: ((PreparedPhoto, PhotoLayout, Int) -> Void)? = nil
     @State private var selection: PhotosPickerItem?
@@ -46,13 +47,11 @@ struct PhotoView: View {
                 Picker("Layout", selection: $layout) {
                     ForEach(PhotoLayout.allCases, id: \.self) { Text($0.rawValue).tag($0) }
                 }.pickerStyle(.segmented)
-                Text("JPEG compression quality").font(.headline)
-                Picker("JPEG compression quality", selection: $quality) {
-                    Text("High · 90").tag(90)
-                    Text("Higher · 95").tag(95)
-                    Text("Maximum · 100").tag(100)
+                if keepsDraftActionVisible {
+                    Text(layoutHint).font(.caption)
+                } else {
+                    jpegControls
                 }
-                Text("Higher quality preserves more detail and usually makes a larger file. Dimensions stay the same; 100 is not lossless.").font(.caption)
                 Toggle("Show safe-area guide", isOn: $guide)
                 if let result {
                     Image(uiImage: UIImage(cgImage: result.preview))
@@ -71,24 +70,52 @@ struct PhotoView: View {
                             .buttonStyle(.borderedProminent)
                             .accessibilityIdentifier("review-simulated-job")
                     }
-                    if let onBind {
+                    if !keepsDraftActionVisible, let onBind {
                         Button(draftActionTitle) { onBind(result,layout,quality) }
                             .buttonStyle(.bordered).accessibilityIdentifier("review-bound-draft")
                     }
-                    Button("Save prepared JPEG to Files") { exporting = true }.buttonStyle(.bordered)
-                    VStack(alignment: .leading) {
-                        Text("Prepared image details").font(.headline)
-                        Text("768 × 1152 pixels")
-                        Text("File size: \(result.jpeg.count.formatted()) bytes")
-                        Text("Color sampling: \(JPEGDetails.sampling(result.jpeg))")
-                    }.font(.caption)
+                    if !keepsDraftActionVisible {
+                        exportButton
+                        imageDetails(result)
+                    }
                 }
-                if busy { ProgressView() }
-                Text(message).font(.callout)
-                Text("The preview shows the decoded JPEG. The purple guide is never included in the image. Preserve edges keeps the whole photo inside a conservative inset; it cannot guarantee exact paper trimming.").font(.caption)
-                Text("Apple JPEG quality controls compression strength. Color sampling is read from the finished JPEG. 4:4:4 retains full color detail; 4:2:0 reduces color detail in both directions. Apple chooses this independently of our UI; quality 100 is not a universal promise of 4:4:4. No PhotoFix is applied.").font(.caption)
-                Text(onBind != nil ? "Preparation is offline. Printing requires a saved draft and separate confirmation." : onReview == nil ? "Offline preparation only — no Print or Send action." : "Simulation available; real printing is disabled.").font(.headline)
+                if keepsDraftActionVisible {
+                    if busy { ProgressView("Preparing preview…") }
+                    else if !message.isEmpty { Text(message).font(.callout) }
+                    DisclosureGroup("JPEG settings") {
+                        VStack(alignment: .leading, spacing: 12) {
+                            jpegControls
+                            if let result {
+                                imageDetails(result)
+                                exportButton
+                            }
+                            jpegExplanation
+                        }.padding(.top, 8)
+                    }.accessibilityIdentifier("select-photo-jpeg-settings")
+                } else {
+                    if busy { ProgressView() }
+                    Text(message).font(.callout)
+                    Text("The preview shows the decoded JPEG. The purple guide is never included in the image. Preserve edges keeps the whole photo inside a conservative inset; it cannot guarantee exact paper trimming.").font(.caption)
+                    jpegExplanation
+                    Text(onBind != nil ? "Preparation is offline. Printing requires a saved draft and separate confirmation." : onReview == nil ? "Offline preparation only — no Print or Send action." : "Simulation available; real printing is disabled.").font(.headline)
+                }
             }.padding()
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            if keepsDraftActionVisible, let onBind {
+                Button {
+                    if let result { onBind(result, layout, quality) }
+                } label: {
+                    Text(draftActionTitle).frame(maxWidth: .infinity)
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .disabled(result == nil)
+                .accessibilityIdentifier("review-bound-draft")
+                .padding(.horizontal)
+                .padding(.vertical, 12)
+                .background(.bar)
+            }
         }
         .navigationTitle("Prepare photo")
         .task { if source == nil, let initialData { source = initialData; render() } }
@@ -113,6 +140,42 @@ struct PhotoView: View {
         .onChange(of: layout) { _ in render() }
         .onChange(of: quality) { _ in render() }
     }
+
+    private var layoutHint: String {
+        switch layout {
+        case .fill: "Fills the sheet and may crop the photo."
+        case .fit: "Fits the whole photo and may leave white space."
+        case .preserve: "Leaves extra space at the edges to allow for printer trim."
+        }
+    }
+
+    @ViewBuilder private var jpegControls: some View {
+        Text("JPEG compression quality").font(.headline)
+        Picker("JPEG compression quality", selection: $quality) {
+            Text("High · 90").tag(90)
+            Text("Higher · 95").tag(95)
+            Text("Maximum · 100").tag(100)
+        }
+        Text("Higher quality preserves more detail and usually makes a larger file. Dimensions stay the same; 100 is not lossless.").font(.caption)
+    }
+
+    private var jpegExplanation: some View {
+        Text("Apple JPEG quality controls compression strength. Color sampling is read from the finished JPEG. 4:4:4 retains full color detail; 4:2:0 reduces color detail in both directions. Apple chooses this independently of our UI; quality 100 is not a universal promise of 4:4:4. No PhotoFix is applied.").font(.caption)
+    }
+
+    private var exportButton: some View {
+        Button("Save prepared JPEG to Files") { exporting = true }.buttonStyle(.bordered)
+    }
+
+    private func imageDetails(_ photo: PreparedPhoto) -> some View {
+        VStack(alignment: .leading) {
+            Text("Prepared image details").font(.headline)
+            Text("768 × 1152 pixels")
+            Text("File size: \(photo.jpeg.count.formatted()) bytes")
+            Text("Color sampling: \(JPEGDetails.sampling(photo.jpeg))")
+        }.font(.caption)
+    }
+
     private func render() {
         guard let source else { return }
         rendering?.cancel()
@@ -126,7 +189,7 @@ struct PhotoView: View {
             switch output {
             case .success(let prepared):
                 result = prepared
-                message = "Orientation applied; rendered to an 8-bit sRGB canvas on white."
+                message = keepsDraftActionVisible ? "" : "Orientation applied; rendered to an 8-bit sRGB canvas on white."
             case .failure(let error): message = error.localizedDescription
             }
         }
